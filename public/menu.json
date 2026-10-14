@@ -1,0 +1,67 @@
+{
+  "restaurant": {
+    "id": "dumpling-home",
+    "name": "Dumpling Home",
+    "neighborhood": "Hayes Valley, San Francisco",
+    "address": "298 Gough St, San Francisco, CA 94102",
+    "source": "Names and prices from Dumpling Home's public online ordering menu (Toast), checked Oct 14, 2026. Descriptions written by PeekaPlate. Demo only; confirm prices with the restaurant.",
+    "currency": "USD"
+  },
+  "localSellers": ["mill-valley-market1.myshopify.com", "uniteddumplings.myshopify.com"],
+  "dishes": [
+    {
+      "id": "pork-xiao-long-bao",
+      "name": "Pork Xiao Long Bao",
+      "price": 10.95,
+      "description": "Steamed soup dumplings with a juicy pork filling and hot broth sealed inside.",
+      "tags": ["signature", "steamed"],
+      "modelUrl": "/models/pork-xiao-long-bao.glb",
+      "shopQuery": "frozen soup dumplings xiao long bao"
+    },
+    {
+      "id": "pot-stickers",
+      "name": "Pork and Vegetable Pot Stickers (5 pcs)",
+      "price": 14.95,
+      "description": "Pan-fried dumplings with crisp golden bottoms and a pork and vegetable filling.",
+      "tags": ["pan-fried"],
+      "modelUrl": "/models/pot-stickers.glb",
+      "shopQuery": "frozen pork potstickers"
+    },
+    {
+      "id": "juicy-pork-bao",
+      "name": "Juicy Pork Bao (6 pcs)",
+      "price": 15.95,
+      "description": "Pan-fried buns, fluffy on top and crunchy underneath, filled with savory pork.",
+      "tags": ["pan-fried", "popular"],
+      "modelUrl": "/models/juicy-pork-bao.glb",
+      "shopQuery": "frozen pork bao buns"
+    },
+    {
+      "id": "green-onion-pancake",
+      "name": "Green Onion Pancake",
+      "price": 12.95,
+      "description": "Flaky, layered scallion pancake, crisp at the edges and chewy inside.",
+      "tags": ["vegetarian"],
+      "modelUrl": "/models/green-onion-pancake.glb",
+      "shopQuery": "frozen scallion pancakes"
+    },
+    {
+      "id": "dan-dan-noodles",
+      "name": "Dan Dan Noodles",
+      "price": 16.95,
+      "description": "Dry noodles tossed in the house sesame sauce with minced pork.",
+      "tags": ["noodles", "sesame"],
+      "modelUrl": "/models/dan-dan-noodles.glb",
+      "shopQuery": "dan dan noodle kit"
+    },
+    {
+      "id": "mango-pudding",
+      "name": "Mango Pudding",
+      "price": 6.95,
+      "description": "Chilled, silky mango pudding to end the meal.",
+      "tags": ["dessert", "vegetarian"],
+      "modelUrl": "/models/mango-pudding.glb",
+      "shopQuery": "mango pudding mix"
+    }
+  ]
+}
