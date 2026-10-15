@@ -1,0 +1,3 @@
+import { isUuid, readOrders } from '../lib/db.js';
+type Request = { method?: string; query?: Record<string, unknown> }; type Response = { status: (code: number) => Response; json: (body: unknown) => void; setHeader?: (name: string, value: string) => void };
+export default async function handler(req: Request, res: Response) { res.setHeader?.('Cache-Control', 'no-store'); const dinerId = req.query?.dinerId; if (req.method !== 'GET' || !isUuid(dinerId)) return res.status(400).json({ error: 'A valid dinerId is required.' }); try { return res.status(200).json(await readOrders(dinerId)); } catch { return res.status(200).json([]); } }

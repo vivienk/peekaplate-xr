@@ -1,0 +1,99 @@
+<style>
+  .root { flex-direction: column; width: 760px; background-color: #1f1d1b; border-radius: 28px; padding: 34px; font-family: inter; color: #f5efe6; }
+  .eyebrow { color: #ff5f1f; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
+  .title { color: #f5efe6; font-size: 42px; font-weight: 700; margin-top: 10px; }
+  .body { color: #c9c0b5; font-size: 19px; line-height: 26px; margin-top: 12px; }
+  .row { flex-direction: row; align-items: center; margin-top: 24px; }
+  .chip { background-color: #35312e; border-radius: 18px; padding: 14px; margin-right: 10px; color: #f5efe6; font-size: 16px; }
+  .chip-selected { background-color: #ff5f1f; color: #1f1d1b; }
+  .button { background-color: #ff5f1f; border-radius: 18px; margin-top: 28px; padding: 18px; color: #1f1d1b; }
+  .button-label { color: #1f1d1b; font-size: 19px; font-weight: 700; }
+  .back { background-color: #35312e; margin-right: 12px; }
+  .back-label { color: #f5efe6; font-size: 17px; }
+  .price { color: #ff5f1f; font-size: 26px; font-weight: 700; margin-top: 16px; }
+  .card { background-color: #2b2825; border-radius: 20px; padding: 20px; margin-top: 18px; }
+  .card-title { color: #f5efe6; font-size: 23px; font-weight: 700; }
+  .small { color: #a99f94; font-size: 15px; margin-top: 6px; }
+</style>
+<Panel id="flow-panel" class="root">
+  <div id="stage-welcome">
+    <div class="eyebrow">PEEKA / 01</div>
+    <div class="title">A better way to choose dinner.</div>
+    <div class="body">Explore nearby menus in spatial 3D, compare the dishes you are craving, then order without leaving the room.</div>
+    <Button id="welcome-next" class="button"><ButtonLabel class="button-label">Start exploring</ButtonLabel></Button>
+  </div>
+  <div id="stage-profile" style="display: none">
+    <div class="eyebrow">YOUR TASTE PROFILE</div>
+    <div class="title">What sounds good tonight?</div>
+    <div class="body">Pick a mood and we will tune the map around you.</div>
+    <div class="eyebrow">ALLERGIES</div><div class="row"><Button id="profile-sesame" class="chip chip-selected"><ButtonLabel>Sesame</ButtonLabel></Button><Button id="profile-peanut" class="chip"><ButtonLabel>Peanut</ButtonLabel></Button></div>
+    <div class="eyebrow">DIET</div><div class="row"><Button id="profile-high-protein" class="chip chip-selected"><ButtonLabel>High-protein</ButtonLabel></Button><Button id="profile-vegetarian" class="chip"><ButtonLabel>Vegetarian</ButtonLabel></Button></div>
+    <div class="eyebrow">SPICE / BUDGET</div><div class="row"><Button id="profile-medium" class="chip chip-selected"><ButtonLabel>Medium</ButtonLabel></Button><Button id="profile-budget" class="chip chip-selected"><ButtonLabel>$$</ButtonLabel></Button></div>
+    <div class="row"><Button id="profile-back" class="button back"><ButtonLabel class="back-label">Back</ButtonLabel></Button><Button id="profile-next" class="button"><ButtonLabel class="button-label">Show me the map</ButtonLabel></Button></div>
+  </div>
+  <div id="stage-map" style="display: none">
+    <div class="eyebrow">SAN FRANCISCO / NEARBY</div>
+    <div class="title">Find your next table.</div>
+    <div class="body">Point at a glowing pin or choose a card. Recommendations are based on your profile; menu availability is verified.</div>
+    <div id="restaurant-dumpling-home" class="card"><div class="card-title">Dumpling Home <span class="price">$$</span></div><div class="small">Hayes Valley - Shanghai dumplings - recommended</div><Button id="restaurant-select-dumpling-home" class="button"><ButtonLabel class="button-label">View menu</ButtonLabel></Button></div>
+    <div id="restaurant-flores" class="card"><div class="card-title">Flores <span class="price">$$</span></div><div class="small">Cow Hollow - Mexican - illustrative demo menu</div><Button id="restaurant-select-flores" class="button"><ButtonLabel class="button-label">View menu</ButtonLabel></Button></div>
+    <div id="restaurant-anchal-restaurant" class="card" style="display: none"><div class="card-title">Anchal Restaurant <span class="price">$$</span></div><div class="small">Mission District - Indian home cooking - may fit your profile; menu not verified</div><Button id="restaurant-select-anchal-restaurant" class="button"><ButtonLabel class="button-label">Explore</ButtonLabel></Button></div>
+    <div id="restaurant-burma-superstar" class="card" style="display: none"><div class="card-title">Burma Superstar <span class="price">$$</span></div><div class="small">Laurel Heights - Burmese - cuisine match; menu not verified</div><Button id="restaurant-select-burma-superstar" class="button"><ButtonLabel class="button-label">Explore</ButtonLabel></Button></div>
+    <div id="restaurant-nari" class="card" style="display: none"><div class="card-title">Nari <span class="price">$$$</span></div><div class="small">Japantown - Thai - spice-forward option; menu not verified</div><Button id="restaurant-select-nari" class="button"><ButtonLabel class="button-label">Explore</ButtonLabel></Button></div>
+    <div id="map-selection-status" class="small">Select a pin to see details.</div>
+    <div class="body">San Francisco demo area - not your current location.</div>
+    <div class="row"><Button id="map-edit-profile" class="chip"><ButtonLabel>Edit food preferences</ButtonLabel></Button></div>
+    <div class="row"><Button id="map-back" class="button back"><ButtonLabel class="back-label">Back</ButtonLabel></Button></div>
+  </div>
+  <div id="stage-menu" style="display: none">
+    <div id="menu-restaurant-label" class="eyebrow">RESTAURANT / MENU</div>
+    <div class="title">Choose your plate.</div>
+    <div class="body">A miniature menu, sized for a closer look. Allergy matches are estimates; confirm with the restaurant.</div>
+    <div class="row"><Button id="menu-filter-all" class="chip chip-selected"><ButtonLabel>All</ButtonLabel></Button><Button id="menu-filter-dumplings" class="chip"><ButtonLabel>Dumplings</ButtonLabel></Button><Button id="menu-filter-buns" class="chip"><ButtonLabel>Buns</ButtonLabel></Button><Button id="menu-filter-noodles" class="chip"><ButtonLabel>Noodles</ButtonLabel></Button><Button id="menu-filter-dessert" class="chip"><ButtonLabel>Dessert</ButtonLabel></Button></div>
+    <div id="menu-dish-soup-dumplings" class="card"><div id="menu-name-soup-dumplings" class="card-title">Soup Dumplings</div><div id="menu-price-soup-dumplings" class="price">$12</div><div id="menu-fit-soup-dumplings" class="small">OK - Worth exploring tonight</div><Button id="menu-select-soup-dumplings" class="button"><ButtonLabel class="button-label">View dish</ButtonLabel></Button></div>
+    <div id="menu-dish-tonkotsu-ramen" class="card"><div id="menu-name-tonkotsu-ramen" class="card-title">Tonkotsu Ramen</div><div id="menu-price-tonkotsu-ramen" class="price">$18</div><div id="menu-fit-tonkotsu-ramen" class="small">OK - Worth exploring tonight</div><Button id="menu-select-tonkotsu-ramen" class="button"><ButtonLabel class="button-label">View dish</ButtonLabel></Button></div>
+    <div id="menu-dish-spicy-wontons" class="card"><div id="menu-name-spicy-wontons" class="card-title">Spicy Wontons</div><div id="menu-price-spicy-wontons" class="price">$11</div><div id="menu-fit-spicy-wontons" class="small">OK - Worth exploring tonight</div><Button id="menu-select-spicy-wontons" class="button"><ButtonLabel class="button-label">View dish</ButtonLabel></Button></div>
+    <div id="menu-dish-pork-bao" class="card"><div id="menu-name-pork-bao" class="card-title">Pork Bao</div><div id="menu-price-pork-bao" class="price">$10</div><div id="menu-fit-pork-bao" class="small">OK - Worth exploring tonight</div><Button id="menu-select-pork-bao" class="button"><ButtonLabel class="button-label">View dish</ButtonLabel></Button></div>
+    <div id="menu-dish-scallion-pancake" class="card"><div id="menu-name-scallion-pancake" class="card-title">Scallion Pancake</div><div id="menu-price-scallion-pancake" class="price">$9</div><div id="menu-fit-scallion-pancake" class="small">OK - Worth exploring tonight</div><Button id="menu-select-scallion-pancake" class="button"><ButtonLabel class="button-label">View dish</ButtonLabel></Button></div>
+    <div id="menu-dish-mango-sticky-rice" class="card"><div id="menu-name-mango-sticky-rice" class="card-title">Mango Sticky Rice</div><div id="menu-price-mango-sticky-rice" class="price">$8</div><div id="menu-fit-mango-sticky-rice" class="small">OK - Worth exploring tonight</div><Button id="menu-select-mango-sticky-rice" class="button"><ButtonLabel class="button-label">View dish</ButtonLabel></Button></div>
+    <div class="row"><Button id="menu-back" class="button back"><ButtonLabel class="back-label">Back</ButtonLabel></Button></div>
+  </div>
+  <div id="stage-dish" style="display: none">
+    <div class="eyebrow">DISH DETAIL</div>
+    <div id="dish-title" class="title">Soup Dumplings</div>
+    <div id="dish-price" class="price">$12</div>
+    <div id="dish-description" class="body">A bright, comforting plate with crisp edges, fragrant rice, and preserved lemon.</div>
+    <div id="dish-portion" class="small">Estimated portion - about 6 pieces - ~250g</div>
+    <div class="eyebrow">INGREDIENTS</div><div id="dish-ingredients" class="body">pork - ginger - scallion</div>
+    <div id="dish-protein" class="small">Estimated protein - 18-24g</div>
+    <div id="dish-allergens" class="small">Allergens - sesame</div>
+    <div id="dish-estimates-note" class="small">Estimates are based on menu metadata; confirm ingredients with the restaurant.</div>
+    <div class="row"><Button id="dish-life-size" class="chip"><ButtonLabel>Life-size view</ButtonLabel></Button><Button id="dish-compare" class="chip"><ButtonLabel>Compare</ButtonLabel></Button></div>
+    <div id="dish-warning" class="small" style="display: none">This dish may match an allergy in your profile. Confirm with the restaurant before ordering.</div>
+    <div class="row"><Button id="dish-back" class="button back"><ButtonLabel class="back-label">Back</ButtonLabel></Button><Button id="dish-add" class="button"><ButtonLabel class="button-label">Add to order</ButtonLabel></Button></div>
+  </div>
+  <div id="stage-compare" style="display: none">
+    <div class="eyebrow">COMPARE PLATES</div>
+    <div id="compare-title" class="title">Choose a dish to compare.</div>
+    <div id="compare-picker-note" class="body">Start with another miniature, then see both portions on identical plates.</div>
+    <div id="compare-picker" class="row"><Button id="compare-pick-soup-dumplings" class="chip"><ButtonLabel>Soup Dumplings</ButtonLabel></Button><Button id="compare-pick-tonkotsu-ramen" class="chip"><ButtonLabel>Tonkotsu Ramen</ButtonLabel></Button><Button id="compare-pick-spicy-wontons" class="chip"><ButtonLabel>Spicy Wontons</ButtonLabel></Button><Button id="compare-pick-pork-bao" class="chip"><ButtonLabel>Pork Bao</ButtonLabel></Button><Button id="compare-pick-scallion-pancake" class="chip"><ButtonLabel>Scallion Pancake</ButtonLabel></Button><Button id="compare-pick-mango-sticky-rice" class="chip"><ButtonLabel>Mango Sticky Rice</ButtonLabel></Button></div>
+    <div id="compare-pair" class="row" style="display: none">
+      <div id="compare-left" class="card"><div id="compare-left-name" class="card-title"></div><div id="compare-left-price" class="price"></div><div id="compare-left-description" class="small"></div><div id="compare-left-protein" class="small"></div><div id="compare-left-allergens" class="small"></div><div id="compare-left-ingredients" class="small"></div><div class="row"><Button id="compare-left-details" class="chip"><ButtonLabel>View details</ButtonLabel></Button><Button id="compare-left-replace" class="chip"><ButtonLabel>Replace</ButtonLabel></Button><Button id="compare-left-add" class="chip"><ButtonLabel>Add to order</ButtonLabel></Button></div></div>
+      <div id="compare-right" class="card"><div id="compare-right-name" class="card-title"></div><div id="compare-right-price" class="price"></div><div id="compare-right-description" class="small"></div><div id="compare-right-protein" class="small"></div><div id="compare-right-allergens" class="small"></div><div id="compare-right-ingredients" class="small"></div><div class="row"><Button id="compare-right-details" class="chip"><ButtonLabel>View details</ButtonLabel></Button><Button id="compare-right-replace" class="chip"><ButtonLabel>Replace</ButtonLabel></Button><Button id="compare-right-add" class="chip"><ButtonLabel>Add to order</ButtonLabel></Button></div></div>
+    </div>
+    <div id="compare-actions" class="row"><Button id="compare-back" class="button back"><ButtonLabel class="back-label">Back to menu</ButtonLabel></Button><Button id="compare-cancel" class="button back" style="display: none"><ButtonLabel class="back-label">Cancel</ButtonLabel></Button></div>
+  </div>
+  <div id="stage-order" style="display: none">
+    <div class="eyebrow">ORDER WITH PEEKA</div>
+    <div class="title">Your table, sorted.</div>
+    <Image id="ordering-avatar" src="/assets/ordering-avatar.png" style="width: 112px; height: 112px;" />
+    <div id="waiter-state" class="small">Ready - browser speech optional</div>
+    <div class="row"><Button id="waiter-mic" class="chip"><ButtonLabel>Start mic</ButtonLabel></Button><Button id="waiter-hear" class="chip"><ButtonLabel>Hear replies</ButtonLabel></Button><Button id="waiter-stop" class="chip"><ButtonLabel>Mute / stop</ButtonLabel></Button></div>
+    <div id="order-message" class="card body">Tell me what you would like to order.</div>
+    <div id="order-cart" class="card">Cart is empty</div>
+    <div id="order-total" class="price">Total - $0.00</div>
+    <div id="order-confirmation" class="body" style="display: none">Demo order: Dumpling Home doesn't take online orders here - ~15 min (estimated)</div>
+    <div id="take-home-shelf" class="card" style="display: none"><div class="eyebrow">TAKE IT HOME</div><div id="take-home-option-0" class="small" style="display: none"></div><Button id="take-home-add-0" class="chip" style="display: none"><ButtonLabel>Add</ButtonLabel></Button><div id="take-home-option-1" class="small" style="display: none"></div><Button id="take-home-add-1" class="chip" style="display: none"><ButtonLabel>Add</ButtonLabel></Button><div id="take-home-option-2" class="small" style="display: none"></div><Button id="take-home-add-2" class="chip" style="display: none"><ButtonLabel>Add</ButtonLabel></Button>    <div id="order-checkout" class="body" style="display: none"></div><div class="small">Demo restaurant meal order and live Shopify take-home checkout are separate. Browser speech only; typed/controller ordering remains available.</div></div>
+    <div class="row"><Button id="order-back" class="button back"><ButtonLabel class="back-label">Back</ButtonLabel></Button><Button id="order-submit" class="button"><ButtonLabel class="button-label">Place order</ButtonLabel></Button></div>
+  </div>
+</Panel>

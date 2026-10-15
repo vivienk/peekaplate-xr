@@ -1,0 +1,14 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE TABLE IF NOT EXISTS diners (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), allergies text[] NOT NULL DEFAULT '{}', diets text[] NOT NULL DEFAULT '{}', spice int NOT NULL DEFAULT 0, budget int NOT NULL DEFAULT 0, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS restaurants (id text PRIMARY KEY, name text NOT NULL, neighborhood text NOT NULL DEFAULT '', address text NOT NULL DEFAULT '', cuisine text NOT NULL DEFAULT '', price_level int NOT NULL DEFAULT 0, map_x real NOT NULL DEFAULT 0, map_z real NOT NULL DEFAULT 0, has_menu bool NOT NULL DEFAULT false);
+CREATE TABLE IF NOT EXISTS dishes (id text PRIMARY KEY, restaurant_id text NOT NULL REFERENCES restaurants(id), name text NOT NULL, price numeric NOT NULL, description text NOT NULL DEFAULT '', category text NOT NULL DEFAULT '', tags text[] NOT NULL DEFAULT '{}', allergens text[] NOT NULL DEFAULT '{}', diet text[] NOT NULL DEFAULT '{}', protein_grams text, spice int, portion jsonb NOT NULL DEFAULT '{}'::jsonb, model_url text, model_scale numeric, model_includes_vessel bool, model_source text, allergen_status text NOT NULL DEFAULT 'unknown', allergens_verified bool NOT NULL DEFAULT false, shop_query text NOT NULL DEFAULT '');
+ALTER TABLE dishes ALTER COLUMN spice DROP NOT NULL;
+ALTER TABLE dishes ADD COLUMN IF NOT EXISTS model_scale numeric;
+ALTER TABLE dishes ADD COLUMN IF NOT EXISTS model_includes_vessel bool;
+ALTER TABLE dishes ADD COLUMN IF NOT EXISTS model_source text;
+ALTER TABLE dishes ADD COLUMN IF NOT EXISTS allergen_status text NOT NULL DEFAULT 'unknown';
+ALTER TABLE dishes ADD COLUMN IF NOT EXISTS allergens_verified bool NOT NULL DEFAULT false;
+CREATE TABLE IF NOT EXISTS orders (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), diner_id uuid NOT NULL REFERENCES diners(id), restaurant_id text NOT NULL REFERENCES restaurants(id), status text NOT NULL DEFAULT 'placed' CHECK (status = 'placed'), total numeric NOT NULL DEFAULT 0, idempotency_key uuid NOT NULL, created_at timestamptz NOT NULL DEFAULT now(), UNIQUE (diner_id, idempotency_key));
+CREATE TABLE IF NOT EXISTS order_items (order_id uuid NOT NULL REFERENCES orders(id) ON DELETE CASCADE, dish_id text NOT NULL REFERENCES dishes(id), quantity int NOT NULL CHECK (quantity > 0), notes text NOT NULL DEFAULT '', unit_price numeric NOT NULL, PRIMARY KEY (order_id, dish_id));
+CREATE TABLE IF NOT EXISTS take_home_items (order_id uuid NOT NULL REFERENCES orders(id) ON DELETE CASCADE, seller_name text NOT NULL, seller_domain text NOT NULL, variant_id text NOT NULL, title text NOT NULL, price_cents int NOT NULL, quantity int NOT NULL CHECK (quantity > 0), checkout_status text NOT NULL DEFAULT 'unavailable');
+CREATE INDEX IF NOT EXISTS orders_diner_created_idx ON orders (diner_id, created_at DESC);

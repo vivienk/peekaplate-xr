@@ -1,0 +1,32 @@
+[
+  {
+    "id": "flores-tostadas-de-atun",
+    "triangles": 37700,
+    "dimensionsMeters": [
+      0.23999999463558197,
+      0.039799999445676804,
+      0.23999999463558197
+    ],
+    "glbAxes": "X width, Y height, Z depth",
+    "fileBytes": 910484,
+    "includesVessel": true,
+    "scale": 1,
+    "source": "procedural illustrative demo",
+    "verifiedRestaurantPortion": false
+  },
+  {
+    "id": "flores-guacamole",
+    "triangles": 19748,
+    "dimensionsMeters": [
+      0.20000000298023224,
+      0.05199999921023846,
+      0.20000000298023224
+    ],
+    "glbAxes": "X width, Y height, Z depth",
+    "fileBytes": 468296,
+    "includesVessel": true,
+    "scale": 1,
+    "source": "procedural illustrative demo",
+    "verifiedRestaurantPortion": false
+  }
+]
