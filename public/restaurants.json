@@ -1,0 +1,7 @@
+[
+  {"id":"dumpling-home","name":"Dumpling Home","neighborhood":"Hayes Valley","cuisine":"Shanghai dumplings","priceLevel":2,"mapPosition":{"x":0,"z":0},"hasMenu":true},
+  {"id":"flores","name":"Flores","neighborhood":"Cow Hollow","cuisine":"Mexican","priceLevel":2,"mapPosition":{"x":-0.35,"z":0.55},"hasMenu":true},
+  {"id":"anchal-restaurant","name":"Anchal Restaurant","neighborhood":"Mission District","cuisine":"Indian home cooking","priceLevel":2,"mapPosition":{"x":-0.7,"z":-0.15},"hasMenu":false},
+  {"id":"burma-superstar","name":"Burma Superstar","neighborhood":"Laurel Heights","cuisine":"Burmese","priceLevel":2,"mapPosition":{"x":0.45,"z":-0.8},"hasMenu":false},
+  {"id":"nari","name":"Nari","neighborhood":"Japantown","cuisine":"Thai","priceLevel":3,"mapPosition":{"x":0.85,"z":0.42},"hasMenu":false}
+]

@@ -1,0 +1,65 @@
+{
+  "restaurant": {
+    "id": "flores",
+    "name": "Flores",
+    "address": "2030 Union St, San Francisco, CA 94123",
+    "neighborhood": "Cow Hollow",
+    "cuisine": "Mexican",
+    "hasMenu": true
+  },
+  "estimatesNote": "Illustrative demo models and estimated dimensions. Allergens, nutrition and serving sizes are unverified; confirm with restaurant staff.",
+  "dishes": [
+    {
+      "id": "flores-tostadas-de-atun",
+      "restaurantId": "flores",
+      "name": "Tostadas de Atun",
+      "price": 18.0,
+      "description": "big eye tuna, chipotle aioli, chile pasilla. topped with avocado and pickled red onions.",
+      "category": "Peque\u00f1os",
+      "ingredients": [],
+      "tags": [],
+      "allergens": [],
+      "allergensVerified": false,
+      "allergenStatus": "unknown",
+      "diet": [],
+      "proteinGrams": "Unknown",
+      "spice": null,
+      "portion": {
+        "plateDiameterCm": 24,
+        "weightG": null,
+        "pieces": null
+      },
+      "modelUrl": "/models/flores-tostadas-de-atun.glb",
+      "modelScale": 1,
+      "modelIncludesVessel": true,
+      "modelSource": "illustrative-demo",
+      "shopQuery": "Tostadas de Atun"
+    },
+    {
+      "id": "flores-guacamole",
+      "restaurantId": "flores",
+      "name": "Guacamole",
+      "price": 14.0,
+      "description": "tomato, red onion, cilantro, cotija, tortilla chips",
+      "category": "Peque\u00f1os",
+      "ingredients": [],
+      "tags": [],
+      "allergens": [],
+      "allergensVerified": false,
+      "allergenStatus": "unknown",
+      "diet": [],
+      "proteinGrams": "Unknown",
+      "spice": null,
+      "portion": {
+        "plateDiameterCm": 20,
+        "weightG": null,
+        "pieces": null
+      },
+      "modelUrl": "/models/flores-guacamole.glb",
+      "modelScale": 1,
+      "modelIncludesVessel": true,
+      "modelSource": "illustrative-demo",
+      "shopQuery": "Guacamole"
+    }
+  ]
+}

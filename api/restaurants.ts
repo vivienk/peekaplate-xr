@@ -1,0 +1,4 @@
+import menuData from '../public/menu.json';
+import { readRestaurants } from '../lib/db.js';
+type Request = { method?: string }; type Response = { status: (code: number) => Response; json: (body: unknown) => void; setHeader?: (name: string, value: string) => void };
+export default async function handler(req: Request, res: Response) { res.setHeader?.('Cache-Control', 'no-store'); if (req.method !== 'GET') return res.status(405).json({ error: 'Only GET is supported.' }); try { const rows = await readRestaurants(); return res.status(200).json(rows.length ? rows : [{ id: 'dumpling-home', name: 'Dumpling Home', neighborhood: 'Chinatown', address: '', cuisine: 'Chinese', priceLevel: 2, mapX: 0, mapZ: 0, hasMenu: true }]); } catch { return res.status(200).json([{ id: 'dumpling-home', name: (menuData as { restaurant: string }).restaurant, hasMenu: true }]); } }

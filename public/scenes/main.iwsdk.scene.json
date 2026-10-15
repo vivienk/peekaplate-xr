@@ -1,0 +1,35 @@
+{
+  "version": "iwsdk.scene.v1",
+  "units": "meters",
+  "components": {
+    "com.iwsdk.components.DomeGradient": {
+      "sky": [0.08, 0.04, 0.02, 1],
+      "equator": [0.42, 0.18, 0.08, 1],
+      "ground": [0.03, 0.012, 0.008, 1],
+      "intensity": 0.85
+    },
+    "com.iwsdk.components.IBLGradient": {
+      "sky": [0.26, 0.12, 0.05, 1],
+      "equator": [0.46, 0.2, 0.08, 1],
+      "ground": [0.08, 0.025, 0.012, 1],
+      "intensity": 0.7
+    }
+  },
+  "resources": {},
+  "nodes": [
+    {
+      "id": "stage-flow-panel",
+      "name": "Peeka Stage Flow",
+      "content": { "type": "asset", "asset": "stage-flow" },
+      "transform": { "position": [0, 1.42, -1.08], "rotationDeg": [0, 180, 0], "scale": 0.62 },
+      "components": {}
+    },
+    {
+      "id": "webxr-banner",
+      "name": "WebXR Banner",
+      "content": { "type": "asset", "asset": "webxr-banner" },
+      "transform": { "position": [0, 1, 1.8], "rotationDeg": [0, 180, 0], "scale": [1, -1, 1] },
+      "components": {}
+    }
+  ]
+}

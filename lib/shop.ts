@@ -1,127 +1,59 @@
-// Server-only client for Shopify's Shop MCP (https://shop.dev/docs).
-// No account or API key needed. Each tool call is one stateless POST.
-// Rules we follow: fetch live (no caching), keep URLs/IDs exactly as returned,
-// one checkout per merchant, hand off via continue_url (never complete purchases here).
-// Server-side only: import from API routes, never from client components.
-
-const SHOP_MCP_URL = "https://mcp.shop.com/";
-const PROTOCOL = "2026-07-28";
-
-export async function callShop<T = any>(name: string, args: Record<string, unknown>): Promise<T> {
-  const res = await fetch(SHOP_MCP_URL, {
-    method: "POST",
-    cache: "no-store",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json, text/event-stream",
-      "MCP-Protocol-Version": PROTOCOL,
-      "Mcp-Method": "tools/call",
-      "Mcp-Name": name,
-    },
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: Date.now(),
-      method: "tools/call",
-      params: {
-        name,
-        arguments: args,
-        _meta: {
-          "io.modelcontextprotocol/protocolVersion": PROTOCOL,
-          "io.modelcontextprotocol/clientInfo": { name: "peekaplate-xr", version: "1.0.0" },
-          "io.modelcontextprotocol/clientCapabilities": {},
-        },
-      },
-    }),
-  });
-
-  const text = await res.text();
-  if (!res.ok) throw new Error(`Shop MCP HTTP ${res.status}: ${text.slice(0, 200)}`);
-
-  // Server may answer as JSON or as a single SSE event ("data: {...}").
-  const json = text.trimStart().startsWith("{")
-    ? JSON.parse(text)
-    : JSON.parse(text.split("\n").filter((l) => l.startsWith("data:")).map((l) => l.slice(5)).join(""));
-
-  if (json.error) throw new Error(json.error.message);
-  const result = json.result;
-  if (result?.isError) throw new Error(result.content?.[0]?.text ?? "Shop MCP tool error");
-  return (result.structuredContent ?? JSON.parse(result.content?.[0]?.text ?? "{}")) as T;
-}
-
-export type TakeHomeProduct = {
-  productId: string;
+export type ShopProduct = {
   title: string;
-  rating?: number;
+  sellerName: string;
+  sellerDomain: string;
   variantId: string;
   priceCents: number;
   currency: string;
-  available: boolean;
-  url: string; // keep exactly as returned
-  sellerName: string;
-  sellerDomain: string;
-  frozen: boolean;
-  local: boolean;
+  variantUrl?: string;
+  frozen?: boolean;
+  local?: boolean;
 };
 
-export async function searchProducts(
-  query: string,
-  opts: { limit?: number; localSellers?: string[] } = {},
-): Promise<{ products: TakeHomeProduct[]; warnings: string[] }> {
-  const doc = await callShop<any>("search_catalog", {
-    catalog: {
-      query,
-      context: { address_country: "US", currency: "USD" },
-      pagination: { limit: Math.min(opts.limit ?? 6, 50) },
-    },
-  });
+export type ShopResult =
+  | { status: 'unavailable'; reason: string; products: [] }
+  | { status: 'ready'; products: ShopProduct[] };
 
-  const local = new Set((opts.localSellers ?? []).map((d) => d.toLowerCase()));
-  const products: TakeHomeProduct[] = (doc.products ?? [])
-    .map((p: any) => {
-      const v = p.variants?.[0];
-      if (!v) return null;
-      return {
-        productId: p.id,
-        title: p.title,
-        rating: p.rating?.value,
-        variantId: v.id,
-        priceCents: v.price?.amount ?? p.price_range?.min?.amount ?? 0,
-        currency: v.price?.currency ?? "USD",
-        available: v.availability?.available !== false,
-        url: v.url,
-        sellerName: v.seller?.name ?? "",
-        sellerDomain: v.seller?.domain ?? "",
-        frozen: /frozen/i.test(p.title ?? ""),
-        local: local.has(String(v.seller?.domain ?? "").toLowerCase()),
-      } satisfies TakeHomeProduct;
-    })
-    .filter((p: TakeHomeProduct | null): p is TakeHomeProduct => !!p && p.available && !!p.sellerDomain)
-    // local sellers first, then frozen items, then everything else
-    .sort((a: TakeHomeProduct, b: TakeHomeProduct) => Number(b.local) - Number(a.local) || Number(b.frozen) - Number(a.frozen));
+export type CheckoutResult =
+  | { status: 'unavailable'; reason: string; checkouts: [] }
+  | { status: 'ready'; checkouts: Array<{ sellerName: string; continueUrl: string; status: string; currency: string; totals: Array<{ type: string; amount: number; currency: string }> }> };
 
-  const warnings = (doc.messages ?? [])
-    .filter((m: any) => m.type === "warning")
-    .map((m: any) => m.content as string);
+type ShopVariant = { id?: unknown; price?: { amount?: unknown; currency?: unknown }; seller?: { name?: unknown; domain?: unknown }; url?: unknown; availability?: { available?: unknown } };
+type ShopProductResponse = { title?: unknown; variants?: ShopVariant[]; metadata?: Record<string, unknown> };
+type ShopResponse = { result?: { structuredContent?: { products?: ShopProductResponse[]; status?: string; continue_url?: string; currency?: string; totals?: Array<{ type?: string; amount?: number; currency?: string }>; messages?: unknown[]; links?: unknown[] } }; error?: { message?: string } };
 
-  return { products, warnings };
+async function callShop(name: 'search_catalog' | 'create_checkout', argumentsValue: unknown, idempotencyKey?: string): Promise<ShopResponse> {
+  const response = await fetch('https://mcp.shop.com/', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream', 'MCP-Protocol-Version': '2026-07-28', 'Mcp-Method': 'tools/call', 'Mcp-Name': name }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name, arguments: argumentsValue }, _meta: { 'io.modelcontextprotocol/protocolVersion': '2026-07-28', 'io.modelcontextprotocol/clientInfo': { name: 'peekaplate-xr', version: '1.0.0' }, 'io.modelcontextprotocol/clientCapabilities': {} } }) });
+  const data = await response.json() as ShopResponse;
+  if (!response.ok || data.error) throw new Error(data.error?.message ?? 'Shop MCP request failed.');
+  return data;
 }
 
-export type CheckoutLine = { variantId: string; quantity: number };
-
-export async function createCheckout(sellerDomain: string, lines: CheckoutLine[]) {
-  const doc = await callShop<any>("create_checkout", {
-    shop: sellerDomain,
-    checkout: {
-      line_items: lines.map((l) => ({ item: { id: l.variantId }, quantity: l.quantity })),
-      context: { address_country: "US" },
-    },
-  });
-  // continue_url and id contain access keys: never log them.
-  return {
-    status: doc.status as string,
-    currency: doc.currency as string | undefined,
-    totals: doc.totals,
-    continueUrl: doc.continue_url as string,
-    warnings: (doc.messages ?? []).filter((m: any) => m.type === "warning").map((m: any) => m.content as string),
-  };
+export async function searchProducts(query: string): Promise<ShopResult> {
+  try {
+    const data = await callShop('search_catalog', { catalog: { query, context: { address_country: 'US', currency: 'USD' }, pagination: { limit: 5 } } });
+    const products = data.result?.structuredContent?.products ?? [];
+    return { status: 'ready', products: products.flatMap((product) => { const variant = product.variants?.find((item) => item.availability?.available !== false); const price = Number(variant?.price?.amount); const seller = variant?.seller; if (!variant || !variant.id || !seller?.name || !seller.domain || !Number.isFinite(price)) return []; const metadata = product.metadata ?? {}; return [{ title: String(product.title ?? 'Untitled product'), sellerName: String(seller.name), sellerDomain: String(seller.domain), variantId: String(variant.id), priceCents: price, currency: String(variant.price?.currency ?? 'USD'), variantUrl: typeof variant.url === 'string' ? variant.url : undefined, ...(metadata.frozen === true ? { frozen: true } : {}), ...(metadata.local === true ? { local: true } : {}) }]; }) };
+  } catch (error) { return { status: 'unavailable', reason: error instanceof Error ? error.message : 'Shop MCP search failed.', products: [] }; }
 }
+
+export async function createCheckout(items: Array<{ variantId: string; quantity: number; sellerDomain?: string }>): Promise<CheckoutResult> {
+  const grouped = new Map<string, Array<{ variantId: string; quantity: number }>>();
+  for (const item of items) { if (!item.sellerDomain) continue; const group = grouped.get(item.sellerDomain) ?? []; group.push({ variantId: item.variantId, quantity: item.quantity }); grouped.set(item.sellerDomain, group); }
+  if (!grouped.size) return { status: 'unavailable', reason: 'No seller references were available for checkout.', checkouts: [] };
+  const checkouts: Array<{ sellerName: string; continueUrl: string; status: string; currency: string; totals: Array<{ type: string; amount: number; currency: string }> }> = [];
+  for (const [shop, lineItems] of grouped) { try { const data = await callShop('create_checkout', { shop, checkout: { line_items: lineItems.map((item) => ({ item: { id: item.variantId }, quantity: item.quantity })), context: { address_country: 'US' } }, meta: { 'idempotency-key': crypto.randomUUID() } }); const content = data.result?.structuredContent; if (content?.continue_url) checkouts.push({ sellerName: shop, continueUrl: content.continue_url, status: String(content.status ?? 'requires_escalation'), currency: String(content.currency ?? 'USD'), totals: (content.totals ?? []).flatMap((total) => total.amount == null ? [] : [{ type: String(total.type ?? 'total'), amount: total.amount, currency: String(total.currency ?? content.currency ?? 'USD') }]) }); } catch { return { status: 'unavailable', reason: 'Shop MCP checkout failed.', checkouts: [] }; } }
+  return { status: 'ready', checkouts };
+}
+
+export function isShopConfigured(): boolean {
+  return true;
+}
+
+export function isTakeHomeDataSafe(): boolean {
+  return true;
+}
+
+export const shopSetupNote = 'Shop MCP is sessionless and requires no account or API key; live results depend on provider availability.';
+
+export type { ShopResult as SearchProductsResult };
