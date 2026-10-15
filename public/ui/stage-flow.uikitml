@@ -1,8 +1,8 @@
 <style>
-  .root { flex-direction: column; width: 760px; background-color: #1f1d1b; border-radius: 28px; padding: 34px; font-family: inter; color: #f5efe6; }
+  .root { flex-direction: column; width: 760px; background-color: #f7f4f0; border-color: #ffffff; border-width: 1px; border-radius: 28px; padding: 34px; font-family: inter; color: #242329; }
   .eyebrow { color: #ff5f1f; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
-  .title { color: #f5efe6; font-size: 42px; font-weight: 700; margin-top: 10px; }
-  .body { color: #c9c0b5; font-size: 19px; line-height: 26px; margin-top: 12px; }
+  .title { color: #242329; font-size: 42px; font-weight: 700; margin-top: 10px; }
+  .body { color: #4e4a55; font-size: 19px; line-height: 26px; margin-top: 12px; }
   .row { flex-direction: row; align-items: center; margin-top: 24px; }
   .chip { background-color: #35312e; border-radius: 18px; padding: 14px; margin-right: 10px; color: #f5efe6; font-size: 16px; }
   .chip-selected { background-color: #ff5f1f; color: #1f1d1b; }
@@ -11,7 +11,7 @@
   .back { background-color: #35312e; margin-right: 12px; }
   .back-label { color: #f5efe6; font-size: 17px; }
   .price { color: #ff5f1f; font-size: 26px; font-weight: 700; margin-top: 16px; }
-  .card { background-color: #2b2825; border-radius: 20px; padding: 20px; margin-top: 18px; }
+  .card { background-color: #ffffff; border-color: #ffffff; border-width: 1px; border-radius: 24px; padding: 20px; margin-top: 18px; }
   .card-title { color: #f5efe6; font-size: 23px; font-weight: 700; }
   .small { color: #a99f94; font-size: 15px; margin-top: 6px; }
 </style>
