@@ -48,7 +48,7 @@ export default defineAssets({
     priority: 'lazy',
   },
   'stage-flow': {
-    url: publicAssetUrl('ui/stage-flow.uikitml'),
+    url: publicAssetUrl(import.meta.env.VITE_MENU_MODE && import.meta.env.VITE_MENU_MODE !== 'demo' ? 'ui/published-menu.uikitml' : 'ui/stage-flow.uikitml'),
     type: AssetType.UIKitML,
     name: 'Peeka Stage Flow',
   },

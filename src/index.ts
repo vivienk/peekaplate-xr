@@ -22,13 +22,21 @@ import { RobotSystem } from './robot.js';
 import { DiningRoomSystem } from './dining-room.js';
 import { StageFlowSystem } from './stage-flow.js';
 import { mountFallback } from './fallback.js';
+import { publishedMode } from './published/store.js';
+import { mountPublishedMenu } from './published/browser.js';
+import { PublishedMenuSystem } from './published/system.js';
 
-mountFallback();
+if (publishedMode) mountPublishedMenu();
+else mountFallback();
 
 World.create(
   document.getElementById('scene-container') as HTMLDivElement,
   projectOptions,
 ).then((world) => {
+  if (publishedMode) {
+    world.registerSystem(PublishedMenuSystem);
+    return;
+  }
   world.registerSystem(DiningRoomSystem);
   world.registerSystem(RobotSystem);
   world.registerSystem(PanelSystem);

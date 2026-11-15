@@ -1,3 +1,31 @@
+# PeekaPlate XR
+
+Independent Meta Quest frontend in [vivienk/peekaplate-xr](https://github.com/vivienk/peekaplate-xr), built on the existing IWSDK app. The shared PeekaPlate backend and mobile repository remain separate.
+
+## Published-menu integration
+
+`VITE_MENU_MODE=demo` (default) preserves the existing restaurant exploration, illustrative models and demo ordering. Set `VITE_MENU_MODE=published` and `VITE_PUBLIC_MENU_API_ORIGIN=https://<approved-api-host>` in `.env.local` to use the anonymous shared API. Open `/venues/<venue-UUID>/menus/<menu-UUID>`. All `VITE_` values are public; do not put credentials in them. Unknown mode values fail closed.
+
+The published mode uses the same IWSDK world, scene placement and spatial UI infrastructure, with a dedicated read-only menu panel. The browser companion displays approved photos; the spatial panel provides Previous/Next dish, paged description/allergen details, Refresh, Enter XR and Exit XR. It does not use illustrative models, demo menus, recommendations, diner profiles, waiter, ordering, or telemetry. Those existing features remain in demo mode only.
+
+The client fetches the active publication pointer, hashes exact immutable bundle bytes before parsing, validates the strict v1 schema and verifies requested venue/menu/revision identities. Incomplete dishes are omitted; unknown allergen declarations remain unknown and empty declarations do not imply safety. Tokens are never stored or sent to demo endpoints. No private shared backend code or database credentials are required.
+
+Both surfaces share one in-memory state store. A revalidation every minute and on foreground clears old content before loading; failures show a retry state rather than demo fallback. New validated menus replace the old content without ending XR. This is bounded polling, not immediate withdrawal notification; browser suspension can delay checks until foreground. No offline cache is implemented.
+
+```sh
+npm ci
+cp .env.example .env.local
+npm run typecheck
+npm test
+npm run dev
+```
+
+`npm run check` typechecks, runs contract/state tests and builds. See [contract provenance](docs/published-menu-contract.md) and [independent deployment to xr.peekaplate.io](docs/xr-deployment.md). Physical Quest and hosted real-menu acceptance remain required before production. Published v1 has no approved spatial model or measured-size fields; the immersive panel currently presents text, not food photos or meshes.
+
+## Upstream template guide
+
+The following retained guide describes the original template; `package.json` and `iwsdk.config.json` are authoritative for this app's current configuration (including emulator injection).
+
 # IWSDK Template for v0
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)

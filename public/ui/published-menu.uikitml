@@ -1,0 +1,27 @@
+<style>
+.root { flex-direction: column; width: 110; padding: 4; background-color: #f7f4f0; color: #242329; border-radius: 3; }
+.title { font-size: 5; margin-top: 2; }
+.body { font-size: 3; margin-top: 2; }
+.row { flex-direction: row; gap: 2; margin-top: 2; }
+.button { width: 30; height: 9; padding: 2; background-color: #ff5f1f; border-radius: 2; }
+.label { font-size: 3; color: #242329; }
+</style>
+<Panel id="published-root" class="root">
+ <div class="body">PEEKAPLATE / PUBLISHED MENU</div>
+ <div id="published-status" class="body">Loading published menu...</div>
+ <div id="published-name" class="title"></div>
+ <div id="published-price" class="body"></div>
+ <div id="published-position" class="body"></div>
+ <div id="published-detail" class="body"></div>
+ <div class="row">
+  <button id="published-previous" class="button"><span class="label">Previous dish</span></button>
+  <button id="published-next" class="button"><span class="label">Next dish</span></button>
+  <button id="published-more" class="button"><span class="label">More details</span></button>
+ </div>
+ <div class="row">
+  <button id="published-retry" class="button"><span class="label">Refresh</span></button>
+  <button id="published-xr" class="button"><span class="label">Enter XR</span></button>
+  <button id="published-exit" class="button"><span class="label">Exit XR</span></button>
+ </div>
+ <div class="body">Ask restaurant staff about allergens and cross-contact. No measured portions or ordering in this view.</div>
+</Panel>

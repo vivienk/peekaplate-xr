@@ -6,14 +6,22 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
+    strategy:
+      matrix:
+        menu-mode: [demo, published]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
+      VITE_MENU_MODE: ${{ matrix.menu-mode }}
       # CI only typechecks and builds; it never drives the managed browser, so
       # skip the Chromium download that @iwsdk/vite-plugin-dev would otherwise
       # pull in through Playwright.
@@ -30,4 +38,12 @@ jobs:
 
       - run: npm run typecheck
 
+      - run: npm test
+
       - run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: peekaplate-xr-${{ matrix.menu-mode }}-dist
+          path: dist
+          retention-days: 7
