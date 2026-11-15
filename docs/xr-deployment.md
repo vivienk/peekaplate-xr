@@ -24,3 +24,7 @@ The preview workflow checks source, pulls only the separate project's preview se
 Before promotion, verify HTTPS deep links on Quest Browser; pointer/bundle/image CORS; a real publication; wrong identity and corrupted-hash rejection; empty/incomplete menus; withdrawal/error clearing on both browser and headset; refresh/retry; both controllers; long-text pagination; XR entry/exit; seated readability; frame time and memory. Do not treat emulator checks as physical-headset evidence. Current emulator injection in `iwsdk.config.json` is inherited from the existing demo; review bundle weight and approved production emulator policy before release.
 
 Rollback only this separate Vercel project to a compatible known-good XR deployment. Do not roll back PeekaPlate's shared backend or mobile pipeline. Check domain routing and publication compatibility after rollback; Vercel rollback may suspend automatic domain assignment until a later promotion.
+
+## Latest readiness evidence
+
+See [security and live API checks](security-and-live-api-checks.md) for the patched dependency audit, verified deployed CORS behavior, and the repeatable `npm run check:live-menu` command.

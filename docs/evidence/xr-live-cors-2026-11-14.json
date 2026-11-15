@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-11-15T00:35:20.432Z",
+  "apiOrigin": "https://peekaplate-api-staging.vxkong.workers.dev",
+  "menuPath": "/public/venues/25325815-7e50-4a25-a3c9-e58fb94eb378/menus/d64b419d-3b62-4d18-bcff-d9c3e78735fe",
+  "fixture": "Previously withdrawn synthetic acceptance menu; not real restaurant acceptance.",
+  "health": 200,
+  "xrDns": "does_not_resolve",
+  "checks": [
+    {
+      "origin": "https://xr.peekaplate.io",
+      "method": "OPTIONS",
+      "status": 204,
+      "allowOrigin": null,
+      "allowMethods": "GET,OPTIONS",
+      "vary": "Origin",
+      "cacheControl": "no-store"
+    },
+    {
+      "origin": "https://xr.peekaplate.io",
+      "method": "GET",
+      "status": 404,
+      "allowOrigin": null,
+      "allowMethods": null,
+      "vary": "Origin",
+      "cacheControl": "no-store"
+    },
+    {
+      "origin": "https://peekaplate-diner-staging.pages.dev",
+      "method": "OPTIONS",
+      "status": 204,
+      "allowOrigin": "https://peekaplate-diner-staging.pages.dev",
+      "allowMethods": "GET,OPTIONS",
+      "vary": "Origin",
+      "cacheControl": "no-store"
+    },
+    {
+      "origin": "https://peekaplate-diner-staging.pages.dev",
+      "method": "GET",
+      "status": 404,
+      "allowOrigin": "https://peekaplate-diner-staging.pages.dev",
+      "allowMethods": null,
+      "vary": "Origin",
+      "cacheControl": "no-store"
+    },
+    {
+      "origin": "https://untrusted.example",
+      "method": "OPTIONS",
+      "status": 204,
+      "allowOrigin": null,
+      "allowMethods": "GET,OPTIONS",
+      "vary": "Origin",
+      "cacheControl": "no-store"
+    },
+    {
+      "origin": "https://untrusted.example",
+      "method": "GET",
+      "status": 404,
+      "allowOrigin": null,
+      "allowMethods": null,
+      "vary": "Origin",
+      "cacheControl": "no-store"
+    }
+  ]
+}
