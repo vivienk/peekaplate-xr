@@ -1,9 +1,13 @@
-import { createSystem, UIKitMLAsset, VisibilityState, RayInteractable } from '@iwsdk/core';
+import { createSystem, UIKitMLAsset, VisibilityState, RayInteractable, LocomotionSystem } from '@iwsdk/core';
 import { publishedStore } from './store.js';
 import { detailPages } from './text.js';
 
 export class PublishedMenuSystem extends createSystem({}) {
   init(): void {
+    // This is a seated menu, not a walkable scene. Without a floor the inherited
+    // locomotion engine applies gravity indefinitely to the viewer origin.
+    this.world.getSystem(LocomotionSystem)?.stop();
+    this.player.position.set(0, 0, 0);
     const panel = this.world.getSceneObject<UIKitMLAsset>('stage-flow-panel');
     if (!panel) return;
     // The published surface faces the seated user (+Z); demo placement stays untouched.

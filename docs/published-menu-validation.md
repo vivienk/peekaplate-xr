@@ -5,6 +5,8 @@
 - Demo and published production builds passed locally. Build warnings include the existing large IWSDK/emulator bundle and harmless upstream Zod annotation warnings.
 - Isolated IWSDK panel render succeeded. Explicit primitive controls replace Horizon button defaults that initially overflowed the panel.
 - Browser companion rendered the unconfigured published-mode state. No demo dish fallback appeared. Final in-scene confirmation after the facing/ray changes remains incomplete: the managed browser closed unexpectedly during capture. Local artifacts under ignored `artifacts/` are debugging evidence, not headset acceptance.
+- Runtime inspection found inherited locomotion moving the viewer below the scene without a walkable floor. Published mode now stops locomotion and resets the viewer origin for stationary browsing; typecheck and tests pass after the fix. Final runtime capture remains pending due managed-runtime readiness failures.
+- GitHub CI passed both demo/published jobs on the initial integration head; subsequent commits require the same checks.
 - No real API, hosted CORS, published restaurant, controller session, physical Quest comfort/performance, DNS or production deployment was verified.
 - Dependency audit reports 15 advisories (4 moderate, 10 high, 1 critical), in the current toolchain including `@iwsdk/reference`, `@iwsdk/vite-plugin-dev`, Vite and transitive packages. The critical advisory is `proxy-addr`. No broad SDK dependency upgrade was attempted in this integration. Review remediation before release.
 
