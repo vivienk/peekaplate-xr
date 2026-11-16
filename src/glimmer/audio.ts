@@ -53,8 +53,8 @@ export class GlimmerAudio {
     this.addLoop('mus-market', 'music', D1, -12);
     this.addLoop('mus-steps', 'music', D2, -12);
     this.addLoop('mus-pier', 'music', D3, -12);
-    this.addLoop('amb-rain', 'ambience', null, -8);
-    this.addLoop('amb-rain-awning', 'ambience', null, -9);
+    this.addLoop('amb-rain', 'ambience', null, -18);
+    this.addLoop('amb-rain-awning', 'ambience', null, -19);
     this.addLoop('amb-steps-crowd', 'ambience', D2, -12);
     this.addLoop('amb-pier', 'ambience', D3, -11);
     // Restaurant feet positions are from the authoritative district fixtures.

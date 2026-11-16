@@ -235,7 +235,7 @@ export class GlimmerApp {
       this.button(`Reduced motion: ${this.reducedMotion?'on':'off'}`,650,410,500,55,()=>{this.reducedMotion=!this.reducedMotion;this.market.reducedMotion=this.reducedMotion;});
       this.button(this.musicMuted?'Music: off':'Music: on',120,575,480,40,()=>{this.musicMuted=!this.musicMuted;this.audio.setMusicMuted(this.musicMuted);});
       this.button('Restart market',120,500,480,55,()=>this.setScreen('restart'));this.button('Return to market',650,500,500,55,()=>this.close());
-      this.text('Demo menus only. No payment or real order submission.',155,619,28);
+      this.text('Demo menus only. No payment or real order submission.',155,645,26);
     }
     if(this.toastTime>0){this.rect(155,8,970,46);this.text(this.toast,175,40,27);}
     this.output.drawImage(this.overlay,0,0);
