@@ -253,7 +253,7 @@ export class GlimmerApp {
       if(!live?.content){this.wrap(this.publishedMessage||'This menu has expired. Reopen the restaurant to refresh.',100,220,1000,32);}
       else{const items=live.content.categories.flatMap(category=>category.dishes.filter(d=>d.complete).map(d=>({dish:d,category:category.name})));const page=items.slice(this.page*3,this.page*3+3);page.forEach(({dish:d,category},i)=>{if(!d.complete)return;const y=170+i*145;this.text(d.name.slice(0,52),105,y,30);this.text(`${d.price.currency} ${d.price.amount} · ${category}`.slice(0,75),105,y+30,24);this.wrap(d.description.slice(0,140),105,y+60,1020,24);this.text(d.allergens===null?'Allergen information unavailable':d.allergens.length?`Contains: ${d.allergens.join(', ')}`:'No allergens declared by restaurant',105,y+118,21);});this.button('Previous',100,598,240,46,()=>{this.page--;},this.page===0);this.button('Next',900,598,240,46,()=>{this.page++;},(this.page+1)*3>=items.length);}
     }else if(this.screen==='title'){
-      this.heading('PeekaPlate');this.text('Night Market 2049',300,250,68);
+      this.heading('PeekaPlate');c.save();c.textAlign='center';this.text('Night Market 2049',640,250,68);c.restore();
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text(connectionStatus,300,635,25);
