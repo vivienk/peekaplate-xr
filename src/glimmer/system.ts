@@ -24,7 +24,7 @@ export class GlimmerSystem extends createSystem({}) {
   private pinchDistance=0;
   private dragX=0;private dragY=0;
   init(){
-    this.app=new GlimmerApp();
+    this.app=new GlimmerApp();this.app.refreshPublished();
     this.browserGamepad=new BrowserGamepad(this.app);
     const fit=()=>{if(this.world.visibilityState.peek()!==VisibilityState.NonImmersive)return;const camera=this.world.camera;const aspect=window.innerWidth/window.innerHeight;const distance=Math.max(2.025/2,3.6/(2*aspect))/Math.tan(camera.fov*Math.PI/360)*1.04;camera.position.set(0,1.65,distance-2.8);camera.lookAt(0,1.65,-2.8);camera.updateProjectionMatrix();};
     window.addEventListener('resize',fit);fit();this.cleanupFuncs.push(()=>window.removeEventListener('resize',fit),this.world.visibilityState.subscribe(()=>fit()));

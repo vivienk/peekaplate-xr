@@ -1,3 +1,4 @@
+import { liveRestaurants } from '../published/market';
 import type { GlimmerApp } from './app';
 import { districts, restaurants, finds, colours, headwear, colourThresholds, headwearThresholds } from './data';
 import { chooseOutfit } from './state';
@@ -44,6 +45,7 @@ export function renderReference(a:GlimmerApp):boolean {
      c.fillStyle=cream;c.fillRect(x-20,y-20,40,40);c.fillStyle='#0f1533';c.fillRect(x-18,y-18,36,36);a.image(r.emblem,x-17,y-17,34);
      if(a.state.stamps.includes(r.id)){a.rect(x+8,y+8,20,22);icon('check',x+10,y+10,16,'#256b43');}
    });
+   d.objects.filter(o=>o.kind==='published-restaurant').forEach(o=>{const x=mx+15+o.pivot[0]*sx,y=my+13+(o.pivot[1]-3)*sy;c.fillStyle=cream;c.fillRect(x-12,y-12,24,24);a.image(`assets/ui/emblems/emblem-${o.asset.slice(4)}.png`,x-11,y-11,22);});
    c.fillStyle='#f5c518';c.fillRect(mx+15+a.market.player.x*sx-4,my+13+a.market.player.y*sy-4,8,8);
    a.text(d.name,mx+20,my+mh-18,26,cream);
    a.hit('Market Map',mx,my,mw,mh,()=>a.openPanel('map'));
@@ -55,8 +57,8 @@ export function renderReference(a:GlimmerApp):boolean {
    const o=a.market.focusDetails;
    if(o){
      const f=finds.find(f=>f.id===o.id),r=restaurants.find(r=>r.id===o.id);
-     const label=r?.name??(o.kind==='find-holo'?'Vendor special':f?.label.replace(/^Chat with /,''))??({'order-portal':'Order Portal',kiosk:'PeekaPlate Kiosk',gate:'Market Gate',vending:'Vending machine'} as Record<string,string>)[o.kind]??o.label??'Look';
-     const verb=({vending:'Use machine','restaurant':'Open menu','find-person':'Talk','find-cat':'Greet','find-holo':'Scan','order-portal':'Order',kiosk:'Use kiosk',bench:'Sit','find-puddle':'Look closer','find-wish':'Hang a wish','find-bottle':'Read the note'} as Record<string,string>)[o.kind]??'Look';
+     const label=liveRestaurants.get(o.id)?.name??r?.name??(o.kind==='find-holo'?'Vendor special':f?.label.replace(/^Chat with /,''))??({'order-portal':'Order Portal',kiosk:'PeekaPlate Kiosk',gate:'Market Gate',vending:'Vending machine'} as Record<string,string>)[o.kind]??o.label??'Look';
+     const verb=({'published-restaurant':'Open menu',vending:'Use machine','restaurant':'Open menu','find-person':'Talk','find-cat':'Greet','find-holo':'Scan','order-portal':'Order',kiosk:'Use kiosk',bench:'Sit','find-puddle':'Look closer','find-wish':'Hang a wish','find-bottle':'Read the note'} as Record<string,string>)[o.kind]??'Look';
      c.font='32px Jersey';const w=Math.max(140,Math.min(380,c.measureText(label).width+40));
      const x=Math.max(110,Math.min(970-w,o.screenX-w/2)),y=Math.max(112,Math.min(460,o.screenY-(o.kind==='gate'?440:220)));
      a.rect(x,y,w,70);a.text(label,x+20,y+46,32);

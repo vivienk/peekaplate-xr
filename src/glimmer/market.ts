@@ -29,7 +29,7 @@ interface MarketLight { x:number; y:number; groundY:number; tint:keyof typeof ti
 const districts = [rainAlley, lanternSteps, foglinePier] as District[];
 const colors = ['yellow', 'cherry', 'teal', 'lavender', 'mint', 'coral', 'midnight', 'peach'];
 const hats = ['hood', 'buckethat', 'catbeanie', 'souwester'];
-const kinds = ['restaurant', 'order-portal', 'kiosk', 'find-person', 'find-holo', 'find-wish', 'find-bottle', 'find-cat', 'find-puddle', 'bench', 'vending', 'signpost', 'gate'];
+const kinds = ['published-restaurant', 'restaurant', 'order-portal', 'kiosk', 'find-person', 'find-holo', 'find-wish', 'find-bottle', 'find-cat', 'find-puddle', 'bench', 'vending', 'signpost', 'gate'];
 const building = {
   ramen: { w: 112, h: 128, chef: [8, -38], sign: [0, -96], period: .18, zone: [-32, 0, 64, 20] },
   cafe: { w: 128, h: 144, chef: [24, -48], sign: [0, -112], period: .20, zone: [-8, 0, 64, 20] },
@@ -146,6 +146,7 @@ export class MarketWorld {
   get focusDetails(){const o=this.focusObject;return o?{...o,screenX:(o.pivot[0]*16-this.cameraX)*1280/this.canvas.width,screenY:(o.pivot[1]*16-this.cameraY)*720/this.canvas.height}:null;}
   get focus(): string | null { return this.focusObject?.id ?? null; }
   get objects(): readonly MarketObject[] { return this.map.objects; }
+  get isEntering(){return this.entering;}
   get isTravelling(): boolean { return this.travelRemaining > 0; }
   get isSeated(): boolean { return this.seated; }
   get name(): string { return this.map.name; }
@@ -331,7 +332,7 @@ export class MarketWorld {
     for(const o of this.map.objects){
       const x=o.pivot[0]*16,y=o.pivot[1]*16;
       const add=(dx:number,dy:number,tint:MarketLight['tint'],scale=1,alpha=.35)=>this.lights.push({x:x+dx,y:y+dy,groundY:y+22,tint,scale,alpha});
-      if(o.kind==='restaurant'){
+      if(o.kind==='restaurant'||o.kind==='published-restaurant'){
         const key=o.asset.slice(4) as keyof typeof building,b=building[key];
         const tint=key==='ramen'||key==='ember'?'red':key==='cafe'?'magenta':key==='pearl'?'violet':'cyan';
         add(b.sign[0],b.sign[1]-16,tint,1.25);add(b.chef[0],b.chef[1]-12,key==='cafe'?'magenta':'gold',1.5,.28);
@@ -409,7 +410,7 @@ export class MarketWorld {
   private interactive(o: MarketObject): boolean { return kinds.includes(o.kind) && !(o.kind === 'bench' && (o.sittable === false || o.asset.includes('not sittable'))); }
   private zone(o: MarketObject): Rect {
     const x = o.pivot[0] * 16, y = o.pivot[1] * 16;
-    if (o.kind === 'restaurant') { const b = building[o.asset.slice(4) as keyof typeof building]; return [x + b.zone[0],y,b.zone[2],b.zone[3]]; }
+    if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) { const b = building[o.asset.slice(4) as keyof typeof building]; return [x + b.zone[0],y,b.zone[2],b.zone[3]]; }
     if (o.kind === 'gate') return [20 * 16,27 * 16,4 * 16,16];
     if (o.kind === 'find-bottle') return [x - 16,y - 24,32,24];
     if (o.kind === 'find-puddle') return [x - 13,y - 7,26,14];
@@ -428,7 +429,7 @@ export class MarketWorld {
   }
   private collider(o: MarketObject): Rect | null {
     const x = o.pivot[0] * 16, y = o.pivot[1] * 16;
-    if (o.kind === 'restaurant') { const b = building[o.asset.slice(4) as keyof typeof building]; return [x - b.w / 2 + 2,y - 60,b.w - 4,60]; }
+    if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) { const b = building[o.asset.slice(4) as keyof typeof building]; return [x - b.w / 2 + 2,y - 60,b.w - 4,60]; }
     if (o.kind === 'kiosk') return [x - 9,y - 6,18,6];
     if (o.kind === 'order-portal') return [x - 16,y - 10,32,10];
     if (o.kind === 'find-person') return [x - 6,y - 6,12,6];
@@ -494,7 +495,7 @@ export class MarketWorld {
   }
   private hitBox(o: MarketObject): Rect {
     const x = o.pivot[0] * 16,y = o.pivot[1] * 16;
-    if (o.kind === 'restaurant') { const b = building[o.asset.slice(4) as keyof typeof building]; return [x - b.w / 2,y - b.h,b.w,b.h]; }
+    if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) { const b = building[o.asset.slice(4) as keyof typeof building]; return [x - b.w / 2,y - b.h,b.w,b.h]; }
     return [x - 16,y - (o.kind.includes('puddle') ? 8 : 32),32,o.kind.includes('puddle') ? 16 : 32];
   }
 
@@ -502,7 +503,7 @@ export class MarketWorld {
     const x = o.pivot[0] * 16,y = o.pivot[1] * 16;
     const t = this.reducedMotion ? 0 : this.clock;
     const active = o.id === this.activeObject && this.clock < this.activeUntil;
-    if (o.kind === 'restaurant') {
+    if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) {
       const key = o.asset.slice(4) as keyof typeof building, b = building[key], folder = 'assets/world/buildings/';
       this.sprite(`${folder}${key}-back.png`,x,y);
       this.sprite(`assets/characters/chef-${key}.png`,x + b.chef[0],y + b.chef[1],24,24,Math.floor(t / b.period) % 4);

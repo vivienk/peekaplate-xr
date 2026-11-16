@@ -1,3 +1,4 @@
+import { liveRestaurants, readRestaurant, refreshRestaurants, connectionStatus } from '../published/market';
 import { renderReference } from './reference-ui';
 import { GlimmerAudio } from './audio';
 import { defaultFocus, directionalFocus } from './gamepad';
@@ -5,7 +6,7 @@ import { MarketWorld } from './market';
 import { restaurants, dishes, districts, finds, colours, headwear, colourThresholds, headwearThresholds, type Dish, type DistrictId } from './data';
 import { createState, awardStamp, collectFind, toggleSavedDish, chooseOutfit, changeQuantity, placeOrder, advanceTime, travel, nextFinale, encodeMarketCode, decodeMarketCode, normalizeCode, CODE_ALPHABET, type RuleResult } from './state';
 
-type Screen = 'title'|'codeEntry'|'explore'|'menu'|'dish'|'ar'|'tray'|'order'|'confirm'|'ticket'|'passport'|'map'|'tasting'|'wardrobe'|'guide'|'dialogue'|'pause'|'restart'|'code'|'finale';
+type Screen = 'publishedMenu'|'title'|'codeEntry'|'explore'|'menu'|'dish'|'ar'|'tray'|'order'|'confirm'|'ticket'|'passport'|'map'|'tasting'|'wardrobe'|'guide'|'dialogue'|'pause'|'restart'|'code'|'finale';
 interface Button {x:number;y:number;w:number;h:number;label:string;action:()=>void;disabled:boolean}
 const base = `${import.meta.env.BASE_URL}glimmer/`;
 const ink='#321b15', cream='#f3e6c8', orange='#F89537';
@@ -95,6 +96,7 @@ export class GlimmerApp {
   musicForDistrict(){this.audio.setDistrict(this.state.district);}
   interact(id:string){
     if(this.screen!=='explore')return;
+    if(liveRestaurants.has(id)){this.openPublished(id);return;}
     const restaurant=restaurants.find(r=>r.id===id);
     if(restaurant){this.restaurant=restaurant;const result=awardStamp(this.state,id);this.deferReward(result);this.setScreen('menu');return;}
     const find=finds.find(f=>f.id===id&&f.district===this.state.district);
@@ -128,6 +130,9 @@ export class GlimmerApp {
     this.setScreen('explore');this.checkFinale=true;
   }
 
+  publishedId='';publishedMessage='';private liveRefresh=0;private layoutPending=false;
+  openPublished(id:string){this.publishedId=id;this.publishedMessage='Loading published menu…';this.setScreen('publishedMenu');void readRestaurant(id).then(()=>{if(this.publishedId===id){this.publishedMessage='';this.invalidate();}}).catch(()=>{if(this.publishedId===id){this.publishedMessage='This menu is unavailable. Please try again later.';this.invalidate();}});}
+  refreshPublished(){void refreshRestaurants().then(changed=>{this.layoutPending ||=changed;this.invalidate();});}
   brandLogo(){const path='/branding/peekaplate-logo.png';let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>this.invalidate();img.src=import.meta.env.BASE_URL+'branding/peekaplate-logo.png';this.images.set(path,img);}if(img.complete&&img.naturalWidth){this.context.save();this.context.imageSmoothingEnabled=true;this.context.drawImage(img,365,158,100,100);this.context.restore();}}
   readFind(id:string){const f=finds.find(f=>f.id===id);if(!f||!this.state.finds.includes(id))return;this.dialogueKind=f.kind;this.dialoguePortrait='';this.title=f.label;this.dialogue=f.lines;this.dialogueIndex=0;this.dialogueElapsed=0;this.openPanel('dialogue');}
   showDish(id:string,from:Screen='menu'){this.selectedDish=dishes.find(d=>d.id===id)!;this.returnFromDish=from;this.setScreen('dish');}
@@ -191,6 +196,9 @@ export class GlimmerApp {
   pointerUp(){this.pressedIndex=-1;this.invalidate();}
   pointer(x:number,y:number){this.unlockAudio();for(let i=this.buttons.length-1;i>=0;i--){const b=this.buttons[i];if(x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h){if(!b.disabled){this.sound('sfx-ui-select');b.action();}return;}}if(this.screen==='explore')this.market.pointer(x*this.market.canvas.width/1280,y*this.market.canvas.height/720);}
   update(dt:number){
+    if(this.layoutPending&&!this.market.isEntering&&!this.market.isTravelling&&(this.screen==='explore'||this.screen==='title')){this.layoutPending=false;const p=this.market.player;this.market.setDistrict(this.state.district,[p.x,p.y]);}
+    this.liveRefresh+=dt;if(this.liveRefresh>=60&&this.screen==='explore'){this.liveRefresh=0;this.refreshPublished();}
+    if(this.screen==='publishedMenu'){const live=liveRestaurants.get(this.publishedId);if(live?.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.publishedMessage='This menu has expired. Reopen the restaurant to refresh.';this.invalidate();}}
     this.screenAge+=dt;
     if(this.screen==='dialogue'){this.dialogueElapsed+=dt;const blip=Math.floor(Math.min(this.dialogueElapsed*40,this.dialogue[this.dialogueIndex]?.length??0)/3);if(this.dialogueTyping&&blip>this.dialogueBlip){this.sound(`sfx-talk-blip-${blip%3+1}`);this.dialogueBlip=blip;}this.market.setTalking(this.dialogueTyping);this.uiDirty=true;}else this.market.setTalking(false);
     if(this.screen==='explore')this.uiDirty=true;
@@ -237,11 +245,16 @@ export class GlimmerApp {
       [['Passport','passport'],['Map','map'],['Tasting List','tasting'],['Order Tray','tray'],['Pause','pause']].forEach(([label,screen],i)=>this.button(label,20+i*175,654,165,45,()=>{this.pauseReturn='explore';this.setScreen(screen as Screen);}));
       this.button('Enter VR',1090,16,165,45,()=>this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
+    }else if(this.screen==='publishedMenu'){
+      const live=liveRestaurants.get(this.publishedId);this.heading(live?.name??'Restaurant');
+      if(live&&live.expiresAt<=Date.now()){live.content=null;live.available=false;}
+      if(!live?.content){this.wrap(this.publishedMessage||'This menu has expired. Reopen the restaurant to refresh.',100,220,1000,32);}
+      else{const items=live.content.categories.flatMap(category=>category.dishes.filter(d=>d.complete).map(d=>({dish:d,category:category.name})));const page=items.slice(this.page*3,this.page*3+3);page.forEach(({dish:d,category},i)=>{if(!d.complete)return;const y=170+i*145;this.text(d.name.slice(0,52),105,y,30);this.text(`${d.price.currency} ${d.price.amount} · ${category}`.slice(0,75),105,y+30,24);this.wrap(d.description.slice(0,140),105,y+60,1020,24);this.text(d.allergens===null?'Allergen information unavailable':d.allergens.length?`Contains: ${d.allergens.join(', ')}`:'No allergens declared by restaurant',105,y+118,21);});this.button('Previous',100,598,240,46,()=>{this.page--;},this.page===0);this.button('Next',900,598,240,46,()=>{this.page++;},(this.page+1)*3>=items.length);}
     }else if(this.screen==='title'){
-      this.heading('PeekaPlate');this.brandLogo();this.text('PeekaPlate',505,238,76);this.text('Night Market 2049',445,302,36);
+      this.heading('PeekaPlate');this.text('Night Market 2049',300,250,68);
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
-      this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text('3 districts · 7 restaurants · 28 little discoveries',342,635,28);
+      this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text(connectionStatus,300,635,25);
     }else if(this.screen==='codeEntry'){
       this.heading('Continue with Market code');this.text((this.code.padEnd(18,'_').match(/.{6}/g)??[]).join(' - '),300,211,43);
       [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<18)this.code+=ch;}));
