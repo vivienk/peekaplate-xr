@@ -1,6 +1,28 @@
 import { z } from 'zod';
 import { PublicMenuResponseSchema, PublicMenuDeliverySchema, verifyPublicMenuContentBytes } from './contracts.js';
 
+export const RestaurantSlug = z.string()
+  .regex(/^[a-z0-9](?:[a-z0-9_-]{0,62}[a-z0-9])?$/)
+  .refine(slug => !['diner', 'owner', 'venues', 'assets', 'api', 'auth', 'constructor'].includes(slug));
+
+/** Resolve the current published menu each time, while retaining the venue identity. */
+export async function loadRestaurantMenu(origin: string, entry: {venueId: string; menuId: string; slug?: string}, fetcher = fetch) {
+  let menuId = entry.menuId;
+  if (entry.slug) {
+    const base = new URL(origin);
+    if (base.protocol !== 'https:' || base.username || base.password || base.pathname !== '/' || base.search || base.hash) throw new Error('Configure an HTTPS API origin.');
+    const slug = RestaurantSlug.parse(entry.slug);
+    const response = await fetcher(`${base.origin}/public/restaurants/${slug}`, {
+      credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(15000),
+    });
+    if (!response.ok) throw new Error('Restaurant link unavailable.');
+    const scope = z.strictObject({venueId: z.uuid(), menuId: z.uuid()}).parse(await response.json());
+    if (scope.venueId !== entry.venueId) throw new Error('Restaurant identity mismatch.');
+    menuId = scope.menuId;
+  }
+  return loadPublishedMenu(origin, `/venues/${entry.venueId}/menus/${menuId}`, fetcher);
+}
+
 export function menuScope(path: string) {
   const match = /^\/venues\/([^/]+)\/menus\/([^/]+)\/?$/.exec(path);
   if (!match) throw new Error('Open a published menu link: /venues/{venueId}/menus/{menuId}');

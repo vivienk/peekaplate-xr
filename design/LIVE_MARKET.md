@@ -60,3 +60,19 @@ Game verification: typecheck PASS; 78 tests PASS with a single worker and 30s
 per-test timeout after two asset checks exceeded 5s under machine load. Browser
 Ember placement/menu and synthetic discovery/update/withdrawal PASS. Physical
 Quest interaction and real published restaurant acceptance remain untested.
+
+## Stable restaurant-link preparation (November 16)
+
+Registry entries now accept an optional `slug` from a verified PeekaPlate
+`/diner/{slug}` link. With discovery disabled and the resolved venue/menu IDs
+configured, each refresh and menu opening resolves the slug again, then verifies
+the publication. This follows replacement menus without changing the shop's
+venue or location. A withdrawn link or a slug reassigned to a different venue
+fails closed. This route does not require the pending directory endpoint.
+
+Ember & Stone is not activated through this route yet: the current repository
+still identifies it as a synthetic fixture, and the configured staging API
+returned 404 for `/public/restaurants/ember_stone` and `/public/restaurants`.
+The requested published menu link is needed to verify its actual venue, API
+origin and publication before replacing the demo. No venue IDs were inferred
+from the fixture, and no publication was created.
