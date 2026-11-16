@@ -25,6 +25,12 @@ export class GlimmerSystem extends createSystem({}) {
   private dragX=0;private dragY=0;
   init(){
     this.app=new GlimmerApp();this.app.refreshPublished();
+    // Make the game surface an explicit keyboard target in embedded browsers.
+    const surface=this.world.renderer.domElement, previousTabIndex=surface.getAttribute('tabindex');
+    surface.tabIndex=0;
+    const focusGame=()=>surface.focus({preventScroll:true});
+    surface.addEventListener('pointerdown',focusGame);
+    this.cleanupFuncs.push(()=>{surface.removeEventListener('pointerdown',focusGame);if(previousTabIndex===null)surface.removeAttribute('tabindex');else surface.setAttribute('tabindex',previousTabIndex);});
     this.browserGamepad=new BrowserGamepad(this.app);
     const fit=()=>{if(this.world.visibilityState.peek()!==VisibilityState.NonImmersive)return;const camera=this.world.camera;const aspect=window.innerWidth/window.innerHeight;const distance=Math.max(2.025/2,3.6/(2*aspect))/Math.tan(camera.fov*Math.PI/360)*1.04;camera.position.set(0,1.65,distance-2.8);camera.lookAt(0,1.65,-2.8);camera.updateProjectionMatrix();};
     window.addEventListener('resize',fit);fit();this.cleanupFuncs.push(()=>window.removeEventListener('resize',fit),this.world.visibilityState.subscribe(()=>fit()));

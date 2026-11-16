@@ -17,3 +17,11 @@ Validation: typecheck; 83 tests with one worker and 30s timeout; browser regress
 shows menu -> held E remains menu -> distinct E selects dish. Separate browser
 checks exercise E/open/Escape for NPC, ad, cat, original restaurant and Ember &
 Stone. This reproduces an accidental dismissal, not a confirmed full-scene freeze.
+
+Real browser input exposed a separate focus condition: events did not reach the
+runtime while its document was unfocused. Synthetic dispatch bypassed this.
+The WebGL canvas now has an explicit tab stop and takes keyboard focus on pointer
+down; cleanup restores the prior setting. The real-keyboard regression brings
+the game forward, clicks its canvas, verifies canvas focus, then uses browser
+E/Escape presses across all five interaction categories. It waits for the ad's
+intentional intro animation. All five open, render buttons and return to explore.
