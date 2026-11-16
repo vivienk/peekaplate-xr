@@ -1,4 +1,4 @@
-# Glimmer Plate pipeline — 2026-11-15
+# PeekaPlate pipeline — 2026-11-15
 
 | Phase | Status | Evidence |
 |---|---|---|

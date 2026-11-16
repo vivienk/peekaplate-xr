@@ -31,7 +31,7 @@ export class GlimmerSystem extends createSystem({}) {
 
     this.texture=new CanvasTexture(this.app.canvas);this.texture.colorSpace=SRGBColorSpace;this.texture.magFilter=NearestFilter;this.texture.minFilter=NearestFilter;this.texture.generateMipmaps=false;
     const board=new Mesh(new PlaneGeometry(3.6,2.025),new MeshBasicMaterial({map:this.texture,toneMapped:false}));
-    board.name='Glimmer Market Screen';board.position.set(0,1.65,-2.8);
+    board.name='PeekaPlate Market Screen';board.position.set(0,1.65,-2.8);
     const boardEntity=this.world.createTransformEntity(board);boardEntity.addComponent(RayInteractable);
     type Hit={uv?:{x:number;y:number};pointerId?:number;nativeEvent?:{pointerType?:string}};
     const down=(event:Hit)=>{if(!event.uv)return;const x=event.uv.x*1280,y=(1-event.uv.y)*720;if(event.nativeEvent?.pointerType==='touch'){this.touches.set(event.pointerId??0,{x,y});if(this.app.screen==='explore'&&x<512&&y>80&&y<640&&!this.app.buttons.some(b=>x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h)){this.touchStick=event.pointerId??0;this.touchStartX=x;this.touchStartY=y;this.app.unlockAudio();return;}if(this.touches.size===2){const points=[...this.touches.values()];this.pinchDistance=Math.hypot(points[0].x-points[1].x,points[0].y-points[1].y);}}this.app.pointerDown(x,y);this.pointerStart={x:event.uv.x*1280,y:(1-event.uv.y)*720};this.dragX=this.pointerStart.x;this.dragY=this.pointerStart.y;this.dragging=false;this.app.unlockAudio();};

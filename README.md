@@ -1,4 +1,4 @@
-# Glimmer Plate: Neon Rain Market — Meta Quest
+# PeekaPlate: Neon Rain Market — Meta Quest
 
 A browser/WebXR rebuild of the supplied Nimble Fox game design using Meta IWSDK. The original pixel-art market is a stationary spatial screen; dishes and fulfilled orders are native 3D holograms in front of it. This is a seated viewing adaptation, not a first-person reconstruction of the buildings.
 

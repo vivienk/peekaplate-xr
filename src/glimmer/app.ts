@@ -67,7 +67,7 @@ export class GlimmerApp {
     this.overlay.width=1280;this.overlay.height=720;this.context=this.overlay.getContext('2d')!;this.output=this.canvas.getContext('2d')!;
     this.market=new MarketWorld({onInteract:id=>this.interact(id),onTravel:id=>{this.result(travel(this.state,id as DistrictId));this.musicForDistrict();this.onOrderReady();if(this.pendingFocusPause){this.pendingFocusPause=false;this.pauseReturn='explore';this.setScreen('pause');}},onSound:id=>this.sound(id)});
     window.addEventListener('keydown',this.keyHandler);window.addEventListener('blur',this.blurHandler);
-    this.accessible.setAttribute('aria-label','Glimmer Plate controls');
+    this.accessible.setAttribute('aria-label','PeekaPlate controls');
     this.accessible.style.cssText='position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden';document.body.append(this.accessible);
     for(const [family,path] of [['Jersey','jersey-20/Jersey20-Regular.ttf'],['JerseyTitle','jersey-10/Jersey10-Regular.ttf']]){
       const font=new FontFace(family,`url(${base}assets/ui/fonts/${path})`);void font.load().then(f=>{document.fonts.add(f);this.uiDirty=true;}).catch(()=>{});
@@ -236,7 +236,7 @@ export class GlimmerApp {
       this.button('Enter VR',1090,16,165,45,()=>this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
-      this.heading('Glimmer Plate');this.text('NEON RAIN MARKET',330,235,65);this.text('Wander. Discover. Taste the night.',350,292,36);
+      this.heading('PeekaPlate');this.text('NEON RAIN MARKET',330,235,65);this.text('Wander. Discover. Taste the night.',350,292,36);
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text('3 districts · 7 restaurants · 28 little discoveries',342,635,28);
@@ -268,7 +268,7 @@ export class GlimmerApp {
       this.heading(this.screen==='confirm'?'Place this demo order?':'Restart market?');this.wrap(this.screen==='confirm'?'Nothing is paid or sent. Your dishes will appear as holograms at the portal table.':'This clears this visit. Write down your Market code first if you want to return.',170,260,900,36);
       this.button(this.screen==='confirm'?'Place order':'Restart market',250,450,780,65,()=>{if(this.screen==='confirm'){const ticket=placeOrder(this.state);if(ticket){this.onOrderReady();this.sound('sfx-order-place');this.setScreen('ticket');}}else{this.state=createState();this.onOrderReady();this.market.setDistrict('d1-rain-alley');this.sync();this.setScreen('title');}});
     }else if(this.screen==='ticket'){
-      const t=this.state.ticket!;this.heading(`Order ticket · ${t.number}`);this.text(t.code,300,235,65);this.text(`${t.lines.length} dishes · Holograms ready in 8 seconds`,225,303,32);this.wrap('Use this code to open your order in the Glimmer Plate XR table.',200,370,850,32);this.text('Demo order: nothing is charged or sent.',240,470,33);this.button('Done',350,550,580,60,()=>this.close());
+      const t=this.state.ticket!;this.heading(`Order ticket · ${t.number}`);this.text(t.code,300,235,65);this.text(`${t.lines.length} dishes · Holograms ready in 8 seconds`,225,303,32);this.wrap('Use this code to open your order in the PeekaPlate XR table.',200,370,850,32);this.text('Demo order: nothing is charged or sent.',240,470,33);this.button('Done',350,550,580,60,()=>this.close());
     }else if(this.screen==='passport'||this.screen==='map'){
       this.heading(this.screen==='passport'?'Market Passport':'Market Map');const district=districts[this.page%3];
       districts.forEach((d,i)=>this.button(d.name,100+i*355,151,335,52,()=>{this.page=i;}));

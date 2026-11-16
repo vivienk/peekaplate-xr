@@ -127,7 +127,7 @@ export class MarketWorld {
     // The delivered 1920×1080 world targets use a 480×270 source view at ×4.
     this.canvas.width = 480; this.canvas.height = 270;
     this.canvas.style.imageRendering = 'pixelated';
-    this.canvas.setAttribute('aria-label', 'Glimmer Plate market. Walk with WASD or arrows; E interacts. Click to walk.');
+    this.canvas.setAttribute('aria-label', 'PeekaPlate market. Walk with WASD or arrows; E interacts. Click to walk.');
     this.ctx = this.canvas.getContext('2d')!;
     window.addEventListener('keydown', this.keyDown);
     window.addEventListener('keyup', this.keyUp);
