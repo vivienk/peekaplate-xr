@@ -55,8 +55,8 @@ export function renderReference(a:GlimmerApp):boolean {
    const o=a.market.focusDetails;
    if(o){
      const f=finds.find(f=>f.id===o.id),r=restaurants.find(r=>r.id===o.id);
-     const label=r?.name??(o.kind==='find-holo'?'Holo ad':f?.label.replace(/^Chat with /,''))??({'order-portal':'Order Portal',kiosk:'PeekaPlate Kiosk',gate:'Market Gate'} as Record<string,string>)[o.kind]??o.label??'Look';
-     const verb=({'restaurant':'Open menu','find-person':'Talk','find-cat':'Greet','find-holo':'Scan','order-portal':'Order',kiosk:'Use kiosk',bench:'Sit','find-puddle':'Look closer','find-wish':'Hang a wish','find-bottle':'Read the note'} as Record<string,string>)[o.kind]??'Look';
+     const label=r?.name??(o.kind==='find-holo'?'Vendor special':f?.label.replace(/^Chat with /,''))??({'order-portal':'Order Portal',kiosk:'PeekaPlate Kiosk',gate:'Market Gate',vending:'Vending machine'} as Record<string,string>)[o.kind]??o.label??'Look';
+     const verb=({vending:'Use machine','restaurant':'Open menu','find-person':'Talk','find-cat':'Greet','find-holo':'Scan','order-portal':'Order',kiosk:'Use kiosk',bench:'Sit','find-puddle':'Look closer','find-wish':'Hang a wish','find-bottle':'Read the note'} as Record<string,string>)[o.kind]??'Look';
      c.font='32px Jersey';const w=Math.max(140,Math.min(380,c.measureText(label).width+40));
      const x=Math.max(110,Math.min(970-w,o.screenX-w/2)),y=Math.max(112,Math.min(460,o.screenY-(o.kind==='gate'?440:220)));
      a.rect(x,y,w,70);a.text(label,x+20,y+46,32);
@@ -75,7 +75,7 @@ export function renderReference(a:GlimmerApp):boolean {
    c.fillStyle=holo?'#1f2453':'#e2cfa6';c.fillRect(x+28,y+24,114,140);
    if(holo)icon('holo',x+47,y+60,76,'#2ee6ff');
    else if(a.dialoguePortrait)a.spriteImage(a.dialoguePortrait,x+50,y+40,a.dialogueKind==='find-cat'?16:24,a.dialogueKind==='find-cat'?16:32,a.dialogueKind==='find-cat'?88:76,a.dialogueKind==='find-cat'?88:116,a.dialogueTyping?2:0);
-   else icon(a.dialogueKind==='find-wish'?'lantern':'book',x+51,y+60,66);
+   else icon(a.dialogueKind==='find-wish'?'lantern':a.dialogueKind==='find-puddle'?'ticket':'book',x+51,y+60,66);
    a.wrap(a.visibleDialogue,x+160,y+52,630,32,holo?'#e9fbff':ink);
    a.patch('assets/ui/prompts/keycap.png',x+w-170,y+h-60,42,44,[16,16,16,24]);a.text(a.gamepadConnected?'A':'E',x+w-159,y+h-27,30);
    a.text('Next',x+w-120,y+h-26,29,holo?'#9ff6ff':ink);icon('chev_right',x+w-56,y+h-52,32,holo?'#9ff6ff':ink);
@@ -111,7 +111,7 @@ export function renderReference(a:GlimmerApp):boolean {
    frame(a.kioskOpen?'PeekaPlate Kiosk':'Controls','book');if(a.kioskOpen)tabs();
    let y=a.kioskOpen?274:198;
    y=a.wrap(a.gamepadConnected?'Left stick / D-pad: walk and select. A / Cross: interact and confirm. B / Circle: back. Menu / Options: pause. X / Square: tray. Y / Triangle: passport. View / Share: map.':'Walk with WASD / arrows or click a destination. E: interact. Escape: pause / back. Tab: passport. O: order tray. M: map. F: tasting list. Quest: left thumbstick to move; point and trigger to select.',185,y,900,30);
-   y=a.wrap('Explore three districts. Open seven restaurant menus to collect stamps. Greet cats, talk to locals, scan holo ads and look into puddles to discover all 28 finds.',185,y+22,900,30);
+   y=a.wrap('Explore three districts. Open seven restaurant menus to collect stamps. Greet cats, talk to locals, scan holo ads and look into puddles for restaurant coupons and other finds.',185,y+22,900,30);
    a.wrap('Finds unlock raincoats and hats. Save favourite dishes to your Tasting List. Write down your Market code to continue another day.',185,y+22,900,30);
    if(!a.kioskOpen)button('Enter Meta Quest VR',185,542,360,54,()=>a.onXR(),'cube');
    a.text('Demo menus only. No payment or real order submission.',185,620,25);return true;
@@ -124,8 +124,8 @@ export function renderReference(a:GlimmerApp):boolean {
    rs.forEach((r,i)=>{const x=240+i*290,on=a.state.stamps.includes(r.id);a.image(on?r.stamp:r.stampEmpty,x,fy,126);a.text(r.name,x-34,fy+150,28);a.text(on?'Stamped':'Not visited yet',x-20,fy+177,25);});
    const fs=finds.filter(f=>f.district===d.district),count=fs.filter(f=>a.state.finds.includes(f.id)).length;
    a.text(`Hidden finds ${count}/${fs.length}`,184,fy+214,30);
-   const categories=[['Cats','find-cat','cat'],['Charms','find-puddle','charm'],['People','find-person','person'],['Holo ads','find-holo','holo'],['Wishes','find-wish','lantern'],['Notes','find-bottle','book']].filter(([,kind])=>fs.some(f=>f.kind===kind));
-   categories.forEach(([label,kind,ico],i)=>{const x=184+(i%2)*460,y=fy+226+Math.floor(i/2)*43;a.text(label,x,y+30,26);fs.filter(f=>f.kind===kind).forEach((f,j)=>{a.rect(x+130+j*42,y,34,34);if(a.state.finds.includes(f.id))icon(ico,x+134+j*42,y+4,26);else a.text('?',x+141+j*42,y+27,26);});});
+   const categories=[['Cats','find-cat','cat'],['Coupons','find-puddle','ticket'],['People','find-person','person'],['Specials','find-holo','holo'],['Wishes','find-wish','lantern'],['Notes','find-bottle','book']].filter(([,kind])=>fs.some(f=>f.kind===kind));
+   categories.forEach(([label,kind,ico],i)=>{const x=184+(i%2)*460,y=fy+226+Math.floor(i/2)*43;a.text(label,x,y+30,26);fs.filter(f=>f.kind===kind).forEach((f,j)=>{a.rect(x+130+j*42,y,34,34);if(a.state.finds.includes(f.id)){icon(f.coupon?'ticket':ico,x+134+j*42,y+4,26);a.hit(f.label,x+130+j*42,y,34,34,()=>a.readFind(f.id));}else a.text('?',x+141+j*42,y+27,26);});});
    if(!a.kioskOpen)button('Market code',838,591,260,44,()=>a.showCode(),'code');return true;
  }
  if(a.screen==='finale'){

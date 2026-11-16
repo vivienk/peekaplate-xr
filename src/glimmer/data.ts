@@ -12,7 +12,7 @@ export type Restaurant = typeof restaurants[number];
 export const dishes = restaurants.flatMap(restaurant => restaurant.dishes.map(dish => ({ ...dish, restaurantId: restaurant.id })) ).map((dish, index) => ({ ...dish, index }));
 export type Dish = typeof dishes[number];
 export const districts = [rainFixture, stepsFixture, pierFixture] as unknown as District[];
-export interface Find { id: string; district: DistrictId; label: string; lines: string[]; pivot: number[]; kind: string }
+export interface Find { coupon?: boolean; id: string; district: DistrictId; label: string; lines: string[]; pivot: number[]; kind: string }
 export const finds: Find[] = [
   {
     "id": "cat-1",
@@ -392,3 +392,17 @@ export const headwear = ['Hood', 'Bucket hat', 'Cat beanie', "Sou'wester"] as co
 export const colourThresholds = [0, 0, 0, 0, 4, 12, 20, 24] as const;
 export const headwearThresholds = [0, 0, 8, 16] as const;
 export const assetUrl = (path: string): string => `${import.meta.env.BASE_URL}glimmer/${path}`;
+
+// PeekaPlate market offers retain original discovery IDs and save-code ordering.
+const specialVendors = [[0],[1],[2],[3,4],[5,6]];
+finds.filter(f=>f.kind==='find-holo').forEach((f,i)=>{
+  f.label='Vendor special';
+  f.lines=specialVendors[i].map(index=>{const r=restaurants[index];return `${r.name} · Tonight’s special: ${r.dishes[0].name}. Visit the counter to explore the menu!`;});
+});
+const couponVendors=[0,1,2,3,4,5];
+finds.filter(f=>f.kind==='find-puddle').forEach((f,i)=>{
+  if(i>=couponVendors.length)return;
+  const r=restaurants[couponVendors[i]];
+  f.coupon=true;f.label=`${r.name} coupon`;
+  f.lines=[`${r.name}: a rain-night coupon for ${r.dishes[0].name}!`, 'Demo collectible — not redeemable for a real purchase. Keep it in your Passport and visit the restaurant to view the dish.'];
+});

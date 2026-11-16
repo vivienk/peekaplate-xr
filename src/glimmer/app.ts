@@ -98,8 +98,8 @@ export class GlimmerApp {
     const restaurant=restaurants.find(r=>r.id===id);
     if(restaurant){this.restaurant=restaurant;const result=awardStamp(this.state,id);this.deferReward(result);this.setScreen('menu');return;}
     const find=finds.find(f=>f.id===id&&f.district===this.state.district);
-    if(find){const reward=collectFind(this.state,id);if(find.kind==='find-puddle'){this.result(reward);if(reward.changed)this.sound('sfx-find');return;}this.deferReward(reward);
-      this.dialogueKind=find.kind;this.title=find.kind==='find-holo'?'Holo ad':find.label.replace(/^Chat with /,'');
+    if(find){const reward=collectFind(this.state,id);if(find.kind==='find-puddle'&&!find.coupon){this.result(reward);if(reward.changed)this.sound('sfx-find');return;}this.deferReward(reward);
+      this.dialogueKind=find.kind;this.title=find.kind==='find-holo'?'Vendor special':find.label.replace(/^Chat with /,'');
       const object=this.market.objects.find(o=>o.id===id);
       this.dialoguePortrait=find.kind==='find-cat'?object?.sprite_file??'':find.kind==='find-person'?`assets/characters/${object?.asset.match(/npc-street-[a-z]+/)?.[0]}.png`:'';
       this.dialogue=find.lines;this.dialogueIndex=this.talked.has(id)?find.lines.length-1:0;this.dialogueElapsed=find.kind==='find-holo'?-.4:0;this.dialogueBlip=0;this.talked.add(id);
@@ -128,6 +128,8 @@ export class GlimmerApp {
     this.setScreen('explore');this.checkFinale=true;
   }
 
+  brandLogo(){const path='/branding/peekaplate-logo.png';let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>this.invalidate();img.src=import.meta.env.BASE_URL+'branding/peekaplate-logo.png';this.images.set(path,img);}if(img.complete&&img.naturalWidth){this.context.save();this.context.imageSmoothingEnabled=true;this.context.drawImage(img,365,158,100,100);this.context.restore();}}
+  readFind(id:string){const f=finds.find(f=>f.id===id);if(!f||!this.state.finds.includes(id))return;this.dialogueKind=f.kind;this.dialoguePortrait='';this.title=f.label;this.dialogue=f.lines;this.dialogueIndex=0;this.dialogueElapsed=0;this.openPanel('dialogue');}
   showDish(id:string,from:Screen='menu'){this.selectedDish=dishes.find(d=>d.id===id)!;this.returnFromDish=from;this.setScreen('dish');}
   showCode(){this.codeReturn=this.screen;this.setScreen('code');}
   resetPortal(){this.portalYaw=Math.PI/6;this.portalPitch=Math.PI/6;this.portalZoom=1;this.portalIdle=0;}
@@ -236,7 +238,7 @@ export class GlimmerApp {
       this.button('Enter VR',1090,16,165,45,()=>this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
-      this.heading('PeekaPlate');this.text('NEON RAIN MARKET',330,235,65);this.text('Wander. Discover. Taste the night.',350,292,36);
+      this.heading('PeekaPlate');this.brandLogo();this.text('PeekaPlate',505,238,76);this.text('Night Market 2049',445,302,36);
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text('3 districts · 7 restaurants · 28 little discoveries',342,635,28);
