@@ -1,3 +1,4 @@
+import { renderReference } from './reference-ui';
 import { GlimmerAudio } from './audio';
 import { defaultFocus, directionalFocus } from './gamepad';
 import { MarketWorld } from './market';
@@ -14,6 +15,9 @@ export class GlimmerApp {
   private overlay=document.createElement('canvas');
   private output:CanvasRenderingContext2D;
   private uiDirty=true;
+  private screenAge=1;
+  private pressedIndex=-1;
+  finaleDistrict:string|null=null;
   market:MarketWorld;
   state=createState();
   screen:Screen='title';
@@ -24,6 +28,11 @@ export class GlimmerApp {
   code='';
   dialogue:string[]=[];
   dialogueIndex=0;
+  dialogueKind='';dialoguePortrait='';dialogueElapsed=0;private dialogueBlip=0;
+  kioskOpen=false;
+  private panelReturn=new Map<Screen,Screen>();
+  private deferredRewards:RuleResult[]=[];
+  private checkFinale=false;
   title='';
   toast=''; toastTime=0;
   reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,11 +44,14 @@ export class GlimmerApp {
   private returnFromDish:Screen='menu';
   private codeReturn:Screen='passport';
   private wardrobeReturn:Screen='guide';
+  get wardrobeInPortal(){return !this.kioskOpen&&this.wardrobeReturn==='order';}
+  private get paused(){const parent=this.screen==='code'?this.codeReturn:this.screen==='dish'?this.returnFromDish:this.screen;return this.screen==='pause'||this.screen==='restart'||parent==='pause'||this.panelReturn.get(parent)==='pause';}
   private pendingFocusPause=false;
   private talked=new Set<string>();
   private pauseReturn:Screen='explore';
   private queue:string[]=[];
   private images=new Map<string,HTMLImageElement>();
+  private iconCache=new Map<string,HTMLCanvasElement>();
   private audio=new GlimmerAudio();
   musicMuted=false;
   gamepadConnected=false;
@@ -62,15 +74,16 @@ export class GlimmerApp {
     }
   }
   setScreen(screen:Screen){
-    this.uiDirty=true;const wasAR=this.screen==='ar';this.screen=screen;this.page=0;this.keyboardFocus=-1;this.buttons=[];
-    this.market.setEnabled(screen==='explore');this.market.setPaused(screen==='pause'||screen==='restart');
+    this.screenAge=0;this.pressedIndex=-1;this.uiDirty=true;const wasAR=this.screen==='ar';this.screen=screen;this.page=0;this.keyboardFocus=-1;this.buttons=[];
+    this.market.setEnabled(screen==='explore');this.market.setPaused(this.paused);
     if(wasAR&&screen!=='ar')this.onPortal(null);
+    if(screen==='explore'){this.kioskOpen=false;for(const reward of this.deferredRewards){if(reward.changed)this.sound(reward.message.startsWith('Stamp')?'sfx-stamp':'sfx-find');this.result(reward);}this.deferredRewards=[];}
     if(screen==='ar'){this.resetPortal();this.modelError='';this.onPortal(this.selectedDish.id);this.sound('sfx-portal-open');}
 
     console.info(`[GLIMMER] screen=${screen} stamps=${this.state.stamps.length} finds=${this.state.finds.length}`);
   }
   start(restored=false){
-    if(!restored)this.state=createState();this.onOrderReady();this.talked.clear();this.queue=[];this.toastTime=0;
+    if(!restored)this.state=createState();this.panelReturn.clear();this.checkFinale=false;this.deferredRewards=[];this.onOrderReady();this.talked.clear();this.queue=[];this.toastTime=0;
     this.market.setDistrict('d1-rain-alley');this.sync();this.setScreen('explore');
     this.market.startEntry();this.musicForDistrict();this.notify(this.gamepadConnected?'Left stick: walk · A / Cross: interact · Menu / Options: controls':restored?'Welcome back!':'Walk with WASD / arrows. Point and click to walk. E to interact.');
   }
@@ -83,18 +96,27 @@ export class GlimmerApp {
   interact(id:string){
     if(this.screen!=='explore')return;
     const restaurant=restaurants.find(r=>r.id===id);
-    if(restaurant){this.restaurant=restaurant;const result=awardStamp(this.state,id);this.result(result);if(result.changed)this.sound('sfx-stamp');this.setScreen('menu');return;}
+    if(restaurant){this.restaurant=restaurant;const result=awardStamp(this.state,id);this.deferReward(result);this.setScreen('menu');return;}
     const find=finds.find(f=>f.id===id&&f.district===this.state.district);
-    if(find){this.result(collectFind(this.state,id));this.sound(find.kind==='find-cat'?'sfx-cat-purr':'sfx-find');if(find.kind==='find-puddle')return;this.title=find.label;this.dialogue=find.lines;this.dialogueIndex=this.talked.has(id)?find.lines.length-1:0;this.talked.add(id);this.setScreen('dialogue');return;}
+    if(find){const reward=collectFind(this.state,id);if(find.kind==='find-puddle'){this.result(reward);if(reward.changed)this.sound('sfx-find');return;}this.deferReward(reward);
+      this.dialogueKind=find.kind;this.title=find.kind==='find-holo'?'Holo ad':find.label.replace(/^Chat with /,'');
+      const object=this.market.objects.find(o=>o.id===id);
+      this.dialoguePortrait=find.kind==='find-cat'?object?.sprite_file??'':find.kind==='find-person'?`assets/characters/${object?.asset.match(/npc-street-[a-z]+/)?.[0]}.png`:'';
+      this.dialogue=find.lines;this.dialogueIndex=this.talked.has(id)?find.lines.length-1:0;this.dialogueElapsed=find.kind==='find-holo'?-.4:0;this.dialogueBlip=0;this.talked.add(id);
+      if(find.kind==='find-cat'){this.sound('sfx-cat-mrrp');this.sound('sfx-cat-purr');}else if(find.kind==='find-holo')this.sound('sfx-holo-glitch');else if(find.kind==='find-wish')this.sound('sfx-wish-tag');else if(find.kind==='find-bottle')this.sound('sfx-bottle');
+      this.setScreen('dialogue');return;}
     const obj=districts.find(d=>d.district===this.state.district)?.objects.find(o=>o.id===id);
     if(obj?.kind==='order-portal'){this.setScreen('order');return;}
-    if(obj?.kind==='kiosk'){this.setScreen('guide');return;}
+    if(obj?.kind==='kiosk'){this.kioskOpen=true;this.wardrobeReturn='explore';this.setScreen('wardrobe');return;}
     if(obj?.kind==='bench'){this.market.setSeated(true);this.notify('A quiet moment in the rain. Move to stand.');return;}
+    this.dialogueKind='';this.dialoguePortrait='';this.dialogueElapsed=0;
     this.title=String(obj?.label??(obj?.kind==='vending'?'Vending machine':'Market sign'));
-    this.dialogue=[obj?.kind==='vending'?'A cold can clinks into the tray. Stay dry out there!':this.title.includes('Lantern')?'This way to Lantern Steps: tea stalls and grills up the stone stairs.':this.title.includes('Fogline')?'This way to Fogline Pier: chowder and sushi by the bay.':'Back to Rain Alley, where the market began.'];this.dialogueIndex=0;this.setScreen('dialogue');
+    this.dialogue=[obj?.kind==='gate'?'The PeekaPlate gate. The market stays open all night.':obj?.kind==='vending'?'A cold can clinks into the tray. Stay dry out there!':this.title.includes('Lantern')?'This way to Lantern Steps: tea stalls and grills up the stone stairs.':this.title.includes('Fogline')?'This way to Fogline Pier: chowder and sushi by the bay.':'Back to Rain Alley, where the market began.'];this.dialogueIndex=0;this.setScreen('dialogue');
   }
   close(){
     if(this.screen==='title')return;
+    if(this.kioskOpen&&['wardrobe','guide','passport'].includes(this.screen)){this.kioskOpen=false;this.setScreen('explore');return;}
+    const back=this.panelReturn.get(this.screen);if(back){this.panelReturn.delete(this.screen);this.setScreen(back);return;}
     if(this.screen==='wardrobe'){this.setScreen(this.wardrobeReturn);return;}
     if(this.screen==='ar'){this.setScreen('dish');return;}
     if(this.screen==='dish'){this.setScreen(this.returnFromDish);return;}
@@ -103,22 +125,23 @@ export class GlimmerApp {
     if(this.screen==='confirm'){this.setScreen('order');return;}
     if(this.screen==='restart'){this.setScreen('pause');return;}
     if(this.screen==='pause'){this.setScreen(this.pauseReturn);return;}
-    this.setScreen('explore');const finale=nextFinale(this.state);
-    if(finale){this.market.triggerFinale(finale.kind==='grand');this.title=finale.kind==='grand'?'The whole market, in your passport!':`${districts.find(d=>d.district===finale.district)?.name} complete!`;this.setScreen('finale');this.sound(finale.kind==='grand'?'sfx-grand-finale':'sfx-finale');}
+    this.setScreen('explore');this.checkFinale=true;
   }
+
   showDish(id:string,from:Screen='menu'){this.selectedDish=dishes.find(d=>d.id===id)!;this.returnFromDish=from;this.setScreen('dish');}
   showCode(){this.codeReturn=this.screen;this.setScreen('code');}
   resetPortal(){this.portalYaw=Math.PI/6;this.portalPitch=Math.PI/6;this.portalZoom=1;this.portalIdle=0;}
   rotate(dx:number,dy=0){this.portalYaw+=dx;this.portalPitch=Math.max(Math.PI/18,Math.min(Math.PI*7/18,this.portalPitch+dy));this.portalIdle=3;}
   zoom(delta:number){this.portalZoom=Math.max(.7,Math.min(1.6,this.portalZoom+delta));}
   nextDish(delta:number){const list=dishes.filter(d=>d.restaurantId===this.selectedDish.restaurantId);this.selectedDish=list[(list.findIndex(d=>d.id===this.selectedDish.id)+delta+list.length)%list.length];this.resetPortal();this.onPortal(this.selectedDish.id);}
-  key(e:KeyboardEvent){this.uiDirty=true;
+  key(e:KeyboardEvent){if(e.defaultPrevented)return;this.uiDirty=true;
     if(e.metaKey||e.ctrlKey||e.altKey)return;
     if(this.screen==='codeEntry'){
       if(e.key==='Backspace'){e.preventDefault();this.code=this.code.slice(0,-1);return;}
       if(e.key==='Enter'){if(this.code.length===18)this.restore();return;}
       if(e.key.length===1&&CODE_ALPHABET.includes(normalizeCode(e.key))){e.preventDefault();if(this.code.length<18)this.code+=normalizeCode(e.key);return;}
     }
+    if(this.screen==='dialogue'&&['e','Enter',' '].includes(e.key)){e.preventDefault();this.advanceDialogue();this.unlockAudio();return;}
     if(e.key==='Escape'){e.preventDefault();if(this.screen==='explore'){this.pauseReturn='explore';this.setScreen('pause');}else this.close();return;}
     if(this.screen==='ar'){
       const actions:Record<string,()=>void>={ArrowLeft:()=>this.rotate(-Math.PI/4),ArrowRight:()=>this.rotate(Math.PI/4),ArrowUp:()=>this.rotate(0,Math.PI/18),ArrowDown:()=>this.rotate(0,-Math.PI/18),r:()=>this.resetPortal(),'+':()=>this.zoom(-.1),'=':()=>this.zoom(-.1),'-':()=>this.zoom(.1)};
@@ -140,37 +163,74 @@ export class GlimmerApp {
   gamepadFocus(dx:number,dy:number){this.keyboardFocus=directionalFocus(this.buttons,this.keyboardFocus,dx,dy);}
   gamepadSelect(){const index=this.keyboardFocus<0?defaultFocus(this.buttons):this.keyboardFocus;const button=this.buttons[index];if(button&&!button.disabled){this.sound('sfx-ui-select');button.action();}}
   gamepadDelete(){this.code=this.code.slice(0,-1);this.uiDirty=true;}
+  invalidate(){this.uiDirty=true;}
+  openPanel(screen:Screen){this.panelReturn.set(screen,this.screen);this.setScreen(screen);}
+  toggleSound(){this.muted=!this.muted;this.audio.setSoundMuted(this.muted);this.invalidate();}
+  toggleMusic(){this.musicMuted=!this.musicMuted;this.audio.setMusicMuted(this.musicMuted);this.invalidate();}
+  toggleMotion(){this.reducedMotion=!this.reducedMotion;this.market.reducedMotion=this.reducedMotion;this.invalidate();}
+  private deferReward(result:RuleResult){if(result.changed)this.deferredRewards.push(result);this.uiDirty=true;}
+  get dialogueTyping(){return this.dialogueElapsed*40<(this.dialogue[this.dialogueIndex]?.length??0);}
+  get visibleDialogue(){return (this.dialogue[this.dialogueIndex]??'').slice(0,Math.max(0,Math.floor(this.dialogueElapsed*40)));}
+  advanceDialogue(){if(this.dialogueTyping){this.dialogueElapsed=100;this.invalidate();return;}if(this.dialogueIndex<this.dialogue.length-1){this.dialogueIndex++;this.dialogueElapsed=0;this.dialogueBlip=0;this.invalidate();}else this.close();}
+  hit(label:string,x:number,y:number,w:number,h:number,action:()=>void){this.buttons.push({label,x,y,w,h,disabled:false,action:()=>{this.invalidate();action();}});}
+  icon(name:string,x:number,y:number,size=32,color=ink){
+    const path=`assets/ui/icons/icon_${name}.png`,key=path+color;let canvas=this.iconCache.get(key);
+    if(!canvas){let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>this.invalidate();img.src=base+path;this.images.set(path,img);}if(!img.complete||!img.naturalWidth)return;
+      canvas=document.createElement('canvas');canvas.width=img.width;canvas.height=img.height;const c=canvas.getContext('2d')!;c.drawImage(img,0,0);c.globalCompositeOperation='source-in';c.fillStyle=color;c.fillRect(0,0,canvas.width,canvas.height);this.iconCache.set(key,canvas);
+    }this.context.drawImage(canvas,x,y,size,size);
+  }
+  titleText(s:string,x:number,y:number,size=48,color=ink){this.context.fillStyle=color;this.context.font=`${size}px JerseyTitle, monospace`;this.context.fillText(s,x,y);}
+  spriteImage(path:string,x:number,y:number,fw:number,fh:number,w:number,h:number,frame=0){let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>this.invalidate();img.src=base+path;this.images.set(path,img);}if(img.complete&&img.naturalWidth)this.context.drawImage(img,frame*fw,0,fw,fh,x,y,w,h);}
   private focusIndex=-1;
   get keyboardFocus(){return this.focusIndex;}
   set keyboardFocus(value:number){if(value!==this.focusIndex){this.focusIndex=value;this.uiDirty=true;}}
   restore(){try{this.state=decodeMarketCode(this.code);this.sound('sfx-code-ok');this.start(true);}catch{this.notify("That code doesn't match. Check each character and try again.");this.sound('sfx-code-bad');}}
-  pointer(x:number,y:number){this.unlockAudio();for(let i=this.buttons.length-1;i>=0;i--){const b=this.buttons[i];if(x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h){if(!b.disabled){this.sound('sfx-ui-select');b.action();}return;}}if(this.screen==='explore')this.market.pointer(x/2,y/2);}
+  pointerDown(x:number,y:number){this.pressedIndex=this.buttons.findIndex(b=>!b.disabled&&x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h);this.invalidate();}
+  pointerUp(){this.pressedIndex=-1;this.invalidate();}
+  pointer(x:number,y:number){this.unlockAudio();for(let i=this.buttons.length-1;i>=0;i--){const b=this.buttons[i];if(x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h){if(!b.disabled){this.sound('sfx-ui-select');b.action();}return;}}if(this.screen==='explore')this.market.pointer(x*this.market.canvas.width/1280,y*this.market.canvas.height/720);}
   update(dt:number){
-    const paused=this.screen==='pause'||this.screen==='restart';this.market.update(dt);this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
+    this.screenAge+=dt;
+    if(this.screen==='dialogue'){this.dialogueElapsed+=dt;const blip=Math.floor(Math.min(this.dialogueElapsed*40,this.dialogue[this.dialogueIndex]?.length??0)/3);if(this.dialogueTyping&&blip>this.dialogueBlip){this.sound(`sfx-talk-blip-${blip%3+1}`);this.dialogueBlip=blip;}this.market.setTalking(this.dialogueTyping);this.uiDirty=true;}else this.market.setTalking(false);
+    if(this.screen==='explore')this.uiDirty=true;
+    const paused=this.paused;this.market.update(dt);this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
     const ready=advanceTime(this.state,dt,paused);if(ready.changed){this.result(ready);this.sound('sfx-order-ready');this.onOrderReady();}
-    if(!paused){const hadToast=this.toastTime>0;this.toastTime=Math.max(0,this.toastTime-dt);if(hadToast&&!this.toastTime)this.uiDirty=true;if(!this.toastTime&&this.queue.length)this.notify(this.queue.shift()!);}
+    if(!paused&&this.screen==='explore'){const hadToast=this.toastTime>0;this.toastTime=Math.max(0,this.toastTime-dt);if(hadToast&&!this.toastTime)this.uiDirty=true;if(!this.toastTime&&this.queue.length)this.notify(this.queue.shift()!);}
+    if(this.screen==='explore'&&this.checkFinale&&!this.toastTime&&!this.queue.length){this.checkFinale=false;const finale=nextFinale(this.state);if(finale){this.finaleDistrict=finale.kind==='grand'?null:finale.district??null;this.market.triggerFinale(finale.kind==='grand');this.title=finale.kind==='grand'?'The whole market, in your passport!':`${districts.find(d=>d.district===finale.district)?.name} complete!`;this.setScreen('finale');this.sound(finale.kind==='grand'?'sfx-grand-finale':'sfx-finale');}}
     if(this.screen==='ar'){this.portalIdle=Math.max(0,this.portalIdle-dt);if(!this.reducedMotion&&!this.portalIdle)this.portalYaw+=dt*Math.PI/9;}
     this.render();
   }
-  private text(s:string,x:number,y:number,size=28,color=ink){const c=this.context;c.fillStyle=color;c.font=`${size}px Jersey, monospace`;c.fillText(s,x,y);}
-  private wrap(s:string,x:number,y:number,width:number,size=26){const c=this.context;c.font=`${size}px Jersey, monospace`;let line='';for(const word of s.split(' ')){if(c.measureText(line+word).width>width){this.text(line,x,y,size);y+=size+5;line='';}line+=word+' ';}this.text(line,x,y,size);return y+size+5;}
-  private patch(path:string,x:number,y:number,w:number,h:number,border:[number,number,number,number]):boolean {
+  text(s:string,x:number,y:number,size=28,color=ink){const c=this.context;c.fillStyle=color;c.font=`${size}px Jersey, monospace`;c.fillText(s,x,y);}
+  wrap(s:string,x:number,y:number,width:number,size=26,color=ink){const c=this.context;c.font=`${size}px Jersey, monospace`;let line='';for(const word of s.split(' ')){if(c.measureText(line+word).width>width){this.text(line,x,y,size,color);y+=size+5;line='';}line+=word+' ';}this.text(line,x,y,size,color);return y+size+5;}
+  patch(path:string,x:number,y:number,w:number,h:number,border:[number,number,number,number]):boolean {
     let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>{this.uiDirty=true;};img.src=base+path;this.images.set(path,img);}if(!img.complete||!img.naturalWidth)return false;
     const [l,t,r,b]=border, sx=[0,l,img.width-r,img.width],sy=[0,t,img.height-b,img.height],dx=[x,x+l/2,x+w-r/2,x+w],dy=[y,y+t/2,y+h-b/2,y+h];
     for(let row=0;row<3;row++)for(let col=0;col<3;col++)this.context.drawImage(img,sx[col],sy[row],sx[col+1]-sx[col],sy[row+1]-sy[row],dx[col],dy[row],dx[col+1]-dx[col],dy[row+1]-dy[row]);return true;
   }
-  private rect(x:number,y:number,w:number,h:number,fill=cream){
+  rect(x:number,y:number,w:number,h:number,fill=cream){
     if(fill===cream&&this.patch('assets/ui/panels/panel_cloth.png',x,y,w,h,[24,24,24,32]))return;
     if(fill==='#0f1533'&&this.patch('assets/ui/panels/panel_holo.png',x,y,w,h,[20,20,20,24]))return;
     const c=this.context;c.fillStyle=ink;c.fillRect(x+4,y+6,w,h);c.fillStyle=fill;c.fillRect(x,y,w,h);c.strokeStyle='#80502f';c.lineWidth=3;c.strokeRect(x,y,w,h);
   }
-  private button(label:string,x:number,y:number,w:number,h:number,action:()=>void,disabled=false){const i=this.buttons.length;if(this.gamepadConnected&&this.keyboardFocus<0&&!disabled&&label!=='Back')this.focusIndex=i;if(!this.patch(`assets/ui/buttons/${disabled?'btn_disabled':this.keyboardFocus===i?'btn_primary_hover':'btn_primary'}.png`,x,y,w,h,[20,20,20,disabled?20:24]))this.rect(x,y,w,h,disabled?'#b9ad96':orange);if(this.gamepadConnected&&this.keyboardFocus===i){this.context.strokeStyle=cream;this.context.lineWidth=4;this.context.strokeRect(x+5,y+5,w-10,h-10);}this.text(label,x+12,y+h/2+9,Math.min(27,w/Math.max(1,label.length)*1.65));this.buttons.push({x,y,w,h,label,action:()=>{if(disabled)return;this.uiDirty=true;action();},disabled});}
-  private image(path:string,x:number,y:number,w:number,h=w){let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>{this.uiDirty=true;};img.src=base+path;this.images.set(path,img);}if(img.complete&&img.naturalWidth)this.context.drawImage(img,x,y,w,h);}
-  private heading(title:string){this.context.fillStyle='#05071acc';this.context.fillRect(0,0,1280,720);this.rect(60,42,1160,625);this.rect(76,58,1128,76,'#206776');this.patch(`assets/ui/panels/flap_${this.screen==='title'?'red':'teal'}.png`,76,58,1128,76,[24,16,24,32]);this.text(title,100,109,43,cream);if(this.screen!=='title')this.button('Back',1080,72,100,45,()=>this.close());}
+  button(label:string,x:number,y:number,w:number,h:number,action:()=>void,disabled=false,style='primary',icon='',inset=0){
+    const i=this.buttons.length;if(this.gamepadConnected&&this.keyboardFocus<0&&!disabled&&label!=='Back')this.focusIndex=i;
+    const hovered=this.keyboardFocus===i;const part=disabled?'btn_disabled':this.pressedIndex===i?(style==='primary'?'btn_primary_pressed':'btn_pressed'):style==='selected'?'btn_normal':style==='normal'?(hovered?'btn_hover':'btn_normal'):(hovered?'btn_primary_hover':'btn_primary');
+    if(!this.patch(`assets/ui/buttons/${part}.png`,x,y,w,h,[20,20,20,24]))this.rect(x,y,w,h,disabled?'#b9ad96':style==='normal'?cream:orange);
+    if(style==='selected'&&!disabled){this.context.fillStyle='#ffd56b';this.context.fillRect(x+5,y+5,w-10,h-13);this.patch('assets/ui/buttons/tab_selected_mark.png',x,y,w,h,[16,16,16,20]);}
+    if(hovered)this.patch('assets/ui/buttons/focus_ring.png',x-4,y-4,w+8,h+8,[20,20,20,20]);
+    const iconOnly=['Pause','Back'].includes(label)&&w<100;
+    if(icon)this.icon(icon,x+(iconOnly?(w-32)/2:16),y+(h-32)/2,32,disabled?'#776a56':icon==='heart'?'#f89537':ink);
+    if(!iconOnly){const tx=x+(inset||(icon?54:16));if(disabled&&label.includes(' · ')){const [name,requirement]=label.split(' · ');this.text(name,tx,y+29,Math.min(24,(w-50)/name.length*1.7),'#776a56');this.text(requirement,tx,y+57,24,'#776a56');}else this.text(label,tx,y+h/2+9,Math.min(29,(w-(inset|| (icon?66:32)))/Math.max(1,label.length)*1.8),disabled?'#776a56':ink);}
+    this.buttons.push({x,y,w,h,label,action:()=>{if(disabled)return;this.uiDirty=true;this.sound('sfx-ui-select');action();},disabled});
+  }
+  image(path:string,x:number,y:number,w:number,h=w){let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>{this.uiDirty=true;};img.src=base+path;this.images.set(path,img);}if(img.complete&&img.naturalWidth)this.context.drawImage(img,x,y,w,h);}
+  private heading(title:string){this.context.fillStyle='#05071acc';this.context.fillRect(0,0,1280,720);this.rect(60,42,1160,625);this.patch('assets/ui/panels/rail_wood.png',44,30,1192,18,[24,0,24,0]);this.patch(`assets/ui/panels/flap_${this.screen==='title'?'red':'cream'}.png`,76,58,1128,76,[24,16,24,32]);this.titleText(title,100,109,43,ink);if(this.screen!=='title')this.button('Back',1080,72,100,45,()=>this.close());}
   private add(id:string,delta=1){const r=changeQuantity(this.state,id,delta);this.result(r);this.sound(r.changed?(delta>0?'sfx-order-add':'sfx-order-remove'):'sfx-code-bad');}
+  private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;}
   render(){
-    this.output.imageSmoothingEnabled=false;this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.output.drawImage(this.overlay,0,0);return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
-    if(this.screen==='explore'){
+    this.output.imageSmoothingEnabled=false;this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
+    if(renderReference(this)){
+      // Reference HUD and modal layouts share the existing interaction targets.
+    }else if(this.screen==='explore'){
       this.rect(20,15,400,52,'#101730');this.text(`${districts.find(d=>d.district===this.state.district)?.name}  •  ${this.state.stamps.length}/7 stamps`,35,49,28,cream);
       [['Passport','passport'],['Map','map'],['Tasting List','tasting'],['Order Tray','tray'],['Pause','pause']].forEach(([label,screen],i)=>this.button(label,20+i*175,654,165,45,()=>{this.pauseReturn='explore';this.setScreen(screen as Screen);}));
       this.button('Enter VR',1090,16,165,45,()=>this.onXR());
@@ -245,8 +305,8 @@ export class GlimmerApp {
       this.button('Restart market',120,500,480,55,()=>this.setScreen('restart'));this.button('Return to market',650,500,500,55,()=>this.close());
       this.text('Demo menus only. No payment or real order submission.',155,645,26);
     }
-    if(this.toastTime>0){this.rect(155,8,970,46);this.text(this.toast,175,40,27);}
-    this.output.drawImage(this.overlay,0,0);
+    if(this.toastTime>0&&this.screen==='explore'){const stamp=this.toast.startsWith('Stamp')?restaurants.find(r=>this.toast.endsWith(r.name)):null;this.rect(250,616,780,64);if(stamp)this.image(stamp.stamp,268,599,82);else this.icon('charm',272,634,30);this.text(this.toast,stamp?366:320,658,28);}
+    this.drawOverlay();
     const key=this.buttons.map(b=>b.label+String(b.disabled)).join('|');if(key!==this.accessibleKey){this.accessibleKey=key;this.accessible.replaceChildren(...this.buttons.map(b=>{const el=document.createElement('button');el.textContent=b.label;el.disabled=b.disabled;el.onclick=()=>{this.unlockAudio();b.action();};return el;}));}
   }
   dispose(){window.removeEventListener('keydown',this.keyHandler);window.removeEventListener('blur',this.blurHandler);this.market.dispose();this.audio.dispose();this.accessible.remove();}

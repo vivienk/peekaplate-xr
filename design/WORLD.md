@@ -10,7 +10,7 @@ await world.ready;
 world.update(deltaSeconds);
 ```
 
-- `canvas`: 640×360 source-pixel viewport; use nearest-neighbor display/texture sampling.
+- `canvas`: 480×270 source-pixel viewport, matching the delivered 1920×1080 world targets at ×4; use nearest-neighbor display/texture sampling.
 - `player`: live `{x, y}` in tile coordinates; `district`, `name`, `objects`, `focus`, `isSeated`, `isTravelling` expose readable state.
 - `setDistrict(id, [tileX,tileY]?)`: loads fixture/arrival and clears click path. Default uses district fixture spawn.
 - `setEnabled(boolean)`: gates world input while a menu is open and clears held input. Normal click paths clear; scripted gate entry pauses and resumes safely. World animation continues.
@@ -47,7 +47,7 @@ Travel uses the fixture's four exits, 0.2s fade-out / 1.2s title / 0.2s fade-in,
 This is a renderer implementation, not a claim of fully verified visual parity. Parent integration owns screenshots, input inspection and headset verification.
 
 - Rain Alley and Fogline Pier background tile variation is deterministically selected from original tile sets; only Lantern Steps supplies an exact painted tile-index map. The source art and layout remain intact, but screenshot-level tile placement is not asserted.
-- Camera uses a fixed 640×360 source viewport, smoothed follow, bounds clamp and the source 12px directional look-ahead (disabled for reduced motion). The GDD's responsive integer-scale viewport is not reproduced.
+- Camera uses a fixed 480×270 source viewport, smoothed follow, bounds clamp and the source 12px directional look-ahead (disabled for reduced motion). The GDD's responsive integer-scale viewport is not reproduced.
 - Follow-up implements source tinted glows/reflections, a 10Hz rain-splash pool, puddle ripples and charm fades, find sparkles, finale lantern ceremonies, vending can drop, precise kitchen steam anchors/rates/tints and Thai flame. The optional café fairy-light extension remains omitted (painted fairy lights remain in original storefront art).
 - Ambient variation remains deterministic rather than reproducing the original random sequence. Cat frame periods, 2s greeting/800ms heart, 400ms holo scan, water/fog and kitchen rates now follow source timing; exact inherited-slice cat wake hysteresis was not supplied and uses a 2s nearby timeout. Animation draws continue behind modal overlays; only Pause freezes them.
 - Small prop footprints now use their source rectangle dimensions (plants, crates, barrel, umbrella stand, lamp, cats and all four pier prop variants). Restaurant collision height is simplified over already-solid fixture tiles. Moving walkers block the player and reverse after two seconds blocked; A* paths exclude temporary walkers to avoid permanently unreachable destinations.

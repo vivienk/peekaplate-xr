@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 export default async function ({ page, frame, workspaceRoot }) {
   await page.bringToFront();
   await frame.waitForFunction(() => !!window.glimmer);
+  await frame.evaluate(()=>window.glimmer.setScreen('title'));
   await frame.locator('canvas').first().click({position:{x:10,y:10}});
   await frame.evaluate(() => {
     window.testPad = {index:0,id:'DualSense Wireless Controller (standard test)',connected:true,mapping:'standard',axes:[0,0,0,0],buttons:Array.from({length:17},()=>({pressed:false,value:0,touched:false}))};

@@ -25,6 +25,7 @@ export interface MarketCallbacks {
 interface Walker { x: number; y: number; path: number[][]; target: number; direction: number; wait: number; blocked: number; facing: number; sprite: number; loop: boolean }
 interface Particle { x: number; y: number; age: number; live: boolean }
 interface DrawItem { y: number; object?: MarketObject; walker?: Walker; player?: boolean }
+interface MarketLight { x:number; y:number; groundY:number; tint:keyof typeof tintColors; scale:number; alpha:number }
 const districts = [rainAlley, lanternSteps, foglinePier] as District[];
 const colors = ['yellow', 'cherry', 'teal', 'lavender', 'mint', 'coral', 'midnight', 'peach'];
 const hats = ['hood', 'buckethat', 'catbeanie', 'souwester'];
@@ -99,6 +100,7 @@ export class MarketWorld {
   private drawItems: DrawItem[] = [];
   private groundObjects: MarketObject[] = [];
   private overheadObjects: MarketObject[] = [];
+  private lights: MarketLight[] = [];
   private heldPuddle: string | null = null;
   private puddleTime = 0;
   private travelRemaining = 0;
@@ -122,7 +124,8 @@ export class MarketWorld {
   private readonly blur = () => { this.keys.clear(); this.inputX = this.inputY = 0; };
 
   constructor(private callbacks: MarketCallbacks) {
-    this.canvas.width = 640; this.canvas.height = 360;
+    // The delivered 1920×1080 world targets use a 480×270 source view at ×4.
+    this.canvas.width = 480; this.canvas.height = 270;
     this.canvas.style.imageRendering = 'pixelated';
     this.canvas.setAttribute('aria-label', 'Glimmer Plate market. Walk with WASD or arrows; E interacts. Click to walk.');
     this.ctx = this.canvas.getContext('2d')!;
@@ -138,6 +141,9 @@ export class MarketWorld {
     }))).then(() => { this.loaded = true; this.prepareTints(); this.paintBackground(); this.draw(); });
   }
 
+  private talking=false;
+  setTalking(value:boolean){this.talking=value;}
+  get focusDetails(){const o=this.focusObject;return o?{...o,screenX:(o.pivot[0]*16-this.cameraX)*1280/this.canvas.width,screenY:(o.pivot[1]*16-this.cameraY)*720/this.canvas.height}:null;}
   get focus(): string | null { return this.focusObject?.id ?? null; }
   get objects(): readonly MarketObject[] { return this.map.objects; }
   get isTravelling(): boolean { return this.travelRemaining > 0; }
@@ -187,6 +193,7 @@ export class MarketWorld {
     this.drawItems.push(...walkers.map(walker => ({y: walker.y, walker})), {y: this.player.y * 16, player: true});
     this.groundObjects = next.objects.filter(o => ['decor-puddle','find-puddle'].includes(o.kind));
     this.overheadObjects = next.objects.filter(o => ['overhead','fx-fog'].includes(o.kind));
+    this.prepareLights();
     this.cameraX = clamp(this.player.x * 16 - this.canvas.width / 2, 0, Math.max(0, next.width_tiles * 16 - this.canvas.width));
     this.cameraY = clamp(this.player.y * 16 - this.canvas.height / 2, 0, Math.max(0, next.height_tiles * 16 - this.canvas.height));
     if (this.loaded) this.paintBackground();
@@ -317,6 +324,38 @@ export class MarketWorld {
     const image = this.tinted.get(`${id}:${tint}`); if (!image) return;
     w ??= image.width; h ??= image.height;
     this.ctx.drawImage(image,column * w,0,w,h,Math.round(x - w / 2),Math.round(y - (center ? h / 2 : h)),w,h);
+  }
+
+  private prepareLights():void {
+    this.lights=[];
+    for(const o of this.map.objects){
+      const x=o.pivot[0]*16,y=o.pivot[1]*16;
+      const add=(dx:number,dy:number,tint:MarketLight['tint'],scale=1,alpha=.35)=>this.lights.push({x:x+dx,y:y+dy,groundY:y+22,tint,scale,alpha});
+      if(o.kind==='restaurant'){
+        const key=o.asset.slice(4) as keyof typeof building,b=building[key];
+        const tint=key==='ramen'||key==='ember'?'red':key==='cafe'?'magenta':key==='pearl'?'violet':'cyan';
+        add(b.sign[0],b.sign[1]-16,tint,1.25);add(b.chef[0],b.chef[1]-12,key==='cafe'?'magenta':'gold',1.5,.28);
+      }else if(o.asset==='prop-lamp')add(0,-40,'gold',1.25,.45);
+      else if(o.asset.includes('prop-neon-vertical'))add(0,-24,o.asset.includes('cyan')?'cyan':o.asset.includes('violet')?'violet':'magenta');
+      else if(o.kind==='find-holo')add(0,-24,o.asset.includes('4')?'cyan':o.asset.includes('5')?'gold':'violet',1,.3);
+      else if(o.kind==='order-portal')add(0,-26,'cyan',1.5);
+      else if(o.kind==='kiosk'||o.kind==='vending')add(0,-23,'cyan',.75,.3);
+      else if(o.kind==='gate'){add(-34,-40,'gold',1,.4);add(34,-40,'gold',1,.4);add(0,-60,'magenta',1,.25);}
+      else if(o.asset==='prop-lantern-string'){add(-22,8,'red',.65);add(22,8,'gold',.65);}
+      else if(o.asset==='prop-steps-lantern-arch'){add(-25,10,'red',.8);add(25,10,'red',.8);}
+    }
+  }
+  private drawLights(reflections:boolean):void {
+    const c=this.ctx;c.save();c.globalCompositeOperation='lighter';
+    for(const light of this.lights){
+      const image=this.tinted.get(`${reflections?'fx-glow-reflection':'fx-glow-radial'}:${light.tint}`);if(!image)continue;
+      const shimmer=this.reducedMotion?0:Math.floor(this.clock/.25)%3-1;
+      c.globalAlpha=light.alpha;
+      const w=image.width*light.scale,h=image.height*light.scale;
+      c.drawImage(image,Math.round(light.x-w/2+(reflections?shimmer:0)),Math.round((reflections?light.groundY:light.y)-h/2),w,h);
+      if(reflections){const pool=this.tinted.get(`fx-glow-radial:${light.tint}`);if(pool){c.globalAlpha=light.alpha*.7;c.drawImage(pool,light.x-40,light.groundY-10,80,20);}}
+    }
+    c.restore();
   }
 
   private updatePlayer(dt: number): void {
@@ -489,7 +528,7 @@ export class MarketWorld {
       if (active && this.activeUntil - this.clock > 1.2) { const age = 2 - this.activeUntil + this.clock; this.ctx.globalAlpha = 1 - age / .8; this.sprite(this.file('fx-heart'),x,y - 20 - (this.reducedMotion ? 0 : age * 12.5)); this.ctx.globalAlpha = 1; }
       return;
     }
-    if (o.kind === 'find-person') { const suffix = ({'npc-suzu':'elder','npc-kenta':'seller','npc-rin':'busker'} as Record<string,string>)[o.id] ?? o.id.slice(4); this.sprite(`assets/characters/npc-street-${suffix}.png`,x,y,24,32,(active ? 2 : 0) + Math.floor(t / (active ? .18 : .6)) % 2); return; }
+    if (o.kind === 'find-person') { const suffix = ({'npc-suzu':'elder','npc-kenta':'seller','npc-rin':'busker'} as Record<string,string>)[o.id] ?? o.id.slice(4); this.sprite(`assets/characters/npc-street-${suffix}.png`,x,y,24,32,(this.talking&&this.activeObject===o.id ? 2 : 0) + Math.floor(t / (this.talking&&this.activeObject===o.id ? .18 : .6)) % 2); return; }
     if (o.kind === 'find-holo') { const id = o.asset.match(/holo-ad-\d/)?.[0]; this.sprite(`assets/world/props/${id}.png`,x,y,32,48,active && this.activeUntil - this.clock > 1.6 ? [4,2,4][Math.min(2,Math.floor((2 - this.activeUntil + this.clock) / .08))] : [0,1,0,3][Math.floor(t / .12) % 4]); return; }
     if (o.kind.includes('puddle')) {
       const index = Number(o.asset.match(/prop-puddles#(\d)/)?.[1] ?? 0);
@@ -532,14 +571,7 @@ export class MarketWorld {
     c.save(); c.translate(-Math.round(this.cameraX),-Math.round(this.cameraY)); c.drawImage(this.background,0,0);
     for (const o of this.groundObjects) this.drawObject(o);
     for (const p of this.splashes) if (p.live) this.sprite(this.file('fx-rain-splash'),p.x,p.y,8,4,Math.min(2,Math.floor(p.age / .06)));
-    c.globalCompositeOperation = 'screen';
-    for (const o of this.map.objects) if (o.kind === 'restaurant' || o.asset.includes('lamp') || o.kind === 'wall-sign' || o.kind === 'find-holo' || o.kind === 'order-portal') {
-      const tint = o.asset.includes('cyan') || o.kind === 'order-portal' ? 'cyan' : o.asset.includes('violet') ? 'violet' : o.asset.includes('lamp') ? 'gold' : o.asset.includes('ramen') ? 'red' : 'magenta';
-      const shimmer = this.reducedMotion ? 0 : Math.floor(this.clock / .25) % 3 - 1;
-      c.globalAlpha = .35; this.tintSprite('fx-glow-reflection',tint,o.pivot[0] * 16 + shimmer,o.pivot[1] * 16 + 30,undefined,undefined,0,true);
-      c.globalAlpha = .3; this.tintSprite('fx-glow-radial',tint,o.pivot[0] * 16,o.pivot[1] * 16 - 28,undefined,undefined,0,true);
-    }
-    c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
+    this.drawLights(true);
     for (const item of this.drawItems) { if (item.player) item.y = this.player.y * 16; else if (item.walker) item.y = item.walker.y; }
     this.drawItems.sort((a,b) => a.y - b.y);
     for (const item of this.drawItems) {
@@ -557,20 +589,15 @@ export class MarketWorld {
     }
     const gate = this.map.objects.find(o => o.kind === 'gate');
     if (gate) { c.globalAlpha = this.player.y > 26 && this.player.x > 19 && this.player.x < 25 ? .55 : 1; this.sprite('assets/world/buildings/gate-top.png',gate.pivot[0] * 16,gate.pivot[1] * 16); c.globalAlpha = 1; }
+    this.drawLights(false);
     if (this.marker && (this.pathIndex < this.path.length || this.clock < this.markerBadUntil)) { c.strokeStyle = this.clock < this.markerBadUntil ? '#f89537' : '#ffd27c'; c.beginPath(); c.ellipse(this.marker[0],this.marker[1],7,3,0,0,Math.PI * 2); c.stroke(); }
-    if (this.focusObject && this.enabled) {
-      const o = this.focusObject, name = restaurants.find(r => r.id === o.id)?.name ?? o.label ?? ({'order-portal':'Order Portal','kiosk':'Market Guide'} as Record<string,string>)[o.id] ?? o.id.replace(/-/g,' ');
-      const text = `${name} · E`; c.font = '10px monospace'; const width = c.measureText(text).width + 12;
-      const x = clamp(o.pivot[0] * 16 - width / 2,this.cameraX + 4,this.cameraX + this.canvas.width - width - 4),y = o.pivot[1] * 16 - 38;
-      c.fillStyle = '#05071a'; c.fillRect(x,y - 13,width,18); c.strokeStyle = '#f89537'; c.strokeRect(x,y - 13,width,18); c.fillStyle = '#fff0dc'; c.fillText(text,x + 6,y);
-    }
     c.restore();
     const rainCount = this.reducedMotion ? 30 : window.matchMedia('(pointer: coarse)').matches ? 60 : 90;
-    c.globalAlpha = .6;
+    c.globalAlpha = 1;
     for (let i = 0; i < rainCount; i++) {
       const speed = 260 + i % 61, y = (i * 53 + this.clock * speed) % (this.canvas.height + 16) - 8;
-      const x = (i * 83 + this.clock * speed * .176) % (this.canvas.width + 16) - 8;
-      this.sprite(this.file('fx-rain-streak'),x,y);
+      const x = ((i * 83 - this.clock * speed * .176) % (this.canvas.width + 16) + this.canvas.width + 16) % (this.canvas.width + 16) - 8;
+      c.save();c.translate(x,y);c.rotate(Math.PI/18);this.sprite(this.file('fx-rain-streak'),0,0);c.restore();
     }
     c.globalAlpha = 1;
     if (this.travelRemaining > 0) {

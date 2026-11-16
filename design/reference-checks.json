@@ -1,0 +1,229 @@
+{
+  "results": [
+    {
+      "id": "r1-ramen",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "r2-cafe",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "r3-thai",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-1",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-2",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-3",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-koi",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-moon",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-star",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-suzu",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-kenta",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-rin",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "ad-1",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "ad-2",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "ad-3",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "r4-pearl",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "r5-ember",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-4",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-5",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-jade",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-blossom",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-mei",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-jun",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "ad-4",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "wish-board",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "r6-tide",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "r7-kaigan",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-6",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "cat-7",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-shell",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "charm-anchor",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-ola",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "npc-pip",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "ad-5",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    },
+    {
+      "id": "bottle",
+      "reachable": true,
+      "gained": 1,
+      "repeatStable": true
+    }
+  ],
+  "grandFinale": true,
+  "stamps": 7,
+  "finds": 28,
+  "savedStamps": 7,
+  "savedFinds": 28,
+  "dialogueCheck": {
+    "revealed": true,
+    "next": true
+  },
+  "keyboardDialogue": {
+    "typing": true,
+    "revealed": true,
+    "closed": true
+  },
+  "pauseCheck": true
+}
