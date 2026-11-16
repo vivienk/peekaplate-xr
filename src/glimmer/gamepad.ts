@@ -36,6 +36,8 @@ export class BrowserGamepad {
     const x = deadzone(pad.axes[0] ?? 0), y = deadzone(pad.axes[1] ?? 0);
     const rx = deadzone(pad.axes[2] ?? 0), ry = deadzone(pad.axes[3] ?? 0);
     if (pad.index !== this.index || pad.id !== this.id) {
+      if (this.moving) this.app.market.setInput(0, 0);
+      this.moving = false; this.direction = 0;
       this.index = pad.index; this.id = pad.id; this.armed = false;
       this.app.setGamepadConnected(true);
     }

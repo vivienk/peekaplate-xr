@@ -74,6 +74,12 @@ describe('browser controller gameplay', () => {
     const {app,pad,input} = fixture(); Object.assign(pad,{mapping:''});
     input.update(.1,[pad],true); expect(app.setGamepadConnected).toHaveBeenLastCalledWith(false);
   });
+  it('releases movement when another controller immediately replaces the active pad', () => {
+    const {app,pad,input,tick} = fixture(); (pad.axes as number[])[0]=1; tick();
+    const replacement = {...pad,index:1,id:'DualSense',axes:[0,0,0,0]};
+    input.update(.1,[replacement],true);
+    expect(app.market.setInput).toHaveBeenLastCalledWith(0,0);
+  });
 });
 
 describe('spatial menu focus', () => {
