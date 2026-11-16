@@ -1,0 +1,81 @@
+# r2-2 materials - Nimble Fox dish kit (flat colour, no textures)
+
+newmtl plate
+Ka 0 0 0
+Kd 0.9137 0.8941 0.8549
+Ks 0.4000 0.4000 0.4000
+Ns 70
+d 1.000
+illum 2
+
+newmtl toast
+Ka 0 0 0
+Kd 0.8863 0.6941 0.4157
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl crust
+Ka 0 0 0
+Kd 0.6039 0.3529 0.1333
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl avocado
+Ka 0 0 0
+Kd 0.6235 0.8118 0.2902
+Ks 0.5000 0.5000 0.5000
+Ns 70
+d 1.000
+illum 2
+
+newmtl avocado_dark
+Ka 0 0 0
+Kd 0.3686 0.6039 0.1725
+Ks 0.5000 0.5000 0.5000
+Ns 70
+d 1.000
+illum 2
+
+newmtl chili_flakes
+Ka 0 0 0
+Kd 0.8392 0.1490 0.1098
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl petal_pink
+Ka 0 0 0
+Kd 1.0000 0.4353 0.6902
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl petal_yellow
+Ka 0 0 0
+Kd 1.0000 0.8235 0.2275
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl petal_violet
+Ka 0 0 0
+Kd 0.6078 0.4196 1.0000
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl microgreens
+Ka 0 0 0
+Kd 0.3373 0.7608 0.2902
+Ks 0.3000 0.3000 0.3000
+Ns 40
+d 1.000
+illum 2

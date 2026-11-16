@@ -1,0 +1,73 @@
+# r4-1 materials - Nimble Fox dish kit (flat colour, no textures)
+
+newmtl paper
+Ka 0 0 0
+Kd 0.9490 0.8902 0.7686
+Ks 0.2000 0.2000 0.2000
+Ns 20
+d 1.000
+illum 2
+
+newmtl bamboo_tray
+Ka 0 0 0
+Kd 0.7882 0.6275 0.3765
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl bun_crust
+Ka 0 0 0
+Kd 0.8510 0.5412 0.1725
+Ks 0.6000 0.6000 0.6000
+Ns 90
+d 1.000
+illum 2
+
+newmtl bun_top
+Ka 0 0 0
+Kd 0.6588 0.3373 0.1020
+Ks 0.6000 0.6000 0.6000
+Ns 90
+d 1.000
+illum 2
+
+newmtl sesame
+Ka 0 0 0
+Kd 1.0000 0.9451 0.8118
+Ks 0.4000 0.4000 0.4000
+Ns 50
+d 1.000
+illum 2
+
+newmtl pepper
+Ka 0 0 0
+Kd 0.1647 0.1020 0.0627
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl filling
+Ka 0 0 0
+Kd 0.5412 0.2275 0.1176
+Ks 0.6000 0.6000 0.6000
+Ns 100
+d 1.000
+illum 2
+
+newmtl scallion
+Ka 0 0 0
+Kd 0.4235 0.7608 0.2902
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl bun_inside
+Ka 0 0 0
+Kd 1.0000 0.9490 0.8392
+Ks 0.2000 0.2000 0.2000
+Ns 20
+d 1.000
+illum 2

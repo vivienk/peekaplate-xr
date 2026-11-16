@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.scrim{background:rgba(5,7,26,.6)}
+.ban{position:absolute;left:50%;transform:translateX(-50%);top:40px;width:min(1400px,calc(var(--W) - 96px))}
+.ban .rail{position:relative;margin:0 -40px}
+.ban .fl{display:flex;gap:8px;margin-top:-8px}
+.ban .flap{flex:1;height:300px}
+.ban .tt{position:absolute;left:0;right:0;top:56px;text-align:center;color:var(--ink)}
+.ban .sub{font-size:52px;line-height:60px;color:var(--ink)}
+.card{position:absolute;left:50%;transform:translateX(-50%);top:380px;width:min(1480px,calc(var(--W) - 96px));padding:24px 48px;display:flex;flex-direction:column;align-items:center;gap:24px}
+.st3{display:flex;gap:48px}
+.st3 img{width:192px;height:192px}
+.stats{display:flex;gap:64px;white-space:nowrap;font-family:"Jersey 10";font-size:72px;line-height:72px}
+.stats span{display:flex;align-items:center;gap:16px}
+.btns{display:flex;gap:48px;margin-top:8px}
+.lan{position:absolute;color:var(--gold);width:96px;height:96px}
+.narrow .card{top:350px;gap:16px}.narrow .st3 img{width:128px;height:128px}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<i class="ico lan" data-i="lantern" style="left:180px;top:700px"></i><i class="ico lan" data-i="lantern" style="left:1660px;top:560px;width:144px;height:144px"></i><i class="ico lan" data-i="lantern" style="left:320px;top:420px;width:48px;height:48px"></i><i class="ico lan" data-i="lantern" style="left:1540px;top:880px;width:48px;height:48px"></i>
+<div class="ban"><div class="rail"></div><div class="fl"><div class="flap red"></div><div class="flap red" style="flex:3"></div><div class="flap red"></div></div>
+<div class="tt"><div class="d1 live">Passport complete!</div><div class="sub live">All three restaurants stamped. The market glows a little brighter.</div></div></div>
+<div class="card panel"><div class="st3"><img class="px" src="../../assets/ui/stamps/stamp-ramen.png" style="transform:rotate(-3deg)"><img class="px" src="../../assets/ui/stamps/stamp-cafe.png" style="transform:rotate(2deg)"><img class="px" src="../../assets/ui/stamps/stamp-thai.png" style="transform:rotate(-1deg)"></div>
+<div class="stats"><span><i class="ico red-i" data-i="heart"></i><b class="live">Tasting List: 5 dishes</b></span><span><i class="ico" data-i="charm"></i><b class="live">Hidden finds: 7/12</b></span></div>
+<div class="b soft live" style="text-align:center">In the full Glimmer Plate, your Tasting List carries on to XR ordering.</div>
+<div class="btns"><div class="btn primary focus" style="padding:0 32px"><span class="live">Keep wandering</span></div><div class="btn" style="padding:0 32px"><i class="ico red-i" data-i="heart"></i><span class="live">See my Tasting List</span></div></div></div>
+</div><script src="common.js"></script></body></html>

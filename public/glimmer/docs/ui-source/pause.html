@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.scrim{background:rgba(5,7,26,.55)}
+.ov{--pw:1240px}.ov>.panel{height:860px}
+.cols{position:absolute;left:48px;right:48px;top:208px;display:grid;grid-template-columns:1fr 1fr;gap:24px 48px}
+.cols .btn{justify-content:flex-start;padding:0 24px;width:100%}
+.cols .btn .v{margin-left:auto;color:var(--ink-soft)}
+.cols .btn.primary .v{color:var(--ink)}
+.restart{color:var(--red-deep)}
+.cf{position:absolute;left:50%;top:300px;transform:translateX(-50%);width:min(1000px,calc(var(--W) - 96px));padding:32px 48px;display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center}
+.cf .btns{display:flex;gap:48px}
+.scrim2{position:absolute;inset:0;background:rgba(5,7,26,.5)}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<div class="hang ov"><div class="rail"></div><div class="panel" id="P"></div></div><div id="C"></div></div>
+<script src="common.js"></script><script>
+const cf=Q.get('confirm')==='1';
+document.getElementById('P').innerHTML=`<div class="head"><div class="flap main">${I('pause')}<div class="h1 live">Paused</div></div><div class="flap"></div></div>
+<div class="cols"><div class="btn primary ${cf?'':'focus'}">${I('chev_right')}<span class="live">Resume</span></div><div class="btn">${I('sound')}<span class="live">Sound</span><span class="v live">On</span></div>
+<div class="btn">${I('passport')}<span class="live">Passport</span><span class="v live">1/3</span></div><div class="btn">${I('music')}<span class="live">Music</span><span class="v live">On</span></div>
+<div class="btn">${I('heart','red-i')}<span class="live">Tasting List</span><span class="v live">2</span></div><div class="btn">${I('motion')}<span class="live">Reduced motion</span><span class="v live">Off</span></div>
+<div class="btn">${I('book')}<span class="live">Controls</span></div><div class="btn restart ${cf?'focus':''}">${I('restart')}<span class="live">Restart market</span></div></div>`;
+if(cf) document.getElementById('C').innerHTML=`<div class="scrim2"></div><div class="cf panel"><div class="h1 live">Restart the market?</div><div class="b live">Your stamps, hidden finds, saved dishes and outfit will be cleared.</div><div class="btns"><div class="btn focus" style="padding:0 32px"><span class="live">Keep playing</span></div><div class="btn primary" style="padding:0 32px">${I('restart')}<span class="live">Restart</span></div></div></div>`;
+</script></body></html>

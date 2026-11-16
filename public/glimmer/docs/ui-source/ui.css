@@ -1,0 +1,63 @@
+/* Glimmer Plate: Neon Rain Market - UI tokens and components (Nimble Fox). 1 CSS px = 1 canvas unit. */
+@font-face{font-family:"Jersey 10";src:url(../../assets/ui/fonts/jersey-10/Jersey10-Regular.ttf)}
+@font-face{font-family:"Jersey 20";src:url(../../assets/ui/fonts/jersey-20/Jersey20-Regular.ttf)}
+:root{
+ --cream:#f3e6c8; --cream-hi:#fff8e4; --cream-sh:#e2cfa6; --ink:#3a1f18; --ink-soft:#6b3f2c; --shadow:#1e1012;
+ --wood:#6b3a24; --red:#f89537; --red-hi:#ffac5c; --red-sh:#b8621a; --red-deep:#8a420c; --red-ol:drop-shadow(4px 0 0 #3a1f18) drop-shadow(-4px 0 0 #3a1f18) drop-shadow(0 4px 0 #3a1f18) drop-shadow(0 -4px 0 #3a1f18); --plum:#8e3a6e; --teal:#1f6f7a; --gold:#ffd56b; --night:#05071a; --navy:#0f1533;
+ --cyan:#2ee6ff; --magenta:#ff3fb4; --yellow:#f5c518;
+ --A:../../assets/ui;
+ --safe-l:48px; --safe-r:48px; --safe-t:48px; --safe-b:48px;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
+html,body{width:100%;height:100%;overflow:hidden;background:#000}
+.scene{position:relative;width:var(--W,1920px);height:1080px;overflow:hidden;font-family:"Jersey 20";color:var(--ink);
+ background:#0f1533 center/cover no-repeat;image-rendering:pixelated}
+.scene.game{background-image:url(standins/gameplay_1920.jpg)}
+.scene.game.wide{background-image:url(standins/gameplay_2400.jpg)}
+img,.px{image-rendering:pixelated}
+.d1{font-family:"Jersey 10";font-size:176px;line-height:160px}
+.h1{font-family:"Jersey 10";font-size:96px;line-height:88px}
+.h2{font-family:"Jersey 10";font-size:72px;line-height:68px}
+.b{font-size:52px;line-height:60px}
+.bb{font-size:48px;line-height:60px;font-weight:400}
+.soft{color:var(--ink-soft)}
+b,strong{font-weight:400}
+/* nine-slice parts (borders in PNG px = units) */
+.panel{border-style:solid;border-width:24px 24px 32px 24px;border-image:url(../../assets/ui/panels/panel_cloth.png) 24 24 32 24 fill/24px 24px 32px 24px;}
+.flap{border-style:solid;border-width:16px 24px 32px 24px;border-image:url(../../assets/ui/panels/flap_cream.png) 16 24 32 24 fill/16px 24px 32px 24px;}
+.flap.red{border-image-source:url(../../assets/ui/panels/flap_red.png);color:var(--ink)}
+.flap.plum{border-image-source:url(../../assets/ui/panels/flap_plum.png);color:var(--cream)}
+.flap.teal{border-image-source:url(../../assets/ui/panels/flap_teal.png);color:var(--cream)}
+.rail{height:32px;border-style:solid;border-width:0 24px;border-image:url(../../assets/ui/panels/rail_wood.png) 0 24 fill/0 24px}
+.holo{border-style:solid;border-width:20px 24px 24px 20px;border-image:url(../../assets/ui/panels/panel_holo.png) 20 24 24 20 fill/20px 24px 24px 20px;color:#e9fbff}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:132px;min-width:132px;padding:0 16px;font-size:48px;line-height:60px;
+ border-style:solid;border-width:20px 20px 24px 20px;border-image:url(../../assets/ui/buttons/btn_normal.png) 20 20 24 20 fill/20px 20px 24px 20px;color:var(--ink);position:relative;transition:transform 120ms}
+.btn.hover{border-image-source:url(../../assets/ui/buttons/btn_hover.png);transform:translateY(-4px)}
+.btn.pressed{border-image-source:url(../../assets/ui/buttons/btn_pressed.png);border-width:24px 20px 20px 20px;border-image-slice:24 20 20 20 fill}
+.btn.disabled{border-image-source:url(../../assets/ui/buttons/btn_disabled.png);border-width:20px;border-image-slice:20 fill;color:#6e5f50}
+.btn.primary{border-image-source:url(../../assets/ui/buttons/btn_primary.png);color:var(--ink)}
+.btn.primary.hover{border-image-source:url(../../assets/ui/buttons/btn_primary_hover.png)}
+.btn.focus::after,.focus-ring{content:"";position:absolute;inset:-32px;border-style:solid;border-width:20px;border-image:url(../../assets/ui/buttons/focus_ring.png) 20 fill/20px;pointer-events:none}
+.btn.focus::after{inset:-28px -28px -32px -28px;border-image-slice:20;}
+.chip{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;height:72px;padding:0 4px;font-size:48px;line-height:56px;border-style:solid;border-width:16px;border-image:url(../../assets/ui/buttons/chip.png) 16 fill/16px}
+.tag{display:inline-flex;align-items:center;height:72px;padding:0 4px;font-size:48px;color:var(--red-deep);border-style:solid;border-width:12px 16px;border-image:url(../../assets/ui/buttons/tag_sample.png) 16 fill/12px 16px;letter-spacing:2px}
+.key{display:inline-flex;align-items:center;justify-content:center;min-width:72px;height:80px;padding:0 4px;font-family:"Jersey 10";font-size:64px;line-height:48px;color:var(--ink);
+ border-style:solid;border-width:12px 16px 24px 16px;border-image:url(../../assets/ui/prompts/keycap.png) 16 16 24 16 fill/12px 16px 24px 16px}
+.ico{display:inline-block;width:48px;height:48px;flex:none;background:currentColor;-webkit-mask:var(--i) center/100% 100% no-repeat;mask:var(--i) center/100% 100% no-repeat}
+.ico.x2{width:96px;height:96px}
+.red-i,.fav{color:var(--red);filter:var(--red-ol)}
+/* overlays */
+.scrim{position:absolute;inset:0;background:rgba(5,7,26,.72)}
+.hang{position:absolute;left:50%;transform:translateX(-50%);top:40px}
+.hang>.rail{position:absolute;left:-40px;right:-40px;top:0;z-index:3}
+.hang>.panel{position:relative;margin-top:16px}
+.outline{text-shadow:-4px 0 var(--shadow),4px 0 var(--shadow),0 -4px var(--shadow),0 4px var(--shadow),-4px -4px var(--shadow),4px 4px var(--shadow),-4px 4px var(--shadow),4px -4px var(--shadow)}
+.note{font-family:"Jersey 20";position:absolute;font-size:28px;color:#fff;background:rgba(0,0,0,.6);padding:6px 12px}
+/* shared overlay frame */
+.ov{width:min(var(--pw,1680px),calc(var(--W) - var(--safe-l) - var(--safe-r)));left:calc(var(--safe-l) + (var(--W) - var(--safe-l) - var(--safe-r))/2)}
+.ov>.panel{height:var(--ph,968px)}
+.head{position:absolute;left:-8px;right:-8px;top:-8px;height:176px;display:flex;gap:8px;z-index:2}
+.head .flap{flex:1}.head .flap.main{flex:6;display:flex;align-items:center;gap:24px;padding:0 24px}
+.close{position:absolute;right:24px;top:24px;z-index:4}
+.lab{font-size:52px;line-height:60px}
+.b{font-size:52px;line-height:60px}

@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.tabs{position:absolute;left:32px;top:184px;display:flex;gap:24px}
+.tabs .btn{padding:0 24px}
+.tabs .sel{border-image-source:url(../../assets/ui/buttons/tab_selected_mark.png);border-image-slice:16 16 20 16 fill;border-width:16px 16px 20px 16px;padding:0 28px}
+.stage{position:absolute;left:48px;top:340px;width:320px;height:540px;background:var(--cream-sh);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:24px;gap:16px}
+.spr{width:128px;height:192px;background:url(../../assets/characters/player-yellow-hood.png) 0 0/1024px 768px;image-rendering:pixelated;transform:scale(1.5);transform-origin:bottom;margin-bottom:24px}
+.opts{position:absolute;left:416px;right:48px;top:340px;display:flex;flex-direction:column;gap:12px}
+.row{display:grid;grid-template-columns:340px 340px;gap:24px}
+.sw{gap:16px;width:340px;height:132px;position:relative;justify-content:flex-start;padding:0 12px}
+.sw .c{width:64px;height:64px;border:4px solid var(--ink)}
+.sw.sel{border-image-source:url(../../assets/ui/buttons/tab_selected_mark.png);border-image-slice:16 16 20 16 fill;border-width:16px 16px 20px 16px}
+.sw .tick{position:absolute;right:-28px;top:-28px;width:56px;height:56px;background:var(--ink);color:var(--gold);display:flex;align-items:center;justify-content:center}
+.done{position:absolute;right:48px;bottom:24px}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<div class="hang ov"><div class="rail"></div><div class="panel" id="P"></div></div></div>
+<script src="common.js"></script><script>
+const coat=Q.get('coat')||'teal', hat=Q.get('hat')||'buckethat';
+const C=[['yellow','Yellow','#f5c518'],['cherry','Cherry','#e0414f'],['teal','Teal','#1fb5a8'],['lavender','Lavender','#a98be6']];
+const H=[['hood','Hood'],['buckethat','Bucket hat']];
+document.getElementById('P').innerHTML=`<div class="head"><div class="flap main">${I('lantern')}<div class="h1 live">Glimmer Plate Kiosk</div></div><div class="flap"></div><div class="flap"></div></div><div class="btn close" aria-label="Close">${I('close')}</div>
+<div class="tabs"><div class="btn sel">${I('hanger')}<span class="live">Wardrobe</span></div><div class="btn">${I('book')}<span class="live">Market Guide</span></div><div class="btn">${I('passport')}<span class="live">Passport</span></div></div>
+<div class="stage"><div class="spr" style="background-image:url(../../assets/characters/player-${coat}-${hat}.png)"></div><div class="b live">Your look</div></div>
+<div class="opts"><div class="lab live">Raincoat</div><div class="row">${C.map(([k,n,c])=>`<div class="btn sw ${k==coat?'sel':''} ${Q.get('focus')==k?'focus':''}"><div class="c" style="background:${c}"></div><span class="live">${n}</span>${k==coat?`<div class="tick">${I('check')}</div>`:''}</div>`).join('')}</div>
+<div class="lab live" style="margin-top:8px">Headwear</div><div class="row">${H.map(([k,n])=>`<div class="btn sw ${k==hat?'sel':''}" >${I(k)}<span class="live">${n}</span>${k==hat?`<div class="tick">${I('check')}</div>`:''}</div>`).join('')}</div></div>
+`;
+</script></body></html>

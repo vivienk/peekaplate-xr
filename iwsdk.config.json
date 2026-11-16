@@ -14,7 +14,7 @@
       "offer": "always",
       "features": {
         "handTracking": true,
-        "gazeTracking": true
+        "gazeTracking": false
       }
     },
     "input": {
@@ -24,22 +24,25 @@
       "near": 0.001,
       "far": 200,
       "camera": {
-        "position": [0, 1.5, 0.05],
-        "lookAt": [0, 1.15, -1.25]
+        "position": [
+          0,
+          1.65,
+          0
+        ],
+        "lookAt": [
+          0,
+          1.65,
+          -2.8
+        ]
       }
     },
     "features": {
-      "locomotion": {
-        "useWorker": true
-      },
-      "grabbing": true,
+      "locomotion": false,
+      "grabbing": false,
       "physics": false,
       "sceneUnderstanding": false,
       "environmentRaycast": false,
-      "spatialUI": {
-        "kit": "horizon"
-      },
-      "gaze": {}
+      "spatialUI": false
     }
   },
   "dev": {

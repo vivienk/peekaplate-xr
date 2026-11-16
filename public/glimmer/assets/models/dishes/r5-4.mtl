@@ -1,0 +1,73 @@
+# r5-4 materials - Nimble Fox dish kit (flat colour, no textures)
+
+newmtl glass_bowl
+Ka 0 0 0
+Kd 0.8471 0.9412 1.0000
+Ks 0.9000 0.9000 0.9000
+Ns 220
+d 0.400
+illum 2
+
+newmtl bowl_foot
+Ka 0 0 0
+Kd 1.0000 0.2471 0.7059
+Ks 0.6000 0.6000 0.6000
+Ns 100
+d 1.000
+illum 2
+
+newmtl shaved_ice
+Ka 0 0 0
+Kd 0.9843 0.9922 1.0000
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl mango
+Ka 0 0 0
+Kd 1.0000 0.6706 0.1216
+Ks 0.8500 0.8500 0.8500
+Ns 170
+d 1.000
+illum 2
+
+newmtl mango_syrup
+Ka 0 0 0
+Kd 1.0000 0.5412 0.0627
+Ks 0.9000 0.9000 0.9000
+Ns 200
+d 1.000
+illum 2
+
+newmtl condensed_milk
+Ka 0 0 0
+Kd 1.0000 0.9647 0.8627
+Ks 0.8000 0.8000 0.8000
+Ns 160
+d 1.000
+illum 2
+
+newmtl mint
+Ka 0 0 0
+Kd 0.2980 0.7647 0.3529
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl panna_cotta
+Ka 0 0 0
+Kd 1.0000 0.9451 0.7843
+Ks 0.5000 0.5000 0.5000
+Ns 80
+d 1.000
+illum 2
+
+newmtl spoon
+Ka 0 0 0
+Kd 0.7882 0.8000 0.8392
+Ks 0.9000 0.9000 0.9000
+Ns 200
+d 1.000
+illum 2

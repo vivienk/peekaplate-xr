@@ -1,0 +1,49 @@
+# r3-6 materials - Nimble Fox dish kit (flat colour, no textures)
+
+newmtl glass
+Ka 0 0 0
+Kd 0.8118 0.9098 1.0000
+Ks 0.9000 0.9000 0.9000
+Ns 220
+d 0.300
+illum 2
+
+newmtl thai_tea
+Ka 0 0 0
+Kd 1.0000 0.5412 0.1216
+Ks 0.6000 0.6000 0.6000
+Ns 120
+d 0.920
+illum 2
+
+newmtl milk_swirl
+Ka 0 0 0
+Kd 1.0000 0.9451 0.8627
+Ks 0.5000 0.5000 0.5000
+Ns 80
+d 1.000
+illum 2
+
+newmtl ice
+Ka 0 0 0
+Kd 0.9020 0.9647 1.0000
+Ks 0.9500 0.9500 0.9500
+Ns 250
+d 0.550
+illum 2
+
+newmtl straw
+Ka 0 0 0
+Kd 1.0000 0.2471 0.7059
+Ks 0.6000 0.6000 0.6000
+Ns 100
+d 1.000
+illum 2
+
+newmtl coaster
+Ka 0 0 0
+Kd 0.4784 0.2902 0.1647
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2

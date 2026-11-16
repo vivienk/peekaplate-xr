@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.stamps{position:absolute;left:48px;right:48px;top:200px;display:flex;justify-content:space-between;gap:32px}
+.slot{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.slot .pad{width:288px;height:288px;background:var(--cream-sh);display:flex;align-items:center;justify-content:center;transform:rotate(var(--rot,0deg))}
+.slot .pad img{width:256px;height:256px}
+.slot.empty .pad img{width:256px;height:256px}
+.slot .nm{font-family:"Jersey 10";font-size:64px;line-height:60px}
+.finds{position:absolute;left:48px;right:48px;top:640px;bottom:24px}
+.ft{font-family:"Jersey 10";font-size:72px;line-height:72px;display:flex;align-items:center;gap:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;margin-top:16px}
+.fr{display:flex;align-items:center;gap:12px}
+.fr .lab{width:288px;font-size:48px}
+.fs{width:80px;height:80px;display:flex;align-items:center;justify-content:center;border:4px dashed #6b3f2c;color:#6b3f2c;font-size:52px}
+.fs.on{border:4px solid var(--ink);background:var(--gold);color:var(--ink)}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<div class="hang ov"><div class="rail"></div><div class="panel" id="P"></div></div></div>
+<script src="common.js"></script><script>
+const v=(Q.get('v')||'ramen').split(','); const f=(Q.get('f')||'2,1,1,0').split(',').map(Number);
+const S=[['ramen','Yuge Ramen','-3deg'],['cafe','Petal & Arbor Café','2deg'],['thai','Lemongrass Lane','-1deg']];
+const cats=[['cat','Black cats'],['charm','Puddle charms'],['person','Street people'],['holo','Holo ads']];
+document.getElementById('P').innerHTML=`<div class="head"><div class="flap main">${I('passport')}<div class="h1 live">Market Passport</div></div><div class="flap"></div><div class="flap"></div></div><div class="btn close" aria-label="Close">${I('close')}</div>
+<div class="stamps">${S.map(([k,n,r])=>{const on=v.includes(k);return `<div class="slot ${on?'':'empty'}" style="--rot:${on?r:'0deg'}"><div class="pad"><img class="px" src="../../assets/ui/stamps/${on?'stamp':'stamp-empty'}-${k}.png"></div><div class="nm live">${n}</div><div class="b soft live">${on?'Stamped':'Not visited yet'}</div></div>`}).join('')}</div>
+<div class="finds"><div class="ft">${I('charm')}<span class="live">Hidden finds ${f.reduce((a,b)=>a+b,0)}/12</span></div><div class="grid">${cats.map(([i,n],ci)=>`<div class="fr"><span class="lab live">${n}</span>${[0,1,2].map(j=>j<f[ci]?`<div class="fs on">${I(i)}</div>`:`<div class="fs live">?</div>`).join('')}</div>`).join('')}</div></div>`;
+</script></body></html>

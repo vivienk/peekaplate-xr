@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.body{position:absolute;left:48px;right:112px;top:192px;bottom:24px;display:flex;flex-direction:column;gap:16px;overflow:hidden}
+.sb{position:absolute;right:48px;top:200px;bottom:40px;width:24px;background:var(--cream-sh);border:4px solid var(--ink)}.sb i{position:absolute;left:0;right:0;top:0;height:62%;background:var(--wood)}
+.gh{display:flex;align-items:center;gap:16px;font-family:"Jersey 10";font-size:64px;line-height:64px}
+.gh img{width:64px;height:64px}
+.rows{display:grid;grid-template-columns:1fr 1fr;gap:16px 32px}
+.row{display:flex;align-items:center;gap:24px;min-height:160px;padding:0 16px 0 4px;position:relative}
+.row .art{width:120px;height:120px;background:var(--cream-sh);display:flex;align-items:center;justify-content:center}
+.row img{width:96px;height:96px}
+.row .fav{position:absolute;right:24px;color:var(--red)}
+.empty{position:absolute;left:0;right:0;top:300px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center}
+.empty .ico{width:192px;height:192px;color:#c9a98a}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<div class="hang ov"><div class="rail"></div><div class="panel" id="P"></div></div></div>
+<script src="data.js"></script><script src="common.js"></script><script>
+const empty=Q.get('empty')==='1';
+const G=[['ramen',[1,4]],['cafe',[2]],['thai',[5]]];
+let h=`<div class="head"><div class="flap main">${I('heart','red-i')}<div class="h1 live">Tasting List</div></div><div class="flap"></div><div class="flap"></div></div><div class="btn close" aria-label="Close">${I('close')}</div>`;
+if(empty) h+=`<div class="empty">${I('heart_outline')}<div class="h2 live">No dishes saved yet</div><div class="b soft live" style="max-width:1400px">Open a restaurant menu, pick a dish and press Save dish.<br>Your saved dishes gather here.</div></div>`;
+else h+=`<div class="body">${G.map(([k,ds])=>`<div class="gh"><img class="px" src="../../assets/ui/emblems/emblem-${k}.png"><span class="live">${R[k].name}</span></div><div class="rows">${ds.map(i=>`<div class="row panel ${Q.get('focus')==k+i?'':''}"><div class="art"><img class="px" src="${R[k].dishes[i-1].img}"></div><div><div class="b live">${R[k].dishes[i-1].n}</div><div class="b soft live">SAMPLE · Price TBA</div></div><div class="fav">${I('heart')}</div></div>`).join('')}</div>`).join('')}</div>`;
+if(!empty) h+='<div class="sb"><i></i></div>';
+document.getElementById('P').innerHTML=h;
+</script></body></html>

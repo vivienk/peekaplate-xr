@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.hint{position:absolute;left:calc(var(--W) / 2);bottom:calc(var(--safe-b) + 32px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px 32px;white-space:nowrap}
+.keys{display:flex;gap:8px;align-items:flex-end}
+.kc{display:grid;grid-template-columns:repeat(3,80px);grid-template-rows:80px 80px;gap:8px}
+.kc .key{min-width:80px}
+.hint .b{font-size:52px}
+.tp{display:none}
+.phone .dk{display:none}.phone .tp{display:flex}
+#joy{position:absolute;left:calc(var(--safe-l) + 80px);bottom:calc(var(--safe-b) + 40px);width:244px;height:244px;background:url(../../assets/ui/touch/joystick_base.png) 0 0/244px 244px;opacity:.85}
+#joy .knob{position:absolute;left:76px;top:76px;width:92px;height:96px;background:url(../../assets/ui/touch/joystick_knob.png) 0 0/92px 96px}
+#act{position:absolute;right:calc(var(--safe-r) + 64px);bottom:calc(var(--safe-b) + 56px);width:156px;height:164px;background:url(../../assets/ui/touch/btn_action.png) 0 0/156px 164px;color:var(--cream)}
+#act .ico{position:absolute;left:30px;top:30px}
+.desk #joy,.desk #act{display:none}
+.jl{position:absolute;left:calc(var(--safe-l) + 202px);transform:translateX(-50%);bottom:calc(var(--safe-b) + 300px);padding:0 24px;white-space:nowrap}
+.desk .jl{display:none}
+.phone.narrow .hint{bottom:calc(var(--safe-b) + 440px)}
+</style></head><body><div class="scene game">
+<div class="hint panel"><div class="dk keys"><div class="kc"><span></span><span class="key">W</span><span></span><span class="key">A</span><span class="key">S</span><span class="key">D</span></div><span class="b" style="margin:0 16px 16px">or</span><div class="kc" style="grid-template-columns:repeat(3,80px)"><span></span><span class="key"><i class="ico" data-i="chev_right" style="transform:rotate(-90deg)"></i></span><span></span><span class="key"><i class="ico" data-i="chev_right" style="transform:rotate(180deg)"></i></span><span class="key"><i class="ico" data-i="chev_right" style="transform:rotate(90deg)"></i></span><span class="key"><i class="ico" data-i="chev_right" style="transform:rotate(0deg)"></i></span></div></div>
+<div class="b live dk">Walk. Or click the street to stroll there.</div>
+<div class="b live tp">Drag on the left to walk, or tap the street.</div></div>
+<div id="joy"><div class="knob"></div></div><div class="jl panel b live">Drag here</div>
+<div id="act"><i class="ico x2" data-i="tap"></i></div>
+</div><script src="common.js"></script></body></html>

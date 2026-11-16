@@ -1,0 +1,60 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.hudbtn{position:absolute}
+#pause{left:var(--safe-l);top:var(--safe-t)}
+#mm{position:absolute;right:var(--safe-r);top:var(--safe-t);width:400px;height:308px;cursor:pointer}
+#mm .map{position:absolute;left:24px;top:24px;width:352px;height:256px;background:url(standins/minimap_standin.png) 0 0/352px 256px;image-rendering:pixelated}
+#mm .frame{position:absolute;inset:0;border-style:solid;border-width:28px 28px 32px 28px;border-image:url(../../assets/ui/minimap/minimap_frame.png) 28 28 32 28/28px 28px 32px 28px}
+.pin{position:absolute;width:72px;height:72px;margin:-36px 0 0 -36px;background:var(--navy);border:4px solid var(--cream);border-radius:0;}
+.pin img{width:64px;height:64px;display:block}
+.pin .ok{position:absolute;right:-16px;bottom:-16px;width:40px;height:40px;background:var(--cream);border:4px solid var(--ink);color:#1f6f3a;display:flex;align-items:center;justify-content:center}
+.pin .ok .ico{width:24px;height:24px}
+.me{position:absolute;width:20px;height:20px;margin:-10px;background:var(--yellow);border:4px solid var(--ink)}
+#counts{position:absolute;right:var(--safe-r);top:calc(var(--safe-t) + 324px);display:flex;gap:24px}
+#counts .btn{min-width:180px}
+#toasts{position:absolute;left:50%;transform:translateX(-50%);top:var(--safe-t);display:flex;flex-direction:column;align-items:center;gap:16px;width:max-content;max-width:var(--toastW,720px)}
+.toast{display:flex;align-items:center;gap:16px;padding:0 16px;min-height:104px}
+.toast .ico{flex:none}
+.toast span{font-size:48px;line-height:56px;font-weight:400}
+#label{position:absolute;left:var(--px,459px);top:var(--py,330px);transform:translateX(-50%);text-align:center;white-space:nowrap}
+#label .flap{padding:0 16px}
+#prompt{position:absolute;left:var(--px,459px);top:calc(var(--py,330px) + 128px);transform:translateX(-50%);display:flex;align-items:center;gap:16px;white-space:nowrap;padding:0 8px 0 0}
+#prompt .verb{font-size:48px;color:var(--cream)}
+.tbtn{display:none}
+.phone .tbtn{display:block;position:absolute}
+.phone .key{display:none}
+.dot{display:none}
+.phone .dot{display:inline-block;width:72px;height:72px;background:url(../../assets/ui/touch/btn_action.png) 0 0/72px 76px;image-rendering:pixelated;position:relative}
+.phone .dot .ico{position:absolute;left:12px;top:10px;color:var(--ink)}
+#joy{left:calc(var(--safe-l) + 80px);bottom:calc(var(--safe-b) + 40px);width:244px;height:244px;background:url(../../assets/ui/touch/joystick_base.png) 0 0/244px 244px}
+#joy .knob{position:absolute;left:96px;top:56px;width:92px;height:96px;background:url(../../assets/ui/touch/joystick_knob.png) 0 0/92px 96px}
+#act{right:calc(var(--safe-r) + 64px);bottom:calc(var(--safe-b) + 56px);width:156px;height:164px;background:url(../../assets/ui/touch/btn_action.png) 0 0/156px 164px;color:var(--ink)}
+#act .ico{position:absolute;left:30px;top:30px}
+#act .halo{position:absolute;left:-24px;top:-24px;width:204px;height:204px;background:url(../../assets/ui/touch/press_halo.png) 0 0/204px 204px}
+.wide{--px:640px;--py:330px}
+</style></head><body>
+<div class="scene game">
+ <!-- spatial: name label + interact prompt over Yuge Ramen -->
+ <div id="label" class="live"><div class="flap red h2" style="font-size:72px;line-height:72px">Yuge Ramen</div></div>
+ <div id="prompt" class="live panel" style="padding:0 24px 0 8px"><span class="key">E</span><span class="dot"><i class="ico x2" data-i="tap" style="width:48px;height:48px"></i></span><span class="verb" style="color:var(--ink)">Open menu</span></div>
+ <!-- overlay HUD -->
+ <div id="pause" class="btn hudbtn" aria-label="Pause"><i class="ico" data-i="pause"></i></div>
+ <div id="mm"><div class="map"></div>
+  <div class="pin" style="left:104px;top:64px"><img class="px" src="../../assets/ui/emblems/emblem-ramen.png"><div class="ok"><i class="ico" data-i="check"></i></div></div>
+  <div class="pin" style="left:268px;top:64px"><img class="px" src="../../assets/ui/emblems/emblem-cafe.png"></div>
+  <div class="pin" style="left:280px;top:184px"><img class="px" src="../../assets/ui/emblems/emblem-thai.png"></div>
+  <div class="me" style="left:116px;top:120px"></div>
+  <div class="frame"></div></div>
+ <div id="counts"><div class="btn" aria-label="Passport"><i class="ico" data-i="passport"></i><span class="live">1/3</span></div><div class="btn" aria-label="Tasting List"><i class="ico red-i" data-i="heart"></i><span class="live">2</span></div></div>
+ <div id="toasts" class="live">
+  <div class="toast panel"><i class="ico" data-i="cat"></i><span>Find 4/12: Black cat</span></div>
+  <div class="toast panel"><i class="ico" data-i="charm"></i><span>A fizzy yuzu soda. Refreshing!</span></div>
+ </div>
+ <div id="joy" class="tbtn"><div class="knob"></div></div>
+ <div id="act" class="tbtn" aria-label="Action"><i class="ico x2" data-i="tap"></i><div class="halo"></div></div>
+</div><script src="common.js"></script><script>
+// toast max width rule: keep clear of the pause button and minimap
+const s=document.querySelector('.scene'); const W=parseInt(getComputedStyle(s).getPropertyValue('--W'));
+const mmL=W-parseInt(getComputedStyle(s).getPropertyValue('--safe-r'))-400-32; s.style.setProperty('--toastW',Math.min(880,2*(mmL-W/2))+'px');
+// clamp: world label never sits under the toast stack
+const tb=document.getElementById('toasts').getBoundingClientRect().bottom, L=document.getElementById('label'); const lt=L.getBoundingClientRect().top; if(lt<tb+16){const d=tb+16-lt; L.style.marginTop=d+'px'; document.getElementById('prompt').style.marginTop=d+'px';}
+</script></body></html>

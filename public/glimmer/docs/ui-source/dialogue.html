@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.dlg{position:absolute;left:calc(var(--safe-l) + (var(--W) - var(--safe-l) - var(--safe-r))/2);transform:translateX(-50%);bottom:var(--safe-b);width:min(1440px,calc(var(--W) - var(--safe-l) - var(--safe-r)));height:296px;display:flex;gap:32px;padding:16px 24px}
+.phone .dlg{width:min(1440px,calc(var(--W) - var(--safe-l) - var(--safe-r) - 480px));left:calc(var(--safe-l) + (var(--W) - var(--safe-l) - var(--safe-r))/2)}
+.por{width:192px;height:216px;flex:none;background:var(--cream-sh);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.por div{image-rendering:pixelated}
+.nmp{position:absolute;left:24px;top:-88px;padding:0 24px;font-family:"Jersey 10";font-size:64px;line-height:64px}
+.txt{font-size:52px;line-height:60px;flex:1;padding-top:8px}
+.next{position:absolute;right:32px;bottom:16px;display:flex;align-items:center;gap:12px;font-size:48px}
+.phone .next .key{display:none}
+.holo .txt{font-family:"Jersey 10";font-size:64px;line-height:64px;color:#e9fbff}
+.holo .nmp{color:var(--cream)}
+.holo .por{background:#1f2453}
+.holo .next{color:#9ff6ff}
+.holo .next .key{filter:none}
+</style></head><body><div class="scene game">
+<div id="D"></div></div>
+<script src="common.js"></script><script>
+const k=Q.get('k')||'person'; const phone=document.querySelector('.scene').classList.contains('phone');
+const cfg={person:{skin:'panel',nm:'Grandma Suzu',fl:'red',spr:'npc-street-elder.png',sw:96,sh:32,fw:24,txt:'Rain like this brings out the best smells. Try the ramen counter on the corner, dear.',st:'line 1/3'},
+ holo:{skin:'holo',nm:'Holo ad',fl:'teal',icon:'holo',txt:'ZAPPU COLA! Now with 40% more lightning. Do not drink during storms.',st:''},
+ cat:{skin:'panel',nm:'Black cat',fl:'plum',spr:'cat-1.png',sw:96,sh:16,fw:16,txt:'Mrrrp. The cat leans into your hand and purrs.',st:''}}[k];
+const por=cfg.spr?`<div style="width:${cfg.fw*6}px;height:${cfg.sh*6}px;background:url(../../assets/characters/${cfg.spr}) 0 0/${cfg.sw*6}px ${cfg.sh*6}px;margin-bottom:12px"></div>`:`${I(cfg.icon,'x2','width:144px;height:144px;color:#2ee6ff;margin-bottom:36px')}`;
+document.getElementById('D').innerHTML=`<div class="dlg ${cfg.skin} ${k=='holo'?'holo':''}"><div class="flap ${cfg.fl} nmp live">${cfg.nm}</div><div class="por">${por}</div><div class="txt live">${cfg.txt}</div>
+<div class="next"><span class="key">E</span><span class="live">${phone?'Tap to continue':'Next'}</span>${I('chev_right')}</div></div>`;
+</script></body></html>

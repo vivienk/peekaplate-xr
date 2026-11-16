@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.mapw{position:absolute;left:48px;top:200px;width:calc(var(--T)*44px);height:calc(var(--T)*32px);background:url(standins/minimap_standin.png) 0 0/calc(var(--T)*44px) calc(var(--T)*32px);image-rendering:pixelated;border:8px solid var(--wood);box-sizing:content-box}
+.pin{position:absolute;width:80px;height:80px;margin:-40px 0 0 -40px;background:var(--navy);border:4px solid var(--cream);display:flex;align-items:center;justify-content:center}
+.pin img{width:64px;height:64px}
+.ml{position:absolute;transform:translateX(-50%);white-space:nowrap;font-size:48px;color:var(--cream)}
+.me{position:absolute;width:40px;height:40px;margin:-20px;background:var(--yellow);border:6px solid var(--ink)}
+.leg{position:absolute;left:calc(var(--T)*44px + 128px);right:48px;top:200px;display:flex;flex-direction:column;gap:24px}
+.li{display:flex;align-items:center;gap:24px}
+.li img{width:64px;height:64px;background:var(--navy);padding:4px}
+.li .st{display:flex;align-items:center;gap:8px}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<div class="hang ov"><div class="rail"></div><div class="panel" id="P"></div></div></div>
+<script src="common.js"></script><script>
+const P=[['ramen','Yuge Ramen',10,7.5,1],['cafe','Petal & Arbor Café',31.5,7.5,0],['thai','Lemongrass Lane',32,19.5,0]];
+const T=document.querySelector('.scene').classList.contains('narrow')?14:20; document.querySelector('.scene').style.setProperty('--T',T);
+const t=(x,y)=>`left:${56+x*T}px;top:${208+y*T}px`;
+document.getElementById('P').innerHTML=`<div class="head"><div class="flap main">${I('map')}<div class="h1 live">Market Map</div></div><div class="flap"></div><div class="flap"></div></div><div class="btn close" aria-label="Close">${I('close')}</div>
+<div class="mapw"></div>${P.map(([k,n,x,y])=>`<div class="pin" style="${t(x,y)}"><img class="px" src="../../assets/ui/emblems/emblem-${k}.png"></div>`).join('')}
+<div class="ml outline live" style="${t(9.5,22.6)}">Kiosk</div><div class="ml outline live" style="${t(21.5,26.4)}">Gate</div>
+<div class="me" style="${t(16,12)}"></div><div class="ml outline live" style="${t(16,13.2)}">You</div>
+<div class="leg">${P.map(([k,n,x,y,v])=>`<div class="li"><img class="px" src="../../assets/ui/emblems/emblem-${k}.png"><div><div class="b live">${n}</div><div class="st b soft">${v?I('check'):''}<span class="live">${v?'Visited':'Not visited yet'}</span></div></div></div>`).join('')}
+<div class="li"><div style="width:72px;display:flex;justify-content:center"><div style="width:40px;height:40px;background:var(--yellow);border:6px solid var(--ink)"></div></div><div class="b live">You are here</div></div></div>`;
+</script></body></html>

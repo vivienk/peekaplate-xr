@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.hang{width:min(1680px,calc(var(--W) - var(--safe-l) - var(--safe-r)));left:calc(var(--safe-l) + (var(--W) - var(--safe-l) - var(--safe-r))/2)}
+.panel.body{height:968px;padding:0}
+.head{position:absolute;left:-8px;right:-8px;top:-8px;height:176px;display:flex;gap:8px;z-index:2}
+.head .flap{flex:1}
+.head .flap.main{flex:6;display:flex;align-items:center;gap:24px;padding:0 24px}
+.head img{width:96px;height:96px}
+.head .t{display:flex;flex-direction:column}
+.head .cu{font-size:48px;line-height:52px}
+.close{position:absolute;right:24px;top:24px;z-index:4}
+.backb{position:absolute;left:24px;top:24px;z-index:4}
+.list{position:absolute;left:0;right:0;top:152px;bottom:112px;padding:32px 72px 32px 32px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-content:start;grid-auto-rows:max-content;gap:16px 32px}
+.phone .list{bottom:8px}
+.sb{position:absolute;right:32px;top:184px;bottom:128px;width:24px;background:var(--cream-sh);border:4px solid var(--ink)}.phone .sb{bottom:24px}
+.sb i{position:absolute;left:0;right:0;background:var(--wood)}
+.row{position:relative;display:flex;align-items:center;gap:24px;min-height:208px;padding:0 24px 0 8px}
+.row .txt{flex:1;min-width:0;padding-right:96px}
+.row .art{width:160px;height:160px;flex:none;background:var(--cream-sh);display:flex;align-items:center;justify-content:center}
+.row .art img{width:144px;height:144px}
+.row .nm{font-size:52px;line-height:60px}
+.row .meta{display:flex;align-items:center;gap:16px;margin-top:8px}
+.row .fav{position:absolute;right:32px;top:24px;color:var(--red)}
+.foot{position:absolute;left:48px;right:48px;bottom:24px;display:flex;gap:48px;align-items:center;font-size:48px;font-weight:400}
+.foot span{display:inline-flex;gap:16px;align-items:center}
+.phone .foot{display:none}
+/* detail */
+.det{position:absolute;left:48px;right:48px;top:200px;bottom:40px;display:flex;gap:64px}
+.det .l{width:384px;flex:none;display:flex;flex-direction:column;align-items:center;gap:16px}
+.plate{width:384px;height:240px;flex:none;background:var(--cream-sh);display:flex;align-items:center;justify-content:center}
+.plate img{width:192px;height:192px}
+.pn{display:flex;align-items:center;justify-content:space-between;width:384px}
+.pn .c{font-size:48px;font-weight:400}
+.det .r{flex:1;display:flex;flex-direction:column;gap:16px;min-width:0}
+.det .nm{font-family:"Jersey 10";font-size:96px;line-height:88px}
+.chips{display:flex;flex-wrap:wrap;gap:12px 12px;align-items:center}
+.lab{font-size:48px;margin-right:8px}
+.xr{display:flex;gap:16px;align-items:flex-start;font-size:48px;line-height:56px;color:var(--ink-soft);width:100%}.xr .ico{margin-top:4px}
+.save{width:384px}
+.price{font-size:48px}
+.narrow .row .art{width:112px;height:112px}.narrow .row .art img{width:96px;height:96px}
+.narrow .row .nm{font-size:48px;line-height:52px}
+.narrow .det{gap:40px}.narrow .det .l{gap:12px}.narrow .pn{flex-wrap:wrap;justify-content:space-between;row-gap:0}.narrow .pn .c{order:3;width:100%;min-width:96px;text-align:center;line-height:48px}.narrow .det .l{width:320px}.narrow .plate{width:320px;height:208px}.narrow .plate img{width:192px;height:192px}.narrow .pn,.narrow .save{width:320px}.pn .c{white-space:nowrap}.narrow .pn .c{font-size:48px}
+.narrow .det .r{gap:12px}.narrow .chip{height:64px}.narrow .chips{gap:8px}
+.narrow .det .nm{font-size:80px;line-height:76px}.narrow .det .b{font-size:48px;line-height:56px}
+</style></head><body>
+<div class="scene game"><div class="scrim"></div>
+<div class="hang"><div class="rail"></div><div class="panel body" id="P"></div></div>
+</div><script src="data.js"></script><script src="common.js"></script><script>
+const q=new URLSearchParams(location.search); const r=q.get('r')||'ramen'; const R0=R[r]; const view=q.get('view')||'list';
+const favs=(q.get('fav')||'').split(',').filter(Boolean).map(Number); const di=+(q.get('d')||1)-1; const focus=q.get('focus');
+const I=(n,c='')=>`<i class="ico ${c}" style="--i:url(../../assets/ui/icons/icon_${n}.png)"></i>`;
+let h=`<div class="head"><div class="flap ${R0.dye} main" style="${view=='detail'?'padding-left:184px':''}"><img class="px" src="../../assets/ui/emblems/emblem-${r}.png"><div class="t"><div class="h1 live">${R0.name}</div><div class="cu live">${R0.cuisine}</div></div></div><div class="flap ${R0.dye}"></div><div class="flap ${R0.dye}"></div></div>`;
+h+=`<div class="btn close ${focus=='close'?'focus':''}" aria-label="Close">${I('close')}</div>`;
+if(view=='list'){
+ h+='<div class="list">'+R0.dishes.map((d,i)=>`<div class="row panel ${q.get('hover')==i+1?'hov':''}" style="${q.get('hover')==i+1?'transform:translateY(-8px) rotate(-0.6deg)':''}">${focus==='d'+(i+1)?'<div class="focus-ring"></div>':''}<div class="art"><img class="px" src="${R0.dishes[i].img}"></div><div class="txt"><div class="nm live">${d.n}</div><div class="meta"><span class="tag">SAMPLE</span><span class="price live soft">Price TBA</span></div></div>${favs.includes(i+1)?`<div class="fav">${I('heart')}</div>`:''}</div>`).join('')+'</div>';
+ h+=`<div class="foot soft"><span><b class="key">E</b>Open dish</span><span><b class="key">Esc</b>Close menu</span></div>`;
+}else{
+ const d=R0.dishes[di]; const saved=favs.includes(di+1);
+ h+=`<div class="btn backb" aria-label="Back">${I('back')}</div>`;
+ h+=`<div class="det"><div class="l"><div class="plate"><img class="px" src="${d.img}"></div>
+  <div class="pn"><div class="btn">${I('chev_left')}</div><div class="c live">${di+1}/${R0.dishes.length}</div><div class="btn">${I('chev_right')}</div></div>
+  <div class="btn save ${saved?'':'primary'} ${focus=='save'?'focus':''}">${saved?I('heart','red-i')+'<span class="live">Saved</span>':I('heart_outline')+'<span class="live">Save dish</span>'}</div><div class="xr">${I('cube')}<span class="live">3D / XR view: not linked yet</span></div></div>
+  <div class="r"><div class="nm live">${d.n}</div><div class="chips"><span class="tag">SAMPLE</span><span class="price live">Price TBA</span></div>
+  <div class="b live">${d.d}</div>
+  <div class="chips"><span class="lab">Ingredients</span>${d.ing.map(x=>`<span class="chip live">${x}</span>`).join('')}</div>
+  <div class="chips"><span class="lab">Allergens</span>${d.al.length?d.al.map(([i,x])=>`<span class="chip">${I(i)}<span class="live">${x}</span></span>`).join(''):'<span class="b live">None listed</span>'}</div>
+  <div class="chips"><span class="lab">Diet</span>${d.diet.map(([i,x])=>`<span class="chip">${I(i)}<span class="live">${x}</span></span>`).join('')}${d.spice?`<span class="chip"><span class="red-i" style="display:inline-flex">${I('chili').repeat(d.spice)}</span><span class="live">Spicy ${d.spice}/3</span></span>`:(d.diet.length?'':'<span class="b live">None listed</span>')}</div>
+  </div></div>`;
+}
+document.getElementById('P').innerHTML=h;
+document.fonts.ready.then(()=>{const L=document.querySelector('.list'); const LR=L&&[...L.children].pop(); if(LR&&LR.getBoundingClientRect().bottom>L.getBoundingClientRect().bottom+1){ const t=document.createElement('div'); t.className='sb'; t.innerHTML='<i></i>'; document.getElementById('P').appendChild(t); const H=t.clientHeight; t.firstChild.style.cssText='top:0;height:'+Math.round(H*L.clientHeight/L.scrollHeight)+'px'; }});
+</script></body></html>

@@ -1,0 +1,9 @@
+{
+  "capturedEntries": 37,
+  "issues": [
+    {
+      "level": "warn",
+      "message": "THREE.WebGLRenderer: Can't change size while VR device is presenting."
+    }
+  ]
+}

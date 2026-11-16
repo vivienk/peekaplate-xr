@@ -1,0 +1,176 @@
+[
+  {
+    "name": "Title Escape cannot bypass Start",
+    "result": true
+  },
+  {
+    "name": "Pause/resume opening walk remains playable",
+    "result": true
+  },
+  {
+    "name": "Menu awards first stamp",
+    "result": true
+  },
+  {
+    "name": "AR model loaded",
+    "result": true
+  },
+  {
+    "name": "Portal modal return chain",
+    "result": true
+  },
+  {
+    "name": "Order wardrobe return",
+    "result": true
+  },
+  {
+    "name": "Order remains unplaced before confirmation",
+    "result": true
+  },
+  {
+    "name": "One confirmed order empties tray",
+    "result": true
+  },
+  {
+    "name": "Order ready after eight world seconds",
+    "result": true
+  },
+  {
+    "name": "Dialogue Escape closes",
+    "result": true
+  },
+  {
+    "name": "All 32 native 3D models loaded",
+    "result": true,
+    "models": [
+      {
+        "id": "r1-1",
+        "loaded": true
+      },
+      {
+        "id": "r1-2",
+        "loaded": true
+      },
+      {
+        "id": "r1-3",
+        "loaded": true
+      },
+      {
+        "id": "r1-4",
+        "loaded": true
+      },
+      {
+        "id": "r2-1",
+        "loaded": true
+      },
+      {
+        "id": "r2-2",
+        "loaded": true
+      },
+      {
+        "id": "r2-3",
+        "loaded": true
+      },
+      {
+        "id": "r2-4",
+        "loaded": true
+      },
+      {
+        "id": "r2-5",
+        "loaded": true
+      },
+      {
+        "id": "r3-1",
+        "loaded": true
+      },
+      {
+        "id": "r3-2",
+        "loaded": true
+      },
+      {
+        "id": "r3-3",
+        "loaded": true
+      },
+      {
+        "id": "r3-4",
+        "loaded": true
+      },
+      {
+        "id": "r3-5",
+        "loaded": true
+      },
+      {
+        "id": "r3-6",
+        "loaded": true
+      },
+      {
+        "id": "r4-1",
+        "loaded": true
+      },
+      {
+        "id": "r4-2",
+        "loaded": true
+      },
+      {
+        "id": "r4-3",
+        "loaded": true
+      },
+      {
+        "id": "r4-4",
+        "loaded": true
+      },
+      {
+        "id": "r5-1",
+        "loaded": true
+      },
+      {
+        "id": "r5-2",
+        "loaded": true
+      },
+      {
+        "id": "r5-3",
+        "loaded": true
+      },
+      {
+        "id": "r5-4",
+        "loaded": true
+      },
+      {
+        "id": "r6-1",
+        "loaded": true
+      },
+      {
+        "id": "r6-2",
+        "loaded": true
+      },
+      {
+        "id": "r6-3",
+        "loaded": true
+      },
+      {
+        "id": "r6-4",
+        "loaded": true
+      },
+      {
+        "id": "r7-1",
+        "loaded": true
+      },
+      {
+        "id": "r7-2",
+        "loaded": true
+      },
+      {
+        "id": "r7-3",
+        "loaded": true
+      },
+      {
+        "id": "r7-4",
+        "loaded": true
+      },
+      {
+        "id": "r7-5",
+        "loaded": true
+      }
+    ]
+  }
+]

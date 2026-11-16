@@ -1,0 +1,81 @@
+# r7-2 materials - Nimble Fox dish kit (flat colour, no textures)
+
+newmtl geta_board
+Ka 0 0 0
+Kd 0.7686 0.5412 0.2902
+Ks 0.4000 0.4000 0.4000
+Ns 50
+d 1.000
+illum 2
+
+newmtl geta_feet
+Ka 0 0 0
+Kd 0.4784 0.2902 0.1647
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl rice
+Ka 0 0 0
+Kd 0.9569 0.9451 0.9098
+Ks 0.1500 0.1500 0.1500
+Ns 20
+d 1.000
+illum 2
+
+newmtl salmon
+Ka 0 0 0
+Kd 1.0000 0.4392 0.2745
+Ks 0.5500 0.5500 0.5500
+Ns 90
+d 1.000
+illum 2
+
+newmtl salmon_fat
+Ka 0 0 0
+Kd 1.0000 0.8275 0.7412
+Ks 0.5000 0.5000 0.5000
+Ns 90
+d 1.000
+illum 2
+
+newmtl ginger
+Ka 0 0 0
+Kd 1.0000 0.7020 0.7569
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl wasabi
+Ka 0 0 0
+Kd 0.5490 0.7765 0.2471
+Ks 0.2000 0.2000 0.2000
+Ns 30
+d 1.000
+illum 2
+
+newmtl shiso
+Ka 0 0 0
+Kd 0.2471 0.6510 0.2745
+Ks 0.3000 0.3000 0.3000
+Ns 50
+d 1.000
+illum 2
+
+newmtl ikura
+Ka 0 0 0
+Kd 1.0000 0.3098 0.0706
+Ks 0.9000 0.9000 0.9000
+Ns 220
+d 1.000
+illum 2
+
+newmtl nori
+Ka 0 0 0
+Kd 0.1059 0.2000 0.1490
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2

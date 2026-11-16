@@ -1,0 +1,73 @@
+# r5-2 materials - Nimble Fox dish kit (flat colour, no textures)
+
+newmtl plate
+Ka 0 0 0
+Kd 0.1647 0.0902 0.2078
+Ks 0.6000 0.6000 0.6000
+Ns 110
+d 1.000
+illum 2
+
+newmtl plate_top
+Ka 0 0 0
+Kd 0.9490 0.9176 0.8471
+Ks 0.5000 0.5000 0.5000
+Ns 90
+d 1.000
+illum 2
+
+newmtl corn_glaze
+Ka 0 0 0
+Kd 1.0000 0.6980 0.1216
+Ks 0.8500 0.8500 0.8500
+Ns 170
+d 1.000
+illum 2
+
+newmtl char
+Ka 0 0 0
+Kd 0.4157 0.1647 0.0549
+Ks 0.6000 0.6000 0.6000
+Ns 90
+d 1.000
+illum 2
+
+newmtl husk
+Ka 0 0 0
+Kd 0.9098 0.8353 0.5412
+Ks 0.4000 0.4000 0.4000
+Ns 50
+d 1.000
+illum 2
+
+newmtl butter
+Ka 0 0 0
+Kd 1.0000 0.9412 0.6510
+Ks 0.8000 0.8000 0.8000
+Ns 160
+d 1.000
+illum 2
+
+newmtl stick
+Ka 0 0 0
+Kd 0.9098 0.7686 0.5412
+Ks 0.3000 0.3000 0.3000
+Ns 30
+d 1.000
+illum 2
+
+newmtl scallion
+Ka 0 0 0
+Kd 0.4235 0.7608 0.2902
+Ks 0.4000 0.4000 0.4000
+Ns 60
+d 1.000
+illum 2
+
+newmtl glaze_drip
+Ka 0 0 0
+Kd 0.6588 0.2510 0.1020
+Ks 0.9500 0.9500 0.9500
+Ns 220
+d 1.000
+illum 2

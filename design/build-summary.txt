@@ -1,0 +1,66 @@
+
+> glimmer-plate-quest@0.1.0 check
+> npm run typecheck && npm test && npm run build
+
+
+> glimmer-plate-quest@0.1.0 typecheck
+> tsc --noEmit
+
+
+> glimmer-plate-quest@0.1.0 test
+> vitest run
+
+
+ RUN  v5.1.0 /Users/vivienkong/.codex/.chatgpt-projects/g-p-6ab6d9d4b1388191b5cdf3129a8bcdc4/outputs/glimmer-plate-xr
+
+
+ Test Files  2 passed (2)
+      Tests  48 passed (48)
+   Start at  22:13:51
+   Duration  7.88s (tests 89%, transform 8%, import 3%)
+
+
+> glimmer-plate-quest@0.1.0 build
+> vite build
+
+vite v7.3.8 building client environment for production...
+transforming...
+../peekaplate-xr/node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "../peekaplate-xr/node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+../peekaplate-xr/node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "../peekaplate-xr/node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 2209 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                    1.04 kB │ gzip:     0.66 kB
+dist/assets/physics-worker-C0UdwKyG.js                             7.15 kB
+dist/assets/worker-_Lh8Vt-i.js                                    41.91 kB
+dist/assets/_virtual_iwsdk-disabled-bundled-fonts-BO7XWqUe.js      0.77 kB │ gzip:     0.46 kB
+dist/assets/physics-runtime-DcDTuyVG.js                            6.34 kB │ gzip:     2.51 kB
+dist/assets/index-DhUo-VjH.js                                      6.79 kB │ gzip:     2.86 kB
+dist/assets/index-DY6Od7Zu.js                                     21.23 kB │ gzip:     6.38 kB
+dist/assets/world-initializer-BElRxJZA.js                         45.11 kB │ gzip:    15.22 kB
+dist/assets/worker-BkRtSCqm.js                                   198.82 kB │ gzip:    64.73 kB
+dist/assets/inter-BNVRAYFH.js                                    423.25 kB │ gzip:   282.73 kB
+dist/assets/msdf-worker-BUaSHgMS.js                              455.99 kB │ gzip:   180.25 kB
+dist/assets/index-BANZB3J9.js                                  7,963.81 kB │ gzip: 2,048.65 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1m 22s
+
+🥽 IWSDK Dev Summary (Build):
+  - Device: metaQuest3
+  - Runtime injected: 1156.8KB
+  - Activation mode: /^(localhost|127\.0\.0\.1|.*\.vercel\.app|.*\.vusercontent\.net|.*\.v0\.build)$/
+

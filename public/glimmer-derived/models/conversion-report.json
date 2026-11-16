@@ -1,0 +1,764 @@
+{
+  "source": "glimmer-plate-full 1.0.0",
+  "models": [
+    {
+      "id": "r1-1",
+      "file": "assets/models/dishes/r1-1.obj",
+      "triangles": 3096,
+      "materials": 11,
+      "parts": 29,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          0.10511,
+          0.1
+        ]
+      },
+      "bytes": 83860,
+      "sourceOBJsha256": "d8e2225df81b4e90f7cb65516b4782bf0bd92d97cf7a4a5a5447339f2303115d",
+      "sourceMTLsha256": "4a402c10d2b814712dba01112741e64161c39c5ffb9967d946769726b431c033",
+      "glbSha256": "6c993fb09b5595d32035eb53ef925bf256bacb06c0e8eafc46071be3a8206260"
+    },
+    {
+      "id": "r1-2",
+      "file": "assets/models/dishes/r1-2.obj",
+      "triangles": 3232,
+      "materials": 10,
+      "parts": 59,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          0.08422,
+          0.1
+        ]
+      },
+      "bytes": 107128,
+      "sourceOBJsha256": "2b874a4dbbfd939acdf832b1ee922f955bb82b905a6173ebc9712c574298e4c6",
+      "sourceMTLsha256": "8f47bef78c94be36123bd6330c4f845a5409152fb7e2590df31d401d953571c8",
+      "glbSha256": "fe559725ec775313b4dae5927d05ab8996041cd0284b32a078b2b2fed4db8de1"
+    },
+    {
+      "id": "r1-3",
+      "file": "assets/models/dishes/r1-3.obj",
+      "triangles": 3000,
+      "materials": 9,
+      "parts": 57,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          0.0771,
+          0.1
+        ]
+      },
+      "bytes": 101320,
+      "sourceOBJsha256": "c8e56492aabc5f7bd3618dc05745a334700a2451aa29f34bcd2f5384498bfc52",
+      "sourceMTLsha256": "adf6383b2608b806c7e8dc72c580a6fb40387a1db8f9734e17e3ead20b1ec1b4",
+      "glbSha256": "7e89e26445ac8a6cd3cb1c9203ed038cc4c080723100e09da1fd0f67cd8ab50b"
+    },
+    {
+      "id": "r1-4",
+      "file": "assets/models/dishes/r1-4.obj",
+      "triangles": 1744,
+      "materials": 7,
+      "parts": 18,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.072
+        ],
+        "max": [
+          0.1,
+          0.02681,
+          0.072
+        ]
+      },
+      "bytes": 49528,
+      "sourceOBJsha256": "4a3fa1e98a27aa20268a86614dee4b1db44f764c17fd93bf598ee1adb159c5a0",
+      "sourceMTLsha256": "5c7f1f5d854e866ddc8f70907e237cb38a1fb743d1f1d25140d2189bc8c1f596",
+      "glbSha256": "b7051f030515b1328d3ae880554e8668542f245520ec7c6d7d6590dd1442ec4e"
+    },
+    {
+      "id": "r2-1",
+      "file": "assets/models/dishes/r2-1.obj",
+      "triangles": 2822,
+      "materials": 10,
+      "parts": 41,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          0.07949,
+          0.1
+        ]
+      },
+      "bytes": 86796,
+      "sourceOBJsha256": "3d0b92dce700a61c29497b969add54dd553a20ac8389e5c7b29885bf7e2c64cb",
+      "sourceMTLsha256": "3daaad8f517df6f7704891fe4d3d38eb3200330cd05ca4414c37f42b40d994e0",
+      "glbSha256": "67af7fd98e56cb94d2b5b12547158b0ce369f7705c5575b19617a4112a351692"
+    },
+    {
+      "id": "r2-2",
+      "file": "assets/models/dishes/r2-2.obj",
+      "triangles": 2400,
+      "materials": 10,
+      "parts": 72,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          0.03526,
+          0.1
+        ]
+      },
+      "bytes": 100648,
+      "sourceOBJsha256": "d52e5c10df0ec09cbe5e041ca9084e07d2e06ee286b040f8ddfbf56662b9e805",
+      "sourceMTLsha256": "120f3788544b57c299422890b4da685b2efcd3e45260e1c20599672988060723",
+      "glbSha256": "8fd198b2fe51689148fbbe543cadb2b162b89f940abb03016837258be83cb19f"
+    },
+    {
+      "id": "r2-3",
+      "file": "assets/models/dishes/r2-3.obj",
+      "triangles": 2080,
+      "materials": 10,
+      "parts": 37,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          0.0464,
+          0.1
+        ]
+      },
+      "bytes": 69908,
+      "sourceOBJsha256": "f774f0b5dbb66b57b090e566a5426b637fa0fe215aafa3970afd76ce1f9b4bd1",
+      "sourceMTLsha256": "a16e280caa2db41664380a886761c344b4a3b10b0b21ba469414e5f12c9b2039",
+      "glbSha256": "9d9885e75b11e2c2a349ee7a7a75634546a9604a1b7193bf583ce581692dab6c"
+    },
+    {
+      "id": "r2-4",
+      "file": "assets/models/dishes/r2-4.obj",
+      "triangles": 1280,
+      "materials": 6,
+      "parts": 14,
+      "bounds": {
+        "min": [
+          -0.07,
+          0,
+          -0.07
+        ],
+        "max": [
+          0.07,
+          0.0555,
+          0.07
+        ]
+      },
+      "bytes": 37808,
+      "sourceOBJsha256": "80ef71030cad2bc067cd0831883c07dcfd81cd89fd1d5cfb242046f64bd79939",
+      "sourceMTLsha256": "98d0684fccd279f821ac9705dec8d9b2e40bbe021ed28549d806ab00ef0e800f",
+      "glbSha256": "59c062e8eb58c22c7a7fa8704fd66a07e6f91b95f89fb3b755e582f481300f42"
+    },
+    {
+      "id": "r2-5",
+      "file": "assets/models/dishes/r2-5.obj",
+      "triangles": 1784,
+      "materials": 9,
+      "parts": 20,
+      "bounds": {
+        "min": [
+          -0.036,
+          0,
+          -0.036
+        ],
+        "max": [
+          0.036,
+          0.14798,
+          0.036
+        ]
+      },
+      "bytes": 50840,
+      "sourceOBJsha256": "f987d0cef1fa9a7f0b256dde34a723e6b890a76617d6ef6fefb1a83f69b780ce",
+      "sourceMTLsha256": "2d1f5ff3c12e6926f004f1a6772f7ee068695c07e4f517b24ff218c7510845ca",
+      "glbSha256": "dc78fa55d5b7179ee5191ad939d70646edccc74c47cda9817df66439e55ba5b6"
+    },
+    {
+      "id": "r3-1",
+      "file": "assets/models/dishes/r3-1.obj",
+      "triangles": 3824,
+      "materials": 11,
+      "parts": 68,
+      "bounds": {
+        "min": [
+          -0.105,
+          0,
+          -0.105
+        ],
+        "max": [
+          0.105,
+          0.05789,
+          0.105
+        ]
+      },
+      "bytes": 123724,
+      "sourceOBJsha256": "1d0c0e58f98ac852a6b1528ebd74e2a10ca1760d21adfa5756dccb472c3ad400",
+      "sourceMTLsha256": "e99fadb35351853ab2e20125675ecba88b45a70c495b9b6e89150db42e07a68e",
+      "glbSha256": "97342ca1d9348b0f6459e17fca116924c386df0fda81c892313414f1f23e752c"
+    },
+    {
+      "id": "r3-2",
+      "file": "assets/models/dishes/r3-2.obj",
+      "triangles": 2680,
+      "materials": 9,
+      "parts": 39,
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11
+        ],
+        "max": [
+          0.11,
+          0.05138,
+          0.11
+        ]
+      },
+      "bytes": 83672,
+      "sourceOBJsha256": "322c35a096fb5b70f8d2cf44312951906ab6c41d0a6810aba25fe5b93898777e",
+      "sourceMTLsha256": "f9ac00f376f999724202b04eabc274c148fdfa46df4043796a4e8d92cd19875f",
+      "glbSha256": "b5c512d7e657958f2e19bf86b64e84ce6014b3e6b18776d34f7834078e1c90ae"
+    },
+    {
+      "id": "r3-3",
+      "file": "assets/models/dishes/r3-3.obj",
+      "triangles": 2500,
+      "materials": 11,
+      "parts": 34,
+      "bounds": {
+        "min": [
+          -0.095,
+          0,
+          -0.095
+        ],
+        "max": [
+          0.095,
+          0.08179,
+          0.095
+        ]
+      },
+      "bytes": 78280,
+      "sourceOBJsha256": "fbe2bd8b39b8a071e830106268cfc90e33627ee1b6d5dfd18e2f8c366d53f6fd",
+      "sourceMTLsha256": "462ec0733a2b0718f4a37282777c8c9d93560c0fad4cb1cda1fe3e17cab3926f",
+      "glbSha256": "e572e2ac16efd8120d0097e7fef990dd8e2baf94c337e134daa600a239e4f1b2"
+    },
+    {
+      "id": "r3-4",
+      "file": "assets/models/dishes/r3-4.obj",
+      "triangles": 2620,
+      "materials": 11,
+      "parts": 70,
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11
+        ],
+        "max": [
+          0.11,
+          0.0521,
+          0.11
+        ]
+      },
+      "bytes": 106016,
+      "sourceOBJsha256": "588f2a8fa7399b11a5e0417b7237a0b310c6e196373d691b3a14608da10d7d0d",
+      "sourceMTLsha256": "c0c8cce4b560afe20ae2464d845c240714bf3f8764b404f2a45f0d9445935f0a",
+      "glbSha256": "05fc3f60a5f1c994b391f02dae381ffde1763ded005018c43f8802d175169d6c"
+    },
+    {
+      "id": "r3-5",
+      "file": "assets/models/dishes/r3-5.obj",
+      "triangles": 1868,
+      "materials": 8,
+      "parts": 39,
+      "bounds": {
+        "min": [
+          -0.105,
+          0,
+          -0.0735
+        ],
+        "max": [
+          0.105,
+          0.04449,
+          0.0735
+        ]
+      },
+      "bytes": 66712,
+      "sourceOBJsha256": "2973c7b3e1553b11e52259390a89df090baf3e65064eaa95fe5096bd5559916a",
+      "sourceMTLsha256": "b531cdc36e64eea7a2d95e4a24a9e73325731aa40e802f537bb043f9702a173f",
+      "glbSha256": "1f33b0698980822dd95367318140bcb5b329d162b43e13ef657465c2dba67e8c"
+    },
+    {
+      "id": "r3-6",
+      "file": "assets/models/dishes/r3-6.obj",
+      "triangles": 1374,
+      "materials": 6,
+      "parts": 15,
+      "bounds": {
+        "min": [
+          -0.045,
+          0,
+          -0.045
+        ],
+        "max": [
+          0.045,
+          0.19088,
+          0.045
+        ]
+      },
+      "bytes": 38716,
+      "sourceOBJsha256": "b39b9d5ed0023cfae699103634d85ddd55ec771977a53c7b7d0a8216ab395598",
+      "sourceMTLsha256": "de235b816026be012e9ef26fa34ab3fc9d635b1f9a6c2ec5bdfb4e5300b61577",
+      "glbSha256": "042991b828edf68044dfd7f0fccd29ce9d300cbc68a6bb9f84294f68d200dca2"
+    },
+    {
+      "id": "r4-1",
+      "file": "assets/models/dishes/r4-1.obj",
+      "triangles": 1744,
+      "materials": 9,
+      "parts": 74,
+      "bounds": {
+        "min": [
+          -0.088,
+          0,
+          -0.088
+        ],
+        "max": [
+          0.088,
+          0.04377,
+          0.088
+        ]
+      },
+      "bytes": 89204,
+      "sourceOBJsha256": "3526dda30539096208766d0b6bd5a3247ce3ff67930a577da27ba8d576fe255f",
+      "sourceMTLsha256": "a2db68bb3813001c0e04275172fb38504d8d13979e8724bd002a0fb0cd67505c",
+      "glbSha256": "2c0a28246f02ec99a2da5193291cd2a9798fe1981b1b248c2f7a95679d529f1e"
+    },
+    {
+      "id": "r4-2",
+      "file": "assets/models/dishes/r4-2.obj",
+      "triangles": 2302,
+      "materials": 7,
+      "parts": 35,
+      "bounds": {
+        "min": [
+          -0.046,
+          0,
+          -0.046
+        ],
+        "max": [
+          0.046,
+          0.21165,
+          0.046
+        ]
+      },
+      "bytes": 70988,
+      "sourceOBJsha256": "3c8b2e5e1d59a629e588a5a75981ee7cfda239b1123cac81e047d7ac7edddef3",
+      "sourceMTLsha256": "aa95ea66b0d583c64b3ef4d3824bddbdb71c93706989170625e215c47a38f040",
+      "glbSha256": "9d75c7a93cd1dd61ac11065621beeccc7289ee4bafa1d606322db330b840b9a5"
+    },
+    {
+      "id": "r4-3",
+      "file": "assets/models/dishes/r4-3.obj",
+      "triangles": 1574,
+      "materials": 8,
+      "parts": 51,
+      "bounds": {
+        "min": [
+          -0.105,
+          0,
+          -0.105
+        ],
+        "max": [
+          0.105,
+          0.02284,
+          0.105
+        ]
+      },
+      "bytes": 74060,
+      "sourceOBJsha256": "b56f90e10af4268a3aa304295e554414a64660d450502cb26279c92300b1ff4d",
+      "sourceMTLsha256": "b063b9486c0a8673c11a79ab5a4f277e01e1caef6623fca424a4423ab44fbb0e",
+      "glbSha256": "5e77925158c48f4ac8fce01a0d53b8046f969f7a95ece94e99fa932c7e8ff4d3"
+    },
+    {
+      "id": "r4-4",
+      "file": "assets/models/dishes/r4-4.obj",
+      "triangles": 1860,
+      "materials": 8,
+      "parts": 47,
+      "bounds": {
+        "min": [
+          -0.0475,
+          0,
+          -0.0475
+        ],
+        "max": [
+          0.0475,
+          0.15501,
+          0.0475
+        ]
+      },
+      "bytes": 72424,
+      "sourceOBJsha256": "f014b4aa5cf361564adfa643862fd639e6631b2682859749d308a386878246c1",
+      "sourceMTLsha256": "9a18fe4b4a8c24bdab627db3c48c2c9a314f5403ed31410f441cf74cd9dbd2e3",
+      "glbSha256": "e56302a9d32aca1a8c2016cf0124807c4c6c73ae6f07fa1cae4292fa9b72c747"
+    },
+    {
+      "id": "r5-1",
+      "file": "assets/models/dishes/r5-1.obj",
+      "triangles": 1982,
+      "materials": 9,
+      "parts": 63,
+      "bounds": {
+        "min": [
+          -0.1,
+          0,
+          -0.045
+        ],
+        "max": [
+          0.1,
+          0.03766,
+          0.045
+        ]
+      },
+      "bytes": 85632,
+      "sourceOBJsha256": "5dbe0f909ee09de35054f78b1280fc3122ebed09ecd5fb7df373c6f8684a3b16",
+      "sourceMTLsha256": "768d58509767a0d7e93577e4edd434fc6a98b1ab0d222864d9a990255d75ddc1",
+      "glbSha256": "2741bbe0c659162158c0a1584fdd86c8797baf8bba6eaf3ab39e6596023669e8"
+    },
+    {
+      "id": "r5-2",
+      "file": "assets/models/dishes/r5-2.obj",
+      "triangles": 1960,
+      "materials": 9,
+      "parts": 29,
+      "bounds": {
+        "min": [
+          -0.11253,
+          0,
+          -0.06
+        ],
+        "max": [
+          0.108,
+          0.05469,
+          0.06
+        ]
+      },
+      "bytes": 62116,
+      "sourceOBJsha256": "36a62901748b1e1c12db1ac447d9ef0d69645c08a2d489cf355a1a26478a22cd",
+      "sourceMTLsha256": "0d28a18f5cecc151440032da14e46f17954a86cdd43a513e9aeb6f37fec30aba",
+      "glbSha256": "c729411482f7b493287e98898e0359c6ec3da0bcc8f6690b365e6813022b3db4"
+    },
+    {
+      "id": "r5-3",
+      "file": "assets/models/dishes/r5-3.obj",
+      "triangles": 1966,
+      "materials": 10,
+      "parts": 38,
+      "bounds": {
+        "min": [
+          -0.105,
+          0,
+          -0.105
+        ],
+        "max": [
+          0.105,
+          0.04472,
+          0.105
+        ]
+      },
+      "bytes": 68980,
+      "sourceOBJsha256": "542b72c36befc50582bb4c59eca6eac740560d60126c159cde43909c4c609977",
+      "sourceMTLsha256": "8a8791de5958ec4fb29f5c6a5bc1c35c4a8e2031e59a47ee22929475dd12749b",
+      "glbSha256": "1d5657a4799255ae95edd5ddcf4802190d8e0089deeac37584b890dba5e5c08c"
+    },
+    {
+      "id": "r5-4",
+      "file": "assets/models/dishes/r5-4.obj",
+      "triangles": 2352,
+      "materials": 9,
+      "parts": 26,
+      "bounds": {
+        "min": [
+          -0.08,
+          0,
+          -0.08
+        ],
+        "max": [
+          0.08,
+          0.16367,
+          0.08
+        ]
+      },
+      "bytes": 66440,
+      "sourceOBJsha256": "a2de1c61f3d3e4209c10ba80955e51b09df9e32ad100a3ea40d359ae7a6fac0b",
+      "sourceMTLsha256": "e275f73cfa98ec740e256392cadad2eeb8f01a1f6f150e3b72f454deab7af9aa",
+      "glbSha256": "42b9c2c54290ffd570b9e430719b7fb91559d06f359ec237de7666f65f6a92a1"
+    },
+    {
+      "id": "r6-1",
+      "file": "assets/models/dishes/r6-1.obj",
+      "triangles": 1808,
+      "materials": 11,
+      "parts": 47,
+      "bounds": {
+        "min": [
+          -0.11,
+          0,
+          -0.11
+        ],
+        "max": [
+          0.11,
+          0.07991,
+          0.11
+        ]
+      },
+      "bytes": 73248,
+      "sourceOBJsha256": "dfe0a53ec716ccaf07498919bd8eadbf08be2e92f200b9ce19c08bb2089f3652",
+      "sourceMTLsha256": "32c9fe013b61e0b1686ba2bcacfabfbfd93ef73b4a5bf77605b3bd27cec4e99f",
+      "glbSha256": "9a6923479cc9e1fb5297510c2ddd07032fd8ea9f2237b0302478ca9a81c2b82e"
+    },
+    {
+      "id": "r6-2",
+      "file": "assets/models/dishes/r6-2.obj",
+      "triangles": 1244,
+      "materials": 11,
+      "parts": 39,
+      "bounds": {
+        "min": [
+          -0.0698,
+          0,
+          -0.06912
+        ],
+        "max": [
+          0.0698,
+          0.04846,
+          0.06894
+        ]
+      },
+      "bytes": 55464,
+      "sourceOBJsha256": "1052ad9f1b745f163c87fdbe9abbef6f32f27abfca470031f5ed300c342dc4c4",
+      "sourceMTLsha256": "eebc1d2ad6041942fc46a828b0fb2212f7b98b6e7c43bcaaa821f6b4590afd17",
+      "glbSha256": "3d0f26c3f843671708aff8964a15a0bc417544831486496623cc32a41435df5c"
+    },
+    {
+      "id": "r6-3",
+      "file": "assets/models/dishes/r6-3.obj",
+      "triangles": 2724,
+      "materials": 11,
+      "parts": 61,
+      "bounds": {
+        "min": [
+          -0.102,
+          0,
+          -0.0663
+        ],
+        "max": [
+          0.102,
+          0.053,
+          0.0663
+        ]
+      },
+      "bytes": 100412,
+      "sourceOBJsha256": "6a7b9541c7427d2e4c587f60af6c9cca56ec8381a5f22f04d5e22b3ce3b49982",
+      "sourceMTLsha256": "2cd380e5dfbcf63d888620507b7cb83ccdfb47715ac6e6d5f9b41fa879bb5e74",
+      "glbSha256": "9bf15481006b5e6ff06e35722d2355cbee1f6541fc1b94f1606e3e21222f2df3"
+    },
+    {
+      "id": "r6-4",
+      "file": "assets/models/dishes/r6-4.obj",
+      "triangles": 1464,
+      "materials": 9,
+      "parts": 88,
+      "bounds": {
+        "min": [
+          -0.0697,
+          0,
+          -0.05692
+        ],
+        "max": [
+          0.09352,
+          0.05946,
+          0.059
+        ]
+      },
+      "bytes": 93856,
+      "sourceOBJsha256": "54349d7a398f3f7c6e4c7e4add6c77a8914abc0fcccd21e5a80a27d68fd56d8c",
+      "sourceMTLsha256": "d45593e276eecfd7b8c2b833d59c338ea8442cb01ccdd55d3cae6838150128cd",
+      "glbSha256": "fd59ee4f767c233bf3ff1e2709639f83c5a4c02e6e5bcb9b7aabd838c41879c2"
+    },
+    {
+      "id": "r7-1",
+      "file": "assets/models/dishes/r7-1.obj",
+      "triangles": 3864,
+      "materials": 12,
+      "parts": 59,
+      "bounds": {
+        "min": [
+          -0.092,
+          0,
+          -0.092
+        ],
+        "max": [
+          0.092,
+          0.0988,
+          0.092
+        ]
+      },
+      "bytes": 119380,
+      "sourceOBJsha256": "8ebacde1abc3d3467361e1e06d20ef5592963a921c85c13917a8f948c2c22f5c",
+      "sourceMTLsha256": "a5aad66ef29684c632155053152f922c6f2a33df37e58a4dc2d7d930d718a948",
+      "glbSha256": "cfb819ffd8b6f6b5c471bc9abbe3cb4b1f8ca2fc33639ba79c134e63cf7aa9b0"
+    },
+    {
+      "id": "r7-2",
+      "file": "assets/models/dishes/r7-2.obj",
+      "triangles": 2132,
+      "materials": 10,
+      "parts": 52,
+      "bounds": {
+        "min": [
+          -0.10283,
+          0,
+          -0.05118
+        ],
+        "max": [
+          0.10237,
+          0.055,
+          0.05118
+        ]
+      },
+      "bytes": 80668,
+      "sourceOBJsha256": "882333d39a74b3d72cd24793d118d7de038dd81c0cfd8b4304504f995f493c59",
+      "sourceMTLsha256": "88695f3ade88c2b2e4cd3d0085abd7245e3e51a8f40bf157909d0d3a5c99dcb2",
+      "glbSha256": "113af6d614461475418a196204711a8adedc81951e730c6d38ccab3d18cc6444"
+    },
+    {
+      "id": "r7-3",
+      "file": "assets/models/dishes/r7-3.obj",
+      "triangles": 1328,
+      "materials": 12,
+      "parts": 28,
+      "bounds": {
+        "min": [
+          -0.09,
+          0,
+          -0.054
+        ],
+        "max": [
+          0.09,
+          0.10609,
+          0.054
+        ]
+      },
+      "bytes": 50656,
+      "sourceOBJsha256": "7a4aee9999eae60a011e6bc3987c39b6cdee9f27cd660c5c5e5fcd747b3ea182",
+      "sourceMTLsha256": "0fe942ae8940a56730c7c3264dd8c3347163bfbb758c14636d64d16219d97973",
+      "glbSha256": "3d7c6a9fdc94a98898fbdc0eb41bd019bd7ffbfa174ec5236f9fa6cf9632a034"
+    },
+    {
+      "id": "r7-4",
+      "file": "assets/models/dishes/r7-4.obj",
+      "triangles": 2332,
+      "materials": 9,
+      "parts": 37,
+      "bounds": {
+        "min": [
+          -0.0612,
+          0,
+          -0.0612
+        ],
+        "max": [
+          0.0612,
+          0.07175,
+          0.0612
+        ]
+      },
+      "bytes": 75596,
+      "sourceOBJsha256": "e6574cb220d0ba82ebf083eea6b9d116ebad9326a9d02deedef93c88d483cefa",
+      "sourceMTLsha256": "c34e96613b5fe496056962bbb16053b410c5558befa8232e2bc906e666f5097b",
+      "glbSha256": "9f7f704f3c607357045c8366aad73df049e8f356cc282ad5240523c7d23bb68d"
+    },
+    {
+      "id": "r7-5",
+      "file": "assets/models/dishes/r7-5.obj",
+      "triangles": 1651,
+      "materials": 10,
+      "parts": 35,
+      "bounds": {
+        "min": [
+          -0.087,
+          0,
+          -0.07395
+        ],
+        "max": [
+          0.087,
+          0.0361,
+          0.07572
+        ]
+      },
+      "bytes": 61248,
+      "sourceOBJsha256": "e5bf76648957a826f31f1bf3887ec4854335a532ea6a2cc6d4e0b5ace867ea03",
+      "sourceMTLsha256": "52cc3f4321ec1f82a800be6d06298d39020215986474c476d0e26eec47d01fba",
+      "glbSha256": "c0d7f9d5b8f66d7c33c24f4b63b5d681d69bd73665b75c3220cd0a8a6372f8c0"
+    },
+    {
+      "id": "portal-pedestal",
+      "file": "assets/models/portal-pedestal.obj",
+      "triangles": 2016,
+      "materials": 4,
+      "parts": 17,
+      "bounds": {
+        "min": [
+          -0.1515,
+          0,
+          -0.1515
+        ],
+        "max": [
+          0.1515,
+          0.042,
+          0.1515
+        ]
+      },
+      "bytes": 54920,
+      "sourceOBJsha256": "4eed0a1a642549d88e92d0245a8db4136006e0897f775aa6e99892797550d8de",
+      "sourceMTLsha256": "30b1814d4cba62b18d3983139fe18987e9dfa87e3931084310f27db07bd6e172",
+      "glbSha256": "cdf96ba52dc46ca50b37c004da03532dbbe1d0b9755a2caa597550c77bb36158"
+    }
+  ]
+}

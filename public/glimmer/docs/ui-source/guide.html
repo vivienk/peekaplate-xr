@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="ui.css"><style>
+.g{position:absolute;left:48px;right:48px;top:200px;display:grid;grid-template-columns:1fr 1fr;gap:24px 64px}
+.it{display:flex;align-items:center;gap:16px;min-height:96px}
+.it .k{display:flex;gap:8px;flex:none;justify-content:flex-start;align-items:center}
+.goal{position:absolute;left:48px;right:48px;bottom:40px;display:flex;gap:24px;align-items:flex-start;padding:16px 24px;background:var(--cream-sh)}
+.tch{display:none}.phone .tch{display:flex}.phone .dsk{display:none}
+.chipk{width:72px;height:76px;background:url(../../assets/ui/touch/btn_action.png) 0 0/72px 76px;position:relative;color:var(--cream)}.chipk .ico{position:absolute;left:12px;top:10px}
+.jk{width:80px;height:80px;background:url(../../assets/ui/touch/joystick_base.png) 0 0/80px 80px}
+</style></head><body><div class="scene game"><div class="scrim"></div>
+<div class="hang ov"><div class="rail"></div><div class="panel" id="P"></div></div></div>
+<script src="common.js"></script><script>
+const kiosk=Q.get('from')==='kiosk'; const K=s=>`<span class="key">${s}</span>`;
+document.getElementById('P').innerHTML=`<div class="head"><div class="flap main" style="${kiosk?"":"padding-left:184px"}">${I("book")}<div class="h1 live">${kiosk?'Market Guide':'Controls'}</div></div><div class="flap"></div><div class="flap"></div></div><div class="btn ${kiosk?'close':'backb'}" style="position:absolute;${kiosk?'right':'left'}:24px;top:24px;z-index:4">${I(kiosk?'close':'back')}</div>
+<div class="g">
+<div class="it dsk"><div class="k">${K('W')}${K('A')}${K('S')}${K('D')}</div><span class="b live">Walk (arrow keys too)</span></div>
+<div class="it dsk"><div class="k">${K('E')}${K('Space')}</div><span class="b live">Look, talk, open a menu</span></div>
+<div class="it dsk"><div class="k"><span class="b">Click</span></div><span class="b live">Walk to that spot</span></div>
+<div class="it dsk"><div class="k">${K('Esc')}${K('P')}</div><span class="b live">Pause, or close a menu</span></div>
+<div class="it dsk"><div class="k">${K('M')}</div><span class="b live">Market map</span></div>
+<div class="it dsk"><div class="k">${K('Tab')}</div><span class="b live">Passport</span></div>
+<div class="it tch"><div class="k"><span class="jk"></span></div><span class="b live">Drag on the left to walk</span></div>
+<div class="it tch"><div class="k"><span class="chipk">${I('tap')}</span></div><span class="b live">Action: look, talk, open a menu</span></div>
+<div class="it tch"><div class="k"><span class="b">Tap</span></div><span class="b live">Walk to that spot</span></div>
+<div class="it tch"><div class="k">${I('pause')}</div><span class="b live">Pause</span></div>
+</div>
+<div class="goal">${I('passport')}<div><div class="bb live">Collect all three restaurant stamps.</div><div class="b soft live">Open each restaurant's menu to stamp your passport. Save dishes you'd love to taste, and keep an eye out for 12 hidden finds.</div></div></div>`;
+</script></body></html>

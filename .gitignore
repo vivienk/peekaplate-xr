@@ -63,3 +63,7 @@ blender-*.zip
 *.rpm
 blender-libs*/
 blender-rpms*/
+
+node_modules
+dist/
+.iwsdk/

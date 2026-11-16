@@ -1,0 +1,55 @@
+/* Glimmer Plate full game - additions to ui.css (Nimble Fox). 1 CSS px = 1 canvas unit. */
+.flap.lacquer{border-image-source:url(../../assets/ui/panels/flap_lacquer.png);color:var(--cream)}
+.flap.ember{border-image-source:url(../../assets/ui/panels/flap_ember.png);color:var(--cream)}
+.flap.harbour{border-image-source:url(../../assets/ui/panels/flap_harbour.png);color:var(--cream)}
+.flap.indigo{border-image-source:url(../../assets/ui/panels/flap_indigo.png);color:var(--cream)}
+.scene.lantern{background-image:url(../../references/look-lantern-steps.jpg)}
+.scene.pier{background-image:url(../../references/look-fogline-pier.jpg)}
+.scene.alley{background-image:url(standins/gameplay_1920.jpg)}
+.scene.alley.wide{background-image:url(standins/gameplay_2400.jpg)}
+.scene.ink{background:#05071a}
+.phone{--safe-l:156px;--safe-b:87px}
+.head img{width:96px;height:96px}
+.head .t{display:flex;flex-direction:column;min-width:0}
+.head .cu{font-size:48px;line-height:52px;white-space:nowrap}
+.head .flap.main .ico.x2{color:inherit}
+.backb{position:absolute;left:24px;top:24px;z-index:4}
+.bodyx{position:absolute;left:48px;right:48px;top:200px;bottom:40px}
+.desk-only{}
+.phone .desk-only{display:none}
+.foot{position:absolute;left:48px;right:48px;bottom:24px;display:flex;gap:48px;align-items:center;font-size:48px;color:var(--ink-soft)}
+.foot span{display:inline-flex;gap:12px;align-items:center}
+.key .ico{color:var(--ink)}
+.btn.sel{border-image-source:url(../../assets/ui/buttons/tab_selected_mark.png);border-width:16px 16px 20px 16px;border-image-slice:16 16 20 16 fill}
+.chk{position:absolute;right:-28px;top:-28px;width:56px;height:56px;background:var(--cream);border:4px solid var(--ink);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.tabs{display:flex;gap:24px}
+.plate{background:var(--cream-sh);display:flex;align-items:center;justify-content:center;flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.nm1{font-family:"Jersey 10";font-size:96px;line-height:88px}
+.err{color:var(--red-deep)}
+.code-big{font-family:"Jersey 10";color:var(--ink);letter-spacing:8px}
+.slot{width:72px;height:96px;border-style:solid;border-width:4px 4px 12px 4px;border-image:url(../../assets/ui/prompts/code_slot.png) 4 4 12 4 fill/4px 4px 12px 4px;display:flex;align-items:center;justify-content:center;font-family:"Jersey 10";font-size:72px;line-height:64px;color:var(--ink)}
+.slot.act{border-image-source:url(../../assets/ui/prompts/code_slot_active.png)}
+.slot.bad{border-image-source:url(../../assets/ui/prompts/code_slot_error.png)}
+.qty{display:inline-flex;align-items:center;gap:24px}
+.qty .n{font-size:52px;line-height:60px;min-width:72px;text-align:center}
+.lrow{display:flex;align-items:center;gap:24px;min-height:180px;padding:0 24px 0 8px}
+.lrow .art{width:120px;height:120px}
+.lrow .art img{width:96px;height:96px}
+.lrow .tx{flex:1;min-width:0}
+.mapbox{position:relative;border:8px solid var(--wood);background:var(--navy);image-rendering:pixelated}
+.mapbox img.m{display:block;width:100%;height:100%}
+.mpin{position:absolute;width:80px;height:80px;margin:-80px 0 0 -40px;background:var(--navy);border:4px solid var(--cream);display:flex;align-items:center;justify-content:center;color:var(--cream)}
+.mpin img{width:64px;height:64px}
+.mpin .ok{position:absolute;right:-20px;bottom:-20px;width:44px;height:44px;background:var(--cream);border:4px solid var(--ink);color:#1f6f3a;display:flex;align-items:center;justify-content:center}
+.mpin .ok .ico{width:28px;height:28px}
+.mlab{position:absolute;font-size:48px;line-height:48px;color:var(--cream);white-space:nowrap;display:flex;align-items:center;gap:4px}
+.mlab .ico{color:var(--cream);filter:drop-shadow(4px 0 0 #1e1012) drop-shadow(-4px 0 0 #1e1012) drop-shadow(0 4px 0 #1e1012) drop-shadow(0 -4px 0 #1e1012)}
+.meX{position:absolute;width:40px;height:40px;margin:-40px 0 0 -20px;background:var(--yellow);border:4px solid var(--ink)}
+.toast{display:flex;align-items:center;gap:16px;padding:0 16px;min-height:104px}
+.toast span{font-size:48px;line-height:56px}
+.sw{position:relative;width:100%;justify-content:flex-start;gap:8px;padding:0 10px}
+.sw .c{width:48px;height:48px;border:4px solid var(--ink);flex:none;display:flex;align-items:center;justify-content:center}
+.sw .two{display:flex;flex-direction:column;line-height:44px;text-align:left}
+.sw .two .s{font-size:48px;color:#6e5f50}
+.compact .lrow{min-height:164px}

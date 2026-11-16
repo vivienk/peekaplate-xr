@@ -1,0 +1,40 @@
+{
+  "pointerStart": true,
+  "keyboardMovement": {
+    "before": {
+      "x": 22,
+      "y": 27
+    },
+    "after": {
+      "x": 19.524999999999984,
+      "y": 27
+    }
+  },
+  "passportShortcut": true,
+  "exits": [
+    {
+      "from": "d1-rain-alley",
+      "to": "d2-lantern-steps",
+      "accepted": true,
+      "arrived": true
+    },
+    {
+      "from": "d2-lantern-steps",
+      "to": "d1-rain-alley",
+      "accepted": true,
+      "arrived": true
+    },
+    {
+      "from": "d1-rain-alley",
+      "to": "d3-fogline-pier",
+      "accepted": true,
+      "arrived": true
+    },
+    {
+      "from": "d3-fogline-pier",
+      "to": "d1-rain-alley",
+      "accepted": true,
+      "arrived": true
+    }
+  ]
+}
