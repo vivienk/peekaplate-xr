@@ -1,3 +1,4 @@
+import { PublicPortionSchema } from './portion';
 // Vendored public-only contract snapshot. See docs/published-menu-contract.md.
 import { z } from 'zod';
 const hash = z.string().regex(/^[a-f0-9]{64}$/);
@@ -41,6 +42,7 @@ export const PublicMenuIncompleteDishSchema = z.strictObject({
 export const PublicMenuDietaryCodeSchema = z.enum(['vegan', 'vegetarian', 'gluten-free']);
 
 export const PublicMenuCompleteDishSchema = z.strictObject({
+  portion: PublicPortionSchema.optional(),
   ...publicMenuDishIdentity,
   complete: z.literal(true),
   name: publicMenuText.min(1).max(160),

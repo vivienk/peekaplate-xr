@@ -1,11 +1,12 @@
 import { z } from 'zod';
+import { discoverRestaurants, storefrontStyle } from './directory';
 import { loadPublishedMenu } from './client';
 import { districts, type District, type MapObject } from '../glimmer/data';
 import type { PublicMenuContentBundle } from './contracts';
 const styles=['ramen','cafe','thai','pearl','ember','tide','kaigan'] as const;
-export const Registry=z.object({apiOrigin:z.union([z.literal(''),z.url()]),restaurants:z.array(z.object({venueId:z.uuid(),menuId:z.uuid(),district:z.enum(['d1-rain-alley','d2-lantern-steps','d3-fogline-pier']),style:z.enum(styles)})).max(64)}).superRefine((r,c)=>{const ids=r.restaurants.map(x=>x.venueId);if(new Set(ids).size!==ids.length)c.addIssue({code:'custom',message:'Duplicate restaurant'});});
+export const Registry=z.object({discovery:z.boolean().default(false),apiOrigin:z.union([z.literal(''),z.url()]),restaurants:z.array(z.object({venueId:z.uuid(),menuId:z.uuid(),district:z.enum(['d1-rain-alley','d2-lantern-steps','d3-fogline-pier']),style:z.enum(styles)})).max(64)}).superRefine((r,c)=>{const ids=r.restaurants.map(x=>x.venueId);if(new Set(ids).size!==ids.length)c.addIssue({code:'custom',message:'Duplicate restaurant'});});
 export type Entry=z.infer<typeof Registry>['restaurants'][number];
-export interface LiveRestaurant { id:string; entry:Entry; name:string; content:PublicMenuContentBundle|null; expiresAt:number; available:boolean; enabled:boolean }
+export interface LiveRestaurant { id:string; entry:Entry; name:string; content:PublicMenuContentBundle|null; expiresAt:number; available:boolean; enabled:boolean; demo?:boolean }
 export const liveRestaurants=new Map<string,LiveRestaurant>();
 export let connectionStatus='Published menus are not connected';
 let origin='';let refreshing=false;const requests=new Map<string,number>();
@@ -38,22 +39,51 @@ export function placeRestaurant(d:District,id:string,style:typeof styles[number]
 export async function refreshRestaurants(fetcher=fetch):Promise<boolean>{
  if(refreshing)return false;refreshing=true;let layoutChanged=false;
  try{
+  if(!liveRestaurants.has('diner-demo:ember-stone')){
+   const demoResponse=await fetcher(`${import.meta.env.BASE_URL}diner-demo/menu.json`,{cache:'no-store'});
+   if(demoResponse.ok){
+    const content=await demoResponse.json() as PublicMenuContentBundle;
+    if(content.restaurant?.name==='Ember & Stone'&&Array.isArray(content.categories)){
+     const id='diner-demo:ember-stone';const entry:Entry={venueId:content.venue_id,menuId:content.menu_id,district:'d1-rain-alley',style:'cafe'};
+     placeRestaurant(districts[0],id,entry.style);
+     liveRestaurants.set(id,{id,entry,name:content.restaurant.name,content,expiresAt:Number.MAX_SAFE_INTEGER,available:true,enabled:true,demo:true});layoutChanged=true;
+    }
+   }
+  }
   const response=await fetcher(`${import.meta.env.BASE_URL}market-restaurants.json`,{cache:'no-store',signal:AbortSignal.timeout(10000)});
   if(!response.ok)throw new Error('Registry unavailable');
   const registry=Registry.parse(await response.json());origin=registry.apiOrigin;
-  for(const live of liveRestaurants.values()){live.available=false;live.content=null;live.enabled=false;}
-  if(!origin||!registry.restaurants.length){connectionStatus='Published menus are not connected';return false;}
-  for(const entry of registry.restaurants){
+  for(const live of liveRestaurants.values()){if(!live.demo){live.available=false;live.content=null;live.enabled=false;}}
+  if(!origin){connectionStatus='Published menus are not connected';return layoutChanged;}
+  const directory=registry.discovery?await discoverRestaurants(origin,fetcher):null;
+  const entries=directory?directory.restaurants.map(scope=>({ ...scope, district:'d1-rain-alley' as const,style:'cafe' as const })):registry.restaurants;
+  for(const entry of entries){
    const id=liveId(entry);let live=liveRestaurants.get(id);
-   if(!live){live={id,entry,name:'Restaurant',content:null,expiresAt:0,available:false,enabled:true};liveRestaurants.set(id,live);layoutChanged=true;placeRestaurant(districts.find(d=>d.district===entry.district)!,id,entry.style);}
-   live.entry=entry;live.enabled=true;try{await readRestaurant(id,fetcher);}catch{/* Closed storefront stays in place; no stale menu is shown. */}
+   if(!live){
+    // Verify the actual publication before adding its storefront to the map.
+    try{
+     const result=await loadPublishedMenu(origin,`/venues/${entry.venueId}/menus/${entry.menuId}`,fetcher);
+     if(directory){
+      const counts=districts.map(d=>d.objects.filter(o=>o.kind==='published-restaurant').length);
+      entry.district=districts[counts.indexOf(Math.min(...counts))].district as Entry['district'];
+      entry.style=storefrontStyle(result.content);
+     }
+     live={id,entry,name:result.content.restaurant.name,content:result.content,expiresAt:result.expiresAt,available:true,enabled:true};
+     placeRestaurant(districts.find(d=>d.district===entry.district)!,id,entry.style);
+     liveRestaurants.set(id,live);layoutChanged=true;
+    }catch{continue;}
+   }else{
+    // Keep the existing location when names, menus, or directory ordering change.
+    live.entry={...live.entry,menuId:entry.menuId};live.enabled=true;
+    try{await readRestaurant(id,fetcher);}catch{/* No stale menu is shown. */}
+   }
   }
-  connectionStatus=`${[...liveRestaurants.values()].filter(r=>r.available).length} published restaurants connected`;return layoutChanged;
- }catch{connectionStatus='Published menu connection unavailable';for(const live of liveRestaurants.values()){live.available=false;live.content=null;live.enabled=false;}return false;}
+  connectionStatus=`${[...liveRestaurants.values()].filter(r=>r.available&&!r.demo).length} published restaurants connected${directory?.nextCursor?" · first 64 restaurants":""}`;return layoutChanged;
+ }catch{connectionStatus='Published menu connection unavailable';for(const live of liveRestaurants.values()){if(!live.demo){live.available=false;live.content=null;live.enabled=false;}}return layoutChanged;}
  finally{refreshing=false;}
 }
 export async function readRestaurant(id:string,fetcher=fetch){
- const live=liveRestaurants.get(id);if(!live||!live.enabled)throw new Error('Restaurant unavailable');const request=(requests.get(id)??0)+1;requests.set(id,request);
+ const live=liveRestaurants.get(id);if(!live||!live.enabled)throw new Error('Restaurant unavailable');if(live.demo)return live.content!;const request=(requests.get(id)??0)+1;requests.set(id,request);
  live.content=null;live.available=false;
  const result=await loadPublishedMenu(origin,`/venues/${live.entry.venueId}/menus/${live.entry.menuId}`,fetcher);
  if(requests.get(id)!==request||!live.enabled)throw new Error('Menu refresh superseded');

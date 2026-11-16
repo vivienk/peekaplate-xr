@@ -19,3 +19,44 @@ This implementation bounds the registry to 64 venues; it is not an infinite stre
 ## Checks
 
 73 unit/integrity tests cover the existing game plus placement/idempotence, 20 additions, registry validation, verified menu fetching, corruption, cross-menu identity and withdrawal. Browser expansion acceptance is recorded separately in `artifacts/published-placement.json` using synthetic shops; it is not live restaurant acceptance.
+
+## Automatic directory connection (November 16)
+
+The current PeekaPlate main at c6979a54 provides public menu and restaurant-slug
+resolution, but no public listing; `/staff/venues` is private. The companion
+`codex/market-directory-api` branch adds `GET /public/restaurants` returning
+published scopes only. `market-restaurants.json` now selects that discovery mode
+against the existing staging API. The hosted endpoint currently returns 404;
+live activation requires its migration/deployment and exact game/bundle CORS.
+No actual restaurant/menu IDs were invented or copied from private staff data.
+
+Verified publications create shops automatically, balanced across the three
+existing districts with adjacent vacancies or connected extensions. Shop IDs
+and positions survive refreshes. Titles and menus come from verified bundles;
+existing cuisine artwork is selected from approved text as presentation only.
+Withdrawn/disconnected shops retain their map location but no readable menu.
+The first directory page supports 64 live venues, clearly disclosed when a
+next page exists. Further capacity needs paged map loading, not huge canvases.
+The optional portion schema is copied from the current PeekaPlate contract;
+portion display remains outside this read-only text-menu connection.
+
+Validation: automatic discovery/update/withdrawal unit tests; synthetic browser
+flow in scripts/test-browser-directory.mjs. These are not real-menu acceptance.
+
+## Selected Ember & Stone diner menu
+
+The user selected Ember & Stone. In PeekaPlate main c6979a54 this is explicitly
+synthetic fixture data (`frontend/diner/src/menu/fixtures.ts`), not a published
+restaurant. Imported the same demoBundle: Avocado Toast, Classic Eggs Benedict,
+Harvest Power Bowl, Salmon Poke Bowl, Garden Avocado Salad, with their source
+prices, descriptions and categories. It appears as “Ember & Stone · Demo menu”.
+Run `node scripts/sync-diner-demo.mjs /path/to/trusted/peekaplate` to refresh the
+snapshot from an updated diner checkout, then rebuild. This import is not live
+API synchronization and never substitutes for unavailable published menus.
+Images retain the fixture source assets, separate from immutable game assets.
+
+Backend change: https://github.com/vivienk/peekaplate/pull/214 (draft).
+Game verification: typecheck PASS; 78 tests PASS with a single worker and 30s
+per-test timeout after two asset checks exceeded 5s under machine load. Browser
+Ember placement/menu and synthetic discovery/update/withdrawal PASS. Physical
+Quest interaction and real published restaurant acceptance remain untested.

@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "venue_id": "a6000000-0000-4000-8000-000000000001",
+  "menu_id": "a7000000-0000-4000-8000-000000000001",
+  "menu_revision_id": "a8000000-0000-4000-8000-000000000001",
+  "restaurant": {
+    "name": "Ember & Stone",
+    "logo": {
+      "url": "/diner-demo/ember-and-stone-logo.png",
+      "width": 256,
+      "height": 253,
+      "alt": "Ember & Stone logo (synthetic fixture)"
+    }
+  },
+  "categories": [
+    {
+      "category_id": "a4000000-0000-4000-8000-000000000001",
+      "name": "Breakfast",
+      "dishes": [
+        {
+          "dish_id": "a1000000-0000-4000-8000-000000000001",
+          "dish_revision_id": "a2000000-0000-4000-8000-000000000001",
+          "complete": true,
+          "name": "Avocado Toast",
+          "description": "Smashed avocado on toasted sourdough with a poached egg, cherry tomatoes, chili flakes and greens.",
+          "price": {
+            "amount": "14.00",
+            "currency": "USD"
+          },
+          "ingredients": [
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000001",
+              "name": "Sourdough bread",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000002",
+              "name": "Avocado",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000003",
+              "name": "Poached egg",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000004",
+              "name": "Cherry tomato",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000005",
+              "name": "Chili flakes",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000006",
+              "name": "Microgreens",
+              "description": null
+            }
+          ],
+          "allergens": [
+            "wheat",
+            "egg"
+          ],
+          "dietary": [
+            "Vegetarian"
+          ],
+          "images": {
+            "card": {
+              "url": "/diner-demo/avocado-toast.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Avocado Toast (sample photo, synthetic fixture)"
+            },
+            "detail": {
+              "url": "/diner-demo/avocado-toast.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Avocado Toast (sample photo, synthetic fixture)"
+            }
+          }
+        },
+        {
+          "dish_id": "a1000000-0000-4000-8000-000000000003",
+          "dish_revision_id": "a2000000-0000-4000-8000-000000000003",
+          "complete": true,
+          "name": "Classic Eggs Benedict",
+          "description": "Poached eggs and ham on toasted English muffins, finished with warm hollandaise and chives.",
+          "price": {
+            "amount": "16.00",
+            "currency": "USD"
+          },
+          "ingredients": [
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000012",
+              "name": "English muffin",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000013",
+              "name": "Ham",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000014",
+              "name": "Poached egg",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000015",
+              "name": "Hollandaise",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000016",
+              "name": "Chives",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000017",
+              "name": "Black pepper",
+              "description": null
+            }
+          ],
+          "allergens": [
+            "milk",
+            "egg",
+            "wheat"
+          ],
+          "dietary": [],
+          "images": {
+            "card": {
+              "url": "/diner-demo/classic-eggs-benedict.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Classic Eggs Benedict (sample photo, synthetic fixture)"
+            },
+            "detail": {
+              "url": "/diner-demo/classic-eggs-benedict.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Classic Eggs Benedict (sample photo, synthetic fixture)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "category_id": "a4000000-0000-4000-8000-000000000002",
+      "name": "Brunch Bowls",
+      "dishes": [
+        {
+          "dish_id": "a1000000-0000-4000-8000-000000000002",
+          "dish_revision_id": "a2000000-0000-4000-8000-000000000002",
+          "complete": true,
+          "name": "Harvest Power Bowl",
+          "description": "Quinoa with grilled chicken, roasted sweet potato, avocado, kale and red cabbage.",
+          "price": {
+            "amount": "18.00",
+            "currency": "USD"
+          },
+          "ingredients": [
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000007",
+              "name": "Quinoa",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000008",
+              "name": "Grilled chicken",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000009",
+              "name": "Sweet potato",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000010",
+              "name": "Avocado",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000011",
+              "name": "Kale",
+              "description": null
+            }
+          ],
+          "allergens": [],
+          "dietary": [
+            "Gluten-free"
+          ],
+          "images": {
+            "card": {
+              "url": "/diner-demo/harvest-power-bowl.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Harvest Power Bowl (sample photo, synthetic fixture)"
+            },
+            "detail": {
+              "url": "/diner-demo/harvest-power-bowl.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Harvest Power Bowl (sample photo, synthetic fixture)"
+            }
+          }
+        },
+        {
+          "dish_id": "a1000000-0000-4000-8000-000000000006",
+          "dish_revision_id": "a2000000-0000-4000-8000-000000000006",
+          "complete": true,
+          "name": "Salmon Poke Bowl",
+          "description": "Marinated salmon over sushi rice with edamame, cucumber and pickled ginger.",
+          "price": {
+            "amount": "19.00",
+            "currency": "USD"
+          },
+          "ingredients": [
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000027",
+              "name": "Salmon",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000028",
+              "name": "Sushi rice",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000029",
+              "name": "Edamame",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000030",
+              "name": "Cucumber",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000031",
+              "name": "Pickled ginger",
+              "description": null
+            }
+          ],
+          "allergens": [
+            "fish",
+            "soy",
+            "sesame"
+          ],
+          "dietary": [],
+          "images": {
+            "card": {
+              "url": "/diner-demo/salmon-poke-bowl.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Salmon Poke Bowl (sample photo, synthetic fixture)"
+            },
+            "detail": {
+              "url": "/diner-demo/salmon-poke-bowl.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Salmon Poke Bowl (sample photo, synthetic fixture)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "category_id": "a4000000-0000-4000-8000-000000000003",
+      "name": "Salads",
+      "dishes": [
+        {
+          "dish_id": "a1000000-0000-4000-8000-000000000004",
+          "dish_revision_id": "a2000000-0000-4000-8000-000000000004",
+          "complete": true,
+          "name": "Garden Avocado Salad",
+          "description": "Mixed leaves, avocado and walnuts with peanut dressing and sesame tofu croutons.",
+          "price": {
+            "amount": "13.00",
+            "currency": "USD"
+          },
+          "ingredients": [
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000018",
+              "name": "Mixed greens",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000019",
+              "name": "Avocado",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000020",
+              "name": "Walnuts",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000021",
+              "name": "Peanut dressing",
+              "description": null
+            },
+            {
+              "ingredient_id": "a3000000-0000-4000-8000-000000000022",
+              "name": "Tofu croutons",
+              "description": null
+            }
+          ],
+          "allergens": [
+            "nuts",
+            "peanut",
+            "soy",
+            "sesame",
+            "Mustard"
+          ],
+          "dietary": [
+            "Vegan",
+            "Vegetarian"
+          ],
+          "images": {
+            "card": {
+              "url": "/diner-demo/garden-avocado-salad.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Garden Avocado Salad (sample photo, synthetic fixture)"
+            },
+            "detail": {
+              "url": "/diner-demo/garden-avocado-salad.webp",
+              "width": 640,
+              "height": 640,
+              "alt": "Garden Avocado Salad (sample photo, synthetic fixture)"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
