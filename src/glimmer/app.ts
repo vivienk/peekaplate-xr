@@ -177,7 +177,7 @@ export class GlimmerApp {
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
       this.heading('Glimmer Plate');this.text('NEON RAIN MARKET',330,235,65);this.text('Wander. Discover. Taste the night.',350,292,36);
-      this.text(this.gamepadConnected?'Controller ready · A / Cross selects · B / Circle goes back':'Xbox / PlayStation: connect, press a button, then release to begin.',235,325,24);
+      if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text('3 districts · 7 restaurants · 28 little discoveries',342,635,28);
     }else if(this.screen==='codeEntry'){
