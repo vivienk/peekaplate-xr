@@ -1,7 +1,10 @@
+import { blendRainLoop } from './rain-loop';
+
 /** Original Glimmer Plate audio mixer. No audio starts before unlock(). */
 type Voice = { audio: HTMLAudioElement; panner?: StereoPannerNode; source?: MediaElementAudioSourceNode };
 type Loop = Voice & {
   id: string; group: 'music' | 'ambience' | 'kitchen'; district: string | null;
+  bufferSource?: AudioBufferSourceNode; bufferGain?: GainNode; loading?: boolean;
   base: number; weight: number; from: number; target: number; x: number; y: number;
 };
 type Effect = { voices: Voice[]; gain: number; cursor: number; lastPlay: number };
@@ -98,7 +101,37 @@ export class GlimmerAudio {
     }
     if (this.context?.state === 'suspended') void this.context.resume().catch(this.playRejected);
     this.unlocked = true;
-    for (const channel of this.loops) if (channel.audio.paused) void channel.audio.play().catch(this.playRejected);
+    for (const channel of this.loops) {
+      if (this.context && channel.id.startsWith('amb-rain')) {
+        if (!channel.bufferSource && !channel.loading) void this.prepareRain(channel);
+      } else if (channel.audio.paused) void channel.audio.play().catch(this.playRejected);
+    }
+  }
+
+  private async prepareRain(channel: Loop): Promise<void> {
+    const context = this.context;
+    if (!context || this.disposed) return;
+    channel.loading = true;
+    try {
+      const response = await fetch(channel.audio.src);
+      if (!response.ok) throw new Error('Rain audio unavailable');
+      const decoded = await context.decodeAudioData(await response.arrayBuffer());
+      if (this.disposed) return;
+      const samples = blendRainLoop(decoded.getChannelData(0), decoded.sampleRate);
+      const buffer = context.createBuffer(decoded.numberOfChannels, samples.length, decoded.sampleRate);
+      buffer.copyToChannel(samples, 0);
+      for (let c = 1; c < decoded.numberOfChannels; c++) buffer.copyToChannel(blendRainLoop(decoded.getChannelData(c), decoded.sampleRate), c);
+      const source = context.createBufferSource(), gain = context.createGain();
+      source.buffer = buffer; source.loop = true;
+      gain.gain.value = 0;
+      source.connect(gain); gain.connect(context.destination);
+      channel.bufferSource = source; channel.bufferGain = gain;
+      channel.audio.pause();
+      source.start();
+    } catch {
+      // Keep ambience available if decoding fails; a later gesture retries the buffer.
+      if (!this.disposed) void channel.audio.play().catch(this.playRejected);
+    } finally { channel.loading = false; }
   }
 
   private connectPanner(voice: Voice): void {
@@ -109,7 +142,7 @@ export class GlimmerAudio {
     voice.source = source; voice.panner = panner; this.sources.push(source);
   }
 
-  /** Music/layers crossfade at equal power. The shared rain element is never restarted. */
+  /** Music/layers crossfade at equal power. The shared rain buffers are never restarted. */
   setDistrict(id: string): void {
     if (this.disposed || id === this.district || (id !== D1 && id !== D2 && id !== D3)) return;
     this.district = id;
@@ -202,6 +235,7 @@ export class GlimmerAudio {
         }
       }
       channel.audio.volume = clamp(gain, 0, 1);
+      if (channel.bufferGain && this.context) channel.bufferGain.gain.setTargetAtTime(this.soundMuted ? 0 : channel.audio.volume, this.context.currentTime, .03);
     }
     // At most two kitchens remain audible, including during district crossfades.
     let loudest: Loop | null = null, second: Loop | null = null;
@@ -219,14 +253,17 @@ export class GlimmerAudio {
 
   setSoundMuted(muted: boolean): void {
     this.soundMuted = muted;
-    for (const channel of this.loops) if (channel.group !== 'music') channel.audio.muted = this.soundMuted;
+    for (const channel of this.loops) if (channel.group !== 'music') {
+      channel.audio.muted = this.soundMuted;
+      if (channel.bufferGain && this.context) channel.bufferGain.gain.setTargetAtTime(muted ? 0 : channel.audio.volume, this.context.currentTime, .03);
+    }
     for (const effect of this.effects.values()) for (const voice of effect.voices) voice.audio.muted = this.soundMuted;
   }
 
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
-    for (const channel of this.loops) { channel.audio.pause(); channel.audio.removeAttribute('src'); channel.audio.load(); channel.panner?.disconnect(); }
+    for (const channel of this.loops) { channel.bufferSource?.stop(); channel.bufferSource?.disconnect(); channel.bufferGain?.disconnect(); channel.audio.pause(); channel.audio.removeAttribute('src'); channel.audio.load(); channel.panner?.disconnect(); }
     for (const effect of this.effects.values()) for (const voice of effect.voices) {
       voice.audio.pause(); voice.audio.removeAttribute('src'); voice.audio.load(); voice.panner?.disconnect();
     }

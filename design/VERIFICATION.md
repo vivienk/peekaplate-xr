@@ -29,3 +29,9 @@
 - All four district exit paths accepted and arrived in the specified district through the live world transition code. See `input-checks.json`.
 - IWER Quest ray test passed: entered XR, aimed right controller at Passport world target (-1.51, 0.76, -2.8), sent trigger 1 then 0; live application reported `screen: passport` at player (40.5,24.5). This validates SDK ray/UV dispatch through the canvas UI, not physical-controller hardware.
 - Performance improvement: UI rendering and button-handler construction are cached until a state/input/image/font change; the animated original market refreshes at 30 Hz. Original UI sprites are nine-sliced rather than replaced.
+
+## Rain loop continuity
+
+Rain and awning rain now decode once into looping Web Audio buffers, with a 250 ms equal-power seam blend. Original OGG assets and the quieter -18/-19 dB mix remain unchanged. No timer or file restart is used at loop boundaries. HTML media remains a fallback if Web Audio decoding is unavailable.
+
+`npm run typecheck`, all 63 tests and production build passed. `scripts/test-browser-rain.mjs` rendered three repetitions of each actual recording through OfflineAudioContext: join RMS / overall RMS was 0.958 (rain) and 1.065 (awning), with no silent join. Live browser checks confirmed source identity survives district changes/repeated unlock and Sound off mutes the buffered rain. Physical Quest listening remains unverified. Playback follows the [Web Audio looping API](https://www.w3.org/TR/webaudio/#AudioBufferSourceNode).
