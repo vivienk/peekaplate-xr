@@ -1,0 +1,4628 @@
+{
+ "schema_version": "3.0",
+ "package_id": "glimmer-plate-full",
+ "gdd_version": "1.0.0",
+ "target_release": "Full game: three districts, seven restaurants, AR Portal, demo XR ordering, Market code, as defined in GDD.md",
+ "handoff_status": "READY_FOR_IMPLEMENTATION",
+ "gdd_path": "GDD.md",
+ "references": [
+  {
+   "id": "look-neon-rain-alley",
+   "path": "references/look-neon-rain-alley.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "bld-ramen",
+    "bld-cafe",
+    "bld-thai",
+    "bld-gate",
+    "bld-kiosk",
+    "tiles-facade",
+    "tiles-ground",
+    "prop-lamp",
+    "prop-lantern-string",
+    "prop-fairy-lights",
+    "prop-floating-lantern",
+    "prop-plants",
+    "prop-crates",
+    "prop-barrel",
+    "prop-aframe",
+    "prop-bench",
+    "prop-vending",
+    "prop-umbrella-stand",
+    "prop-neon-vertical",
+    "prop-holo-ads",
+    "prop-puddles",
+    "find-charms",
+    "fx-rain-streak",
+    "fx-rain-splash",
+    "fx-steam-puff",
+    "fx-glow-radial",
+    "fx-glow-reflection",
+    "fx-wok-flame",
+    "fx-sparkle",
+    "fx-heart",
+    "fx-soda-can",
+    "char-player",
+    "npc-walkers",
+    "npc-street",
+    "chefs",
+    "cats",
+    "dish-art",
+    "emblems",
+    "stamps",
+    "amb-rain-awning",
+    "amb-rain",
+    "mus-market",
+    "sfx-bump",
+    "sfx-cat-mrrp",
+    "sfx-cat-purr",
+    "sfx-fav-off",
+    "sfx-fav-on",
+    "sfx-finale",
+    "sfx-find",
+    "sfx-holo-glitch",
+    "sfx-menu-close",
+    "sfx-menu-open",
+    "sfx-puddle-reveal",
+    "sfx-simmer-loop",
+    "sfx-sizzle-loop",
+    "sfx-stamp",
+    "sfx-step-wet",
+    "sfx-talk-blip",
+    "sfx-ui-back",
+    "sfx-ui-move",
+    "sfx-ui-select",
+    "sfx-vending",
+    "tiles-ground-steps",
+    "tiles-facade-steps",
+    "bld-pearl",
+    "bld-ember",
+    "prop-order-portal",
+    "prop-signpost",
+    "prop-wish-board",
+    "prop-steps-lantern-arch",
+    "holo-ad-4",
+    "find-charms-2",
+    "tiles-ground-pier",
+    "tiles-facade-pier",
+    "tiles-water",
+    "bld-tide",
+    "bld-kaigan",
+    "prop-pier-props",
+    "prop-message-bottle",
+    "fx-fog-band",
+    "holo-ad-5",
+    "mus-steps",
+    "mus-pier",
+    "sfx-grand-finale",
+    "amb-steps-crowd",
+    "amb-pier",
+    "sfx-grill-loop",
+    "sfx-fryer-loop",
+    "sfx-teapot-loop",
+    "sfx-portal-open",
+    "sfx-portal-close",
+    "sfx-orbit-tick",
+    "sfx-order-add",
+    "sfx-order-remove",
+    "sfx-order-place",
+    "sfx-order-ready",
+    "sfx-district-travel",
+    "sfx-unlock",
+    "sfx-code-key",
+    "sfx-code-ok",
+    "sfx-code-bad",
+    "sfx-wish-tag",
+    "sfx-bottle",
+    "sfx-gull"
+   ]
+  },
+  {
+   "id": "market-map-schematic",
+   "path": "references/market-map-schematic.png",
+   "authority": "SCHEMATIC",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "bld-ramen",
+    "bld-cafe",
+    "bld-thai",
+    "bld-gate",
+    "bld-kiosk",
+    "tiles-facade",
+    "tiles-ground"
+   ]
+  },
+  {
+   "id": "ui-hud-crowded-desktop",
+   "path": "references/ui/ui-hud-crowded-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-hud-crowded-phone",
+   "path": "references/ui/ui-hud-crowded-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-hud-4x3",
+   "path": "references/ui/ui-hud-4x3.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-hud-21x9",
+   "path": "references/ui/ui-hud-21x9.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-menu-list-desktop",
+   "path": "references/ui/ui-menu-list-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-menu-list-phone",
+   "path": "references/ui/ui-menu-list-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-dish-detail-desktop",
+   "path": "references/ui/ui-dish-detail-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-dish-detail-phone",
+   "path": "references/ui/ui-dish-detail-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-dish-detail-4x3",
+   "path": "references/ui/ui-dish-detail-4x3.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-tasting-list",
+   "path": "references/ui/ui-tasting-list.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-tasting-empty",
+   "path": "references/ui/ui-tasting-empty.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-passport",
+   "path": "references/ui/ui-passport.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-map",
+   "path": "references/ui/ui-map.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-kiosk-wardrobe",
+   "path": "references/ui/ui-kiosk-wardrobe.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "char-player",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-market-guide",
+   "path": "references/ui/ui-market-guide.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-controls-phone",
+   "path": "references/ui/ui-controls-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-dialogue-person",
+   "path": "references/ui/ui-dialogue-person.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "char-player",
+    "npc-street",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-dialogue-holo",
+   "path": "references/ui/ui-dialogue-holo.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "char-player",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-dialogue-cat-phone",
+   "path": "references/ui/ui-dialogue-cat-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "char-player",
+    "cats",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-finale",
+   "path": "references/ui/ui-finale.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-art",
+    "emblems",
+    "stamps",
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-pause",
+   "path": "references/ui/ui-pause.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-pause-restart-confirm",
+   "path": "references/ui/ui-pause-restart-confirm.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-title-desktop",
+   "path": "references/ui/ui-title-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-title-phone",
+   "path": "references/ui/ui-title-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-hints-desktop",
+   "path": "references/ui/ui-hints-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-hints-phone",
+   "path": "references/ui/ui-hints-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-rotate-portrait",
+   "path": "references/ui/ui-rotate-portrait.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "ui-components",
+   "path": "references/ui/ui-components.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons"
+   ]
+  },
+  {
+   "id": "look-lantern-steps",
+   "path": "references/look-lantern-steps.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "tiles-ground-steps",
+    "tiles-facade-steps",
+    "bld-pearl",
+    "bld-ember",
+    "prop-steps-lantern-arch"
+   ]
+  },
+  {
+   "id": "map-lantern-steps-schematic",
+   "path": "references/map-lantern-steps-schematic.png",
+   "authority": "SCHEMATIC",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "tiles-ground"
+   ]
+  },
+  {
+   "id": "look-fogline-pier",
+   "path": "references/look-fogline-pier.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "find-charms-2",
+    "tiles-ground-pier",
+    "tiles-facade-pier",
+    "tiles-water",
+    "bld-tide",
+    "bld-kaigan",
+    "prop-pier-props",
+    "prop-message-bottle",
+    "fx-fog-band",
+    "holo-ad-5"
+   ]
+  },
+  {
+   "id": "map-fogline-pier-schematic",
+   "path": "references/map-fogline-pier-schematic.png",
+   "authority": "SCHEMATIC",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "tiles-ground"
+   ]
+  },
+  {
+   "id": "ar-portal-dish-hero",
+   "path": "references/ar-portal-dish-hero.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-models",
+    "model-portal-pedestal"
+   ]
+  },
+  {
+   "id": "dish-models-sheet",
+   "path": "references/dish-models-sheet.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "dish-models"
+   ]
+  },
+  {
+   "id": "ui-ar-portal-desktop",
+   "path": "references/ui/ui-ar-portal-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-panels-dyes-2",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-ar-portal-phone",
+   "path": "references/ui/ui-ar-portal-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons",
+    "ui-panels-dyes-2",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-dish-detail-v2-desktop",
+   "path": "references/ui/ui-dish-detail-v2-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-panels-dyes-2",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-dish-detail-v2-phone",
+   "path": "references/ui/ui-dish-detail-v2-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons",
+    "ui-panels-dyes-2",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-dish-detail-v2-4x3",
+   "path": "references/ui/ui-dish-detail-v2-4x3.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-order-tray",
+   "path": "references/ui/ui-order-tray.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-order-tray-empty",
+   "path": "references/ui/ui-order-tray-empty.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-order-portal-order",
+   "path": "references/ui/ui-order-portal-order.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-order-portal-confirm",
+   "path": "references/ui/ui-order-portal-confirm.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-order-ticket",
+   "path": "references/ui/ui-order-ticket.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-order-portal-wardrobe",
+   "path": "references/ui/ui-order-portal-wardrobe.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-market-code",
+   "path": "references/ui/ui-market-code.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-title-v2-desktop",
+   "path": "references/ui/ui-title-v2-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-title-v2-phone",
+   "path": "references/ui/ui-title-v2-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-code-entry-desktop",
+   "path": "references/ui/ui-code-entry-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-code-slot",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-code-entry-phone",
+   "path": "references/ui/ui-code-entry-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons",
+    "ui-code-slot",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-code-entry-error",
+   "path": "references/ui/ui-code-entry-error.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-code-slot",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-code-entry-4x3",
+   "path": "references/ui/ui-code-entry-4x3.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-code-slot",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-district-card",
+   "path": "references/ui/ui-district-card.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-map-districts",
+   "path": "references/ui/ui-map-districts.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-map-districts-d1",
+   "path": "references/ui/ui-map-districts-d1.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-passport-districts",
+   "path": "references/ui/ui-passport-districts.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-passport-districts-d2",
+   "path": "references/ui/ui-passport-districts-d2.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-kiosk-wardrobe-v2",
+   "path": "references/ui/ui-kiosk-wardrobe-v2.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-kiosk-wardrobe-v2-4x3",
+   "path": "references/ui/ui-kiosk-wardrobe-v2-4x3.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-grand-finale",
+   "path": "references/ui/ui-grand-finale.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-district-finale",
+   "path": "references/ui/ui-district-finale.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-pause-v2",
+   "path": "references/ui/ui-pause-v2.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-hud-v2-crowded-desktop",
+   "path": "references/ui/ui-hud-v2-crowded-desktop.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-icons",
+    "ui-panels-dyes-2",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-hud-v2-crowded-phone",
+   "path": "references/ui/ui-hud-v2-crowded-phone.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-minimap-frame",
+    "ui-touch",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-hud-v2-4x3",
+   "path": "references/ui/ui-hud-v2-4x3.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-icons",
+    "ui-panels-dyes-2",
+    "ui-icons-2"
+   ]
+  },
+  {
+   "id": "ui-hud-v2-21x9",
+   "path": "references/ui/ui-hud-v2-21x9.jpg",
+   "authority": "TARGET",
+   "required": true,
+   "inspected": true,
+   "asset_ids": [
+    "font-jersey-10",
+    "font-jersey-20",
+    "ui-panels",
+    "ui-buttons",
+    "ui-keycap",
+    "ui-minimap-frame",
+    "ui-icons",
+    "ui-icons-2"
+   ]
+  }
+ ],
+ "assets": [
+  {
+   "id": "bld-ramen",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/ramen-back.png",
+    "assets/world/buildings/ramen-front.png",
+    "assets/world/buildings/ramen-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic"
+   ],
+   "specification": "GDD.md#buildings-and-facade-tiles",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-cafe",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/cafe-back.png",
+    "assets/world/buildings/cafe-front.png",
+    "assets/world/buildings/cafe-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic"
+   ],
+   "specification": "GDD.md#buildings-and-facade-tiles",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-thai",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/thai-back.png",
+    "assets/world/buildings/thai-front.png",
+    "assets/world/buildings/thai-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic"
+   ],
+   "specification": "GDD.md#buildings-and-facade-tiles",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-gate",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/gate-back.png",
+    "assets/world/buildings/gate-top.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic"
+   ],
+   "specification": "GDD.md#buildings-and-facade-tiles",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-kiosk",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/kiosk.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic"
+   ],
+   "specification": "GDD.md#buildings-and-facade-tiles",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "tiles-facade",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/tiles-facade.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic"
+   ],
+   "specification": "GDD.md#buildings-and-facade-tiles",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "tiles-ground",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/tiles/tiles-ground.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "market-map-schematic",
+    "map-lantern-steps-schematic",
+    "map-fogline-pier-schematic"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_tiles.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-lamp",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-lamp.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-lantern-string",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-lantern-string.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-fairy-lights",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-fairy-lights.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-floating-lantern",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-floating-lantern.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-plants",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-plants.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-crates",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-crates.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-barrel",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-barrel.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-aframe",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-aframe.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-bench",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-bench.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-vending",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-vending.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-umbrella-stand",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-umbrella-stand.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-neon-vertical",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-neon-vertical.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-holo-ads",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/holo-ad-1.png",
+    "assets/world/props/holo-ad-2.png",
+    "assets/world/props/holo-ad-3.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-puddles",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/puddle-1.png",
+    "assets/world/props/puddle-2.png",
+    "assets/world/props/puddle-3.png",
+    "assets/world/fx/puddle-ripple.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "find-charms",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/puddle-charms.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-rain-streak",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/rain-streak.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-rain-splash",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/rain-splash.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-steam-puff",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/steam-puff.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-glow-radial",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/glow-radial.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-glow-reflection",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/glow-reflection.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-wok-flame",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/wok-flame.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-sparkle",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/sparkle.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-heart",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/heart.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-soda-can",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/soda-can.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#ground-tiles-props-and-effects",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_fx.py (helpers pix.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "char-player",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/characters/player-yellow-hood.png",
+    "assets/characters/player-yellow-buckethat.png",
+    "assets/characters/player-cherry-hood.png",
+    "assets/characters/player-cherry-buckethat.png",
+    "assets/characters/player-teal-hood.png",
+    "assets/characters/player-teal-buckethat.png",
+    "assets/characters/player-lavender-hood.png",
+    "assets/characters/player-lavender-buckethat.png",
+    "assets/characters/player-yellow-catbeanie.png",
+    "assets/characters/player-yellow-souwester.png",
+    "assets/characters/player-cherry-catbeanie.png",
+    "assets/characters/player-cherry-souwester.png",
+    "assets/characters/player-teal-catbeanie.png",
+    "assets/characters/player-teal-souwester.png",
+    "assets/characters/player-lavender-catbeanie.png",
+    "assets/characters/player-lavender-souwester.png",
+    "assets/characters/player-mint-hood.png",
+    "assets/characters/player-mint-buckethat.png",
+    "assets/characters/player-mint-catbeanie.png",
+    "assets/characters/player-mint-souwester.png",
+    "assets/characters/player-coral-hood.png",
+    "assets/characters/player-coral-buckethat.png",
+    "assets/characters/player-coral-catbeanie.png",
+    "assets/characters/player-coral-souwester.png",
+    "assets/characters/player-midnight-hood.png",
+    "assets/characters/player-midnight-buckethat.png",
+    "assets/characters/player-midnight-catbeanie.png",
+    "assets/characters/player-midnight-souwester.png",
+    "assets/characters/player-peach-hood.png",
+    "assets/characters/player-peach-buckethat.png",
+    "assets/characters/player-peach-catbeanie.png",
+    "assets/characters/player-peach-souwester.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "ui-dialogue-cat-phone",
+    "ui-dialogue-holo",
+    "ui-dialogue-person",
+    "ui-kiosk-wardrobe"
+   ],
+   "specification": "GDD.md#characters-and-cats",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_player.py (with pixlib.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "npc-walkers",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/characters/npc-walker-1.png",
+    "assets/characters/npc-walker-2.png",
+    "assets/characters/npc-walker-3.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#characters-and-cats",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_npcs.py (with pixlib.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "npc-street",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/characters/npc-street-seller.png",
+    "assets/characters/npc-street-elder.png",
+    "assets/characters/npc-street-busker.png",
+    "assets/characters/npc-street-mei.png",
+    "assets/characters/npc-street-jun.png",
+    "assets/characters/npc-street-ola.png",
+    "assets/characters/npc-street-pip.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "ui-dialogue-person"
+   ],
+   "specification": "GDD.md#characters-and-cats",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_npcs.py (with pixlib.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "chefs",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/characters/chef-ramen.png",
+    "assets/characters/chef-cafe.png",
+    "assets/characters/chef-thai.png",
+    "assets/characters/chef-pearl.png",
+    "assets/characters/chef-ember.png",
+    "assets/characters/chef-tide.png",
+    "assets/characters/chef-kaigan.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#characters-and-cats",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_npcs.py (with pixlib.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "cats",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/characters/cat-1.png",
+    "assets/characters/cat-2.png",
+    "assets/characters/cat-3.png",
+    "assets/characters/cat-4.png",
+    "assets/characters/cat-5.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "ui-dialogue-cat-phone"
+   ],
+   "specification": "GDD.md#characters-and-cats",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_cats.py (with pixlib.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "dish-art",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/food/dish-r1-1.png",
+    "assets/food/dish-r1-2.png",
+    "assets/food/dish-r1-3.png",
+    "assets/food/dish-r1-4.png",
+    "assets/food/dish-r2-1.png",
+    "assets/food/dish-r2-2.png",
+    "assets/food/dish-r2-3.png",
+    "assets/food/dish-r2-4.png",
+    "assets/food/dish-r2-5.png",
+    "assets/food/dish-r3-1.png",
+    "assets/food/dish-r3-2.png",
+    "assets/food/dish-r3-3.png",
+    "assets/food/dish-r3-4.png",
+    "assets/food/dish-r3-5.png",
+    "assets/food/dish-r3-6.png",
+    "assets/food/dish-r4-1.png",
+    "assets/food/dish-r4-2.png",
+    "assets/food/dish-r4-3.png",
+    "assets/food/dish-r4-4.png",
+    "assets/food/dish-r5-1.png",
+    "assets/food/dish-r5-2.png",
+    "assets/food/dish-r5-3.png",
+    "assets/food/dish-r5-4.png",
+    "assets/food/dish-r6-1.png",
+    "assets/food/dish-r6-2.png",
+    "assets/food/dish-r6-3.png",
+    "assets/food/dish-r6-4.png",
+    "assets/food/dish-r7-1.png",
+    "assets/food/dish-r7-2.png",
+    "assets/food/dish-r7-3.png",
+    "assets/food/dish-r7-4.png",
+    "assets/food/dish-r7-5.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-map",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-tasting-empty",
+    "ui-tasting-list"
+   ],
+   "specification": "GDD.md#dishes-emblems-and-stamps",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_dishes.py (with pixlib.py)",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "emblems",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/emblems/emblem-ramen.png",
+    "assets/ui/emblems/emblem-cafe.png",
+    "assets/ui/emblems/emblem-thai.png",
+    "assets/ui/emblems/emblem-ember.png",
+    "assets/ui/emblems/emblem-kaigan.png",
+    "assets/ui/emblems/emblem-pearl.png",
+    "assets/ui/emblems/emblem-tide.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-map",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-tasting-empty",
+    "ui-tasting-list"
+   ],
+   "specification": "GDD.md#dishes-emblems-and-stamps",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_badges.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "stamps",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/stamps/stamp-ramen.png",
+    "assets/ui/stamps/stamp-cafe.png",
+    "assets/ui/stamps/stamp-thai.png",
+    "assets/ui/stamps/stamp-empty-ramen.png",
+    "assets/ui/stamps/stamp-empty-cafe.png",
+    "assets/ui/stamps/stamp-empty-thai.png",
+    "assets/ui/stamps/stamp-ember.png",
+    "assets/ui/stamps/stamp-empty-ember.png",
+    "assets/ui/stamps/stamp-empty-kaigan.png",
+    "assets/ui/stamps/stamp-empty-pearl.png",
+    "assets/ui/stamps/stamp-empty-tide.png",
+    "assets/ui/stamps/stamp-kaigan.png",
+    "assets/ui/stamps/stamp-pearl.png",
+    "assets/ui/stamps/stamp-tide.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-map",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-tasting-empty",
+    "ui-tasting-list"
+   ],
+   "specification": "GDD.md#dishes-emblems-and-stamps",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_badges.py",
+    "source": "Original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "amb-rain-awning",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/amb-rain-awning.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_ambience.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "amb-rain",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/amb-rain.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_ambience.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "mus-market",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/mus-market.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_music.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-bump",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-bump.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-cat-mrrp",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-cat-mrrp.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-cat-purr",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-cat-purr.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-fav-off",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-fav-off.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-fav-on",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-fav-on.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-finale",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-finale.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-find",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-find.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-holo-glitch",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-holo-glitch.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-menu-close",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-menu-close.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-menu-open",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-menu-open.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-puddle-reveal",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-puddle-reveal.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-simmer-loop",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-simmer-loop.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_ambience.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-sizzle-loop",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-sizzle-loop.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_ambience.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-stamp",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-stamp.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-step-wet",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-step-wet-1.ogg",
+    "assets/audio/sfx-step-wet-2.ogg",
+    "assets/audio/sfx-step-wet-3.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-talk-blip",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-talk-blip-1.ogg",
+    "assets/audio/sfx-talk-blip-2.ogg",
+    "assets/audio/sfx-talk-blip-3.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-ui-back",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-ui-back.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-ui-move",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-ui-move.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-ui-select",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-ui-select.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-vending",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-vending.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-numpy synth script synth_sfx.py (shared helpers synth_common.py); encoded with soundfile (libsndfile Vorbis)",
+    "source": "Original synthesized sound"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "font-jersey-10",
+   "kind": "font",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/fonts/jersey-10/Jersey10-Regular.ttf",
+    "assets/ui/fonts/jersey-10/OFL.txt"
+   ],
+   "reference_ids": [
+    "ui-components",
+    "ui-controls-phone",
+    "ui-dialogue-cat-phone",
+    "ui-dialogue-holo",
+    "ui-dialogue-person",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-kiosk-wardrobe",
+    "ui-map",
+    "ui-market-guide",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-pause",
+    "ui-pause-restart-confirm",
+    "ui-rotate-portrait",
+    "ui-tasting-empty",
+    "ui-tasting-list",
+    "ui-title-desktop",
+    "ui-title-phone",
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-district-card",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop",
+    "ui-title-v2-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "The Soft Type Project Authors (OFL font, from the google/fonts repository)",
+    "tool": "download",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jersey10/ (unmodified)"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "SIL Open Font License 1.1; OFL.txt is delivered with the font. Unmodified."
+   }
+  },
+  {
+   "id": "font-jersey-20",
+   "kind": "font",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/fonts/jersey-20/Jersey20-Regular.ttf",
+    "assets/ui/fonts/jersey-20/OFL.txt"
+   ],
+   "reference_ids": [
+    "ui-components",
+    "ui-controls-phone",
+    "ui-dialogue-cat-phone",
+    "ui-dialogue-holo",
+    "ui-dialogue-person",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-kiosk-wardrobe",
+    "ui-map",
+    "ui-market-guide",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-pause",
+    "ui-pause-restart-confirm",
+    "ui-rotate-portrait",
+    "ui-tasting-empty",
+    "ui-tasting-list",
+    "ui-title-desktop",
+    "ui-title-phone",
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-district-card",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop",
+    "ui-title-v2-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "The Soft Type Project Authors (OFL font, from the google/fonts repository)",
+    "tool": "download",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jersey20/ (unmodified)"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "SIL Open Font License 1.1; OFL.txt is delivered with the font. Unmodified."
+   }
+  },
+  {
+   "id": "ui-panels",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/panels/flap_cream.png",
+    "assets/ui/panels/flap_plum.png",
+    "assets/ui/panels/flap_red.png",
+    "assets/ui/panels/flap_teal.png",
+    "assets/ui/panels/panel_cloth.png",
+    "assets/ui/panels/panel_holo.png",
+    "assets/ui/panels/rail_wood.png"
+   ],
+   "reference_ids": [
+    "ui-components",
+    "ui-controls-phone",
+    "ui-dialogue-cat-phone",
+    "ui-dialogue-holo",
+    "ui-dialogue-person",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-kiosk-wardrobe",
+    "ui-map",
+    "ui-market-guide",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-pause",
+    "ui-pause-restart-confirm",
+    "ui-rotate-portrait",
+    "ui-tasting-empty",
+    "ui-tasting-list",
+    "ui-title-desktop",
+    "ui-title-phone",
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-district-card",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop",
+    "ui-title-v2-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_ui_art.py",
+    "source": "authored pixel art drawn in code at native size and scaled x4 nearest"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original UI art authored by Nimble Fox for this game."
+   }
+  },
+  {
+   "id": "ui-buttons",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/buttons/btn_disabled.png",
+    "assets/ui/buttons/btn_hover.png",
+    "assets/ui/buttons/btn_normal.png",
+    "assets/ui/buttons/btn_pressed.png",
+    "assets/ui/buttons/btn_primary.png",
+    "assets/ui/buttons/btn_primary_hover.png",
+    "assets/ui/buttons/btn_primary_pressed.png",
+    "assets/ui/buttons/chip.png",
+    "assets/ui/buttons/focus_ring.png",
+    "assets/ui/buttons/tab_selected_mark.png",
+    "assets/ui/buttons/tag_sample.png"
+   ],
+   "reference_ids": [
+    "ui-components",
+    "ui-controls-phone",
+    "ui-dialogue-cat-phone",
+    "ui-dialogue-holo",
+    "ui-dialogue-person",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-kiosk-wardrobe",
+    "ui-map",
+    "ui-market-guide",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-pause",
+    "ui-pause-restart-confirm",
+    "ui-rotate-portrait",
+    "ui-tasting-empty",
+    "ui-tasting-list",
+    "ui-title-desktop",
+    "ui-title-phone",
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-district-card",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop",
+    "ui-title-v2-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_ui_art.py",
+    "source": "authored pixel art drawn in code at native size and scaled x4 nearest"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original UI art authored by Nimble Fox for this game."
+   }
+  },
+  {
+   "id": "ui-keycap",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/prompts/keycap.png"
+   ],
+   "reference_ids": [
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-ar-portal-desktop",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_ui_art.py",
+    "source": "authored pixel art drawn in code at native size and scaled x4 nearest"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original UI art authored by Nimble Fox for this game."
+   }
+  },
+  {
+   "id": "ui-minimap-frame",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/minimap/minimap_frame.png"
+   ],
+   "reference_ids": [
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_ui_art.py",
+    "source": "authored pixel art drawn in code at native size and scaled x4 nearest"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original UI art authored by Nimble Fox for this game."
+   }
+  },
+  {
+   "id": "ui-touch",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/touch/btn_action.png",
+    "assets/ui/touch/btn_action_pressed.png",
+    "assets/ui/touch/joystick_base.png",
+    "assets/ui/touch/joystick_knob.png",
+    "assets/ui/touch/press_halo.png"
+   ],
+   "reference_ids": [
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-hud-v2-crowded-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_ui_art.py",
+    "source": "authored pixel art drawn in code at native size and scaled x4 nearest"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original UI art authored by Nimble Fox for this game."
+   }
+  },
+  {
+   "id": "ui-icons",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/icons/icon_back.png",
+    "assets/ui/icons/icon_book.png",
+    "assets/ui/icons/icon_buckethat.png",
+    "assets/ui/icons/icon_cat.png",
+    "assets/ui/icons/icon_charm.png",
+    "assets/ui/icons/icon_check.png",
+    "assets/ui/icons/icon_chev_left.png",
+    "assets/ui/icons/icon_chev_right.png",
+    "assets/ui/icons/icon_chili.png",
+    "assets/ui/icons/icon_close.png",
+    "assets/ui/icons/icon_cube.png",
+    "assets/ui/icons/icon_egg.png",
+    "assets/ui/icons/icon_fish.png",
+    "assets/ui/icons/icon_hanger.png",
+    "assets/ui/icons/icon_heart.png",
+    "assets/ui/icons/icon_heart_outline.png",
+    "assets/ui/icons/icon_holo.png",
+    "assets/ui/icons/icon_hood.png",
+    "assets/ui/icons/icon_lantern.png",
+    "assets/ui/icons/icon_leaf.png",
+    "assets/ui/icons/icon_map.png",
+    "assets/ui/icons/icon_milk.png",
+    "assets/ui/icons/icon_motion.png",
+    "assets/ui/icons/icon_music.png",
+    "assets/ui/icons/icon_nowheat.png",
+    "assets/ui/icons/icon_nut.png",
+    "assets/ui/icons/icon_passport.png",
+    "assets/ui/icons/icon_pause.png",
+    "assets/ui/icons/icon_peanut.png",
+    "assets/ui/icons/icon_person.png",
+    "assets/ui/icons/icon_restart.png",
+    "assets/ui/icons/icon_sesame.png",
+    "assets/ui/icons/icon_shrimp.png",
+    "assets/ui/icons/icon_sound.png",
+    "assets/ui/icons/icon_soy.png",
+    "assets/ui/icons/icon_sprout.png",
+    "assets/ui/icons/icon_tap.png",
+    "assets/ui/icons/icon_wheat.png"
+   ],
+   "reference_ids": [
+    "ui-components",
+    "ui-controls-phone",
+    "ui-dialogue-cat-phone",
+    "ui-dialogue-holo",
+    "ui-dialogue-person",
+    "ui-dish-detail-4x3",
+    "ui-dish-detail-desktop",
+    "ui-dish-detail-phone",
+    "ui-finale",
+    "ui-hints-desktop",
+    "ui-hints-phone",
+    "ui-hud-21x9",
+    "ui-hud-4x3",
+    "ui-hud-crowded-desktop",
+    "ui-hud-crowded-phone",
+    "ui-kiosk-wardrobe",
+    "ui-map",
+    "ui-market-guide",
+    "ui-menu-list-desktop",
+    "ui-menu-list-phone",
+    "ui-passport",
+    "ui-pause",
+    "ui-pause-restart-confirm",
+    "ui-rotate-portrait",
+    "ui-tasting-empty",
+    "ui-tasting-list",
+    "ui-title-desktop",
+    "ui-title-phone",
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-district-card",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop",
+    "ui-title-v2-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_icons.py",
+    "source": "authored pixel art drawn in code at native size and scaled x4 nearest"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original UI art authored by Nimble Fox for this game."
+   }
+  },
+  {
+   "id": "tiles-ground-steps",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/tiles/tiles-ground-steps.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-lantern-steps"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_tiles_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "tiles-facade-steps",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/tiles-facade-steps.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-lantern-steps"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_tiles_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-pearl",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/pearl-back.png",
+    "assets/world/buildings/pearl-front.png",
+    "assets/world/buildings/pearl-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-lantern-steps"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-ember",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/ember-back.png",
+    "assets/world/buildings/ember-front.png",
+    "assets/world/buildings/ember-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-lantern-steps"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-order-portal",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-order-portal.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-signpost",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-signpost.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-wish-board",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-wish-board.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-steps-lantern-arch",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-steps-lantern-arch.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-lantern-steps"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "holo-ad-4",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/holo-ad-4.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#district-lantern-steps-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "find-charms-2",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/puddle-charms-2.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props_d2.py (helper pixlib.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "tiles-ground-pier",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/tiles/tiles-ground-pier.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_tiles.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "tiles-facade-pier",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/tiles/tiles-facade-pier.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_tiles.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "tiles-water",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/tiles/tiles-water.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_tiles.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-tide",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/tide-back.png",
+    "assets/world/buildings/tide-front.png",
+    "assets/world/buildings/tide-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "bld-kaigan",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/buildings/kaigan-back.png",
+    "assets/world/buildings/kaigan-front.png",
+    "assets/world/buildings/kaigan-sign.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_buildings.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-pier-props",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-pier-props.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "prop-message-bottle",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/prop-message-bottle.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "fx-fog-band",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/fx/fog-band.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "holo-ad-5",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/world/props/holo-ad-5.png"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley",
+    "look-fogline-pier"
+   ],
+   "specification": "GDD.md#district-fogline-pier-art",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script make_props.py (helpers pix.py)",
+    "source": "original code-drawn pixel art"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "dish-models",
+   "kind": "model",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/models/dishes/r1-1.obj",
+    "assets/models/dishes/r1-1.mtl",
+    "assets/models/dishes/r1-2.obj",
+    "assets/models/dishes/r1-2.mtl",
+    "assets/models/dishes/r1-3.obj",
+    "assets/models/dishes/r1-3.mtl",
+    "assets/models/dishes/r1-4.obj",
+    "assets/models/dishes/r1-4.mtl",
+    "assets/models/dishes/r2-1.obj",
+    "assets/models/dishes/r2-1.mtl",
+    "assets/models/dishes/r2-2.obj",
+    "assets/models/dishes/r2-2.mtl",
+    "assets/models/dishes/r2-3.obj",
+    "assets/models/dishes/r2-3.mtl",
+    "assets/models/dishes/r2-4.obj",
+    "assets/models/dishes/r2-4.mtl",
+    "assets/models/dishes/r2-5.obj",
+    "assets/models/dishes/r2-5.mtl",
+    "assets/models/dishes/r3-1.obj",
+    "assets/models/dishes/r3-1.mtl",
+    "assets/models/dishes/r3-2.obj",
+    "assets/models/dishes/r3-2.mtl",
+    "assets/models/dishes/r3-3.obj",
+    "assets/models/dishes/r3-3.mtl",
+    "assets/models/dishes/r3-4.obj",
+    "assets/models/dishes/r3-4.mtl",
+    "assets/models/dishes/r3-5.obj",
+    "assets/models/dishes/r3-5.mtl",
+    "assets/models/dishes/r3-6.obj",
+    "assets/models/dishes/r3-6.mtl",
+    "assets/models/dishes/r4-1.obj",
+    "assets/models/dishes/r4-1.mtl",
+    "assets/models/dishes/r4-2.obj",
+    "assets/models/dishes/r4-2.mtl",
+    "assets/models/dishes/r4-3.obj",
+    "assets/models/dishes/r4-3.mtl",
+    "assets/models/dishes/r4-4.obj",
+    "assets/models/dishes/r4-4.mtl",
+    "assets/models/dishes/r5-1.obj",
+    "assets/models/dishes/r5-1.mtl",
+    "assets/models/dishes/r5-2.obj",
+    "assets/models/dishes/r5-2.mtl",
+    "assets/models/dishes/r5-3.obj",
+    "assets/models/dishes/r5-3.mtl",
+    "assets/models/dishes/r5-4.obj",
+    "assets/models/dishes/r5-4.mtl",
+    "assets/models/dishes/r6-1.obj",
+    "assets/models/dishes/r6-1.mtl",
+    "assets/models/dishes/r6-2.obj",
+    "assets/models/dishes/r6-2.mtl",
+    "assets/models/dishes/r6-3.obj",
+    "assets/models/dishes/r6-3.mtl",
+    "assets/models/dishes/r6-4.obj",
+    "assets/models/dishes/r6-4.mtl",
+    "assets/models/dishes/r7-1.obj",
+    "assets/models/dishes/r7-1.mtl",
+    "assets/models/dishes/r7-2.obj",
+    "assets/models/dishes/r7-2.mtl",
+    "assets/models/dishes/r7-3.obj",
+    "assets/models/dishes/r7-3.mtl",
+    "assets/models/dishes/r7-4.obj",
+    "assets/models/dishes/r7-4.mtl",
+    "assets/models/dishes/r7-5.obj",
+    "assets/models/dishes/r7-5.mtl"
+   ],
+   "reference_ids": [
+    "ar-portal-dish-hero",
+    "dish-models-sheet"
+   ],
+   "specification": "GDD.md#dish-models-and-ar-portal-pedestal",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python 3 + numpy parametric kit (work/models/kit.py, dishes*.py, build_all.py)",
+    "source": "authored from the dish list in fixtures/restaurants.json and decisions.md; style from the creator's linked chirashi bowl page (viewed as reference only, nothing copied)"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "model-portal-pedestal",
+   "kind": "model",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/models/portal-pedestal.obj",
+    "assets/models/portal-pedestal.mtl"
+   ],
+   "reference_ids": [
+    "ar-portal-dish-hero"
+   ],
+   "specification": "GDD.md#dish-models-and-ar-portal-pedestal",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python 3 + numpy parametric kit (work/models/dishes.py pedestal())",
+    "source": "authored to the AR Portal spec in decisions.md"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "mus-steps",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/mus-steps.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_music.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "mus-pier",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/mus-pier.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_music.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-grand-finale",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-grand-finale.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_music.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "amb-steps-crowd",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/amb-steps-crowd.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_ambience.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "amb-pier",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/amb-pier.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_ambience.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-grill-loop",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-grill-loop.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_ambience.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-fryer-loop",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-fryer-loop.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_ambience.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-teapot-loop",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-teapot-loop.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_ambience.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-portal-open",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-portal-open.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-portal-close",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-portal-close.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-orbit-tick",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-orbit-tick.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-order-add",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-order-add.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-order-remove",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-order-remove.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-order-place",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-order-place.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-order-ready",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-order-ready.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-district-travel",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-district-travel.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-unlock",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-unlock.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-code-key",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-code-key.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-code-ok",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-code-ok.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-code-bad",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-code-bad.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-wish-tag",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-wish-tag.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-bottle",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-bottle.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "sfx-gull",
+   "kind": "audio",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/audio/sfx-gull.ogg"
+   ],
+   "reference_ids": [
+    "look-neon-rain-alley"
+   ],
+   "specification": "GDD.md#audio",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "Python numpy/scipy synthesis script work/audio/synth_sfx.py (helpers synth_common.py), encoded with soundfile (libsndfile Vorbis)",
+    "source": "original synthesized sound, no samples or third-party material; rights cleared"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "ui-panels-dyes-2",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/panels/flap_lacquer.png",
+    "assets/ui/panels/flap_ember.png",
+    "assets/ui/panels/flap_harbour.png",
+    "assets/ui/panels/flap_indigo.png"
+   ],
+   "reference_ids": [
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script work/ui/scripts/make_parts.py (recolour of flap_red)",
+    "source": "authored pixel art drawn in code on the 12x12 / 4-unit grid (original)"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "ui-code-slot",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/prompts/code_slot.png",
+    "assets/ui/prompts/code_slot_active.png",
+    "assets/ui/prompts/code_slot_error.png"
+   ],
+   "reference_ids": [
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script work/ui/scripts/make_parts.py",
+    "source": "authored pixel art drawn in code on the 12x12 / 4-unit grid (original)"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  },
+  {
+   "id": "ui-icons-2",
+   "kind": "sprite",
+   "required": true,
+   "delivery_mode": "DIRECT_FILE",
+   "files": [
+    "assets/ui/icons/icon_tray.png",
+    "assets/ui/icons/icon_portal.png",
+    "assets/ui/icons/icon_padlock.png",
+    "assets/ui/icons/icon_reset.png",
+    "assets/ui/icons/icon_zoom_in.png",
+    "assets/ui/icons/icon_zoom_out.png",
+    "assets/ui/icons/icon_plus.png",
+    "assets/ui/icons/icon_minus.png",
+    "assets/ui/icons/icon_ticket.png",
+    "assets/ui/icons/icon_code.png",
+    "assets/ui/icons/icon_delete.png",
+    "assets/ui/icons/icon_signpost.png",
+    "assets/ui/icons/icon_orbit.png",
+    "assets/ui/icons/icon_bell.png",
+    "assets/ui/icons/icon_catbeanie.png",
+    "assets/ui/icons/icon_souwester.png"
+   ],
+   "reference_ids": [
+    "ui-ar-portal-desktop",
+    "ui-ar-portal-phone",
+    "ui-code-entry-4x3",
+    "ui-code-entry-desktop",
+    "ui-code-entry-error",
+    "ui-code-entry-phone",
+    "ui-dish-detail-v2-4x3",
+    "ui-dish-detail-v2-desktop",
+    "ui-dish-detail-v2-phone",
+    "ui-district-card",
+    "ui-district-finale",
+    "ui-grand-finale",
+    "ui-hud-v2-21x9",
+    "ui-hud-v2-4x3",
+    "ui-hud-v2-crowded-desktop",
+    "ui-hud-v2-crowded-phone",
+    "ui-kiosk-wardrobe-v2",
+    "ui-kiosk-wardrobe-v2-4x3",
+    "ui-map-districts",
+    "ui-map-districts-d1",
+    "ui-market-code",
+    "ui-order-portal-confirm",
+    "ui-order-portal-order",
+    "ui-order-portal-wardrobe",
+    "ui-order-ticket",
+    "ui-order-tray",
+    "ui-order-tray-empty",
+    "ui-passport-districts",
+    "ui-passport-districts-d2",
+    "ui-pause-v2",
+    "ui-title-v2-desktop",
+    "ui-title-v2-phone"
+   ],
+   "specification": "GDD.md#ui-and-exact-copy",
+   "inspected": true,
+   "provenance": {
+    "provider": "Nimble Fox",
+    "tool": "python-pillow script work/ui/scripts/make_parts.py",
+    "source": "authored pixel art drawn in code on the 12x12 / 4-unit grid (original)"
+   },
+   "rights": {
+    "status": "cleared",
+    "notes": "Original work authored for this game by Nimble Fox."
+   }
+  }
+ ],
+ "blockers": [],
+ "external_release_gates": [
+  "Restoring the real names Noka Ramen, Son & Garden, Thai Farm Table and PeekaPlate (or naming real partners for the four new restaurants) in place of the original names needs the creator's confirmed rights to use them.",
+  "Real partner menus and prices replace the SAMPLE records in fixtures/restaurants.json once the partners supply them and grant rights.",
+  "Connecting the XR order code to the creator's Meta XR ordering app is outside this browser build."
+ ],
+ "supporting_files": [
+  "docs/brief.md",
+  "fixtures/restaurants.json",
+  "fixtures/market-map.json",
+  "docs/ui-source/components.html",
+  "docs/ui-source/dialogue.html",
+  "docs/ui-source/finale.html",
+  "docs/ui-source/guide.html",
+  "docs/ui-source/hints.html",
+  "docs/ui-source/hud.html",
+  "docs/ui-source/kiosk.html",
+  "docs/ui-source/map.html",
+  "docs/ui-source/menu.html",
+  "docs/ui-source/passport.html",
+  "docs/ui-source/pause.html",
+  "docs/ui-source/rotate.html",
+  "docs/ui-source/standins/gameplay_1920.jpg",
+  "docs/ui-source/standins/gameplay_2400.jpg",
+  "docs/ui-source/standins/minimap_standin.png",
+  "docs/ui-source/tasting.html",
+  "docs/ui-source/title.html",
+  "docs/ui-source/ui.css",
+  "fixtures/district-lantern-steps.json",
+  "fixtures/district-fogline-pier.json",
+  "docs/ui-source/full-ar.html",
+  "docs/ui-source/full-card.html",
+  "docs/ui-source/full-code.html",
+  "docs/ui-source/full-detail.html",
+  "docs/ui-source/full-dfinale.html",
+  "docs/ui-source/full-grand.html",
+  "docs/ui-source/full-hud.html",
+  "docs/ui-source/full-map.html",
+  "docs/ui-source/full-mcode.html",
+  "docs/ui-source/full-passport.html",
+  "docs/ui-source/full-pause.html",
+  "docs/ui-source/full-portal.html",
+  "docs/ui-source/full-title.html",
+  "docs/ui-source/full-tray.html",
+  "docs/ui-source/full-wardrobe.html",
+  "docs/ui-source/full.css",
+  "receipts/package-review.json"
+ ]
+}

@@ -143,6 +143,8 @@ export class GlimmerApp {
   nextDish(delta:number){const list=dishes.filter(d=>d.restaurantId===this.selectedDish.restaurantId);this.selectedDish=list[(list.findIndex(d=>d.id===this.selectedDish.id)+delta+list.length)%list.length];this.resetPortal();this.onPortal(this.selectedDish.id);}
   key(e:KeyboardEvent){if(e.defaultPrevented)return;this.uiDirty=true;
     if(e.metaKey||e.ctrlKey||e.altKey)return;
+    // A held interaction key must not activate the panel it just opened.
+    if(e.repeat&&['e',' ','enter','escape'].includes(e.key.toLowerCase())){e.preventDefault();return;}
     if(this.screen==='codeEntry'){
       if(e.key==='Backspace'){e.preventDefault();this.code=this.code.slice(0,-1);return;}
       if(e.key==='Enter'){if(this.code.length===18)this.restore();return;}
@@ -157,7 +159,7 @@ export class GlimmerApp {
     if(this.screen!=='explore'&&this.screen!=='ar'&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();this.keyboardFocus=(this.keyboardFocus+(['ArrowLeft','ArrowUp'].includes(e.key)?-1:1)+this.buttons.length)%Math.max(1,this.buttons.length);return;}
     if(e.key==='Tab'&&this.screen==='explore'){e.preventDefault();this.setScreen('passport');return;}
     if(e.key==='Tab'){e.preventDefault();this.keyboardFocus=(this.keyboardFocus+(e.shiftKey?-1:1)+this.buttons.length)%Math.max(1,this.buttons.length);return;}
-    if((e.key==='Enter'||e.key===' '||e.key.toLowerCase()==='e')&&this.screen!=='explore'&&this.screen!=='codeEntry'){const b=this.buttons[this.keyboardFocus<0?0:this.keyboardFocus];if(b&&!b.disabled){e.preventDefault();b.action();this.unlockAudio();}return;}
+    if((e.key==='Enter'||e.key===' '||e.key.toLowerCase()==='e')&&this.screen!=='explore'&&this.screen!=='codeEntry'){const b=this.buttons[this.keyboardFocus<0?defaultFocus(this.buttons):this.keyboardFocus];if(b&&!b.disabled){e.preventDefault();b.action();this.unlockAudio();}return;}
     if(e.key==='Enter'&&this.screen==='explore'){this.market.interact();return;}
     if(this.screen==='explore'){
       const shortcuts:Record<string,Screen>={o:'tray',m:'map',f:'tasting',p:'pause',b:'passport'};

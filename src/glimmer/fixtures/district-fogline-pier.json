@@ -1,0 +1,592 @@
+{
+ "district": "d3-fogline-pier",
+ "name": "Fogline Pier",
+ "tile_size_px": 16,
+ "width_tiles": 40,
+ "height_tiles": 28,
+ "origin": "top-left, x right, y down; pivots are (x centre, y bottom edge) in tiles (puddles and fog bands by their centre)",
+ "legend": {
+  "#": "solid block (tiles-facade-pier walls/roofs, collider)",
+  ".": "walkable wet concrete quay (tiles-ground-pier 19/20/31)",
+  "=": "walkable wet boardwalk (tiles-ground-pier 0-7, edges 8-15)",
+  "~": "bay water (tiles-water, animated 2 frames, solid collider)"
+ },
+ "tilesets": {
+  "ground": "tiles-ground-pier",
+  "facade": "tiles-facade-pier",
+  "water": "tiles-water"
+ },
+ "rows": [
+  "########################################",
+  "########################################",
+  "#################################===####",
+  "#################################===####",
+  "#################################===####",
+  "#################################===####",
+  "#################################===####",
+  "#################################===####",
+  "#.....==================================",
+  "#.....==================================",
+  "......==================================",
+  "......==================================",
+  "......==================================",
+  "#.....==================================",
+  "~~~===~~~~~~~~~~======~~~~~~~~~===~~~~~~",
+  "~~~===~~~~~~~~~~======~~~~~~~~~===~~~~~~",
+  "~~~===~~~~~~~~~~======~~~~~~~~~===~~~~~~",
+  "~~~===~~~~~~~~~~======~~~~~~~~~===~~~~~~",
+  "~~~===~~~~~~~~~~======~~~~~~~~~===~~~~~~",
+  "~~~===~~~~~~~~~~======~~~~~~~~~===~~~~~~",
+  "~~~===~~~~~~~~~~======~~~~~~~~=========~",
+  "~~~===~~~~~~~~~~======~~~~~~~~=========~",
+  "~========~~~~~~~======~~~~~~~~=========~",
+  "~========~~~==============~~~~~~~~~~~~~~",
+  "~========~~~==============~~~~~~~~~~~~~~",
+  "~========~~~==============~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+ ],
+ "player_spawn": [
+  1.5,
+  11.5
+ ],
+ "player_spawn_facing": "right",
+ "exits": [
+  {
+   "id": "to-d1",
+   "rect_tiles": [
+    0,
+    10,
+    1,
+    3
+   ],
+   "to": "d1-rain-alley",
+   "arrive_at": [
+    40.5,
+    24.5
+   ],
+   "facing": "left"
+  }
+ ],
+ "objects": [
+  {
+   "id": "r6-tide",
+   "kind": "restaurant",
+   "asset": "bld-tide",
+   "pivot": [
+    10.0,
+    8.0
+   ]
+  },
+  {
+   "id": "r7-kaigan",
+   "kind": "restaurant",
+   "asset": "bld-kaigan",
+   "pivot": [
+    25.5,
+    8.0
+   ]
+  },
+  {
+   "id": "order-portal",
+   "kind": "order-portal",
+   "asset": "prop-order-portal",
+   "pivot": [
+    18.0,
+    9.0
+   ]
+  },
+  {
+   "id": "signpost",
+   "kind": "signpost",
+   "asset": "prop-signpost (label: Rain Alley Market)",
+   "pivot": [
+    1.5,
+    9.9
+   ]
+  },
+  {
+   "id": "cat-6",
+   "kind": "find-cat",
+   "asset": "cats",
+   "pivot": [
+    35.0,
+    3.0
+   ],
+   "sprite": "cat-5",
+   "sprite_file": "assets/characters/cat-5.png"
+  },
+  {
+   "id": "cat-7",
+   "kind": "find-cat",
+   "asset": "cats",
+   "pivot": [
+    1.6,
+    25.0
+   ],
+   "sprite": "cat-3",
+   "sprite_file": "assets/characters/cat-3.png"
+  },
+  {
+   "id": "charm-shell",
+   "kind": "find-puddle",
+   "asset": "prop-puddles#0 + find-charms-2#2",
+   "pivot": [
+    14.0,
+    24.0
+   ]
+  },
+  {
+   "id": "charm-anchor",
+   "kind": "find-puddle",
+   "asset": "prop-puddles#0 + find-charms-2#3",
+   "pivot": [
+    36.5,
+    21.5
+   ]
+  },
+  {
+   "id": "npc-ola",
+   "kind": "find-person",
+   "asset": "npc-street-ola",
+   "pivot": [
+    6.5,
+    23.4
+   ]
+  },
+  {
+   "id": "npc-pip",
+   "kind": "find-person",
+   "asset": "npc-street-pip",
+   "pivot": [
+    32.5,
+    21.0
+   ]
+  },
+  {
+   "id": "ad-5",
+   "kind": "find-holo",
+   "asset": "prop-holo-ads-2 holo-ad-5 (FOGWAVE RADIO)",
+   "pivot": [
+    33.5,
+    5.0
+   ]
+  },
+  {
+   "id": "bottle",
+   "kind": "find-bottle",
+   "asset": "prop-message-bottle",
+   "pivot": [
+    24.5,
+    26.0
+   ],
+   "note": "wedged at the pier-head rail; \"Read the note\""
+  },
+  {
+   "id": "bench-1",
+   "kind": "bench",
+   "asset": "prop-bench (sittable)",
+   "pivot": [
+    18.0,
+    24.0
+   ]
+  },
+  {
+   "id": "bench-2",
+   "kind": "bench",
+   "asset": "prop-bench (sittable)",
+   "pivot": [
+    31.0,
+    9.0
+   ]
+  },
+  {
+   "id": "lamp-1",
+   "kind": "decor",
+   "asset": "prop-lamp",
+   "pivot": [
+    11.5,
+    14.0
+   ]
+  },
+  {
+   "id": "lamp-2",
+   "kind": "decor",
+   "asset": "prop-lamp",
+   "pivot": [
+    27.5,
+    14.0
+   ]
+  },
+  {
+   "id": "lamp-3",
+   "kind": "decor",
+   "asset": "prop-lamp",
+   "pivot": [
+    37.5,
+    14.0
+   ]
+  },
+  {
+   "id": "lamp-4",
+   "kind": "decor",
+   "asset": "prop-lamp",
+   "pivot": [
+    1.5,
+    23.0
+   ]
+  },
+  {
+   "id": "lamp-5",
+   "kind": "decor",
+   "asset": "prop-lamp",
+   "pivot": [
+    37.5,
+    21.0
+   ]
+  },
+  {
+   "id": "lamp-6",
+   "kind": "decor",
+   "asset": "prop-lamp",
+   "pivot": [
+    25.5,
+    24.0
+   ]
+  },
+  {
+   "id": "neon-1",
+   "kind": "wall-sign",
+   "asset": "prop-neon-vertical magenta",
+   "pivot": [
+    15.5,
+    8.0
+   ]
+  },
+  {
+   "id": "neon-2",
+   "kind": "wall-sign",
+   "asset": "prop-neon-vertical cyan",
+   "pivot": [
+    30.0,
+    8.0
+   ]
+  },
+  {
+   "id": "neon-3",
+   "kind": "wall-sign",
+   "asset": "prop-neon-vertical violet",
+   "pivot": [
+    37.5,
+    8.0
+   ]
+  },
+  {
+   "id": "bollard-1",
+   "kind": "decor",
+   "asset": "prop-pier-props#0 (bollard)",
+   "pivot": [
+    14.5,
+    14.0
+   ]
+  },
+  {
+   "id": "bollard-2",
+   "kind": "decor",
+   "asset": "prop-pier-props#0 (bollard)",
+   "pivot": [
+    23.5,
+    14.0
+   ]
+  },
+  {
+   "id": "bollard-3",
+   "kind": "decor",
+   "asset": "prop-pier-props#0 (bollard)",
+   "pivot": [
+    8.5,
+    26.0
+   ]
+  },
+  {
+   "id": "bollard-4",
+   "kind": "decor",
+   "asset": "prop-pier-props#0 (bollard)",
+   "pivot": [
+    30.5,
+    23.0
+   ]
+  },
+  {
+   "id": "rail-post-1",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    12.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-2",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    13.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-3",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    15.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-4",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    16.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-5",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    19.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-6",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    20.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-7",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    21.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-8",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    23.5,
+    26.0
+   ]
+  },
+  {
+   "id": "rail-post-9",
+   "kind": "decor",
+   "asset": "prop-pier-props#1 (rope rail post)",
+   "pivot": [
+    25.5,
+    26.0
+   ]
+  },
+  {
+   "id": "fish-crate-1",
+   "kind": "decor",
+   "asset": "prop-pier-props#2 (crate of fish on ice)",
+   "pivot": [
+    3.0,
+    23.0
+   ]
+  },
+  {
+   "id": "fish-crate-2",
+   "kind": "decor",
+   "asset": "prop-pier-props#2 (crate of fish on ice)",
+   "pivot": [
+    34.5,
+    9.0
+   ]
+  },
+  {
+   "id": "fish-crate-3",
+   "kind": "decor",
+   "asset": "prop-pier-props#2 (crate of fish on ice)",
+   "pivot": [
+    38.5,
+    9.0
+   ]
+  },
+  {
+   "id": "life-ring-1",
+   "kind": "decor",
+   "asset": "prop-pier-props#3 (life ring on post)",
+   "pivot": [
+    22.5,
+    14.0
+   ]
+  },
+  {
+   "id": "life-ring-2",
+   "kind": "decor",
+   "asset": "prop-pier-props#3 (life ring on post)",
+   "pivot": [
+    8.5,
+    22.4
+   ]
+  },
+  {
+   "id": "crates-1",
+   "kind": "decor",
+   "asset": "prop-crates",
+   "pivot": [
+    4.5,
+    9.0
+   ]
+  },
+  {
+   "id": "barrel-1",
+   "kind": "decor",
+   "asset": "prop-barrel",
+   "pivot": [
+    3.5,
+    9.0
+   ]
+  },
+  {
+   "id": "umbrella-stand",
+   "kind": "decor",
+   "asset": "prop-umbrella-stand",
+   "pivot": [
+    14.5,
+    9.0
+   ]
+  },
+  {
+   "id": "lantern-string-1",
+   "kind": "overhead",
+   "asset": "prop-lantern-string",
+   "pivot": [
+    18.0,
+    10.0
+   ]
+  },
+  {
+   "id": "puddle-d1",
+   "kind": "decor-puddle",
+   "asset": "prop-puddles#2",
+   "pivot": [
+    8.0,
+    12.0
+   ]
+  },
+  {
+   "id": "puddle-d2",
+   "kind": "decor-puddle",
+   "asset": "prop-puddles#1",
+   "pivot": [
+    28.0,
+    11.5
+   ]
+  },
+  {
+   "id": "puddle-d3",
+   "kind": "decor-puddle",
+   "asset": "prop-puddles#0",
+   "pivot": [
+    5.0,
+    24.5
+   ]
+  },
+  {
+   "id": "fog-1",
+   "kind": "fx-fog",
+   "asset": "fx-fog-band",
+   "pivot": [
+    20.0,
+    19.0
+   ],
+   "span_tiles": [
+    0,
+    40
+   ],
+   "drift_px_s": 6,
+   "alpha": 1.0
+  },
+  {
+   "id": "fog-2",
+   "kind": "fx-fog",
+   "asset": "fx-fog-band",
+   "pivot": [
+    20.0,
+    27.5
+   ],
+   "span_tiles": [
+    0,
+    40
+   ],
+   "drift_px_s": -4,
+   "alpha": 0.8
+  },
+  {
+   "id": "fog-3",
+   "kind": "fx-fog",
+   "asset": "fx-fog-band",
+   "pivot": [
+    20.0,
+    9.0
+   ],
+   "span_tiles": [
+    0,
+    40
+   ],
+   "drift_px_s": 3,
+   "alpha": 0.35,
+   "layer": "Overhead"
+  }
+ ],
+ "walker_paths": {
+  "walker-1": [
+   [
+    2.5,
+    12.5
+   ],
+   [
+    38.0,
+    12.5
+   ]
+  ],
+  "walker-2": [
+   [
+    37.0,
+    10.5
+   ],
+   [
+    7.0,
+    10.5
+   ]
+  ],
+  "walker-3": [
+   [
+    18.5,
+    12.5
+   ],
+   [
+    18.5,
+    22.5
+   ],
+   [
+    24.0,
+    24.6
+   ]
+  ]
+ }
+}

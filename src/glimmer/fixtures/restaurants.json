@@ -1,0 +1,1068 @@
+[
+  {
+    "id": "r1-ramen",
+    "name": "Yuge Ramen",
+    "cuisine": "Japanese ramen alley",
+    "palette": [
+      "#b01f2a",
+      "#ff4a3a",
+      "#6b3a24",
+      "#ffb347"
+    ],
+    "emblem": "assets/ui/emblems/emblem-ramen.png",
+    "stamp": "assets/ui/stamps/stamp-ramen.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-ramen.png",
+    "storefront": "bld-ramen",
+    "district": "d1-rain-alley",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r1-1",
+        "name": "Shoyu-style Ramen",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: clear soy-seasoned broth, springy noodles, tender pork and a jammy egg.",
+        "ingredients": [
+          "wheat noodles",
+          "soy broth",
+          "pork",
+          "egg",
+          "nori",
+          "scallion"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "soy",
+          "egg"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r1-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r1-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r1-2",
+        "name": "Miso-style Ramen",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: rich miso broth with sweet corn, a melting butter pat and bean sprouts.",
+        "ingredients": [
+          "wheat noodles",
+          "miso broth",
+          "corn",
+          "butter",
+          "bean sprouts",
+          "pork"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "soy",
+          "milk",
+          "sesame"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r1-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r1-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r1-3",
+        "name": "Spicy Tantan-style Ramen",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: sesame-chili broth, savoury minced pork and crisp greens. Brings the heat.",
+        "ingredients": [
+          "wheat noodles",
+          "sesame paste",
+          "chili oil",
+          "minced pork",
+          "bok choy"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "soy",
+          "sesame"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 2
+        },
+        "image": "assets/food/dish-r1-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r1-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r1-4",
+        "name": "Pan-fried Gyoza",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: dumplings seared golden on one side, soft on the other, with dipping sauce.",
+        "ingredients": [
+          "wheat wrappers",
+          "pork",
+          "cabbage",
+          "garlic",
+          "soy dip"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "soy",
+          "sesame"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r1-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r1-4.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  },
+  {
+    "id": "r2-cafe",
+    "name": "Petal & Arbor Café",
+    "cuisine": "Enchanted garden brunch café",
+    "palette": [
+      "#e86fb0",
+      "#b9a0e6",
+      "#f3e6c8",
+      "#7fa58a"
+    ],
+    "emblem": "assets/ui/emblems/emblem-cafe.png",
+    "stamp": "assets/ui/stamps/stamp-cafe.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-cafe.png",
+    "storefront": "bld-cafe",
+    "district": "d1-rain-alley",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r2-1",
+        "name": "Berry Soufflé Pancakes",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: wobbly, cloud-soft pancakes with whipped cream and a tumble of berries.",
+        "ingredients": [
+          "flour",
+          "egg",
+          "milk",
+          "cream",
+          "berries"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "egg",
+          "milk"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r2-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r2-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r2-2",
+        "name": "Avocado Toast with Flowers",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: smashed avocado on toasted sourdough, chili flakes and edible petals.",
+        "ingredients": [
+          "sourdough",
+          "avocado",
+          "lemon",
+          "chili flakes",
+          "edible flowers"
+        ],
+        "allergens": [
+          "wheat/gluten"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": true,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r2-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r2-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r2-3",
+        "name": "Eggs Benedict",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: poached eggs and ham on toasted muffins under silky, buttery hollandaise.",
+        "ingredients": [
+          "english muffin",
+          "egg",
+          "ham",
+          "butter",
+          "chives"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "egg",
+          "milk"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r2-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r2-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r2-4",
+        "name": "Matcha Latte",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample drink: whisked green tea and steamed milk with a little latte-art leaf.",
+        "ingredients": [
+          "matcha",
+          "steamed milk",
+          "hot water"
+        ],
+        "allergens": [
+          "milk"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r2-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r2-4.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r2-5",
+        "name": "Rose Berry Parfait",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dessert: rose yogurt, crunchy granola and berries layered in a tall glass.",
+        "ingredients": [
+          "yogurt",
+          "rose syrup",
+          "granola",
+          "berries",
+          "cream"
+        ],
+        "allergens": [
+          "milk",
+          "wheat/gluten",
+          "tree nuts"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r2-5.png",
+        "xr": {
+          "model": "assets/models/dishes/r2-5.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  },
+  {
+    "id": "r3-thai",
+    "name": "Lemongrass Lane",
+    "cuisine": "Thai street-food stall",
+    "palette": [
+      "#1f6f7a",
+      "#efe2c4",
+      "#c8323c",
+      "#c79a52"
+    ],
+    "emblem": "assets/ui/emblems/emblem-thai.png",
+    "stamp": "assets/ui/stamps/stamp-thai.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-thai.png",
+    "storefront": "bld-thai",
+    "district": "d1-rain-alley",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r3-1",
+        "name": "Pad Thai-style Noodles",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: wok-tossed rice noodles, shrimp, egg and crushed peanuts with lime.",
+        "ingredients": [
+          "rice noodles",
+          "shrimp",
+          "egg",
+          "peanuts",
+          "bean sprouts",
+          "lime"
+        ],
+        "allergens": [
+          "shellfish",
+          "egg",
+          "peanut",
+          "fish",
+          "soy"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 1
+        },
+        "image": "assets/food/dish-r3-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r3-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r3-2",
+        "name": "Green Curry with Rice",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: fragrant coconut green curry with chicken and Thai basil beside jasmine rice.",
+        "ingredients": [
+          "green curry paste",
+          "coconut milk",
+          "chicken",
+          "thai basil",
+          "jasmine rice"
+        ],
+        "allergens": [
+          "fish",
+          "shellfish"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 2
+        },
+        "image": "assets/food/dish-r3-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r3-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r3-3",
+        "name": "Tom Yum-style Soup",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: hot and sour broth with shrimp, mushrooms, lemongrass and lime leaf.",
+        "ingredients": [
+          "shrimp",
+          "mushrooms",
+          "lemongrass",
+          "lime leaf",
+          "chili"
+        ],
+        "allergens": [
+          "shellfish",
+          "fish"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 3
+        },
+        "image": "assets/food/dish-r3-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r3-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r3-4",
+        "name": "Holy Basil Stir-fry",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: minced pork flash-fried with holy basil and chili, rice and a crispy fried egg.",
+        "ingredients": [
+          "minced pork",
+          "holy basil",
+          "chili",
+          "garlic",
+          "rice",
+          "egg"
+        ],
+        "allergens": [
+          "egg",
+          "soy",
+          "fish"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 2
+        },
+        "image": "assets/food/dish-r3-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r3-4.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r3-5",
+        "name": "Mango Sticky Rice",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dessert: ripe mango slices with sweet coconut sticky rice and a creamy drizzle.",
+        "ingredients": [
+          "mango",
+          "sticky rice",
+          "coconut milk",
+          "sesame"
+        ],
+        "allergens": [
+          "sesame"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": true,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r3-5.png",
+        "xr": {
+          "model": "assets/models/dishes/r3-5.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r3-6",
+        "name": "Thai Iced Tea",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample drink: strong spiced orange tea over ice, swirled with sweet creamy milk.",
+        "ingredients": [
+          "black tea",
+          "condensed milk",
+          "ice",
+          "sugar"
+        ],
+        "allergens": [
+          "milk"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r3-6.png",
+        "xr": {
+          "model": "assets/models/dishes/r3-6.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  },
+  {
+    "id": "r4-pearl",
+    "name": "Pearl & Pepper",
+    "cuisine": "Night-market tea and buns",
+    "palette": [
+      "#b01f2a",
+      "#e8b04a",
+      "#8a4a1e",
+      "#f6e3c0"
+    ],
+    "emblem": "assets/ui/emblems/emblem-pearl.png",
+    "stamp": "assets/ui/stamps/stamp-pearl.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-pearl.png",
+    "storefront": "bld-pearl",
+    "district": "d2-lantern-steps",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r4-1",
+        "name": "Black-pepper Baked Bun",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: clay-oven bun with a crisp sesame crust and a peppery, juicy pork filling.",
+        "ingredients": [
+          "wheat dough",
+          "pork",
+          "black pepper",
+          "scallion",
+          "sesame"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "sesame",
+          "soy"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 1
+        },
+        "image": "assets/food/dish-r4-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r4-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r4-2",
+        "name": "Brown-sugar Pearl Milk Tea",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample drink: chilled milk tea striped with brown-sugar syrup over chewy dark tapioca pearls.",
+        "ingredients": [
+          "black tea",
+          "milk",
+          "brown sugar",
+          "tapioca pearls"
+        ],
+        "allergens": [
+          "milk"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r4-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r4-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r4-3",
+        "name": "Scallion Pancake",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: flaky layered flatbread full of scallion, pan-crisped and cut into wedges with a dip.",
+        "ingredients": [
+          "wheat flour",
+          "scallion",
+          "oil",
+          "soy dip"
+        ],
+        "allergens": [
+          "wheat/gluten",
+          "soy"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": true,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r4-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r4-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r4-4",
+        "name": "Popcorn Chicken",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: bite-size crispy chicken tossed with fried basil and pepper salt, in a paper cone.",
+        "ingredients": [
+          "chicken",
+          "potato starch",
+          "basil",
+          "pepper salt",
+          "garlic"
+        ],
+        "allergens": [
+          "soy",
+          "wheat/gluten"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 1
+        },
+        "image": "assets/food/dish-r4-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r4-4.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  },
+  {
+    "id": "r5-ember",
+    "name": "Ember Skewers",
+    "cuisine": "Charcoal grill cart",
+    "palette": [
+      "#ff7a1a",
+      "#3a3a48",
+      "#c8964a",
+      "#ffd23a"
+    ],
+    "emblem": "assets/ui/emblems/emblem-ember.png",
+    "stamp": "assets/ui/stamps/stamp-ember.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-ember.png",
+    "storefront": "bld-ember",
+    "district": "d2-lantern-steps",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r5-1",
+        "name": "Grilled Chicken Skewers",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: charcoal-grilled chicken on bamboo skewers, brushed with a sweet soy glaze.",
+        "ingredients": [
+          "chicken",
+          "soy glaze",
+          "scallion",
+          "bamboo skewer"
+        ],
+        "allergens": [
+          "soy",
+          "wheat/gluten"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r5-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r5-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r5-2",
+        "name": "Glazed Grilled Corn",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: whole corn cob grilled over coals and lacquered with a smoky-sweet glaze.",
+        "ingredients": [
+          "corn",
+          "soy glaze",
+          "butter",
+          "chili flakes"
+        ],
+        "allergens": [
+          "soy",
+          "milk",
+          "wheat/gluten"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 1
+        },
+        "image": "assets/food/dish-r5-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r5-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r5-3",
+        "name": "Crispy Tofu with Pickled Cabbage",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: golden fried tofu cubes topped with tangy pickled cabbage and a little chili.",
+        "ingredients": [
+          "tofu",
+          "pickled cabbage",
+          "garlic",
+          "chili"
+        ],
+        "allergens": [
+          "soy"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": true,
+          "glutenFree": true,
+          "spicy": 1
+        },
+        "image": "assets/food/dish-r5-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r5-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r5-4",
+        "name": "Mango Shaved Ice",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dessert: fluffy shaved ice piled with fresh mango, mango syrup and sweet condensed milk.",
+        "ingredients": [
+          "shaved ice",
+          "mango",
+          "mango syrup",
+          "condensed milk",
+          "mint"
+        ],
+        "allergens": [
+          "milk"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r5-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r5-4.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  },
+  {
+    "id": "r6-tide",
+    "name": "Tideline Chowder",
+    "cuisine": "Pier food truck seafood",
+    "palette": [
+      "#2a4a7a",
+      "#d8402a",
+      "#f4ecd8",
+      "#c8803a"
+    ],
+    "emblem": "assets/ui/emblems/emblem-tide.png",
+    "stamp": "assets/ui/stamps/stamp-tide.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-tide.png",
+    "storefront": "bld-tide",
+    "district": "d3-fogline-pier",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r6-1",
+        "name": "Clam Chowder Bread Bowl",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: creamy clam and potato chowder ladled into a hollowed sourdough bread bowl.",
+        "ingredients": [
+          "clams",
+          "potato",
+          "cream",
+          "sourdough",
+          "celery",
+          "thyme"
+        ],
+        "allergens": [
+          "shellfish",
+          "milk",
+          "wheat/gluten"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r6-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r6-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r6-2",
+        "name": "Fish and Chips",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: flaky white fish in crunchy golden batter with thick-cut chips and a lemon wedge.",
+        "ingredients": [
+          "white fish",
+          "batter",
+          "potato",
+          "lemon",
+          "tartar sauce"
+        ],
+        "allergens": [
+          "fish",
+          "wheat/gluten",
+          "egg"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r6-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r6-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r6-3",
+        "name": "Crab Roll",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: chilled sweet crab with lemony mayo and lettuce in a toasted buttery split-top bun.",
+        "ingredients": [
+          "crab",
+          "mayo",
+          "lettuce",
+          "lemon",
+          "butter bun"
+        ],
+        "allergens": [
+          "shellfish",
+          "egg",
+          "milk",
+          "wheat/gluten"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": false,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r6-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r6-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r6-4",
+        "name": "Garlic Fries",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: crisp fries tossed with garlic and parsley, with a creamy dip on the side.",
+        "ingredients": [
+          "potato",
+          "garlic",
+          "parsley",
+          "sea salt",
+          "aioli"
+        ],
+        "allergens": [
+          "egg"
+        ],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r6-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r6-4.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  },
+  {
+    "id": "r7-kaigan",
+    "name": "Kaigan Chirashi",
+    "cuisine": "Pier sushi counter",
+    "palette": [
+      "#1f2453",
+      "#e0462a",
+      "#141018",
+      "#f0864a"
+    ],
+    "emblem": "assets/ui/emblems/emblem-kaigan.png",
+    "stamp": "assets/ui/stamps/stamp-kaigan.png",
+    "stampEmpty": "assets/ui/stamps/stamp-empty-kaigan.png",
+    "storefront": "bld-kaigan",
+    "district": "d3-fogline-pier",
+    "xr": null,
+    "dishes": [
+      {
+        "id": "r7-1",
+        "name": "Chirashi Bowl",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: sushi rice under fanned salmon and tuna, tamago, bright roe, cucumber and shiso.",
+        "ingredients": [
+          "sushi rice",
+          "salmon",
+          "tuna",
+          "tamago",
+          "fish roe",
+          "cucumber"
+        ],
+        "allergens": [
+          "fish",
+          "egg",
+          "soy"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r7-1.png",
+        "xr": {
+          "model": "assets/models/dishes/r7-1.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r7-2",
+        "name": "Salmon Nigiri Set",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: hand-pressed rice topped with buttery salmon, served on a wooden board with ginger.",
+        "ingredients": [
+          "sushi rice",
+          "salmon",
+          "wasabi",
+          "pickled ginger"
+        ],
+        "allergens": [
+          "fish",
+          "soy"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r7-2.png",
+        "xr": {
+          "model": "assets/models/dishes/r7-2.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r7-3",
+        "name": "Hand Roll",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: crisp nori cone filled with sushi rice, tuna, salmon, cucumber and roe.",
+        "ingredients": [
+          "nori",
+          "sushi rice",
+          "tuna",
+          "salmon",
+          "cucumber",
+          "fish roe"
+        ],
+        "allergens": [
+          "fish",
+          "soy",
+          "sesame"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r7-3.png",
+        "xr": {
+          "model": "assets/models/dishes/r7-3.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r7-4",
+        "name": "Miso Soup",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dish: warm miso broth with silky tofu, wakame seaweed and scallion in a lidded bowl.",
+        "ingredients": [
+          "miso",
+          "dashi",
+          "tofu",
+          "wakame",
+          "scallion"
+        ],
+        "allergens": [
+          "soy",
+          "fish"
+        ],
+        "dietary": {
+          "vegetarian": false,
+          "vegan": false,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r7-4.png",
+        "xr": {
+          "model": "assets/models/dishes/r7-4.obj",
+          "previewScale": 1.0
+        }
+      },
+      {
+        "id": "r7-5",
+        "name": "Matcha Mochi",
+        "sample": true,
+        "price": "Price TBA",
+        "description": "Sample dessert: soft, chewy rice-cake balls dusted with green tea powder around a sweet filling.",
+        "ingredients": [
+          "glutinous rice",
+          "matcha",
+          "sweet bean paste",
+          "sugar"
+        ],
+        "allergens": [],
+        "dietary": {
+          "vegetarian": true,
+          "vegan": true,
+          "glutenFree": true,
+          "spicy": 0
+        },
+        "image": "assets/food/dish-r7-5.png",
+        "xr": {
+          "model": "assets/models/dishes/r7-5.obj",
+          "previewScale": 1.0
+        }
+      }
+    ]
+  }
+]

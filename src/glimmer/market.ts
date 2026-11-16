@@ -1,8 +1,8 @@
-import rainAlley from '../../public/glimmer/fixtures/market-map.json';
-import lanternSteps from '../../public/glimmer/fixtures/district-lantern-steps.json';
-import foglinePier from '../../public/glimmer/fixtures/district-fogline-pier.json';
-import manifest from '../../public/glimmer/manifest.json';
-import restaurants from '../../public/glimmer/fixtures/restaurants.json';
+import rainAlley from './fixtures/market-map.json';
+import lanternSteps from './fixtures/district-lantern-steps.json';
+import foglinePier from './fixtures/district-fogline-pier.json';
+import manifest from './fixtures/manifest.json';
+import restaurants from './fixtures/restaurants.json';
 
 type Point = [number, number];
 type Rect = [number, number, number, number];

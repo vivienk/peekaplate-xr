@@ -1,5 +1,5 @@
 import { AssetType } from '@iwsdk/core';
-import restaurants from '../../public/glimmer/fixtures/restaurants.json';
+import restaurants from './fixtures/restaurants.json';
 
 /** Asset IDs shared by the application and independent editor realm. */
 export const glimmerModelId = (dishId: string): string => `glimmer-dish-${dishId}`;

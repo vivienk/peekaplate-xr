@@ -1,7 +1,7 @@
-import restaurantFixture from '../../public/glimmer/fixtures/restaurants.json';
-import rainFixture from '../../public/glimmer/fixtures/market-map.json';
-import stepsFixture from '../../public/glimmer/fixtures/district-lantern-steps.json';
-import pierFixture from '../../public/glimmer/fixtures/district-fogline-pier.json';
+import restaurantFixture from './fixtures/restaurants.json';
+import rainFixture from './fixtures/market-map.json';
+import stepsFixture from './fixtures/district-lantern-steps.json';
+import pierFixture from './fixtures/district-fogline-pier.json';
 
 export type DistrictId = 'd1-rain-alley' | 'd2-lantern-steps' | 'd3-fogline-pier';
 export interface MapObject { id: string; kind: string; asset: string; pivot: number[]; sprite?: string; sprite_file?: string; [key: string]: unknown }
