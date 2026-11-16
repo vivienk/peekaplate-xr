@@ -1,10 +1,14 @@
 import { createSystem, CanvasTexture, Mesh, PlaneGeometry, MeshBasicMaterial, SRGBColorSpace, NearestFilter, RayInteractable, AssetManager, Group, Box3, Vector3, InputComponent, VisibilityState, AmbientLight, DirectionalLight, type Object3D } from '@iwsdk/core';
 import { GlimmerApp } from './app';
+import { BrowserGamepad } from './gamepad';
 import { glimmerModelId } from './model-assets';
+
+const noGamepads: readonly (Gamepad|null)[] = [];
 
 /** Original pixel world stays stationary in viewing space; dishes are native 3D. */
 export class GlimmerSystem extends createSystem({}) {
   app!:GlimmerApp;
+  private browserGamepad!:BrowserGamepad;
   private texture!:CanvasTexture;
   private preview=new Group();
   private holograms=new Group();
@@ -21,6 +25,7 @@ export class GlimmerSystem extends createSystem({}) {
   private dragX=0;private dragY=0;
   init(){
     this.app=new GlimmerApp();
+    this.browserGamepad=new BrowserGamepad(this.app);
     const fit=()=>{if(this.world.visibilityState.peek()!==VisibilityState.NonImmersive)return;const camera=this.world.camera;const aspect=window.innerWidth/window.innerHeight;const distance=Math.max(2.025/2,3.6/(2*aspect))/Math.tan(camera.fov*Math.PI/360)*1.04;camera.position.set(0,1.65,distance-2.8);camera.lookAt(0,1.65,-2.8);camera.updateProjectionMatrix();};
     window.addEventListener('resize',fit);fit();this.cleanupFuncs.push(()=>window.removeEventListener('resize',fit),this.world.visibilityState.subscribe(()=>fit()));
 
@@ -60,7 +65,11 @@ export class GlimmerSystem extends createSystem({}) {
   private async loadOrder(){const generation=++this.orderGeneration;this.holograms.clear();for(const [index,line]of this.app.state.holograms.entries()){try{const model=await this.model(line.dish,.28);if(this.stopped||generation!==this.orderGeneration)return;const pivot=new Group();pivot.position.x=(index-(this.app.state.holograms.length-1)/2)*.4;pivot.add(model);this.holograms.add(pivot);}catch(error){console.error('[GLIMMER] order model failed',line.dish,error);this.app.notify('One order hologram is unavailable. Your ticket is still valid.');}}}
   update(delta:number){
     const dt=Math.min(delta,.1);const pad=this.input.xr.gamepads.left;
-    if(this.world.visibilityState.peek()!==VisibilityState.NonImmersive){const axes=pad?.getAxesValues(InputComponent.Thumbstick);this.app.market.setInput(axes?.x??0,axes?.y??0);}
+    const immersive=this.world.visibilityState.peek()!==VisibilityState.NonImmersive;
+    let pads: readonly (Gamepad|null)[]=noGamepads;
+    if(!immersive&&document.hasFocus()&&!document.hidden){try{pads=navigator.getGamepads?.()??noGamepads;}catch{/* Browser policy may disable gamepads. */}}
+    this.browserGamepad.update(dt,pads,!immersive&&document.hasFocus()&&!document.hidden);
+    if(immersive){const axes=pad?.getAxesValues(InputComponent.Thumbstick);this.app.market.setInput(axes?.x??0,axes?.y??0);}
     this.accumulator+=dt;if(this.accumulator>=1/30){this.app.update(this.accumulator);this.texture.needsUpdate=true;this.accumulator=0;}
     if(this.app.screen==='ar'){this.preview.rotation.y=this.app.portalYaw;this.preview.rotation.x=this.app.portalPitch;this.preview.scale.setScalar(1/this.app.portalZoom);}
     if(this.app.screen!=='pause'&&!this.app.reducedMotion)for(const model of this.holograms.children)model.rotation.y+=dt*Math.PI/6;

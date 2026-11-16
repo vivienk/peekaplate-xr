@@ -1,4 +1,5 @@
 import { GlimmerAudio } from './audio';
+import { defaultFocus, directionalFocus } from './gamepad';
 import { MarketWorld } from './market';
 import { restaurants, dishes, districts, finds, colours, headwear, colourThresholds, headwearThresholds, type Dish, type DistrictId } from './data';
 import { createState, awardStamp, collectFind, toggleSavedDish, chooseOutfit, changeQuantity, placeOrder, advanceTime, travel, nextFinale, encodeMarketCode, decodeMarketCode, normalizeCode, CODE_ALPHABET, type RuleResult } from './state';
@@ -41,6 +42,7 @@ export class GlimmerApp {
   private images=new Map<string,HTMLImageElement>();
   private audio=new GlimmerAudio();
   musicMuted=false;
+  gamepadConnected=false;
   private keyHandler=(e:KeyboardEvent)=>this.key(e);
   private blurHandler=()=>{if(this.market.isTravelling){this.pendingFocusPause=true;return;}if(this.screen==='explore'){this.pauseReturn='explore';this.setScreen('pause');}};
   private accessible=document.createElement('nav');
@@ -70,7 +72,7 @@ export class GlimmerApp {
   start(restored=false){
     if(!restored)this.state=createState();this.onOrderReady();this.talked.clear();this.queue=[];this.toastTime=0;
     this.market.setDistrict('d1-rain-alley');this.sync();this.setScreen('explore');
-    this.market.startEntry();this.musicForDistrict();this.notify(restored?'Welcome back!':'Walk with WASD / arrows. Point and click to walk. E to interact.');
+    this.market.startEntry();this.musicForDistrict();this.notify(this.gamepadConnected?'Left stick: walk · A / Cross: interact · Menu / Options: controls':restored?'Welcome back!':'Walk with WASD / arrows. Point and click to walk. E to interact.');
   }
   sync(){this.uiDirty=true;this.market.setFound(new Set(this.state.finds));this.market.setOutfit(this.state.colour,this.state.headwear);}
   notify(message:string){this.uiDirty=true;if(!message)return;if(this.toastTime>0)this.queue.push(message);else{this.toast=message;this.toastTime=2.5;}}
@@ -133,6 +135,11 @@ export class GlimmerApp {
     }
     if(this.screen==='dish'&&e.key.toLowerCase()==='v')this.setScreen('ar');
   }
+  setGamepadConnected(connected:boolean){this.gamepadConnected=connected;this.uiDirty=true;}
+  gamepadPause(){if(this.screen==='title')return;if(this.screen==='pause'){this.close();return;}this.pauseReturn=this.screen;this.setScreen('pause');}
+  gamepadFocus(dx:number,dy:number){this.keyboardFocus=directionalFocus(this.buttons,this.keyboardFocus,dx,dy);}
+  gamepadSelect(){const index=this.keyboardFocus<0?defaultFocus(this.buttons):this.keyboardFocus;const button=this.buttons[index];if(button&&!button.disabled){this.sound('sfx-ui-select');button.action();}}
+  gamepadDelete(){this.code=this.code.slice(0,-1);this.uiDirty=true;}
   private focusIndex=-1;
   get keyboardFocus(){return this.focusIndex;}
   set keyboardFocus(value:number){if(value!==this.focusIndex){this.focusIndex=value;this.uiDirty=true;}}
@@ -157,7 +164,7 @@ export class GlimmerApp {
     if(fill==='#0f1533'&&this.patch('assets/ui/panels/panel_holo.png',x,y,w,h,[20,20,20,24]))return;
     const c=this.context;c.fillStyle=ink;c.fillRect(x+4,y+6,w,h);c.fillStyle=fill;c.fillRect(x,y,w,h);c.strokeStyle='#80502f';c.lineWidth=3;c.strokeRect(x,y,w,h);
   }
-  private button(label:string,x:number,y:number,w:number,h:number,action:()=>void,disabled=false){const i=this.buttons.length;if(!this.patch(`assets/ui/buttons/${disabled?'btn_disabled':this.keyboardFocus===i?'btn_primary_hover':'btn_primary'}.png`,x,y,w,h,[20,20,20,disabled?20:24]))this.rect(x,y,w,h,disabled?'#b9ad96':orange);this.text(label,x+12,y+h/2+9,Math.min(27,w/Math.max(1,label.length)*1.65));this.buttons.push({x,y,w,h,label,action:()=>{if(disabled)return;this.uiDirty=true;action();},disabled});}
+  private button(label:string,x:number,y:number,w:number,h:number,action:()=>void,disabled=false){const i=this.buttons.length;if(this.gamepadConnected&&this.keyboardFocus<0&&!disabled&&label!=='Back')this.focusIndex=i;if(!this.patch(`assets/ui/buttons/${disabled?'btn_disabled':this.keyboardFocus===i?'btn_primary_hover':'btn_primary'}.png`,x,y,w,h,[20,20,20,disabled?20:24]))this.rect(x,y,w,h,disabled?'#b9ad96':orange);if(this.gamepadConnected&&this.keyboardFocus===i){this.context.strokeStyle=cream;this.context.lineWidth=4;this.context.strokeRect(x+5,y+5,w-10,h-10);}this.text(label,x+12,y+h/2+9,Math.min(27,w/Math.max(1,label.length)*1.65));this.buttons.push({x,y,w,h,label,action:()=>{if(disabled)return;this.uiDirty=true;action();},disabled});}
   private image(path:string,x:number,y:number,w:number,h=w){let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>{this.uiDirty=true;};img.src=base+path;this.images.set(path,img);}if(img.complete&&img.naturalWidth)this.context.drawImage(img,x,y,w,h);}
   private heading(title:string){this.context.fillStyle='#05071acc';this.context.fillRect(0,0,1280,720);this.rect(60,42,1160,625);this.rect(76,58,1128,76,'#206776');this.patch(`assets/ui/panels/flap_${this.screen==='title'?'red':'teal'}.png`,76,58,1128,76,[24,16,24,32]);this.text(title,100,109,43,cream);if(this.screen!=='title')this.button('Back',1080,72,100,45,()=>this.close());}
   private add(id:string,delta=1){const r=changeQuantity(this.state,id,delta);this.result(r);this.sound(r.changed?(delta>0?'sfx-order-add':'sfx-order-remove'):'sfx-code-bad');}
@@ -170,6 +177,7 @@ export class GlimmerApp {
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
       this.heading('Glimmer Plate');this.text('NEON RAIN MARKET',330,235,65);this.text('Wander. Discover. Taste the night.',350,292,36);
+      this.text(this.gamepadConnected?'Controller ready · A / Cross selects · B / Circle goes back':'Xbox / PlayStation: connect, press a button, then release to begin.',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text('3 districts · 7 restaurants · 28 little discoveries',342,635,28);
     }else if(this.screen==='codeEntry'){
@@ -229,7 +237,7 @@ export class GlimmerApp {
       this.heading(this.title);restaurants.forEach((r,i)=>this.image(this.state.stamps.includes(r.id)?r.stamp:r.stampEmpty,120+i*148,225,130));this.text(`Tasting List: ${this.state.tastingList.length} dishes · Hidden finds: ${this.state.finds.length}/28 · Orders placed: ${this.state.ordersPlaced}`,135,420,32);this.button('Keep wandering',120,520,320,60,()=>this.close());this.button('Tasting List',480,520,320,60,()=>this.setScreen('tasting'));this.button('Show market code',840,520,320,60,()=>this.showCode());
     }else if(this.screen==='pause'||this.screen==='guide'){
       this.heading(this.screen==='pause'?'A moment out of the rain':'Market Guide');
-      this.wrap('Walk: WASD / arrows, click or Quest left thumbstick. Interact: E or point and select. Explore the three districts, stamp seven menus and find 28 secrets.',120,190,1010,29);
+      this.wrap(this.gamepadConnected?'Controller: left stick / D-pad moves or selects. A / Cross: interact / confirm. B / Circle: back. Menu / Options: pause. X / Square: tray. Y / Triangle: passport. View / Share: map. Dish view: right stick rotates, triggers zoom, bumpers change dish, Y / Triangle resets.':'Walk: WASD / arrows, click or Quest left thumbstick. Interact: E or point and select. Xbox / PlayStation: connect and press a button. Left stick moves; A / Cross selects; Menu / Options pauses.',120,185,1010,26);
       this.button('Wardrobe',120,330,480,55,()=>{this.wardrobeReturn=this.screen;this.setScreen('wardrobe');});this.button('Market code',650,330,500,55,()=>this.showCode());
       this.button(this.muted?'Sound: off':'Sound: on',120,410,480,55,()=>{this.muted=!this.muted;this.audio.setSoundMuted(this.muted);});
       this.button(`Reduced motion: ${this.reducedMotion?'on':'off'}`,650,410,500,55,()=>{this.reducedMotion=!this.reducedMotion;this.market.reducedMotion=this.reducedMotion;});
