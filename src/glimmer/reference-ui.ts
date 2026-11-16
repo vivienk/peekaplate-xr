@@ -1,3 +1,4 @@
+import { districtIconNames } from './district-icons';
 import { liveRestaurants } from '../published/market';
 import type { GlimmerApp } from './app';
 import { districts, restaurants, finds, colours, headwear, colourThresholds, headwearThresholds } from './data';
@@ -47,7 +48,7 @@ export function renderReference(a:GlimmerApp):boolean {
    });
    d.objects.filter(o=>o.kind==='published-restaurant').forEach(o=>{const x=mx+15+o.pivot[0]*sx,y=my+13+(o.pivot[1]-3)*sy;c.fillStyle=cream;c.fillRect(x-12,y-12,24,24);a.image(`assets/ui/emblems/emblem-${o.asset.slice(4)}.png`,x-11,y-11,22);});
    c.fillStyle='#f5c518';c.fillRect(mx+15+a.market.player.x*sx-4,my+13+a.market.player.y*sy-4,8,8);
-   a.text(d.name,mx+20,my+mh-18,26,cream);
+   icon(districtIconNames[d.district],mx+20,my+mh-39,24,cream);a.text(d.name,mx+52,my+mh-18,26,cream);
    a.hit('Market Map',mx,my,mw,mh,()=>a.openPanel('map'));
    a.rect(1020,220,232,76);icon('passport',1045,242,28);a.text(`${a.state.stamps.length}/7`,1080,272,29);icon('charm',1140,242,28);a.text(`${a.state.finds.length}/28`,1178,272,29);
    a.hit('Passport',1020,220,232,76,()=>a.openPanel('passport'));
@@ -121,7 +122,7 @@ export function renderReference(a:GlimmerApp):boolean {
  if(a.screen==='passport'){
    frame(a.kioskOpen?'PeekaPlate Kiosk':'Market Passport','passport');if(a.kioskOpen)tabs();
    const top=a.kioskOpen?236:158;
-   districts.forEach((d,i)=>button(d.name,180+i*308,top,292,48,()=>{a.page=i;a.invalidate();},'',a.page===i));
+   districts.forEach((d,i)=>button(d.name,180+i*308,top,292,48,()=>{a.page=i;a.invalidate();},districtIconNames[d.district],a.page===i));
    const d=districts[a.page%3],rs=restaurants.filter(r=>r.district===d.district),fy=top+56;
    rs.forEach((r,i)=>{const x=240+i*290,on=a.state.stamps.includes(r.id);a.image(on?r.stamp:r.stampEmpty,x,fy,126);a.text(r.name,x-34,fy+150,28);a.text(on?'Stamped':'Not visited yet',x-20,fy+177,25);});
    const fs=finds.filter(f=>f.district===d.district),count=fs.filter(f=>a.state.finds.includes(f.id)).length;
@@ -132,7 +133,7 @@ export function renderReference(a:GlimmerApp):boolean {
  }
  if(a.screen==='finale'){
    const grand=a.finaleDistrict===null,rs=grand?restaurants:restaurants.filter(r=>r.district===a.finaleDistrict);
-   frame(grand?'Market complete!':a.title,'lantern',510);
+   frame(grand?'Market complete!':a.title,grand?'lantern':districtIconNames[a.finaleDistrict!],510);
    const size=grand?108:160,space=grand?128:250,start=640-(rs.length*space)/2;
    rs.forEach((r,i)=>a.image(r.stamp,start+i*space+(space-size)/2,185,size));
    a.text(grand?'All seven restaurants stamped. The whole market glows.':rs.length===3?'All three restaurants stamped.':'Both restaurants stamped.',210,grand?345:387,32);

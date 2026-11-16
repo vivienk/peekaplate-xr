@@ -1,3 +1,4 @@
+import { districtIconNames, drawDistrictIcon } from './district-icons';
 import rainAlley from './fixtures/market-map.json';
 import lanternSteps from './fixtures/district-lantern-steps.json';
 import foglinePier from './fixtures/district-fogline-pier.json';
@@ -603,7 +604,7 @@ export class MarketWorld {
     c.globalAlpha = 1;
     if (this.travelRemaining > 0) {
       const alpha = this.travelRemaining > 1.4 ? (1.6 - this.travelRemaining) / .2 : this.travelRemaining < .2 ? this.travelRemaining / .2 : 1;
-      c.globalAlpha = clamp(alpha,0,1); c.fillStyle = '#05071a'; c.fillRect(0,0,this.canvas.width,this.canvas.height); c.fillStyle = '#f89537'; c.font = '24px monospace'; c.textAlign = 'center'; c.fillText(districts.find(d => d.district === this.travelTarget?.to)?.name ?? this.map.name,this.canvas.width / 2,this.canvas.height / 2); c.textAlign = 'start'; c.globalAlpha = 1;
+      c.globalAlpha = clamp(alpha,0,1); c.fillStyle = '#05071a'; c.fillRect(0,0,this.canvas.width,this.canvas.height); c.fillStyle = '#f89537'; c.font = '24px monospace'; const destination=districts.find(d => d.district === this.travelTarget?.to)??this.map;const left=(this.canvas.width-c.measureText(destination.name).width-32)/2;drawDistrictIcon(c,districtIconNames[destination.district],left,this.canvas.height/2-22,24,'#f89537');c.textAlign='left';c.fillText(destination.name,left+32,this.canvas.height/2);c.textAlign='start'; c.globalAlpha = 1;
     }
   }
   dispose(): void { window.removeEventListener('keydown',this.keyDown); window.removeEventListener('keyup',this.keyUp); window.removeEventListener('blur',this.blur); this.images.clear(); this.tinted.clear(); }

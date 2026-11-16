@@ -1,3 +1,4 @@
+import { districtIconNames, drawDistrictIcon } from './district-icons';
 import { liveRestaurants, readRestaurant, refreshRestaurants, connectionStatus } from '../published/market';
 import { renderReference } from './reference-ui';
 import { GlimmerAudio } from './audio';
@@ -183,6 +184,7 @@ export class GlimmerApp {
   advanceDialogue(){if(this.dialogueTyping){this.dialogueElapsed=100;this.invalidate();return;}if(this.dialogueIndex<this.dialogue.length-1){this.dialogueIndex++;this.dialogueElapsed=0;this.dialogueBlip=0;this.invalidate();}else this.close();}
   hit(label:string,x:number,y:number,w:number,h:number,action:()=>void){this.buttons.push({label,x,y,w,h,disabled:false,action:()=>{this.invalidate();action();}});}
   icon(name:string,x:number,y:number,size=32,color=ink){
+    if(drawDistrictIcon(this.context,name,x,y,size,color))return;
     const path=`assets/ui/icons/icon_${name}.png`,key=path+color;let canvas=this.iconCache.get(key);
     if(!canvas){let img=this.images.get(path);if(!img){img=new Image();img.onload=()=>this.invalidate();img.src=base+path;this.images.set(path,img);}if(!img.complete||!img.naturalWidth)return;
       canvas=document.createElement('canvas');canvas.width=img.width;canvas.height=img.height;const c=canvas.getContext('2d')!;c.drawImage(img,0,0);c.globalCompositeOperation='source-in';c.fillStyle=color;c.fillRect(0,0,canvas.width,canvas.height);this.iconCache.set(key,canvas);
@@ -288,7 +290,7 @@ export class GlimmerApp {
       const t=this.state.ticket!;this.heading(`Order ticket · ${t.number}`);this.text(t.code,300,235,65);this.text(`${t.lines.length} dishes · Holograms ready in 8 seconds`,225,303,32);this.wrap('Use this code to open your order in the PeekaPlate XR table.',200,370,850,32);this.text('Demo order: nothing is charged or sent.',240,470,33);this.button('Done',350,550,580,60,()=>this.close());
     }else if(this.screen==='passport'||this.screen==='map'){
       this.heading(this.screen==='passport'?'Market Passport':'Market Map');const district=districts[this.page%3];
-      districts.forEach((d,i)=>this.button(d.name,100+i*355,151,335,52,()=>{this.page=i;}));
+      districts.forEach((d,i)=>this.button(d.name,100+i*355,151,335,52,()=>{this.page=i;},false,'primary',districtIconNames[d.district]));
       if(this.screen==='passport'){
         restaurants.filter(r=>r.district===district.district).forEach((r,i)=>{const x=130+i*350;this.image(this.state.stamps.includes(r.id)?r.stamp:r.stampEmpty,x,235,200);this.text(r.name,x,472,27);});
         this.text(`Stamps ${this.state.stamps.length}/7  ·  Hidden finds ${this.state.finds.length}/28  ·  Orders ${this.state.ordersPlaced>9?'9+':this.state.ordersPlaced}`,130,536,29);this.button('Market code',130,570,1020,58,()=>this.showCode());
