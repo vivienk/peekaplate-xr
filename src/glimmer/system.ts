@@ -57,6 +57,7 @@ export class GlimmerSystem extends createSystem({}) {
     const light=new Group();light.add(new AmbientLight(0xffffff,1.8));const key=new DirectionalLight(0xffe0bd,3);key.position.set(-1,3,1);light.add(key);const rim=new DirectionalLight(0x65e9ff,2);rim.position.set(2,1,-2);light.add(rim);this.world.createTransformEntity(light);
     this.app.onPortal=id=>void this.loadPreview(id);this.app.onOrderReady=()=>void this.loadOrder();
     this.arPortal=new ARPortionPortal(this.world,this.app,board,this.preview);
+    this.app.onSpectacles=()=>{this.app.handPlacement=true;this.arPortal.enter();};
     this.app.onEnterPortal=()=>{if(this.app.arSupported||this.app.immersive)this.arPortal.enter();};
     this.app.onXR=()=>{this.app.unlockAudio();if(this.app.portalAR){this.world.exitXR();return;}if(this.app.screen==='ar'){this.arPortal.enter();return;}if(!this.world.xrEnabled)this.app.notify('VR requires a compatible headset browser and a secure connection.');else this.world.launchXR({sessionMode:SessionMode.ImmersiveVR});};
     const wheel=(event:WheelEvent)=>{if(this.app.screen==='ar'){event.preventDefault();this.app.zoom(event.deltaY>0?.1:-.1);}};

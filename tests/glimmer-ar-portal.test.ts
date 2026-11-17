@@ -18,3 +18,18 @@ describe('AR portion placement',()=>{
  it('locks to the detected surface at physical scale and allows repositioning',()=>{const t=setup();t.hit();t.select();t.portal.update();expect(t.dish.visible).toBe(true);expect(t.dish.position.toArray()).toEqual([0,.754,-.8]);t.world.player.head.position.set(1,2,1);t.targets[0].object3D.position.set(9,9,9);t.dish.scale.setScalar(5);t.portal.update();expect(t.dish.scale.toArray()).toEqual([1,1,1]);expect(t.dish.position.distanceTo(new Vector3(0,.754,-.8))).toBe(0);t.app.onReposition();t.targets[0].hit=null;t.portal.update();expect(t.dish.visible).toBe(false);t.portal.dispose();});
  it('cleans up surface targets and restores the browser panel on exit',()=>{const t=setup();t.world.xrSession=null;expect(t.portal.update()).toBe(false);expect(t.app.portalAR).toBe(false);expect(t.board.scale.x).toBe(1);for(const target of t.targets)expect(target.dispose).toHaveBeenCalledOnce();t.portal.dispose();});
 });
+describe('Spectacles manual table calibration',()=>{
+ it('uses the resting fingertip and opposite-hand select without gamepad or hit-test',()=>{
+  const t=setup();t.world.xrSession=null;t.portal.update();t.app.handPlacement=true;
+  const tip={} as XRJointSpace,add=vi.fn(),remove=vi.fn();
+  t.world.xrSession={environmentBlendMode:'additive',addEventListener:add,removeEventListener:remove,inputSources:[{hand:new Map([['index-finger-tip',tip]]),handedness:'left'}]};
+  t.world.xrReferenceSpace={};t.world.xrFrame={getJointPose:()=>({transform:{position:{x:.2,y:.8,z:-.5}}})};
+  t.portal.update();expect(t.dish.visible).toBe(false);expect(add).toHaveBeenCalledWith('selectstart',expect.any(Function));
+  const select=add.mock.calls[0][1];select({inputSource:{handedness:'left'}});t.portal.update();expect(t.dish.visible).toBe(false);
+  select({inputSource:{handedness:'right'}});t.portal.update();expect(t.dish.visible).toBe(true);expect(t.dish.position.toArray()).toEqual([.2,.804,-.5]);expect(t.dish.scale.x).toBe(1);
+  t.portal.dispose();expect(remove).toHaveBeenCalledWith('selectstart',select);
+ });
+ it('does not place when fingertip tracking is unavailable',()=>{
+  const t=setup();t.world.xrSession=null;t.portal.update();t.app.handPlacement=true;t.world.xrSession={environmentBlendMode:'additive',inputSources:[]};t.world.xrFrame={};t.world.xrReferenceSpace={};t.portal.update();expect(t.dish.visible).toBe(false);expect(t.app.portalPlacement).toContain('Show both hands');t.portal.dispose();
+ });
+});

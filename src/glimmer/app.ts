@@ -73,6 +73,8 @@ export class GlimmerApp {
   onPortal:(id:string|null)=>void=()=>{};
   onOrderReady:()=>void=()=>{};
   onXR:()=>void=()=>{};
+  onSpectacles:()=>void=()=>{};
+  handPlacement=typeof location!=='undefined'&&new URLSearchParams(location.search).get('spectacles')==='1';
   onEnterPortal:()=>void=()=>{};
   onReposition:()=>void=()=>{};
   arSupported=false;portalAR=false;portalPlacement="";
@@ -275,7 +277,7 @@ export class GlimmerApp {
     }else if(this.screen==='explore'){
       this.rect(20,15,400,52,'#101730');this.text(`${districts.find(d=>d.district===this.state.district)?.name}  •  ${this.state.stamps.length}/7 stamps`,35,49,28,cream);
       [['Passport','passport'],['Map','map'],['Tasting List','tasting'],['Order Tray','tray'],['Pause','pause']].forEach(([label,screen],i)=>this.button(label,20+i*175,654,165,45,()=>{this.pauseReturn='explore';this.setScreen(screen as Screen);}));
-      this.button('Enter VR',1090,16,165,45,()=>this.onXR());
+      this.button(this.handPlacement?'Dishes in AR':'Enter VR',1090,16,165,45,()=>this.handPlacement?this.dining.search():this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
       this.heading('PeekaPlate');c.save();c.font='68px Jersey, monospace';
@@ -285,7 +287,7 @@ export class GlimmerApp {
       c.textAlign='left';this.text('Night Market 2049',titleLeft+116,250,68);c.restore();
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
-      this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text(connectionStatus,300,635,25);
+      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,530,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);
     }else if(this.screen==='codeEntry'){
       this.heading('Continue with Market code');this.text((this.code.padEnd(18,'_').match(/.{6}/g)??[]).join(' - '),300,211,43);
       [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<18)this.code+=ch;}));

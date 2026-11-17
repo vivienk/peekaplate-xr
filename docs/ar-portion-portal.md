@@ -9,3 +9,13 @@ Scale follows existing portion metadata: measured dimensions when available; oth
 Validation: TypeScript passed; 118 tests passed; production build passed. Managed Quest 3 emulator with the meeting-room environment granted hit-test and alpha-blend AR, detected the table around 0.73 m high, and placed the dish with controller trigger at scale [1,1,1]. The panel canvas is transparent outside its controls. Unit tests cover no-hit/wall rejection, locked scale and position after viewer movement, reposition, and exit cleanup. Physical Quest passthrough, pinch ergonomics and real-room tracking still require headset validation.
 
 Development simulation is excluded from production builds. Unsupported desktop browsers retain the screen preview and an explicit AR requirement; they do not receive a simulated headset runtime.
+
+## Snap Spectacles Browser Lens
+
+Open the preview with `?spectacles=1` (or `&spectacles=1` when the URL already contains a query). The title then provides Browse dishes for Spectacles; choose a dish and View Portion. The regular browser portion screen also has a Spectacles button.
+
+Spectacles mode requires WebXR hand tracking and a local reference space, without requesting hit-test. Rest one index fingertip at the desired plate center on the table, keep that hand still, and pinch with the other hand. The resting fingertip sets table height and position; the opposite-hand standard WebXR selectstart event confirms placement. Keep both hands visible. Reposition repeats calibration. The plate remains horizontal, fixed in world metres, with the same measured-or-estimated size policy. A fingertip resting on the tabletop is an approximate manual alignment, not automatic table detection.
+
+Snap's current WebXR documentation states hit testing is emulated and gamepads are not practically usable, while native hand input is supported. Therefore this path deliberately does not report an emulated hit as a real table. Source: https://developers.snap.com/spectacles/about-spectacles-features/webxr (checked 2026-11-17).
+
+Validation includes automated missing-hand, same-hand rejection, opposite-hand placement and listener-cleanup tests. Actual Spectacles optics, hand tracking, performance and Browser Lens compatibility require a physical device test. 2.5D portions remain layered images. No Lens Studio publication is needed for Browser Lens.
