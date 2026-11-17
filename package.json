@@ -22,6 +22,7 @@
     "db:seed": "node --env-file-if-exists=.env.development.local scripts/seed-db.mjs",
     "test": "vitest run",
     "check": "npm run typecheck && npm test && npm run build",
+    "review:storefronts": "npm run typecheck && vitest run tests/glimmer-storefront.test.ts && node scripts/review-storefronts.mjs",
     "convert:models": "node scripts/convert-glimmer-models.mjs"
   },
   "dependencies": {
