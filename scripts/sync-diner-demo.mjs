@@ -20,5 +20,11 @@ const compiled=await transform(declarations.join('\n')+'\n'+text+'\nreturn demoB
 const bundle=new Function(compiled.code)();
 delete bundle.restaurant.internal_code;
 if(bundle.restaurant.name!=='Ember & Stone')throw new Error('Unexpected diner demo');
+const portionMetadata=JSON.parse(await readFile(path.join(source,'fixture-assets/portion-fixtures.json'),'utf8'));
+await writeFile('public/diner-demo/background.svg',portionMetadata.background);
+for(const category of bundle.categories)for(const dish of category.dishes){
+ const portion=portionMetadata.entries.find(p=>p.dish_id===dish.dish_id&&p.dish_revision_id===dish.dish_revision_id);
+ if(portion){dish.portion=portion;for(const layer of portion.layers){const file=layer.url.split('/').at(-1);if(file.endsWith('.webp'))await copyFile(path.join(source,'fixture-assets',file),path.join('public/diner-demo',file));}}
+}
 await writeFile('public/diner-demo/menu.json',JSON.stringify(bundle,null,2)+'\n');
 console.log(`Imported ${bundle.restaurant.name}: ${bundle.categories.flatMap(c=>c.dishes).length} dishes`);

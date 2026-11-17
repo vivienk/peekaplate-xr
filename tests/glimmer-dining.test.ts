@@ -1,0 +1,22 @@
+import {describe,it,expect,vi} from 'vitest';
+import {marketCatalogue,searchDishes,similarDishes,allergenLabel} from '../src/glimmer/catalogue';
+import {portionScale,readPortionLayer} from '../src/glimmer/portion-preview';
+import {PublicPortionSchema} from '../src/published/portion';
+import demo from '../public/diner-demo/menu.json';
+import type {LiveRestaurant} from '../src/published/market';
+import type {PublicMenuContentBundle} from '../src/published/contracts';
+const venue=():LiveRestaurant=>({id:'diner-demo:ember-stone',entry:{venueId:demo.venue_id,menuId:demo.menu_id,district:'d1-rain-alley',style:'ember'},content:structuredClone(demo) as unknown as PublicMenuContentBundle,name:'Ember & Stone',expiresAt:1000,available:true,enabled:true,demo:true});
+const catalogue=()=>marketCatalogue([venue()],100);
+const avocado=()=>catalogue().find(d=>d.name==='Avocado Toast')!;
+describe('market-wide dining',()=>{
+ it('includes all 32 originals and five demo dishes with distinct restaurant-scoped IDs',()=>{const all=catalogue();expect(all).toHaveLength(37);expect(new Set(all.map(d=>d.id)).size).toBe(37);expect(searchDishes(all,'ember avocado')).toHaveLength(3);expect(searchDishes(all,'poached egg')).toHaveLength(2);});
+ it('suggests similar dishes but allows every other available dish across restaurants',()=>{const all=catalogue(),a=avocado(),suggested=similarDishes(all,a);expect(suggested).toHaveLength(36);expect(suggested.some(d=>d.id===a.id)).toBe(false);expect(suggested[0].ingredients.some(i=>a.ingredients.some(j=>j.toLowerCase()===i.toLowerCase()))).toBe(true);expect(suggested.some(d=>d.venueId!==a.venueId)).toBe(true);});
+ it('removes withdrawn, disabled, expired and incomplete dishes',()=>{for(const patch of [{available:false},{enabled:false},{expiresAt:99},{content:null}])expect(marketCatalogue([{...venue(),...patch}],100)).toHaveLength(32);const v=venue();v.content!.categories[0].dishes[0]={complete:false,dish_id:'a',dish_revision_id:'b'};expect(marketCatalogue([v],100)).toHaveLength(36);});
+ it('retains unknown allergens and does not interpret none declared as safe',()=>{const v=venue(),d=v.content!.categories[0].dishes[0];if(d.complete)d.allergens=null;const a=marketCatalogue([v],100).find(d=>d.name==='Avocado Toast')!;expect(a.allergens).toBeNull();expect(allergenLabel(a)).toBe('Allergen information unavailable');expect(allergenLabel({...a,allergens:[]})).toBe('No allergens declared by restaurant');});
+ it('rejects portion identity from a different dish revision',()=>{const v=venue(),d=v.content!.categories[0].dishes[0];if(d.complete&&d.portion)d.portion.dish_revision_id='a2000000-0000-4000-8000-000000000099';expect(marketCatalogue([v],100).find(d=>d.name==='Avocado Toast')?.portion).toBeUndefined();});
+});
+describe('portion scale and delivered layer integrity',()=>{
+ it('keeps all current sample dishes explicitly approximate',()=>{for(const dish of catalogue())expect(portionScale(dish).measured).toBe(false);});
+ it('selects a matching serving calibration without multiplying plate dimensions',()=>{const d=avocado(),p=d.portion!;p.physical_size={source:'owner',validation_status:'pending',serving_count:2,foreground_sha256:p.layers[1].sha256,plate:{shape:'round',width_mm:260,depth_mm:260,source_sha256:'a'.repeat(64),source_width_px:640,source_height_px:640,confirmed:true,boundary:{x:.1,y:.1,width:.8,height:.8}}};expect(PublicPortionSchema.safeParse(p).success).toBe(true);d.servingCount=2;const scale=portionScale(d);expect(scale.width*.8).toBeCloseTo(.26);expect(scale.measured).toBe(true);d.servingCount=1;expect(portionScale(d).measured).toBe(false);d.servingCount=undefined;expect(portionScale(d).measured).toBe(false);});
+ it('verifies byte length and SHA256, and refuses altered layers',async()=>{const bytes=new TextEncoder().encode('test');const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');const layer={url:'https://example.com/dish.webp',size_bytes:4,sha256:hash,depth:1};const fetcher=vi.fn(async()=>new Response(bytes));expect(await readPortionLayer(layer,new AbortController().signal,false,fetcher)).toEqual(bytes);await expect(readPortionLayer({...layer,sha256:'a'.repeat(64)},new AbortController().signal,false,fetcher)).rejects.toThrow('hash');await expect(readPortionLayer({...layer,size_bytes:3},new AbortController().signal,false,fetcher)).rejects.toThrow('budget');});
+});

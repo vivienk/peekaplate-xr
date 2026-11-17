@@ -42,6 +42,7 @@ export const PublicMenuIncompleteDishSchema = z.strictObject({
 export const PublicMenuDietaryCodeSchema = z.enum(['vegan', 'vegetarian', 'gluten-free']);
 
 export const PublicMenuCompleteDishSchema = z.strictObject({
+  serving_count: z.number().int().min(1).max(100).optional(),
   portion: PublicPortionSchema.optional(),
   ...publicMenuDishIdentity,
   complete: z.literal(true),
