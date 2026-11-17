@@ -14,7 +14,8 @@
       "offer": "always",
       "features": {
         "handTracking": true,
-        "gazeTracking": false
+        "gazeTracking": false,
+        "hitTest": true
       }
     },
     "input": {
@@ -41,17 +42,18 @@
       "grabbing": false,
       "physics": false,
       "sceneUnderstanding": false,
-      "environmentRaycast": false,
+      "environmentRaycast": true,
       "spatialUI": false
     }
   },
   "dev": {
     "emulator": {
       "device": "metaQuest3",
-      "injectOnBuild": true,
+      "injectOnBuild": false,
       "activation": {
         "source": "^(localhost|127\\.0\\.0\\.1|.*\\.vercel\\.app|.*\\.vusercontent\\.net|.*\\.v0\\.build)$"
-      }
+      },
+      "environment": "meeting_room"
     }
   }
 }

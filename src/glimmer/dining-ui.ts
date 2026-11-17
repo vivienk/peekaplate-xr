@@ -40,7 +40,7 @@ export class DiningUI {
  compare(){this.compareOrigin=this.returnTo;this.comparisonAnchor=this.id;this.compareId='';this.replaceSide=1;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='dish';this.a.setScreen('comparePicker');}
  replace(side:0|1){this.replaceSide=side;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='comparison';this.a.setScreen('comparePicker');}
  choose(id:string){if(this.replaceSide===0)this.comparisonAnchor=id;else this.compareId=id;this.a.setScreen('comparison');}
- portion(id=this.id,from:Screen='dish'){this.id=id;this.portalReturn=from;this.a.portalDishId=id;this.a.setScreen('ar');}
+ portion(id=this.id,from:Screen='dish'){this.id=id;this.portalReturn=from;this.a.portalDishId=id;this.a.setScreen('ar');this.a.onEnterPortal();}
  close(){const a=this.a;if(a.screen==='ar'){if(this.portalReturn==='dish')this.id=a.portalDishId;a.setScreen(this.portalReturn);return true;}if(a.screen==='dish'){a.setScreen(this.returnTo);return true;}if(a.screen==='search'){a.setScreen(this.searchReturn);return true;}if(a.screen==='comparePicker'){a.setScreen(this.pickerReturn);return true;}if(a.screen==='comparison'){this.id=this.comparisonAnchor;this.returnTo=this.compareOrigin;a.setScreen('dish');return true;}return false;}
  type(key:string){if(!['search','comparePicker'].includes(this.a.screen))return false;
   if(key==='Backspace'){this.query=this.query.slice(0,-1);}else if(key.length===1){if(this.query.length<80)this.query+=key;}else return false;
@@ -107,17 +107,24 @@ export class DiningUI {
    this.pages(matches.length,count,612);return true;
   }
   if(!d){this.heading('Dish unavailable');this.textBlock('This menu changed or expired. Return to the market and reopen the restaurant.',100,250,1000,32);return true;}
+  if(a.screen==='ar'&&a.portalAR){
+   a.rect(22,20,1236,230);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,103,23,muted);
+   a.text(a.portalPlacement,48,143,24);
+   a.button('Reposition',48,181,230,48,()=>a.onReposition(),false,'normal');a.button('Back to dish',302,181,270,48,()=>a.close(),false,'normal');
+   a.button('Exit AR',600,181,190,48,()=>a.onXR(),false,'normal');return true;
+  }
   if(a.screen==='ar'){
    const has3d=!!d.modelId||(!d.photoCredit&&!d.illustrative&&!!generatedModelId(d.id));
    a.context.fillStyle='#0b1428';a.context.fillRect(0,0,1280,720);
    a.rect(22,20,1236,105);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,99,23,muted);a.button('Back',1134,42,100,50,()=>a.close(),false,'normal');
    a.context.strokeStyle='#40b8bb';a.context.lineWidth=3;a.context.strokeRect(46,145,1188,429);
    if(a.modelError){a.picture(d.image,460,176,360,360);a.text(a.modelError,65,565,24,cream);}
-   a.text(a.immersive?'Physical scale locked · Walk closer to inspect':a.portalFlat?'2.5D · Zoomed screen preview · Physical scale in Quest':'3D · Drag to rotate · Zoom for a closer look',65,605,24,cream);
+   a.text(a.immersive?'VR preview · Open AR portal for passthrough':a.portalFlat?'2.5D · Zoomed screen preview · Physical scale in Quest':'3D · Drag to rotate · Zoom for a closer look',65,605,24,cream);
    a.button(a.portalFlat?'3D model':'2.5D view',1078,583,154,38,()=>{a.portalView=a.portalFlat?'3d':'2.5d';a.resetPortal();a.onPortal(d.id);},a.portalFlat&&!has3d,'normal');
    a.button('Reset',48,628,150,46,()=>a.resetPortal(),false,'normal');a.button('−',212,628,65,46,()=>a.zoom(.1),a.immersive,'normal');a.button('+',289,628,65,46,()=>a.zoom(-.1),a.immersive,'normal');
    a.button('Previous dish',374,628,210,46,()=>a.nextDish(-1),false,'normal');a.button('Next dish',600,628,200,46,()=>a.nextDish(1),false,'normal');
-   if(!a.immersive)a.button('View on Quest',820,628,240,46,()=>a.onXR());return true;
+   a.button('Open AR portal',820,628,240,46,()=>a.onXR());
+   if(a.portalPlacement)a.text(a.portalPlacement,65,565,22,cream);else if(!a.arSupported&&!a.immersive)a.text('AR placement requires a compatible headset or AR browser.',65,565,22,cream);return true;
   }
   if(a.screen==='comparison'){
    const other=list.find(item=>item.id===this.compareId);this.heading('Compare dishes');
@@ -127,7 +134,7 @@ export class DiningUI {
     this.textBlock(`Ingredients: ${dish.ingredients.join(', ')}`,x+20,490,480,22,3);
     a.button('Details',x,606,160,46,()=>this.show(dish.id,'comparison'),false,'normal');
     a.button('Replace',x+176,606,160,46,()=>this.replace(i as 0|1),false,'normal');
-    a.button('Portion',x+352,606,160,46,()=>{this.portalReturn='comparison';a.portalDishId=dish.id;a.setScreen('ar');});
+    a.button('Portion',x+352,606,160,46,()=>{this.portion(dish.id,'comparison');});
    });return true;
   }
   this.heading('Dish details');

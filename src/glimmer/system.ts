@@ -1,3 +1,4 @@
+import { ARPortionPortal } from './ar-portal';
 import { generatedModelId } from './generated-models';
 import { marketCatalogue } from './catalogue';
 import { flatPortion } from './portion-scene';
@@ -12,6 +13,7 @@ const noGamepads: readonly (Gamepad|null)[] = [];
 /** Original pixel world stays stationary in viewing space; dishes are native 3D. */
 export class GlimmerSystem extends createSystem({}) {
   app!:GlimmerApp;
+  private arPortal!:ARPortionPortal;
   private browserGamepad!:BrowserGamepad;
   private texture!:CanvasTexture;
   private preview=new Group();
@@ -41,7 +43,7 @@ export class GlimmerSystem extends createSystem({}) {
     window.addEventListener('resize',fit);fit();this.cleanupFuncs.push(()=>window.removeEventListener('resize',fit),this.world.visibilityState.subscribe(()=>fit()));
 
     this.texture=new CanvasTexture(this.app.canvas);this.texture.colorSpace=SRGBColorSpace;this.texture.magFilter=NearestFilter;this.texture.minFilter=NearestFilter;this.texture.generateMipmaps=false;
-    const board=new Mesh(new PlaneGeometry(3.6,2.025),new MeshBasicMaterial({map:this.texture,toneMapped:false}));
+    const board=new Mesh(new PlaneGeometry(3.6,2.025),new MeshBasicMaterial({map:this.texture,toneMapped:false,transparent:true}));
     board.name='PeekaPlate Market Screen';board.position.set(0,1.65,-2.8);
     const boardEntity=this.world.createTransformEntity(board);boardEntity.addComponent(RayInteractable);
     type Hit={uv?:{x:number;y:number};pointerId?:number;nativeEvent?:{pointerType?:string}};
@@ -54,13 +56,15 @@ export class GlimmerSystem extends createSystem({}) {
     this.holograms.name='Order Portal holograms';this.holograms.position.set(0,.68,-2);this.world.createTransformEntity(this.holograms);
     const light=new Group();light.add(new AmbientLight(0xffffff,1.8));const key=new DirectionalLight(0xffe0bd,3);key.position.set(-1,3,1);light.add(key);const rim=new DirectionalLight(0x65e9ff,2);rim.position.set(2,1,-2);light.add(rim);this.world.createTransformEntity(light);
     this.app.onPortal=id=>void this.loadPreview(id);this.app.onOrderReady=()=>void this.loadOrder();
-    this.app.onXR=()=>{this.app.unlockAudio();if(!this.world.xrEnabled)this.app.notify('VR requires a compatible headset browser and a secure connection.');else this.world.launchXR({sessionMode:this.app.screen==='ar'?SessionMode.ImmersiveAR:SessionMode.ImmersiveVR});};
+    this.arPortal=new ARPortionPortal(this.world,this.app,board,this.preview);
+    this.app.onEnterPortal=()=>{if(this.app.arSupported||this.app.immersive)this.arPortal.enter();};
+    this.app.onXR=()=>{this.app.unlockAudio();if(this.app.portalAR){this.world.exitXR();return;}if(this.app.screen==='ar'){this.arPortal.enter();return;}if(!this.world.xrEnabled)this.app.notify('VR requires a compatible headset browser and a secure connection.');else this.world.launchXR({sessionMode:SessionMode.ImmersiveVR});};
     const wheel=(event:WheelEvent)=>{if(this.app.screen==='ar'){event.preventDefault();this.app.zoom(event.deltaY>0?.1:-.1);}};
     window.addEventListener('wheel',wheel,{passive:false});
-    this.cleanupFuncs.push(()=>{this.stopped=true;this.portalAbort?.abort();this.disposePortion?.();this.previewGeneration++;this.orderGeneration++;this.app.dispose();window.removeEventListener('wheel',wheel);this.texture.dispose();board.geometry.dispose();board.material.dispose();board.removeEventListener('pointerdown',down);board.removeEventListener('pointermove',move);board.removeEventListener('pointerup',up);board.removeEventListener('pointercancel',cancel);});
+    this.cleanupFuncs.push(()=>{this.stopped=true;this.arPortal.dispose();this.portalAbort?.abort();this.disposePortion?.();this.previewGeneration++;this.orderGeneration++;this.app.dispose();window.removeEventListener('wheel',wheel);this.texture.dispose();board.geometry.dispose();board.material.dispose();board.removeEventListener('pointerdown',down);board.removeEventListener('pointermove',move);board.removeEventListener('pointerup',up);board.removeEventListener('pointercancel',cancel);});
     this.cleanupFuncs.push(this.world.visibilityState.subscribe(state=>{if(state===VisibilityState.VisibleBlurred&&this.app.screen==='explore')this.app.setScreen('pause');}));
     // Dev-only inspection lets acceptance tests drive the same public actions, never shipped state bypasses.
-    if(import.meta.env.DEV){(window as unknown as {glimmer:GlimmerApp}).glimmer=this.app;(window as unknown as {glimmerLoadModel:(id:string)=>Promise<boolean>}).glimmerLoadModel=async(id)=>{const model=await AssetManager.loadGLTFById(glimmerModelId(id));return model.scene.children.length>0;};}
+    if(import.meta.env.DEV){(window as unknown as {glimmer:GlimmerApp}).glimmer=this.app;(window as unknown as {glimmerARPortal:ARPortionPortal}).glimmerARPortal=this.arPortal;(window as unknown as {glimmerLoadModel:(id:string)=>Promise<boolean>}).glimmerLoadModel=async(id)=>{const model=await AssetManager.loadGLTFById(glimmerModelId(id));return model.scene.children.length>0;};}
     console.info('[GLIMMER] runtime ready');
   }
   private async model(id:string,width:number,assetId=glimmerModelId(id)):Promise<Object3D>{
@@ -96,7 +100,9 @@ export class GlimmerSystem extends createSystem({}) {
     if(immersive){const axes=pad?.getAxesValues(InputComponent.Thumbstick);this.app.market.setInput(axes?.x??0,axes?.y??0);}
     this.app.update(dt);this.texture.needsUpdate=true;
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
-    if(this.app.screen==='ar'){
+    const placedAR=this.arPortal.update();this.holograms.visible=!this.app.portalAR;
+    if(this.app.screen==='ar'&&!placedAR){
+      this.preview.visible=this.preview.children.length>0;
       this.preview.position.set(0,immersive?1.05:1.65,immersive?-1.05:-2.25);
       this.preview.rotation.y=this.app.portalYaw;
       this.preview.rotation.x=this.app.portalPitch+(immersive?0:Math.PI/2-.25);

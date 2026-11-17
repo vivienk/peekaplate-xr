@@ -73,6 +73,9 @@ export class GlimmerApp {
   onPortal:(id:string|null)=>void=()=>{};
   onOrderReady:()=>void=()=>{};
   onXR:()=>void=()=>{};
+  onEnterPortal:()=>void=()=>{};
+  onReposition:()=>void=()=>{};
+  arSupported=false;portalAR=false;portalPlacement="";
   constructor(){
     this.canvas.width=1280;this.canvas.height=720;
     this.overlay.width=1280;this.overlay.height=720;this.context=this.overlay.getContext('2d')!;this.output=this.canvas.getContext('2d')!;
@@ -150,7 +153,7 @@ export class GlimmerApp {
   showDish(id:string,from:Screen='menu'){const d=dishes.find(d=>d.id===id);if(d)this.selectedDish=d;this.returnFromDish=from;this.dining.show(id,from);}
   showCode(){this.codeReturn=this.screen;this.setScreen('code');}
   resetPortal(){this.portalYaw=0;this.portalPitch=0;this.portalZoom=1;this.portalIdle=0;}
-  rotate(dx:number,dy=0){const limit=this.portalFlat?Math.PI/60:Math.PI*7/18;this.portalYaw=this.portalFlat?Math.max(-limit,Math.min(limit,this.portalYaw+dx)):this.portalYaw+dx;this.portalPitch=Math.max(-limit,Math.min(limit,this.portalPitch+dy));this.portalIdle=3;}
+  rotate(dx:number,dy=0){if(this.portalAR)return;const limit=this.portalFlat?Math.PI/60:Math.PI*7/18;this.portalYaw=this.portalFlat?Math.max(-limit,Math.min(limit,this.portalYaw+dx)):this.portalYaw+dx;this.portalPitch=Math.max(-limit,Math.min(limit,this.portalPitch+dy));this.portalIdle=3;}
   zoom(delta:number){if(this.immersive)return;this.portalZoom=Math.max(.7,Math.min(1.6,this.portalZoom+delta));}
   nextDish(delta:number){const all=marketCatalogue(),current=all.find(d=>d.id===this.portalDishId);if(!current)return;const list=all.filter(d=>d.venueId===current.venueId);this.portalDishId=list[(list.indexOf(current)+delta+list.length)%list.length].id;this.resetPortal();this.onPortal(this.portalDishId);this.invalidate();}
   key(e:KeyboardEvent){if(e.defaultPrevented)return;if(e.target instanceof HTMLInputElement&&!['Escape','Enter'].includes(e.key))return;this.uiDirty=true;
@@ -225,7 +228,7 @@ export class GlimmerApp {
     const ready=advanceTime(this.state,dt,paused);if(ready.changed){this.result(ready);this.sound('sfx-order-ready');this.onOrderReady();}
     if(!paused&&this.screen==='explore'){const hadToast=this.toastTime>0;this.toastTime=Math.max(0,this.toastTime-dt);if(hadToast&&!this.toastTime)this.uiDirty=true;if(!this.toastTime&&this.queue.length)this.notify(this.queue.shift()!);}
     if(this.screen==='explore'&&this.checkFinale&&!this.toastTime&&!this.queue.length){this.checkFinale=false;const finale=nextFinale(this.state);if(finale){this.finaleDistrict=finale.kind==='grand'?null:finale.district??null;this.market.triggerFinale(finale.kind==='grand');this.title=finale.kind==='grand'?'The whole market, in your passport!':`${districts.find(d=>d.district===finale.district)?.name} complete!`;this.setScreen('finale');this.sound(finale.kind==='grand'?'sfx-grand-finale':'sfx-finale');}}
-    if(this.screen==='ar'){this.portalIdle=Math.max(0,this.portalIdle-dt);if(!this.reducedMotion&&!this.portalFlat&&!this.portalIdle)this.portalYaw+=dt*Math.PI/9;}
+    if(this.screen==='ar'){this.portalIdle=Math.max(0,this.portalIdle-dt);if(!this.portalAR&&!this.reducedMotion&&!this.portalFlat&&!this.portalIdle)this.portalYaw+=dt*Math.PI/9;}
     this.render();
   }
   text(s:string,x:number,y:number,size=28,color=ink){const c=this.context;c.fillStyle=color;c.font=`${size}px Jersey, monospace`;c.fillText(s,x,y);}
@@ -266,7 +269,7 @@ export class GlimmerApp {
   private add(id:string,delta=1){const r=changeQuantity(this.state,id,delta);this.result(r);this.sound(r.changed?(delta>0?'sfx-order-add':'sfx-order-remove'):'sfx-code-bad');}
   private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;}
   render(){
-    this.output.imageSmoothingEnabled=false;this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
+    this.output.imageSmoothingEnabled=false;if(this.portalAR)this.output.clearRect(0,0,1280,720);else this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
     if(this.marketMap.render()||this.dining.render()||renderReference(this)){
       // Reference HUD and modal layouts share the existing interaction targets.
     }else if(this.screen==='explore'){
