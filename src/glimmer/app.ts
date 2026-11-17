@@ -1,4 +1,5 @@
 import { demoPrice } from './dish-metadata';
+import { nightMarketLogo } from './night-market-logo';
 import { MarketMapUI } from './market-map-ui';
 import { interfaceIcon } from './interface-icons';
 import { DiningUI } from './dining-ui';
@@ -215,7 +216,9 @@ export class GlimmerApp {
     this.liveRefresh+=dt;if(this.liveRefresh>=60&&this.screen==='explore'){this.liveRefresh=0;this.refreshPublished();}
     if(this.screen==='publishedMenu'){const live=liveRestaurants.get(this.publishedId);if(live?.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.publishedMessage='This menu has expired. Reopen the restaurant to refresh.';this.invalidate();}}
     if(['dish','ar','comparison','comparePicker','search'].includes(this.screen)){for(const live of liveRestaurants.values()){if(live.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.invalidate();if(this.screen==='ar'&&this.portalDishId.startsWith(live.id+'/'))this.onPortal(null);}}}
+    const previousLogoFrame=Math.floor(this.screenAge*4)%4;
     this.screenAge+=dt;
+    if(this.screen==='title'&&!this.reducedMotion&&previousLogoFrame!==Math.floor(this.screenAge*4)%4)this.uiDirty=true;
     if(this.screen==='dialogue'){this.dialogueElapsed+=dt;const blip=Math.floor(Math.min(this.dialogueElapsed*40,this.dialogue[this.dialogueIndex]?.length??0)/3);if(this.dialogueTyping&&blip>this.dialogueBlip){this.sound(`sfx-talk-blip-${blip%3+1}`);this.dialogueBlip=blip;}this.market.setTalking(this.dialogueTyping);this.uiDirty=true;}else this.market.setTalking(false);
     if(this.screen==='explore')this.uiDirty=true;
     const paused=this.paused;this.market.update(dt);this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
@@ -272,7 +275,11 @@ export class GlimmerApp {
       this.button('Enter VR',1090,16,165,45,()=>this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
-      this.heading('PeekaPlate');c.save();c.textAlign='center';this.text('Night Market 2049',640,250,68);c.restore();
+      this.heading('PeekaPlate');c.save();c.font='68px Jersey, monospace';
+      const titleWidth=c.measureText('Night Market 2049').width;
+      const titleLeft=Math.round((1280-titleWidth-116)/2);
+      nightMarketLogo(c,titleLeft,176,this.reducedMotion?0:Math.floor(this.screenAge*4)%4);
+      c.textAlign='left';this.text('Night Market 2049',titleLeft+116,250,68);c.restore();
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button('Enter Meta Quest VR',350,530,580,60,()=>this.onXR());this.text(connectionStatus,300,635,25);
