@@ -204,7 +204,7 @@ export class MarketWorld {
   }
 
   interact(): void {
-    if (!this.enabled || this.paused || this.entering || this.travelRemaining) return;
+    if (!this.enabled || this.paused || this.entering || this.travelRemaining > 0) return;
     const object = this.findFocus(); if (!object) return;
     this.activeObject = object.id; this.activeUntil = this.clock + 2;
     if (object.kind === 'bench') { this.seated = true; this.player.x = object.pivot[0]; this.player.y = object.pivot[1] + 5 / 16; this.facing = 0; }
@@ -213,7 +213,7 @@ export class MarketWorld {
   }
 
   pointer(canvasX: number, canvasY: number): void {
-    if (!this.enabled || this.paused || this.entering || this.travelRemaining) return;
+    if (!this.enabled || this.paused || this.entering || this.travelRemaining > 0) return;
     const x = canvasX + Math.round(this.cameraX), y = canvasY + Math.round(this.cameraY);
     let selected: MarketObject | undefined;
     for (const object of this.map.objects) {
@@ -276,7 +276,7 @@ export class MarketWorld {
       if (this.district === 'd3-fogline-pier') { const frame = this.reducedMotion ? 0 : Math.floor(this.clock / .6) % 2; if (frame !== this.waterFrame) { this.waterFrame = frame; this.paintBackground(); } }
       for (const walkers of this.districtWalkers.values()) for (const walker of walkers) this.updateWalker(walker,dt);
       if (this.travelRemaining > 0) {
-        this.travelRemaining -= dt;
+        this.travelRemaining = Math.max(0,this.travelRemaining - dt);
         if (this.travelRemaining <= .2 && this.travelTarget) {
           const next = this.travelTarget; this.travelTarget = null;
           this.setDistrict(next.to,next.arrive); this.callbacks.onTravel(next.to);

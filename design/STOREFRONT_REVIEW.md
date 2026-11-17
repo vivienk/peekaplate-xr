@@ -44,3 +44,16 @@ hanging emblems, branded vertical totems and wide business-name marquees.
 Run `node scripts/review-storefronts.mjs --venues` to inspect seven restaurants
 of the same cuisine in `artifacts/storefront-individual-venues.png`. These are
 compositional variants, not an unbounded guarantee of one-of-a-kind artwork.
+
+Implemented pixel-scale adaptations of Lantern Counter, Moon Gate and After
+Hours within the existing collision footprints. Ember & Stone selects Lantern
+Counter; stable venue IDs can select the moon-window townhouse or railcar.
+These are procedural gameplay adaptations, not the full-resolution concept
+sheet pasted into the map. The original restaurants remain unchanged.
+
+Travel regression: clamp the transition timer to zero and test positivity when
+blocking interaction. A negative remainder previously kept E blocked after
+travel. Regression tests cover both destination districts. Browser keyboard
+acceptance passed 16 interactions (restaurants, order portals, cats, NPCs, ads)
+in Lantern Steps and Fogline Pier, each opening with E and closing with Escape.
+Reproduce with scripts/test-browser-district-keyboard.mjs in the managed runtime.

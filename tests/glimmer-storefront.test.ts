@@ -13,3 +13,9 @@ describe('venue architecture',()=>{
   for(const field of ['form','canopy','signMount','fixture'] as const)expect(new Set(plans.map(p=>p[field])).size).toBe(3);
  });
 });
+
+it('uses the lantern-counter design for Ember and provides all three concept adaptations',()=>{
+ expect(storefrontPlan('diner-demo:ember-stone','ember',112,112).concept).toBe(0);
+ const concepts=new Set(Array.from({length:64},(_,i)=>storefrontPlan(`venue-${i}`,'ramen',112,128).concept));
+ for(const concept of [0,1,2])expect(concepts.has(concept)).toBe(true);
+});

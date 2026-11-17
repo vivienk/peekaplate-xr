@@ -4,7 +4,12 @@ const sourceLayout:Record<string,number[]>={ramen:[8,-38,.18],cafe:[24,-48,.2],t
 export function storefrontPlan(id:string,style:string,w:number,h:number){
  const n=storefrontSeed(id),side=(n&1)?1:-1;
  const bay=46+((n>>>3)%4)*4,center=Math.round(w/2)+side*(10+(n>>>6)%7);
- return {form:storefrontSeed(id+':form')%3,canopy:storefrontSeed(id+':canopy')%3,signMount:storefrontSeed(id+':sign')%3,fixture:storefrontSeed(id+':fixture')%3,seed:n,side,bay,center,roof:18+(n>>>10)%13,windowY:h-65-(n>>>14)%9,doorX:side>0?8:w-25,doorRise:(n>>>23)%9,signX:side>0?10:w-58,signY:style==='tide'?26:7,variant:(n>>>18)%3};
+ const concept=id==='diner-demo:ember-stone'?0:storefrontSeed(id+':concept')%5;
+ const plan={concept,form:storefrontSeed(id+':form')%3,canopy:storefrontSeed(id+':canopy')%3,signMount:storefrontSeed(id+':sign')%3,fixture:storefrontSeed(id+':fixture')%3,seed:n,side,bay,center,roof:18+(n>>>10)%13,windowY:h-65-(n>>>14)%9,doorX:side>0?8:w-25,doorRise:(n>>>23)%9,signX:side>0?10:w-58,signY:style==='tide'?26:7,variant:(n>>>18)%3};
+ if(concept===0){plan.bay=w-42;plan.center=w/2+8;plan.windowY=h-62;plan.signX=Math.round(w/2-24);plan.signY=8;plan.signMount=2;plan.canopy=0;}
+ if(concept===1){plan.windowY=h-60;plan.signX=2;plan.signY=9;plan.signMount=1;plan.bay=48;plan.center=w/2+8;}
+ if(concept===2){plan.windowY=h-58;plan.bay=46;plan.center=w-33;plan.signX=Math.round(w/2-24);plan.signY=8;plan.signMount=2;}
+ return plan;
 }
 type Art={glow:HTMLCanvasElement;rear:HTMLCanvasElement;front:HTMLCanvasElement;plan:ReturnType<typeof storefrontPlan>};
 const cache=new Map<string,Art>();
@@ -59,7 +64,30 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
   }g.restore();
  };
  // Venue massing is independent of cuisine: courtyard, stepped annex or cuisine silhouette.
- if(p.form===1){
+ if(p.concept===0){
+  // Lantern Counter: low open bar, broad scarlet awning, side vending cabinet.
+  timber(8,42,w-16,h-54);r('#492a30',12,44,w-24,h-60);
+  r('#652b36',4,32,w-8,14);for(let xx=5;xx<w-7;xx+=12){r('#c34d46',xx,32,6,14);r('#f08a59',xx,32,6,2);r('#8c3136',xx,46,6,5);}
+  for(let i=0;i<4;i++){r('#9a7151',27+i*16,50,13,2);r('#e0bf80',30+i*16,45,4,5);}
+  r('#543454',5,h-48,17,35);r('#d17ccb',6,h-47,15,1);r('#233e57',7,h-44,13,19);
+  for(let i=0;i<3;i++)for(let j=0;j<3;j++){r(['#8eddd9','#f3c5ba','#aaa4e4'][i],9+i*4,h-42+j*6,2,4);}
+  r('#c67fb9',9,h-20,9,2);r('#192d3c',9,h-17,9,3);
+ }else if(p.concept===1){
+  // Moon Gate: two-storey timber house, giant circular window and balcony.
+  timber(13,20,w-22,h-31);roof(17,5,w-34,3);roof(13,46,w-28,2);
+  const cx=w-34,cy=31,rad=18;
+  for(let yy=-rad;yy<=rad;yy++){const span=Math.floor(Math.sqrt(rad*rad-yy*yy));r('#514050',cx-span-2,cy+yy,span*2+5,1);r('#f5c479',cx-span,cy+yy,span*2+1,1);}
+  for(let k=-1;k<=1;k++)r('#7c5242',cx+k*8,cy-16,1,33);r('#7c5242',cx-17,cy,35,1);
+  r('#322c3b',22,42,w-38,3);for(let xx=22;xx<w-17;xx+=7)r('#aa8057',xx,43,2,10);r('#d4a669',21,53,w-36,2);
+  for(let i=0;i<6;i++){r('#4d7b5c',w-20+(i%2)*4,48+i*4,5,5);r('#d19aca',w-18+(i%2)*4,49+i*4,2,2);}
+ }else if(p.concept===2){
+  // After Hours: stepped rounded carriage shell, portholes and raised hatch.
+  for(let j=0;j<6;j++){const inset=10-j*2;r(j%2?'#427b7d':'#376569',8+inset,30+j*3,w-16-inset*2,4);}
+  r('#899698',7,48,w-14,h-61);r('#d0cbc1',8,49,w-16,1);r('#4b676e',7,h-20,w-14,7);
+  for(let yy=54;yy<h-22;yy+=7){r('#637b83',8,yy,w-16,1);for(let xx=11;xx<w-10;xx+=13)r('#d9c2a0',xx,yy+2,1,1);}
+  for(let i=0;i<2;i++){const xx=13+i*20;r('#263a4d',xx,53,14,18);r('#dda764',xx+2,54,10,15);r('#ffe3a0',xx+3,55,3,13);}
+  r('#6b727b',w-23,17,7,16);r('#b3aaa5',w-24,16,9,2);
+ }else if(p.form===1){
   masonry(8,42,w-16,h-54);masonry(8,18,24,30);masonry(w-32,29,24,20);
   roof(9,10,22,2);roof(w-31,21,22,2);
   timber(33,49,w-66,5);for(let i=0;i<3;i++){r(mat[2],35+i*12,40,2,12);}
@@ -101,11 +129,11 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
   for(let i=0;i<7;i++){r('#688583',14+i*12,58,8,9);r('#ccb988',14+i*12,59,8,1);}
  }
  // Roof seams, transom details and small fixtures prevent broad flat-color slabs.
- if(style==='pearl'){
+ if(p.concept>2&&style==='pearl'){
   const xx=p.side>0?13:w-39;for(let j=0;j<3;j++){r('#40364f',xx,19+j*7,26,5);r('#dbb383',xx+3,20+j*7,20,1);}
  }
  // Asymmetric entry with a transom, hinges, threshold and side menu board.
- const dy=Math.max(50,h-48-p.doorRise);timber(p.doorX,dy,17,h-dy-9);r('#192b3a',p.doorX+3,dy+3,11,15);r('#93b9b2',p.doorX+4,dy+4,1,13);r('#e8c182',p.doorX+13,h-23,2,2);r(light,p.doorX-2,h-10,21,2);
+ const dy=Math.max(50,h-48-p.doorRise);if(p.concept!==0)timber(p.doorX,dy,17,h-dy-9);r('#192b3a',p.doorX+3,dy+3,11,15);r('#93b9b2',p.doorX+4,dy+4,1,13);r('#e8c182',p.doorX+13,h-23,2,2);r(light,p.doorX-2,h-10,21,2);
  const bx=Math.max(28,Math.min(w-p.bay-6,p.center-p.bay/2)),by=p.windowY;
  r(edge,bx-3,by-3,p.bay+6,39);r('#b18b67',bx-2,by-2,p.bay+4,1);
  // Crop only kitchen detail, never the original roof, facade, entrance or counter layout.
@@ -218,6 +246,7 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  // Enrich the foreground plants and stools with leaf clusters, highlights and feet.
  for(const xx of [4,w-12])for(let k=0;k<9;k++){const px=xx+(noise(xx,k)%9),py=h-16-(noise(k,xx)%12);r('#1f413e',px,py,3,3,f);r('#59886a',px,py,2,1,f);r('#9aa276',px+1,py,1,1,f);}
  for(let k=0;k<2+p.variant;k++){const xx=bx+3+k*13;if(xx>w-12)break;r('#9c6a48',xx+1,h-9,8,2,f);r('#181f30',xx+2,h-7,1,6,f);r('#88837a',xx+3,h-7,1,4,f);r('#151e2c',xx,h-2,8,2,f);}
+ if(p.concept===2)for(const xx of [20,w-29]){r('#192634',xx,h-13,11,11,f);r('#71818a',xx+2,h-11,7,7,f);r('#273c4d',xx+4,h-9,3,3,f);}
  // Deterministic one-pixel patina; keep contours and source transparency intact.
  for(const ctx of [g,f]){const pixels=ctx.getImageData(0,0,w,h),d=pixels.data;
   for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){const at=(yy*w+xx)*4;if(!d[at+3])continue;const v=noise(xx,yy);if(v%4!==0)continue;const delta=(v%13)-6;for(let ch=0;ch<3;ch++)d[at+ch]=Math.max(0,Math.min(255,d[at+ch]+delta));}
