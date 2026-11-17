@@ -1,3 +1,5 @@
+import { drawStorefront } from './storefront';
+import { liveRestaurants } from '../published/market';
 import { districtIconNames, drawDistrictIcon } from './district-icons';
 import rainAlley from './fixtures/market-map.json';
 import lanternSteps from './fixtures/district-lantern-steps.json';
@@ -506,6 +508,11 @@ export class MarketWorld {
     const active = o.id === this.activeObject && this.clock < this.activeUntil;
     if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) {
       const key = o.asset.slice(4) as keyof typeof building, b = building[key], folder = 'assets/world/buildings/';
+      if(o.kind==='published-restaurant'){
+        drawStorefront(this.ctx,o.id,liveRestaurants.get(o.id)?.name??'Restaurant',x,y,b.w,b.h);
+        this.sprite(`assets/characters/chef-${key}.png`,x,y-25,24,24,Math.floor(t/b.period)%4);
+        return;
+      }
       this.sprite(`${folder}${key}-back.png`,x,y);
       this.sprite(`assets/characters/chef-${key}.png`,x + b.chef[0],y + b.chef[1],24,24,Math.floor(t / b.period) % 4);
       this.sprite(`${folder}${key}-front.png`,x,y);
