@@ -35,3 +35,12 @@ The cuisine-material pass replaces shared brick with timber-framed plaster
 and pale wood with indigo noren (sushi). Fixtures include pastry cases, herb
 baskets, hanging woks, stacked steamers, charcoal/log bins, ice crates and
 serving boards. Existing source neon emblems are retained as cuisine symbols.
+
+Per-venue composition now independently selects massing, canopy construction,
+sign format and street display type from the stable venue ID, in addition to
+entrance side, window dimensions and counter position. Cuisine controls material
+and food details; it no longer selects one complete facade. Sign formats include
+hanging emblems, branded vertical totems and wide business-name marquees.
+Run `node scripts/review-storefronts.mjs --venues` to inspect seven restaurants
+of the same cuisine in `artifacts/storefront-individual-venues.png`. These are
+compositional variants, not an unbounded guarantee of one-of-a-kind artwork.

@@ -4,7 +4,7 @@ const sourceLayout:Record<string,number[]>={ramen:[8,-38,.18],cafe:[24,-48,.2],t
 export function storefrontPlan(id:string,style:string,w:number,h:number){
  const n=storefrontSeed(id),side=(n&1)?1:-1;
  const bay=46+((n>>>3)%4)*4,center=Math.round(w/2)+side*(10+(n>>>6)%7);
- return {seed:n,side,bay,center,roof:18+(n>>>10)%13,windowY:h-65-(n>>>14)%9,doorX:side>0?8:w-25,doorRise:(n>>>23)%9,signX:side>0?10:w-58,signY:style==='tide'?26:7,variant:(n>>>18)%3};
+ return {form:storefrontSeed(id+':form')%3,canopy:storefrontSeed(id+':canopy')%3,signMount:storefrontSeed(id+':sign')%3,fixture:storefrontSeed(id+':fixture')%3,seed:n,side,bay,center,roof:18+(n>>>10)%13,windowY:h-65-(n>>>14)%9,doorX:side>0?8:w-25,doorRise:(n>>>23)%9,signX:side>0?10:w-58,signY:style==='tide'?26:7,variant:(n>>>18)%3};
 }
 type Art={glow:HTMLCanvasElement;rear:HTMLCanvasElement;front:HTMLCanvasElement;plan:ReturnType<typeof storefrontPlan>};
 const cache=new Map<string,Art>();
@@ -58,8 +58,17 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
    r(['#ffffff28','#ffffff16','#00000024'][v],xx+off,yy,5,2);r('#0f243560',xx+off,yy+2,5,1);r('#dbd0c12a',xx+off+1,yy,3,1);
   }g.restore();
  };
- // Seven genuinely different silhouettes, with dimensions and handedness seeded per venue.
- if(style==='ramen'){
+ // Venue massing is independent of cuisine: courtyard, stepped annex or cuisine silhouette.
+ if(p.form===1){
+  masonry(8,42,w-16,h-54);masonry(8,18,24,30);masonry(w-32,29,24,20);
+  roof(9,10,22,2);roof(w-31,21,22,2);
+  timber(33,49,w-66,5);for(let i=0;i<3;i++){r(mat[2],35+i*12,40,2,12);}
+ }else if(p.form===2){
+  const tx=p.side>0?7:w-40;masonry(tx,14,33,h-25);
+  timber(p.side>0?40:8,52,w-48,h-63);
+  roof(tx+1,6,31,2);roof(p.side>0?43:11,44,w-55,2);
+  r('#172b3b',tx+7,28,19,14);r(mat[2],tx+8,29,17,1);r(mat[2],tx+16,29,1,12);
+ }else if(style==='ramen'){
   masonry(18,12,w-36,h-25);masonry(p.side>0?7:w-29,33,22,h-45);
   roof(23,5,w-46,4);roof(9,53,w-18,2);
   for(let i=0;i<3;i++){r('#151e31',31+i*16,29,11,16);r('#bb8b63',32+i*16,30,9,1);r('#cca17a',35+i*16,31,1,12);}
@@ -108,7 +117,14 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  r('#fff0b2',bx+2,by+1,cropW-4,1);r('#e8ab5c',bx+3,by+2,cropW-6,1);
  for(let i=0;i<3;i++){r('#ead8ae',bx+4+i*10,by+28,7,2);r('#9c886f',bx+5+i*10,by+30,6,1);}
  // Cuisine awnings: offset slats, fabric scallops, hanging noren or metal flanges.
- for(let i=0;i<p.bay+6;i+=7){r(i%14?accent:'#444155',bx-3+i,by-9,6,6);r('#d7c89a',bx-3+i,by-9,5,1);if(style==='ramen'||style==='kaigan')r('#596486',bx-2+i,by-3,5,7);}
+ if(p.canopy===0){
+  for(let i=0;i<p.bay+6;i+=7){r(i%14?accent:mat[3],bx-3+i,by-9,6,6);r('#d7c89a',bx-3+i,by-9,5,1);r(accent,bx-2+i,by-3,4,2);}
+ }else if(p.canopy===1){
+  r(mat[3],bx-5,by-12,p.bay+10,4);r(mat[2],bx-5,by-12,p.bay+10,1);
+  for(let i=0;i<p.bay;i+=12){r(mat[1],bx+i,by-8,8,10);r(accent,bx+i+3,by-6,2,5);}
+ }else{
+  for(let i=0;i<3;i++){r(mat[3],bx-6+i*2,by-14+i*3,p.bay+12-i*4,3);r(mat[2],bx-6+i*2,by-14+i*3,p.bay+12-i*4,1);}
+ }
  // A separate foreground counter keeps the chef properly behind the facade.
  const cy=by+29;timber(bx-3,cy,p.bay+6,20);
  f.drawImage(rear,bx-3,cy,p.bay+6,20,bx-3,cy,p.bay+6,20);
@@ -154,7 +170,17 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  r('#9b5f51',p.doorX+3,dy+3,11,15);r('#e7a65e',p.doorX+4,dy+4,9,13);r('#ffe0a0',p.doorX+5,dy+4,3,13);r('#6f4a46',p.doorX+8,dy+3,1,15);r('#6f4a46',p.doorX+3,dy+10,11,1);
  // Cuisine fixtures use different forms and materials, not palette-swapped decorations.
  const px=p.side>0?9:w-25,py=h-24;
- if(style==='ramen'){
+ if(p.fixture===1){
+  // A separate wheeled display with cuisine-specific goods and storage below.
+  r(mat[3],px-2,py-6,20,16,f);r(mat[2],px-3,py-7,22,2,f);
+  r('#182536',px,py+10,4,3,f);r('#182536',px+12,py+10,4,3,f);
+  for(let i=0;i<3;i++){r(style==='tide'?'#a8d8d7':style==='cafe'?'#d69b59':'#e4cca0',px+i*5,py-10,4,3,f);r(accent,px+i*5,py-11,4,1,f);}
+  r(mat[0],px,py,16,1,f);r(mat[0],px,py+4,16,1,f);
+ }else if(p.fixture===2){
+  // A tall open-shelf display changes the street silhouette and object arrangement.
+  r(mat[3],px-1,py-20,2,31,f);r(mat[3],px+15,py-20,2,31,f);
+  for(let j=0;j<3;j++){r(mat[2],px-2,py-10+j*10,20,2,f);for(let i=0;i<2;i++){r(j%2?accent:mat[1],px+2+i*7,py-17+j*10,5,7,f);r('#f5dba3',px+3+i*7,py-18+j*10,3,1,f);}}
+ }else if(style==='ramen'){
   // Lacquer bowl stack and a red fabric shop banner.
   for(let i=0;i<3;i++){r('#c8d7ce',px,py+i*3,13,2,f);r('#a3483c',px+2,py+2+i*3,9,1,f);}
   r('#a03d3b',p.doorX,dy-18,17,14);r('#edc797',p.doorX+2,dy-17,13,1);
@@ -215,7 +241,28 @@ export function drawStorefront(c:CanvasRenderingContext2D,id:string,name:string,
   const size=3+(Math.floor(time*8)+i*2)%5;c.fillStyle='#ef7946';c.fillRect(p.center-24+i*3,p.windowY+28-size,2,size);c.fillStyle='#ffe4a1';c.fillRect(p.center-24+i*3,p.windowY+26,1,2);
  }
  c.drawImage(art.front,0,0);
- c.drawImage(sign,time%3.7>3.55?48:0,0,48,32,p.signX,p.signY,48,32);
+ // Different sign structures: suspended board, offset cantilever, or tiled totem.
+ c.fillStyle='#3b3045';
+ if(p.signMount===0){c.fillRect(p.signX+6,p.signY-4,2,7);c.fillRect(p.signX+40,p.signY-4,2,7);}
+ else if(p.signMount===1){c.fillRect(p.signX-4,p.signY+4,3,40);c.fillRect(p.signX-4,p.signY+4,54,3);c.fillStyle='#c2a074';c.fillRect(p.signX-3,p.signY+5,52,1);}
+ else{c.fillRect(p.signX+4,p.signY-3,40,41);c.fillStyle='#aa9482';c.fillRect(p.signX+5,p.signY+33,38,2);for(let i=0;i<8;i++)if((p.seed>>>i)&1)c.fillRect(p.signX+7+i*4,p.signY+36,2,2);}
+ const signFrame=time%3.7>3.55?48:0;
+ if(p.signMount===0)c.drawImage(sign,signFrame,0,48,32,p.signX,p.signY,48,32);
+ else if(p.signMount===1){
+  const sx=p.signX+12,sy=p.signY-2;
+  c.fillStyle='#262239';c.fillRect(sx,sy,25,46);c.fillStyle='#f0bb7f';c.fillRect(sx,sy,25,1);c.fillRect(sx,sy+45,25,1);
+  c.drawImage(sign,signFrame,0,48,32,sx+1,sy+3,24,16);
+  c.fillStyle='#9ef1e3';c.font='bold 8px monospace';c.textAlign='center';
+  const initials=name.split(/[^a-z0-9]+/i).filter(Boolean).slice(0,2).map(word=>word[0]).join('');
+  c.fillText(initials,sx+12,sy+31,21);
+  for(let i=0;i<6;i++)if((p.seed>>>i)&1)c.fillRect(sx+3+i*3,sy+37,2,2);
+ }else{
+  const sx=Math.min(w-61,Math.max(1,p.signX-5)),sy=p.signY+6;
+  c.fillStyle='#283c43';c.fillRect(sx,sy,60,24);c.fillStyle='#93e0ce';c.fillRect(sx+2,sy+1,56,1);c.fillRect(sx+2,sy+22,56,1);
+  c.drawImage(sign,signFrame,0,48,32,sx+2,sy+4,24,16);
+  c.fillStyle='#ffe6a7';c.font='bold 6px monospace';c.textAlign='center';
+  c.fillText(name.split(' ')[0],sx+43,sy+11,30);c.fillText(name.split(' ').slice(1).join(' ')||'KITCHEN',sx+43,sy+18,30);
+ }
  c.save();c.globalCompositeOperation='screen';c.drawImage(art.glow,-16,-16);c.restore();
  c.restore();
 }
