@@ -85,6 +85,10 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  // Crop only kitchen detail, never the original roof, facade, entrance or counter layout.
  const cropW=Math.min(p.bay,source.naturalWidth-8),sx=Math.max(0,Math.min(source.naturalWidth-cropW,Math.round(source.naturalWidth/2+spec[0]-cropW/2))),sy=Math.max(0,Math.min(source.naturalHeight-30,source.naturalHeight+spec[1]-25));
  g.drawImage(source,sx,sy,cropW,30,bx,by,cropW,30);
+ // Warm practical kitchen lights illuminate the display without washing out its pixels.
+ g.save();g.globalCompositeOperation='screen';
+ const interior=g.createLinearGradient(0,by,0,by+30);interior.addColorStop(0,'#ffb34c55');interior.addColorStop(.6,'#ffd68735');interior.addColorStop(1,'#ed8a2530');g.fillStyle=interior;g.fillRect(bx,by,cropW,30);g.restore();
+ r('#fff0b2',bx+2,by+1,cropW-4,1);r('#e8ab5c',bx+3,by+2,cropW-6,1);
  for(let i=0;i<3;i++){r('#ead8ae',bx+4+i*10,by+28,7,2);r('#9c886f',bx+5+i*10,by+30,6,1);}
  // Cuisine awnings: offset slats, fabric scallops, hanging noren or metal flanges.
  for(let i=0;i<p.bay+6;i+=7){r(i%14?accent:'#444155',bx-3+i,by-9,6,6);r('#d7c89a',bx-3+i,by-9,5,1);if(style==='ramen'||style==='kaigan')r('#596486',bx-2+i,by-3,5,7);}
@@ -99,8 +103,8 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  for(const xx of [4,w-12]){r('#664337',xx,h-14,9,12,f);for(let i=0;i<4;i++){r(i%2?'#55806b':'#345a50',xx+(i*3)%8,h-18-i%3*3,3,7,f);r('#a5a77c',xx+(i*3)%8,h-18-i%3*3,1,1,f);}}
  // Recesses, contact shadows and reflected warm light define the depth of the opening.
  g.save();g.globalCompositeOperation='source-atop';
- const shade=g.createLinearGradient(0,0,w,h);shade.addColorStop(0,'#172b4020');shade.addColorStop(.55,'#00000000');shade.addColorStop(1,'#08132780');g.fillStyle=shade;g.fillRect(0,0,w,h);
- const bounce=g.createRadialGradient(bx+p.bay/2,by+20,4,bx+p.bay/2,by+20,p.bay*.85);bounce.addColorStop(0,'#ffbd6650');bounce.addColorStop(1,'#ff944000');g.fillStyle=bounce;g.fillRect(0,0,w,h);g.restore();
+ const shade=g.createLinearGradient(0,0,w,h);shade.addColorStop(0,'#172b4020');shade.addColorStop(.55,'#00000000');shade.addColorStop(1,'#08132728');g.fillStyle=shade;g.fillRect(0,0,w,h);
+ const bounce=g.createRadialGradient(bx+p.bay/2,by+20,4,bx+p.bay/2,by+20,p.bay*.85);bounce.addColorStop(0,'#ffd18470');bounce.addColorStop(1,'#ff944000');g.fillStyle=bounce;g.fillRect(0,0,w,h);g.restore();
  r('#10172d99',bx-4,by-6,p.bay+9,5);r('#10172d88',bx-5,by,3,30);r('#f0b67e88',bx+p.bay,by,2,30);
  // Pipes, copper straps, enamel noticeboard, strings of lights and kitchen bottles.
  const pipe=p.side>0?w-5:3;
@@ -110,6 +114,27 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  for(let k=0;k<3;k++)r('#adbbac',board+2,dy+24+k*2,6+k%2*2,1);
  for(let k=0;k<4;k++){const xx=bx+4+k*9;r(['#46766c','#ae6056','#b1935d','#6b7891'][k],xx,by+23,3,5);r('#e9d2a2',xx+1,by+21,1,2);}
  for(let k=0;k<6;k++){const xx=bx-3+k*10;r('#211e31',xx,by-13,8,1);r(k%2?accent:'#edb27a',xx+2,by-12,3,3);r('#fff3c3',xx+3,by-12,1,2);}
+ // Flowers, bunting and glowing side windows give each facade a lived-in evening mood.
+ const flowers=style==='cafe'||style==='pearl';
+ for(let k=0;k<5;k++){
+  const xx=bx+2+k*10,yy=by-18+(k%2);
+  r('#bd986b',xx,yy,10,1);r(k%2?accent:'#ef9c6d',xx+2,yy+1,5,3);r(k%2?'#f2d4b3':'#ffe09b',xx+3,yy+4,3,2);
+ }
+ for(const xx of [4,w-12])for(let k=0;k<4;k++){
+  const px=xx+(k*3)%8,py=h-22-k%2*4;
+  r(flowers?'#d78db8':'#cbad69',px,py,3,3,f);r(flowers?'#ffe1d6':'#ffdc99',px+1,py+1,1,1,f);
+ }
+ // Copper pendant lanterns: rounded pixel silhouettes, ribs, hot cores and tassels.
+ for(const xx of [8,w-15]){
+  const yy=by-2;
+  r('#403039',xx+3,yy-5,1,6);r('#ab7851',xx+1,yy,7,2);
+  r('#ce754a',xx,yy+3,9,12);r('#f5ab60',xx+1,yy+2,7,14);
+  r('#ffdc8c',xx+3,yy+3,3,12);r('#fff2b9',xx+4,yy+4,1,10);
+  for(let j=0;j<3;j++)r('#ad644a88',xx+1,yy+5+j*4,7,1);
+  r('#8d583c',xx+1,yy+16,7,2);r('#e7ab5e',xx+4,yy+18,1,4);
+ }
+ // A lit transom and brass frame brighten the entrance side of the composition.
+ r('#9b5f51',p.doorX+3,dy+3,11,15);r('#e7a65e',p.doorX+4,dy+4,9,13);r('#ffe0a0',p.doorX+5,dy+4,3,13);r('#6f4a46',p.doorX+8,dy+3,1,15);r('#6f4a46',p.doorX+3,dy+10,11,1);
  // Enrich the foreground plants and stools with leaf clusters, highlights and feet.
  for(const xx of [4,w-12])for(let k=0;k<9;k++){const px=xx+(noise(xx,k)%9),py=h-16-(noise(k,xx)%12);r('#1f413e',px,py,3,3,f);r('#59886a',px,py,2,1,f);r('#9aa276',px+1,py,1,1,f);}
  for(let k=0;k<2+p.variant;k++){const xx=bx+3+k*13;if(xx>w-12)break;r('#9c6a48',xx+1,h-9,8,2,f);r('#181f30',xx+2,h-7,1,6,f);r('#88837a',xx+3,h-7,1,4,f);r('#151e2c',xx,h-2,8,2,f);}
@@ -120,8 +145,8 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  }
  const glow=document.createElement('canvas');glow.width=w+32;glow.height=h+32;const glowCtx=glow.getContext('2d')!;
  const halo=(xx:number,yy:number,radius:number,color:string)=>{const q=glowCtx.createRadialGradient(xx+16,yy+16,1,xx+16,yy+16,radius);q.addColorStop(0,color);q.addColorStop(1,'#00000000');glowCtx.fillStyle=q;glowCtx.fillRect(0,0,w+32,h+32);};
- halo(p.signX+24,p.signY+16,36,warm?'#ff654535':style==='cafe'||style==='pearl'?'#f477d838':'#52e6db35');
- halo(7,by,18,'#ffd18c45');halo(w-7,by,18,'#70f3e43b');
+ halo(p.signX+24,p.signY+16,40,warm?'#ff855760':style==='cafe'||style==='pearl'?'#ff89df60':'#68fff160');
+ halo(12,by+8,24,'#ffd18c70');halo(w-11,by+8,24,'#ffd18c65');halo(bx+p.bay/2,by+18,34,'#ffb95a25');
  p.center=bx+p.bay/2;p.windowY=by;
  return {rear,front,glow,plan:p};
 }
@@ -138,7 +163,5 @@ export function drawStorefront(c:CanvasRenderingContext2D,id:string,name:string,
  c.drawImage(art.front,0,0);
  c.drawImage(sign,time%3.7>3.55?48:0,0,48,32,p.signX,p.signY,48,32);
  c.save();c.globalCompositeOperation='screen';c.drawImage(art.glow,-16,-16);c.restore();
- // Native-resolution animated lanterns; world rendering adds their glow and reflections.
- for(let i=0;i<2;i++){const xx=i?w-9:5,yy=p.windowY-4;c.fillStyle='#503944';c.fillRect(xx,yy,5,11);c.fillStyle=style==='ember'?'#ff9a58':'#95e8db';c.fillRect(xx+1,yy+1,3,8);c.fillStyle='#fff0ba';c.fillRect(xx+2,yy+2,1,6);}
  c.restore();
 }

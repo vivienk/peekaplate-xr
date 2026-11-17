@@ -42,12 +42,12 @@ try{
  }
  label('2× nearest-neighbor scale • static frame • local neon glow included; world rain/reflections omitted',24,880,14,'#9aa7bb');
  },{styles,names,specs,assets});
- await page.screenshot({path:'artifacts/storefront-cuisine-comparison-v4.png'});
+ await page.screenshot({path:'artifacts/storefront-cuisine-comparison-v5.png'});
  const checks=await page.evaluate(()=>{
   const plans=Array.from({length:64},(_,i)=>storefrontPlan(`venue-${i}`,'ramen',112,128));
   return {structuralVariants:new Set(plans.map(p=>JSON.stringify([p.side,p.bay,p.center,p.windowY,p.doorX,p.doorRise,p.variant]))).size,expected:64};
  });
  if(checks.structuralVariants!==64)throw new Error('Duplicate structural layouts in the review sample');
- await fs.writeFile('artifacts/storefront-review.json',JSON.stringify({...checks,humanVisualReviewRequired:true,comparison:'storefront-cuisine-comparison-v4.png'},null,2));
- console.log('Rendered artifacts/storefront-cuisine-comparison-v4.png; 64 structural variants verified. Inspect the image before publishing.');
+ await fs.writeFile('artifacts/storefront-review.json',JSON.stringify({...checks,humanVisualReviewRequired:true,comparison:'storefront-cuisine-comparison-v5.png'},null,2));
+ console.log('Rendered artifacts/storefront-cuisine-comparison-v5.png; 64 structural variants verified. Inspect the image before publishing.');
 }finally{await browser.close();}

@@ -2,7 +2,7 @@
 
 Run `npm run review:storefronts` from the repository root. It typechecks, tests
 stable per-venue architecture, then uses the renderer itself in headless
-Playwright to create `artifacts/storefront-cuisine-comparison-v4.png` and
+Playwright to create `artifacts/storefront-cuisine-comparison-v5.png` and
 `artifacts/storefront-review.json`. The seven cuisine variants are shown above
 the unmodified source art at 2× nearest-neighbor scale. Ember & Stone uses its
 actual game ID; the remaining columns use reproducible example IDs.
@@ -24,3 +24,7 @@ local neon halos, bottles, noticeboards, pipes, fuller plants and stool feet.
 A second visual review replaced sparse/out-of-bounds roof seams with clipped
 shingle patterns. Cuisine classification still uses the published menu text
 because the current public contract has no cuisine field.
+
+The next warmth pass reduced the facade shadow strength, added kitchen strip
+lighting and amber transoms, enlarged the neon halos, and introduced ribbed
+paper lanterns, flower clusters and colorful bunting.
