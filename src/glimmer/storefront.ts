@@ -1,7 +1,7 @@
 /** Stable pixel-art architecture for added venues; no generated art changes on reload. */
 const cache = new Map<string, HTMLCanvasElement>();
 export function storefrontSeed(id:string) { let n=2166136261; for(const ch of id)n=Math.imul(n^ch.charCodeAt(0),16777619); return n>>>0; }
-export function drawStorefront(c:CanvasRenderingContext2D,id:string,name:string,x:number,y:number,w:number,h:number) {
+export function drawStorefront(c:CanvasRenderingContext2D,id:string,name:string,x:number,y:number,w:number,h:number,time=0) {
  const cacheKey=`${id}:${name}:${w}:${h}`;
  let art=cache.get(cacheKey);
  if(!art){
@@ -33,7 +33,43 @@ export function drawStorefront(c:CanvasRenderingContext2D,id:string,name:string,
   for(let a=14;a<w-12;a+=12)rect(wall,a,h-19,8,12);
   // Entrance lamps and planters frame the same collision footprint.
   for(const a of [4,w-12]){rect(accent,a,70,8,12);rect('#fff0b9',a+2,72,4,7);rect('#765043',a-1,h-14,10,14);rect('#3b6855',a,h-22,8,10);}
+  if(ember){
+   // Hand-detailed stonework, copper flashing, kitchen shelves and street furniture.
+   for(let row=18;row<h-26;row+=7)for(let col=7+(row%2)*4;col<w-8;col+=11){
+    rect('#b4a0a22a',col,row,7,1);rect('#1f223b88',col+7,row+1,1,4);
+   }
+   rect('#3a2736',10,51,w-20,3);rect('#d19363',10,54,w-20,2);
+   for(let a=12;a<w-12;a+=8){rect('#efbc7c',a,55,2,2);rect('#623c43',a+2,59,5,4);}
+   rect('#251d2d',20,72,w-40,3);rect('#d6a56d',20,75,w-40,1);
+   for(let a=23;a<w-23;a+=10){rect(a%3?'#628e85':'#a45154',a,65,4,7);rect('#e4d5a5',a+1,63,2,2);}
+   // Arched brick oven, offset from the chef rather than hidden behind them.
+   rect('#2b2431',22,h-59,29,28);rect('#95634e',24,h-60,25,4);
+   rect('#ad7960',22,h-55,4,23);rect('#754c47',47,h-55,4,23);
+   rect('#e4b481',27,h-57,17,2);rect('#151b2a',27,h-53,19,18);
+   rect('#a14934',28,h-40,17,5);rect('#e67e3e',29,h-39,14,2);
+   // Plates, hanging utensils, copper counter panels and rivets.
+   for(let a=70;a<w-24;a+=7){rect('#c9cdc0',a,80,1,10);rect('#8dada8',a-1,88,3,3);}
+   rect('#ead6a7',w-38,h-29,14,2);rect('#9e9e95',w-36,h-27,12,2);
+   for(let a=17;a<w-16;a+=16){rect('#8a573f',a,h-19,12,13);rect('#c18758',a+1,h-18,10,1);rect('#e6ba78',a+2,h-16,1,1);}
+   for(const a of [27,w-35]){rect('#1d2032',a+3,h-8,2,8);rect('#b85e4b',a,h-10,12,3);rect('#f2a575',a+1,h-10,10,1);}
+   rect('#25434b',w-16,88,7,19);rect('#5af4dc',w-15,89,1,16);
+   for(let a=7;a<w-6;a+=9)rect('#f9c474',a,61,2,2);
+  }
   cache.set(cacheKey,art);
  }
  c.drawImage(art,Math.round(x-w/2),Math.round(y-h));
+ if(/ember.*stone/i.test(name)){
+  c.save();c.translate(Math.round(x-w/2),Math.round(y-h));
+  const frame=Math.floor(time*8)%4;
+  // Crisp neon cores; the world light pass supplies the soft pavement reflections.
+  c.fillStyle='#f77a56';c.fillRect(10,24,w-20,1);c.fillRect(10,47,w-20,1);
+  c.fillStyle='#ffe8b0';c.fillRect(12,25,w-24,1);
+  c.fillStyle='#5ce4d5';c.fillRect(8,27,1,18);c.fillRect(w-9,27,1,18);
+  for(let i=0;i<4;i++){
+   const height=5+(frame+i*3)%7;
+   c.fillStyle='#f36b37';c.fillRect(29+i*4,h-36-height,3,height);
+   c.fillStyle='#ffdb80';c.fillRect(30+i*4,h-36-Math.floor(height/2),1,Math.floor(height/2));
+  }
+  c.restore();
+ }
 }

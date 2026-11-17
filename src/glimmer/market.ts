@@ -337,6 +337,7 @@ export class MarketWorld {
       const add=(dx:number,dy:number,tint:MarketLight['tint'],scale=1,alpha=.35)=>this.lights.push({x:x+dx,y:y+dy,groundY:y+22,tint,scale,alpha});
       if(o.kind==='restaurant'||o.kind==='published-restaurant'){
         const key=o.asset.slice(4) as keyof typeof building,b=building[key];
+        if(o.kind==='published-restaurant'&&/ember.*stone/i.test(liveRestaurants.get(o.id)?.name??'')){add(0,-b.h+36,'red',1.4,.4);add(-30,-35,'gold',1.3,.4);add(45,-55,'cyan',.7,.25);continue;}
         const tint=key==='ramen'||key==='ember'?'red':key==='cafe'?'magenta':key==='pearl'?'violet':'cyan';
         add(b.sign[0],b.sign[1]-16,tint,1.25);add(b.chef[0],b.chef[1]-12,key==='cafe'?'magenta':'gold',1.5,.28);
       }else if(o.asset==='prop-lamp')add(0,-40,'gold',1.25,.45);
@@ -509,8 +510,16 @@ export class MarketWorld {
     if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) {
       const key = o.asset.slice(4) as keyof typeof building, b = building[key], folder = 'assets/world/buildings/';
       if(o.kind==='published-restaurant'){
-        drawStorefront(this.ctx,o.id,liveRestaurants.get(o.id)?.name??'Restaurant',x,y,b.w,b.h);
+        drawStorefront(this.ctx,o.id,liveRestaurants.get(o.id)?.name??'Restaurant',x,y,b.w,b.h,t);
         this.sprite(`assets/characters/chef-${key}.png`,x,y-25,24,24,Math.floor(t/b.period)%4);
+        if(/ember.*stone/i.test(liveRestaurants.get(o.id)?.name??'')){
+          for(let i=0;i<5;i++){
+            const age=(t*.45+i*.2)%1;
+            this.ctx.globalAlpha=(1-age)*.55;
+            this.tintSprite('fx-steam-puff','smoke',x+b.w/2-18+Math.sin(age*5+i)*3,y-b.h-18*age,16,16,Math.min(3,Math.floor(age*4)));
+          }
+          this.ctx.globalAlpha=1;
+        }
         return;
       }
       this.sprite(`${folder}${key}-back.png`,x,y);
