@@ -1,7 +1,7 @@
 import { blendRainLoop } from './rain-loop';
 
 /** Original Glimmer Plate audio mixer. No audio starts before unlock(). */
-type Voice = { audio: HTMLAudioElement; panner?: StereoPannerNode; source?: MediaElementAudioSourceNode };
+type Voice = { audio: HTMLAudioElement; effectSource?: AudioBufferSourceNode; panner?: StereoPannerNode; source?: MediaElementAudioSourceNode };
 type Loop = Voice & {
   id: string; group: 'music' | 'ambience' | 'kitchen'; district: string | null;
   bufferSource?: AudioBufferSourceNode; bufferGain?: GainNode; loading?: boolean;
@@ -35,6 +35,8 @@ export class GlimmerAudio {
   private readonly effects = new Map<string, Effect>();
   private readonly sources: MediaElementAudioSourceNode[] = [];
   private context: AudioContext | null = null;
+  private buffers=new Map<string,Promise<AudioBuffer>>();
+  private activeEffects=new Set<AudioBufferSourceNode>();
   private district = D1;
   private unlocked = false;
   private disposed = false;
@@ -102,13 +104,13 @@ export class GlimmerAudio {
     if (this.context?.state === 'suspended') void this.context.resume().catch(this.playRejected);
     this.unlocked = true;
     for (const channel of this.loops) {
-      if (this.context && channel.id.startsWith('amb-rain')) {
-        if (!channel.bufferSource && !channel.loading) void this.prepareRain(channel);
+      if (this.context) {
+        if (!channel.bufferSource && !channel.loading) void this.prepareLoop(channel);
       } else if (channel.audio.paused) void channel.audio.play().catch(this.playRejected);
     }
   }
 
-  private async prepareRain(channel: Loop): Promise<void> {
+  private async prepareLoop(channel: Loop): Promise<void> {
     const context = this.context;
     if (!context || this.disposed) return;
     channel.loading = true;
@@ -117,14 +119,15 @@ export class GlimmerAudio {
       if (!response.ok) throw new Error('Rain audio unavailable');
       const decoded = await context.decodeAudioData(await response.arrayBuffer());
       if (this.disposed) return;
-      const samples = blendRainLoop(decoded.getChannelData(0), decoded.sampleRate);
+      const rain=channel.id.startsWith('amb-rain');
+      const samples = rain?blendRainLoop(decoded.getChannelData(0), decoded.sampleRate):decoded.getChannelData(0);
       const buffer = context.createBuffer(decoded.numberOfChannels, samples.length, decoded.sampleRate);
       buffer.copyToChannel(samples, 0);
-      for (let c = 1; c < decoded.numberOfChannels; c++) buffer.copyToChannel(blendRainLoop(decoded.getChannelData(c), decoded.sampleRate), c);
+      for (let c = 1; c < decoded.numberOfChannels; c++) buffer.copyToChannel(rain?blendRainLoop(decoded.getChannelData(c), decoded.sampleRate):decoded.getChannelData(c), c);
       const source = context.createBufferSource(), gain = context.createGain();
       source.buffer = buffer; source.loop = true;
       gain.gain.value = 0;
-      source.connect(gain); gain.connect(context.destination);
+      source.connect(gain); gain.connect(channel.panner??context.destination);
       channel.bufferSource = source; channel.bufferGain = gain;
       channel.audio.pause();
       source.start();
@@ -175,8 +178,8 @@ export class GlimmerAudio {
     }
     if (id === 'sfx-grand-finale' || id === 'sfx-finale') {
       const other = this.effects.get(id === 'sfx-grand-finale' ? 'sfx-finale' : 'sfx-grand-finale');
-      if (id === 'sfx-finale' && other?.voices.some(v => !v.audio.paused)) return;
-      if (other) for (const voice of other.voices) voice.audio.pause();
+      if (id === 'sfx-finale' && other?.voices.some(v => !!v.effectSource || !v.audio.paused)) return;
+      if (other) for (const voice of other.voices) {voice.audio.pause();voice.effectSource?.stop();}
       this.duckRemaining = Math.max(this.duckRemaining, id === 'sfx-grand-finale' ? 4 : 4.2);
     } else if (id === 'sfx-order-place' || id === 'sfx-order-ready') {
       this.duckRemaining = Math.max(this.duckRemaining, id === 'sfx-order-place' ? 1.8 : 1.6);
@@ -191,7 +194,20 @@ export class GlimmerAudio {
       : id === 'sfx-cat-mrrp' ? 0.92 + Math.random() * 0.16
       : id === 'sfx-gull' ? 0.94 + Math.random() * 0.12 : 1;
     if (id === 'sfx-gull' && voice.panner) voice.panner.pan.value = Math.random() * 1.2 - 0.6;
+    if(this.context?.state==='running'){void this.playBufferedEffect(id,voice,effect.gain);return;}
     void voice.audio.play().catch(this.playRejected);
+  }
+
+  private async playBufferedEffect(id:string,voice:Voice,gainValue:number):Promise<void>{
+    const context=this.context;if(!context)return;
+    try{
+      let pending=this.buffers.get(id);
+      if(!pending){pending=fetch(voice.audio.src).then(r=>{if(!r.ok)throw Error('Sound unavailable');return r.arrayBuffer();}).then(data=>context.decodeAudioData(data));this.buffers.set(id,pending);}
+      const buffer=await pending;if(this.disposed||this.soundMuted)return;
+      const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;source.playbackRate.value=voice.audio.playbackRate;gain.gain.value=gainValue;
+      source.connect(gain);gain.connect(voice.panner??context.destination);voice.effectSource?.stop();voice.effectSource=source;this.activeEffects.add(source);
+      source.onended=()=>{if(voice.effectSource===source)voice.effectSource=undefined;this.activeEffects.delete(source);source.disconnect();gain.disconnect();};source.start();
+    }catch{this.buffers.delete(id);if(!this.disposed&&!this.soundMuted)void voice.audio.play().catch(this.playRejected);}
   }
 
   /** Simulation delta in seconds and player location in original map tiles. */
@@ -235,7 +251,7 @@ export class GlimmerAudio {
         }
       }
       channel.audio.volume = clamp(gain, 0, 1);
-      if (channel.bufferGain && this.context) channel.bufferGain.gain.setTargetAtTime(this.soundMuted ? 0 : channel.audio.volume, this.context.currentTime, .03);
+
     }
     // At most two kitchens remain audible, including during district crossfades.
     let loudest: Loop | null = null, second: Loop | null = null;
@@ -244,15 +260,17 @@ export class GlimmerAudio {
       else if (!second || channel.audio.volume > second.audio.volume) second = channel;
     }
     for (const channel of this.loops) if (channel.group === 'kitchen' && channel !== loudest && channel !== second) channel.audio.volume = 0;
+    for(const channel of this.loops)if(channel.bufferGain&&this.context)channel.bufferGain.gain.setTargetAtTime((channel.group==='music'?this.musicMuted:this.soundMuted)?0:channel.audio.volume,this.context.currentTime,.03);
   }
 
   setMusicMuted(muted: boolean): void {
     this.musicMuted = muted;
-    for (const channel of this.loops) if (channel.group === 'music') channel.audio.muted = this.musicMuted;
+    for (const channel of this.loops) if (channel.group === 'music') {channel.audio.muted = this.musicMuted;if(channel.bufferGain&&this.context)channel.bufferGain.gain.setTargetAtTime(muted?0:channel.audio.volume,this.context.currentTime,.03);}
   }
 
   setSoundMuted(muted: boolean): void {
     this.soundMuted = muted;
+    if(muted)for(const source of this.activeEffects)source.stop();
     for (const channel of this.loops) if (channel.group !== 'music') {
       channel.audio.muted = this.soundMuted;
       if (channel.bufferGain && this.context) channel.bufferGain.gain.setTargetAtTime(muted ? 0 : channel.audio.volume, this.context.currentTime, .03);
@@ -263,6 +281,7 @@ export class GlimmerAudio {
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
+    for(const source of this.activeEffects){source.stop();source.disconnect();}this.activeEffects.clear();this.buffers.clear();
     for (const channel of this.loops) { channel.bufferSource?.stop(); channel.bufferSource?.disconnect(); channel.bufferGain?.disconnect(); channel.audio.pause(); channel.audio.removeAttribute('src'); channel.audio.load(); channel.panner?.disconnect(); }
     for (const effect of this.effects.values()) for (const voice of effect.voices) {
       voice.audio.pause(); voice.audio.removeAttribute('src'); voice.audio.load(); voice.panner?.disconnect();

@@ -104,7 +104,7 @@ export class GlimmerApp {
   start(restored=false){
     if(!restored)this.state=createState();this.panelReturn.clear();this.checkFinale=false;this.deferredRewards=[];this.onOrderReady();this.talked.clear();this.queue=[];this.toastTime=0;
     this.market.setDistrict('d1-rain-alley');this.sync();this.setScreen('explore');
-    this.market.startEntry();this.musicForDistrict();this.notify(this.gamepadConnected?'Left stick: walk · A / Cross: interact · Menu / Options: controls':restored?'Welcome back!':'Walk with WASD / arrows. Point and click to walk. E to interact.');
+    this.market.startEntry();this.musicForDistrict();this.notify(this.handPlacement?'Tap a storefront to walk there and open its menu. Tap the street to walk.':this.gamepadConnected?'Left stick: walk · A / Cross: interact · Menu / Options: controls':restored?'Welcome back!':'Walk with WASD / arrows. Point and click to walk. E to interact.');
   }
   sync(){this.uiDirty=true;this.market.setFound(new Set(this.state.finds));this.market.setOutfit(this.state.colour,this.state.headwear);}
   notify(message:string){this.uiDirty=true;if(!message)return;if(this.toastTime>0)this.queue.push(message);else{this.toast=message;this.toastTime=2.5;}}
@@ -356,11 +356,12 @@ export class GlimmerApp {
       this.accessibleKey=key;
       // Real browser hit targets align with the canvas. Browser Lens taps no longer
       // depend on a simulated mouse ray passing through the 3D scene.
-      this.accessible.style.cssText=native?'position:fixed;left:50%;top:50%;width:min(96.153846vw,170.940171vh);aspect-ratio:16/9;transform:translate(-50%,-50%);z-index:21;pointer-events:none;':'position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden';
+      this.accessible.style.cssText=native?`position:fixed;left:50%;top:50%;width:min(96.153846vw,170.940171vh);aspect-ratio:16/9;transform:translate(-50%,-50%);z-index:21;pointer-events:${this.screen==='explore'?'auto':'none'};touch-action:manipulation;`:'position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden';
+      this.accessible.onclick=(event)=>{if(native&&this.screen==='explore'&&event.target===this.accessible){const box=this.accessible.getBoundingClientRect();this.pointer((event.clientX-box.left)*1280/box.width,(event.clientY-box.top)*720/box.height);}};
       this.accessible.replaceChildren(...this.buttons.map((b,i)=>{
         const el=document.createElement('button');el.type='button';el.textContent=b.label;el.disabled=b.disabled;
         if(native)el.style.cssText=`position:absolute;left:${b.x/12.8}%;top:${b.y/7.2}%;width:${b.w/12.8}%;height:${b.h/7.2}%;padding:0;border:0;background:transparent;color:transparent;font-size:0;pointer-events:auto;touch-action:manipulation;cursor:pointer;`;
-        el.onclick=()=>{const current=this.buttons[i];if(current&&!current.disabled){this.unlockAudio();current.action();}};return el;
+        el.onclick=()=>{const current=this.buttons[i];if(current&&!current.disabled){this.unlockAudio();this.sound('sfx-ui-select');current.action();}};return el;
       }));
     }
   }
