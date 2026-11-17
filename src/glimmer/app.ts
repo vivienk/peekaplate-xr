@@ -282,17 +282,17 @@ export class GlimmerApp {
       this.button('Delete',220,558,260,60,()=>{this.code=this.code.slice(0,-1);});this.button('Continue',520,558,535,60,()=>this.restore(),this.code.length!==18);
     }else if(this.screen==='menu'){
       this.heading(this.restaurant.name);this.text(this.restaurant.cuisine,98,174,28);
-      this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.picture(marketCatalogue().find(d=>d.id===dish.id)!.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text(demoPrice(dish.id),x+125,y+101,25);});
+      this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.image(dish.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text(demoPrice(dish.id),x+125,y+101,25);});
     }else if(this.screen==='tray'||this.screen==='order'){
       this.heading(this.screen==='order'?'Order Portal':'Your Order Tray');
-      if(!this.state.tray.length){this.text('Your tray is waiting for something delicious.',150,275,36);this.text('Open a restaurant menu and add a SAMPLE dish.',150,330,29);}
+      if(!this.state.tray.length){this.text('Your tray is waiting for something delicious.',150,275,36);this.text('Open a restaurant menu and add a dish.',150,330,29);}
       this.state.tray.forEach((line,i)=>{const d=dishes.find(d=>d.id===line.dish)!;const y=155+i*62;this.image(d.image,100,y,50);this.text(`${d.name}  ×${line.qty}`,165,y+34,29);this.button('−',850,y,70,48,()=>this.add(d.id,-1));this.button('+',935,y,70,48,()=>this.add(d.id),line.qty===3);this.button('Remove',1020,y,140,48,()=>this.add(d.id,-3));});
-      if(this.screen==='order'){this.button('Wardrobe',100,570,280,56,()=>{this.wardrobeReturn=this.screen;this.setScreen('wardrobe');});this.button('Place demo order',550,570,610,56,()=>this.setScreen('confirm'),!this.state.tray.length);}else this.text('Place your order at any Order Portal.',140,613,30);
+      if(this.screen==='order'){this.button('Wardrobe',100,570,280,56,()=>{this.wardrobeReturn=this.screen;this.setScreen('wardrobe');});this.button('Place order',550,570,610,56,()=>this.setScreen('confirm'),!this.state.tray.length);}else this.text('Place your order at any Order Portal.',140,613,30);
     }else if(this.screen==='confirm'||this.screen==='restart'){
-      this.heading(this.screen==='confirm'?'Place this demo order?':'Restart market?');this.wrap(this.screen==='confirm'?'Nothing is paid or sent. Your dishes will appear as holograms at the portal table.':'This clears this visit. Write down your Market code first if you want to return.',170,260,900,36);
+      this.heading(this.screen==='confirm'?'Place this order?':'Restart market?');this.wrap(this.screen==='confirm'?'Nothing is paid or sent. Your dishes will appear as holograms at the portal table.':'This clears this visit. Write down your Market code first if you want to return.',170,260,900,36);
       this.button(this.screen==='confirm'?'Place order':'Restart market',250,450,780,65,()=>{if(this.screen==='confirm'){const ticket=placeOrder(this.state);if(ticket){this.onOrderReady();this.sound('sfx-order-place');this.setScreen('ticket');}}else{this.state=createState();this.onOrderReady();this.market.setDistrict('d1-rain-alley');this.sync();this.setScreen('title');}});
     }else if(this.screen==='ticket'){
-      const t=this.state.ticket!;this.heading(`Order ticket · ${t.number}`);this.text(t.code,300,235,65);this.text(`${t.lines.length} dishes · Holograms ready in 8 seconds`,225,303,32);this.wrap('Use this code to open your order in the PeekaPlate XR table.',200,370,850,32);this.text('Demo order: nothing is charged or sent.',240,470,33);this.button('Done',350,550,580,60,()=>this.close());
+      const t=this.state.ticket!;this.heading(`Order ticket · ${t.number}`);this.text(t.code,300,235,65);this.text(`${t.lines.length} dishes · Holograms ready in 8 seconds`,225,303,32);this.wrap('Use this code to open your order in the PeekaPlate XR table.',200,370,850,32);this.text('Nothing is charged or sent.',240,470,33);this.button('Done',350,550,580,60,()=>this.close());
     }else if(this.screen==='passport'||this.screen==='map'){
       this.heading(this.screen==='passport'?'Market Passport':'Market Map');const district=districts[this.page%3];
       districts.forEach((d,i)=>this.button(d.name,100+i*355,151,335,52,()=>{this.page=i;},false,'primary',districtIconNames[d.district]));
@@ -327,7 +327,7 @@ export class GlimmerApp {
       this.button(`Reduced motion: ${this.reducedMotion?'on':'off'}`,650,410,500,55,()=>{this.reducedMotion=!this.reducedMotion;this.market.reducedMotion=this.reducedMotion;});
       this.button(this.musicMuted?'Music: off':'Music: on',120,575,480,40,()=>{this.musicMuted=!this.musicMuted;this.audio.setMusicMuted(this.musicMuted);});
       this.button('Restart market',120,500,480,55,()=>this.setScreen('restart'));this.button('Return to market',650,500,500,55,()=>this.close());
-      this.text('Demo menus only. No payment or real order submission.',155,645,26);
+      this.text('No payment or real order submission.',155,645,26);
     }
     if(this.toastTime>0&&this.screen==='explore'){const stamp=this.toast.startsWith('Stamp')?restaurants.find(r=>this.toast.endsWith(r.name)):null;this.rect(250,616,780,64);if(stamp)this.image(stamp.stamp,268,599,82);else this.icon('charm',272,634,30);this.text(this.toast,stamp?366:320,658,28);}
     if(this.screen==='menu')this.button('Search dishes',194,642,205,54,()=>this.dining.search(),false,'normal');

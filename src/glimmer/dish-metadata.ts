@@ -8,4 +8,4 @@ export const sampleDishDetails:Record<string,{category:string;price:number}>={
  'r6-1':{category:'Soups',price:16},'r6-2':{category:'Seafood',price:19},'r6-3':{category:'Seafood',price:22},'r6-4':{category:'Sides',price:7},
  'r7-1':{category:'Sushi',price:24},'r7-2':{category:'Sushi',price:18},'r7-3':{category:'Sushi',price:8},'r7-4':{category:'Soups',price:5},'r7-5':{category:'Desserts',price:7},
 };
-export const demoPrice=(id:string)=>`USD ${sampleDishDetails[id].price.toFixed(2)} · Demo`;
+export const demoPrice=(id:string)=>`USD ${sampleDishDetails[id].price.toFixed(2)}`;

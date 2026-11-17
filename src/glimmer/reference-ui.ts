@@ -119,7 +119,7 @@ export function renderReference(a:GlimmerApp):boolean {
    y=a.wrap('Explore three districts. Open seven restaurant menus to collect stamps. Greet cats, talk to locals, scan holo ads and look into puddles for restaurant coupons and other finds.',185,y+22,900,30);
    a.wrap('Finds unlock raincoats and hats. Save favourite dishes to your Tasting List. Write down your Market code to continue another day.',185,y+22,900,30);
    if(!a.kioskOpen)button('Enter Meta Quest VR',185,542,360,54,()=>a.onXR(),'cube');
-   a.text('Demo menus only. No payment or real order submission.',185,620,25);return true;
+   a.text('No payment or real order submission.',185,620,25);return true;
  }
  if(a.screen==='passport'){
    frame(a.kioskOpen?'PeekaPlate Kiosk':'Market Passport','passport');if(a.kioskOpen)tabs();

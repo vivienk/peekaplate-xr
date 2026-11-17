@@ -1,0 +1,184 @@
+{
+  "r1-1": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative Shoyu-style ramen: wheat noodles, soy broth, pork, egg, nori, scallion. Entire ceramic bowl, 45-degree overhead view, transparent background, no text or props.",
+    "original_sha256": "c00e58deaa937ecb48c4987c48b9c24c6b7bb264dfa51627aa721d0f8e7a117b",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r1-3": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Spicy Tantan-style Ramen, ingredients: wheat noodles, sesame broth, chili oil, minced pork, bok choy. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r1-3.",
+    "original_sha256": "42ffec77d35b100d087f430e3e661a79d315b820246dcdd0a12531ccee95f886",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r2-1": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Berry Souffl\u00e9 Pancakes, ingredients: fluffy tall souffle pancakes, whipped cream, mixed berries. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r2-1.",
+    "original_sha256": "7064220d53a28af572756e90375a786c4515a72e9277bbc41cab372f38227d6d",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r2-2": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Avocado Toast with Flowers, ingredients: sourdough toast, avocado, lemon, chili flakes, edible flowers. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r2-2.",
+    "original_sha256": "d2c5910e9e9787b9328ec15a68c892efe4355bdb91340ebd1f2f058d72c2fc60",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r2-4": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Matcha Latte, ingredients: matcha and steamed milk in a ceramic cup. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r2-4.",
+    "original_sha256": "ac3fe44bce99a80d4ff00fcaea7db72b0e0209744aa85bd020cc1db5b57cef13",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r2-5": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Rose Berry Parfait, ingredients: yogurt, rose syrup, granola, berries, cream in a glass. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r2-5.",
+    "original_sha256": "27b948f224fe5751f381d994b8b04fa926196c33a4d33a74becf9ba2a011529b",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r3-3": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Tom Yum-style Soup, ingredients: shrimp, mushrooms, lemongrass, lime leaf, chili in a soup bowl. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r3-3.",
+    "original_sha256": "26907aad1660a5526c65eebf4c5a7e75ff51bf069f2bff1585869b65a9fe8d3f",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r3-5": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Mango Sticky Rice, ingredients: sliced mango, sticky rice, coconut milk, sesame on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r3-5.",
+    "original_sha256": "4c31e6ec91d204f62926c6e93c0aedf04458459f6b4ad06433df13ddaaf0dea4",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r3-6": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Thai Iced Tea, ingredients: black tea, condensed milk, ice, sugar in a tall glass. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r3-6.",
+    "original_sha256": "69796057a454af34a02926f9a04fa7427f47cdb2dba365a7584d7759cabba2e7",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r4-1": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Black-pepper Baked Bun, ingredients: golden sesame-crusted baked buns filled with pork, black pepper and scallion, one cut open, on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r4-1.",
+    "original_sha256": "4f478a2e2b9ca0c41cbadce0c00b986a9ffb4c104cf5c4cac85233e03c1cecb9",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r4-2": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Brown-sugar Pearl Milk Tea, ingredients: black tea, milk, brown sugar streaks, tapioca pearls in a tall glass. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r4-2.",
+    "original_sha256": "01c028faac9b9983318814513708e59f1fe2e30445b4b559ddeedf3f184c4535",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r4-3": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Scallion Pancake, ingredients: flaky golden wheat scallion pancake wedges on a plate, small soy dip. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r4-3.",
+    "original_sha256": "50673b37e579ea935d65e7077783505f4b26f5019e8eeb36850d8e87e052fca8",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r4-4": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Popcorn Chicken, ingredients: crispy bite-sized chicken with potato-starch crust, fried basil, pepper salt and garlic on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r4-4.",
+    "original_sha256": "05f9599a6f0ddb2395aa0459235f7adfcf7b9dfaa06cf9f94f1de1cff16750b7",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r5-1": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Grilled Chicken Skewers, ingredients: soy-glazed grilled chicken and scallion on bamboo skewers, ceramic plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r5-1.",
+    "original_sha256": "e0c4df06fa03cd4ae3fcf0f9b6ef612d06f0c1baf4b4d6399d757a50c19c0094",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r5-2": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Glazed Grilled Corn, ingredients: grilled corn cob, soy glaze, butter, chili flakes, ceramic plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r5-2.",
+    "original_sha256": "c071e7c8d8dceb38f309bfdca226f3327cd90b4a0e84002147fd8c1d18a2c5cb",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r5-3": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Crispy Tofu with Pickled Cabbage, ingredients: crispy tofu cubes, pickled cabbage, garlic, chili, ceramic plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r5-3.",
+    "original_sha256": "41b8316804ac23d1884df45a326a79c35d1df4b3b2af08339c794035cc44577e",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r5-4": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Mango Shaved Ice, ingredients: shaved ice mound, mango chunks, mango syrup, condensed milk, mint in a dessert bowl. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r5-4.",
+    "original_sha256": "0a7bb61fca056a50c7eb910462fac76c1cf442ca4601786cc8be37f86d508e95",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r6-1": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Clam Chowder Bread Bowl, ingredients: clam chowder with potato, cream, celery and thyme inside a sourdough bread bowl on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r6-1.",
+    "original_sha256": "369bfab07d92e1e719757abfa2b76f5932a9e0d0afae04fccf0236dad08f5a8a",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r6-2": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Fish and Chips, ingredients: battered white fish, potato chips, lemon, tartar sauce on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r6-2.",
+    "original_sha256": "1e7a53cc5cdd3eebb2746d8e33950d916a6226fc6badee726b58301c43adce12",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r6-3": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Crab Roll, ingredients: crab meat, mayonnaise, lettuce, lemon in a buttered split bun on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r6-3.",
+    "original_sha256": "ac17cb6addecf54f2d2191dd307a245bda5cafef24c39bdd23bf3f796d765d9a",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r6-4": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's 2.5D dish preview. One Garlic Fries, ingredients: potato fries, garlic, parsley, sea salt, aioli on a plate. Entire vessel and food fully visible, centered with 15 percent empty padding on EVERY side, 45-degree overhead view, soft studio light, appetizing texture. Isolated on genuinely transparent background. No table, additional props, text, watermark, hands or logos. Not a specific restaurant's serving. Dish asset ID r6-4.",
+    "original_sha256": "03f04b49a404f7f7f9c42379a84ff658b4eed25cf3d861956eaf416c50f91bbe",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r7-1": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's individual dish 2.5D preview: Chirashi Bowl, sushi rice, salmon, tuna, tamago, fish roe, cucumber. One serving in appropriate ceramic bowl or plate. Entire dish and vessel visible with generous transparent padding all sides. 45-degree overhead view, soft studio light, appetizing natural textures. Genuinely transparent background. No table, text, watermark, hands or extra props. Not a real restaurant photograph.",
+    "original_sha256": "ada5f8095f3afe036c0728352783d80d4e8214593e23a5b7ab49319bc7f42de3",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r7-2": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's individual dish 2.5D preview: Salmon Nigiri Set, six salmon nigiri with wasabi and pickled ginger. One serving in appropriate ceramic bowl or plate. Entire dish and vessel visible with generous transparent padding all sides. 45-degree overhead view, soft studio light, appetizing natural textures. Genuinely transparent background. No table, text, watermark, hands or extra props. Not a real restaurant photograph.",
+    "original_sha256": "9ea108f16ec5add0bd91dfffd0a947d1e66ff6c3a22c931d690aba56ac24de14",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r7-3": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's individual dish 2.5D preview: Hand Roll, nori cone filled with sushi rice, tuna, salmon, cucumber, fish roe. One serving in appropriate ceramic bowl or plate. Entire dish and vessel visible with generous transparent padding all sides. 45-degree overhead view, soft studio light, appetizing natural textures. Genuinely transparent background. No table, text, watermark, hands or extra props. Not a real restaurant photograph.",
+    "original_sha256": "8f924b3cf95d269701a9fa879a92be0f0acbd439c018d5d751d41d2047911997",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r7-4": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's individual dish 2.5D preview: Miso Soup, miso dashi soup, tofu, wakame and scallion. One serving in appropriate ceramic bowl or plate. Entire dish and vessel visible with generous transparent padding all sides. 45-degree overhead view, soft studio light, appetizing natural textures. Genuinely transparent background. No table, text, watermark, hands or extra props. Not a real restaurant photograph.",
+    "original_sha256": "9c3d5b9cea8a024a4edb4aa3c4d3ff0ff3d93b216f42f0837e63c4a55c94812b",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  },
+  "r7-5": {
+    "method": "built-in image generation",
+    "prompt": "Photorealistic illustrative food cutout for a game's individual dish 2.5D preview: Matcha Mochi, green matcha rice mochi, sweet bean paste, one cut open. One serving in appropriate ceramic bowl or plate. Entire dish and vessel visible with generous transparent padding all sides. 45-degree overhead view, soft studio light, appetizing natural textures. Genuinely transparent background. No table, text, watermark, hands or extra props. Not a real restaurant photograph.",
+    "original_sha256": "d53dcf00f17ce83d3f491ab81301cdcb24f9c626c9b30e69103fbe13d7a9cf55",
+    "label": "Illustrative image; not a restaurant photograph",
+    "physical_measurements": null
+  }
+}

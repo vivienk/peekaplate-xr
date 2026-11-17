@@ -2,7 +2,8 @@ import type { MarketDish } from './catalogue';
 import type { PublicPortion } from '../published/portion';
 import prepared from './generated-portions.json';
 import restaurantPortions from './restaurant-portions.json';
-const bundledLayers=new Map([...Object.values(prepared),...Object.values(restaurantPortions)].flatMap(d=>d.portion.layers.map(layer=>[layer.url,layer] as const)));
+import illustrations from './illustrative-portions.json';
+const bundledLayers=new Map([...Object.values(prepared),...Object.values(restaurantPortions),...Object.values(illustrations)].flatMap(d=>d.portion.layers.map(layer=>[layer.url,layer] as const)));
 export interface PortionScale { measured:boolean; width:number; depth:number; offsetX:number; offsetZ:number; label:string }
 export function portionScale(dish:MarketDish):PortionScale {
  const p=dish.portion,size=p?.physical_size;
@@ -15,7 +16,7 @@ export function portionScale(dish:MarketDish):PortionScale {
 export async function readPortionLayer(layer:PublicPortion['layers'][number],signal:AbortSignal,demo=false,fetcher=fetch){
  let url=layer.url,bundled=false;
  const local=bundledLayers.get(url);
- if(local&&local.sha256===layer.sha256&&local.size_bytes===layer.size_bytes){url=`${import.meta.env.BASE_URL}${url.startsWith('https://restaurant-portions.invalid/')?'restaurant-portions/':'game-portions/'}${url.replace(/^https:\/\/[^/]+\//,'')}`;bundled=true;}
+ if(local&&local.sha256===layer.sha256&&local.size_bytes===layer.size_bytes){url=`${import.meta.env.BASE_URL}${url.startsWith('https://illustrative-portions.invalid/')?'illustrative-portions/':url.startsWith('https://restaurant-portions.invalid/')?'restaurant-portions/':'game-portions/'}${url.replace(/^https:\/\/[^/]+\//,'')}`;bundled=true;}
  if(demo&&url.startsWith('https://portion-fixtures.invalid/')){
   const file=url.slice('https://portion-fixtures.invalid/'.length);
   if(!/^[a-z-]+\.(webp|svg)$/.test(file))throw new Error('Invalid demo layer');

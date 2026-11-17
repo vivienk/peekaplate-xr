@@ -405,5 +405,5 @@ finds.filter(f=>f.kind==='find-puddle').forEach((f,i)=>{
   if(i>=couponVendors.length)return;
   const r=restaurants[couponVendors[i]];
   f.coupon=true;f.label=`${r.name} coupon`;
-  f.lines=[`${r.name}: a rain-night coupon for ${r.dishes[0].name}!`, 'Demo collectible — not redeemable for a real purchase. Keep it in your Passport and visit the restaurant to view the dish.'];
+  f.lines=[`${r.name}: a rain-night coupon for ${r.dishes[0].name}!`, 'Game collectible — not redeemable for a real purchase. Keep it in your Passport and visit the restaurant to view the dish.'];
 });
