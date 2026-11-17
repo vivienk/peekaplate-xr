@@ -10,13 +10,13 @@ export function portionScale(dish:MarketDish):PortionScale {
   label:`Owner plate: ${plate.width_mm/10} × ${plate.depth_mm/10} cm · serves ${dish.servingCount} · device validation pending`};
 }
 export async function readPortionLayer(layer:PublicPortion['layers'][number],signal:AbortSignal,demo=false,fetcher=fetch){
- let url=layer.url;
+ let url=layer.url,bundled=false;
  if(demo&&url.startsWith('https://portion-fixtures.invalid/')){
   const file=url.slice('https://portion-fixtures.invalid/'.length);
   if(!/^[a-z-]+\.(webp|svg)$/.test(file))throw new Error('Invalid demo layer');
-  url=`${import.meta.env.BASE_URL}diner-demo/${file}`;
+  url=`${import.meta.env.BASE_URL}diner-demo/${file}`;bundled=true;
  }
- const response=await fetcher(url,{signal,credentials:'omit',redirect:'error',cache:'no-cache'});
+ const response=await fetcher(url,{signal,credentials:bundled?'same-origin':'omit',redirect:'error',cache:'no-cache'});
  if(!response.ok||!response.body)throw new Error('Layer unavailable');
  const reader=response.body.getReader(),bytes=new Uint8Array(layer.size_bytes);let length=0;
  try{while(true){const chunk=await reader.read();if(chunk.done)break;length+=chunk.value.length;if(length>bytes.length)throw new Error('Layer exceeds budget');bytes.set(chunk.value,length-chunk.value.length);}}finally{await reader.cancel();}
