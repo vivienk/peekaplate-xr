@@ -70,6 +70,8 @@ export class GlimmerApp {
   private blurHandler=()=>{if(this.market.isTravelling){this.pendingFocusPause=true;return;}if(this.screen==='explore'){this.pauseReturn='explore';this.setScreen('pause');}};
   private accessible=document.createElement('nav');
   private accessibleKey='';
+  canvasRevision=0;
+  private marketPainted=false;
   onPortal:(id:string|null)=>void=()=>{};
   onOrderReady:()=>void=()=>{};
   onXR:()=>void=()=>{};
@@ -226,7 +228,7 @@ export class GlimmerApp {
     if(this.screen==='title'&&!this.reducedMotion&&previousLogoFrame!==Math.floor(this.screenAge*4)%4)this.uiDirty=true;
     if(this.screen==='dialogue'){this.dialogueElapsed+=dt;const blip=Math.floor(Math.min(this.dialogueElapsed*40,this.dialogue[this.dialogueIndex]?.length??0)/3);if(this.dialogueTyping&&blip>this.dialogueBlip){this.sound(`sfx-talk-blip-${blip%3+1}`);this.dialogueBlip=blip;}this.market.setTalking(this.dialogueTyping);this.uiDirty=true;}else this.market.setTalking(false);
     if(this.screen==='explore')this.uiDirty=true;
-    const paused=this.paused;this.market.update(dt);this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
+    const paused=this.paused;if(!this.handPlacement||this.screen==='explore'||!this.marketPainted){this.market.update(dt);this.marketPainted=true;}this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
     const ready=advanceTime(this.state,dt,paused);if(ready.changed){this.result(ready);this.sound('sfx-order-ready');this.onOrderReady();}
     if(!paused&&this.screen==='explore'){const hadToast=this.toastTime>0;this.toastTime=Math.max(0,this.toastTime-dt);if(hadToast&&!this.toastTime)this.uiDirty=true;if(!this.toastTime&&this.queue.length)this.notify(this.queue.shift()!);}
     if(this.screen==='explore'&&this.checkFinale&&!this.toastTime&&!this.queue.length){this.checkFinale=false;const finale=nextFinale(this.state);if(finale){this.finaleDistrict=finale.kind==='grand'?null:finale.district??null;this.market.triggerFinale(finale.kind==='grand');this.title=finale.kind==='grand'?'The whole market, in your passport!':`${districts.find(d=>d.district===finale.district)?.name} complete!`;this.setScreen('finale');this.sound(finale.kind==='grand'?'sfx-grand-finale':'sfx-finale');}}
@@ -271,6 +273,9 @@ export class GlimmerApp {
   private add(id:string,delta=1){const r=changeQuantity(this.state,id,delta);this.result(r);this.sound(r.changed?(delta>0?'sfx-order-add':'sfx-order-remove'):'sfx-code-bad');}
   private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;}
   render(){
+    // Static Spectacles panels need no canvas redraw or GPU upload between changes.
+    if(this.handPlacement&&this.screen!=='explore'&&!this.uiDirty&&this.screenAge>.3)return;
+    this.canvasRevision++;
     this.output.imageSmoothingEnabled=false;if(this.portalAR)this.output.clearRect(0,0,1280,720);else this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
     if(this.marketMap.render()||this.dining.render()||renderReference(this)){
       // Reference HUD and modal layouts share the existing interaction targets.
@@ -345,7 +350,19 @@ export class GlimmerApp {
     if(this.screen==='menu')this.button('Search dishes',194,642,205,54,()=>this.dining.search(),false,'normal');
     this.iconButton(this.muted?'Sound off':'Sound on',this.muted?'sound-off':'sound-on',1196,646,60,60,()=>this.toggleSound());
     this.drawOverlay();
-    const key=[this.screen,this.dining.id,this.dining.comparisonAnchor,this.dining.compareId,this.page,...this.buttons.map(b=>b.label+String(b.disabled))].join('|');if(key!==this.accessibleKey){this.accessibleKey=key;this.accessible.replaceChildren(...this.buttons.map(b=>{const el=document.createElement('button');el.textContent=b.label;el.disabled=b.disabled;el.onclick=()=>{this.unlockAudio();b.action();};return el;}));}
+    const native=this.handPlacement&&!this.immersive;
+    const key=[native,this.screen,this.dining.id,this.dining.comparisonAnchor,this.dining.compareId,this.page,...this.buttons.map(b=>[b.label,b.disabled,b.x,b.y,b.w,b.h].join(','))].join('|');
+    if(key!==this.accessibleKey){
+      this.accessibleKey=key;
+      // Real browser hit targets align with the canvas. Browser Lens taps no longer
+      // depend on a simulated mouse ray passing through the 3D scene.
+      this.accessible.style.cssText=native?'position:fixed;left:50%;top:50%;width:min(96.153846vw,170.940171vh);aspect-ratio:16/9;transform:translate(-50%,-50%);z-index:21;pointer-events:none;':'position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden';
+      this.accessible.replaceChildren(...this.buttons.map((b,i)=>{
+        const el=document.createElement('button');el.type='button';el.textContent=b.label;el.disabled=b.disabled;
+        if(native)el.style.cssText=`position:absolute;left:${b.x/12.8}%;top:${b.y/7.2}%;width:${b.w/12.8}%;height:${b.h/7.2}%;padding:0;border:0;background:transparent;color:transparent;font-size:0;pointer-events:auto;touch-action:manipulation;cursor:pointer;`;
+        el.onclick=()=>{const current=this.buttons[i];if(current&&!current.disabled){this.unlockAudio();current.action();}};return el;
+      }));
+    }
   }
   dispose(){window.removeEventListener('keydown',this.keyHandler);window.removeEventListener('blur',this.blurHandler);this.dining.dispose();this.market.dispose();this.audio.dispose();this.accessible.remove();}
 }

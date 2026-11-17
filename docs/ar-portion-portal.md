@@ -21,3 +21,11 @@ Snap's current WebXR documentation states hit testing is emulated and gamepads a
 Validation includes automated missing-hand, same-hand rejection, opposite-hand placement and listener-cleanup tests. Actual Spectacles optics, hand tracking, performance and Browser Lens compatibility require a physical device test. 2.5D portions remain layered images. No Lens Studio publication is needed for Browser Lens.
 
 Short Spectacles preview: https://peekaplate-ar.vercel.app opens hand-placement mode automatically without a query string. The alias retains Vercel authentication until public access is approved and points to a reviewed preview deployment; update it explicitly when publishing a newer Spectacles preview. Other deployment URLs retain their own access settings.
+
+## Spectacles responsiveness (2026-11-17)
+
+Spectacles browser mode uses native, canvas-aligned button hit targets instead of relying on 3D canvas mouse-ray forwarding. They are removed from the viewport during immersive AR so hand interactions remain in the XR scene. The visual pixel buttons are preserved. Search input and dish imagery remain native browser elements.
+
+The market stops updating behind Spectacles menus and portions; exploration retains its normal simulation. Static panels redraw only when invalidated or during their short entrance transition. GPU canvas uploads follow canvas revisions rather than every render frame. Browser pixel ratio is capped at one in Spectacles mode.
+
+Managed browser verification: `npx @iwsdk/cli browser run scripts/verify-spectacles-browser.mjs --timeout 60000` checks real clicks through browse/search/dish/save/back and asserts zero market updates and zero canvas redraws over an idle dish-screen interval. Real-click AR entry was also checked. This verifies input routing and work reduction, not physical Spectacles frame rate; hardware confirmation remains required.

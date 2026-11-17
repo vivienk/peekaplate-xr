@@ -32,6 +32,7 @@ export class GlimmerSystem extends createSystem({}) {
   private dragX=0;private dragY=0;
   init(){
     this.app=new GlimmerApp();this.app.refreshPublished();
+    if(this.app.handPlacement)this.world.renderer.setPixelRatio(1);
     // Make the game surface an explicit keyboard target in embedded browsers.
     const surface=this.world.renderer.domElement, previousTabIndex=surface.getAttribute('tabindex');
     surface.tabIndex=0;
@@ -99,7 +100,7 @@ export class GlimmerSystem extends createSystem({}) {
     if(!immersive&&document.hasFocus()&&!document.hidden){try{pads=navigator.getGamepads?.()??noGamepads;}catch{/* Browser policy may disable gamepads. */}}
     this.browserGamepad.update(dt,pads,!immersive&&document.hasFocus()&&!document.hidden);
     if(immersive){const axes=pad?.getAxesValues(InputComponent.Thumbstick);this.app.market.setInput(axes?.x??0,axes?.y??0);}
-    this.app.update(dt);this.texture.needsUpdate=true;
+    const revision=this.app.canvasRevision;this.app.update(dt);if(revision!==this.app.canvasRevision)this.texture.needsUpdate=true;
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
     const placedAR=this.arPortal.update();this.holograms.visible=!this.app.portalAR;
     if(this.app.screen==='ar'&&!placedAR){
