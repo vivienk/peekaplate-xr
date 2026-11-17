@@ -1,6 +1,7 @@
 import { generatedModelId } from './generated-models';
 import { marketCatalogue } from './catalogue';
 import { flatPortion } from './portion-scene';
+import { STANDARD_PLATE_METRES } from './standard-plate';
 import { createSystem, SessionMode, CanvasTexture, Mesh, PlaneGeometry, MeshBasicMaterial, SRGBColorSpace, NearestFilter, RayInteractable, AssetManager, Group, Box3, Vector3, InputComponent, VisibilityState, AmbientLight, DirectionalLight, type Object3D } from '@iwsdk/core';
 import { GlimmerApp } from './app';
 import { BrowserGamepad } from './gamepad';
@@ -75,8 +76,8 @@ export class GlimmerSystem extends createSystem({}) {
     if(use3d){
       const candidates=[generated,dish.modelId?glimmerModelId(dish.modelId):undefined].filter((id):id is string=>!!id);
       for(const asset of candidates){try{
-        const model=await this.model(dish.modelId??dish.id,.28,asset);if(this.stopped||generation!==this.previewGeneration)return;
-        this.preview.add(model);this.app.portalStatus=asset===generated?'Tripo 3D preview · approximate size':dish.sample?'Game 3D illustration · not the restaurant model':'Approximate 3D preview · not actual size';this.app.invalidate();return;
+        const model=await this.model(dish.modelId??dish.id,STANDARD_PLATE_METRES,asset);if(this.stopped||generation!==this.previewGeneration)return;
+        this.preview.add(model);this.app.portalStatus=asset===generated?'Tripo 3D · 27 cm reference · estimated size':dish.sample?'Game 3D illustration · 27 cm reference · estimated size':'3D · 27 cm reference · estimated size';this.app.invalidate();return;
       }catch{if(this.stopped||generation!==this.previewGeneration)return;}}
     }
     this.app.portalFlat=true;this.app.resetPortal();

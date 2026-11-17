@@ -113,7 +113,7 @@ export class DiningUI {
    a.rect(22,20,1236,105);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,99,23,muted);a.button('Back',1134,42,100,50,()=>a.close(),false,'normal');
    a.context.strokeStyle='#40b8bb';a.context.lineWidth=3;a.context.strokeRect(46,145,1188,429);
    if(a.modelError){a.picture(d.image,460,176,360,360);a.text(a.modelError,65,565,24,cream);}
-   a.text(a.immersive?'Walk closer to inspect · Size is locked in the headset':a.portalFlat?'2.5D · Drag gently to tilt · Zoom for a closer look':'3D · Drag to rotate · Zoom for a closer look',65,605,24,cream);
+   a.text(a.immersive?'Physical scale locked · Walk closer to inspect':a.portalFlat?'2.5D · Zoomed screen preview · Physical scale in Quest':'3D · Drag to rotate · Zoom for a closer look',65,605,24,cream);
    a.button(a.portalFlat?'3D model':'2.5D view',1078,583,154,38,()=>{a.portalView=a.portalFlat?'3d':'2.5d';a.resetPortal();a.onPortal(d.id);},a.portalFlat&&!has3d,'normal');
    a.button('Reset',48,628,150,46,()=>a.resetPortal(),false,'normal');a.button('−',212,628,65,46,()=>a.zoom(.1),a.immersive,'normal');a.button('+',289,628,65,46,()=>a.zoom(-.1),a.immersive,'normal');
    a.button('Previous dish',374,628,210,46,()=>a.nextDish(-1),false,'normal');a.button('Next dish',600,628,200,46,()=>a.nextDish(1),false,'normal');

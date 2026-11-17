@@ -1,4 +1,5 @@
 import type { MarketDish } from './catalogue';
+import { STANDARD_PLATE_METRES } from './standard-plate';
 import type { PublicPortion } from '../published/portion';
 import prepared from './generated-portions.json';
 import restaurantPortions from './restaurant-portions.json';
@@ -8,7 +9,7 @@ export interface PortionScale { measured:boolean; width:number; depth:number; of
 export function portionScale(dish:MarketDish):PortionScale {
  const p=dish.portion,size=p?.physical_size;
  const valid=size&&Number.isInteger(dish.servingCount)&&dish.servingCount===size.serving_count;
- if(!valid)return {measured:false,width:.28,depth:.28,offsetX:0,offsetZ:0,label:'Approximate preview · not actual size'};
+ if(!valid)return {measured:false,width:STANDARD_PLATE_METRES,depth:STANDARD_PLATE_METRES,offsetX:0,offsetZ:0,label:'27 cm dinner-plate reference · estimated dish size'};
  const plate=size.plate,b=plate.boundary,w=plate.width_mm/1000/b.width,h=plate.depth_mm/1000/b.height;
  return {measured:true,width:w,depth:h,offsetX:(.5-b.x-b.width/2)*w,offsetZ:(.5-b.y-b.height/2)*h,
   label:`Owner plate: ${plate.width_mm/10} × ${plate.depth_mm/10} cm · serves ${dish.servingCount} · device validation pending`};
