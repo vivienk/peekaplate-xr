@@ -19,3 +19,5 @@ Spectacles mode requires WebXR hand tracking and a local reference space, withou
 Snap's current WebXR documentation states hit testing is emulated and gamepads are not practically usable, while native hand input is supported. Therefore this path deliberately does not report an emulated hit as a real table. Source: https://developers.snap.com/spectacles/about-spectacles-features/webxr (checked 2026-11-17).
 
 Validation includes automated missing-hand, same-hand rejection, opposite-hand placement and listener-cleanup tests. Actual Spectacles optics, hand tracking, performance and Browser Lens compatibility require a physical device test. 2.5D portions remain layered images. No Lens Studio publication is needed for Browser Lens.
+
+Short Spectacles preview: https://peekaplate-ar.vercel.app opens hand-placement mode automatically without a query string. The alias retains Vercel authentication until public access is approved and points to a reviewed preview deployment; update it explicitly when publishing a newer Spectacles preview. Other deployment URLs retain their own access settings.

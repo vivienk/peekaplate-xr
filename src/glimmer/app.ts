@@ -74,7 +74,7 @@ export class GlimmerApp {
   onOrderReady:()=>void=()=>{};
   onXR:()=>void=()=>{};
   onSpectacles:()=>void=()=>{};
-  handPlacement=typeof location!=='undefined'&&new URLSearchParams(location.search).get('spectacles')==='1';
+  handPlacement=typeof location!=='undefined'&&(location.hostname==='peekaplate-ar.vercel.app'||new URLSearchParams(location.search).get('spectacles')==='1');
   onEnterPortal:()=>void=()=>{};
   onReposition:()=>void=()=>{};
   arSupported=false;portalAR=false;portalPlacement="";
