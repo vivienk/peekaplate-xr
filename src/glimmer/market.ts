@@ -510,14 +510,13 @@ export class MarketWorld {
     if ((o.kind === 'restaurant' || o.kind === 'published-restaurant')) {
       const key = o.asset.slice(4) as keyof typeof building, b = building[key], folder = 'assets/world/buildings/';
       if(o.kind==='published-restaurant'){
-        drawStorefront(this.ctx,o.id,liveRestaurants.get(o.id)?.name??'Restaurant',x,y,b.w,b.h,t,key);
-        this.sprite(`assets/characters/chef-${key}.png`,x,y-25,24,24,Math.floor(t/b.period)%4);
+        drawStorefront(this.ctx,o.id,liveRestaurants.get(o.id)?.name??'Restaurant',x,y,b.w,b.h,t,key,this.image(`${folder}${key}-back.png`),this.image(`${folder}${key}-front.png`),this.image(`${folder}${key}-sign.png`),this.image(`assets/characters/chef-${key}.png`));
         {
           const chimney=key==='ember'||/ember.*stone/i.test(liveRestaurants.get(o.id)?.name??'');
           for(let i=0;i<5;i++){
             const age=(t*.45+i*.2)%1;
             this.ctx.globalAlpha=(1-age)*.55;
-            this.tintSprite('fx-steam-puff',chimney?'smoke':'cyan',x+(chimney?b.w/2-18:-25)+Math.sin(age*5+i)*3,y-(chimney?b.h:50)-18*age,16,16,Math.min(3,Math.floor(age*4)));
+            this.tintSprite('fx-steam-puff',chimney?'smoke':'cyan',x+(chimney?-b.w/2+10:-25)+Math.sin(age*5+i)*3,y-(chimney?b.h:50)-18*age,16,16,Math.min(3,Math.floor(age*4)));
           }
           this.ctx.globalAlpha=1;
         }

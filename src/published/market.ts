@@ -44,7 +44,7 @@ export async function refreshRestaurants(fetcher=fetch):Promise<boolean>{
    if(demoResponse.ok){
     const content=await demoResponse.json() as PublicMenuContentBundle;
     if(content.restaurant?.name==='Ember & Stone'&&Array.isArray(content.categories)){
-     const id='diner-demo:ember-stone';const entry:Entry={venueId:content.venue_id,menuId:content.menu_id,district:'d1-rain-alley',style:'cafe'};
+     const id='diner-demo:ember-stone';const entry:Entry={venueId:content.venue_id,menuId:content.menu_id,district:'d1-rain-alley',style:'ember'};
      placeRestaurant(districts[0],id,entry.style);
      liveRestaurants.set(id,{id,entry,name:content.restaurant.name,content,expiresAt:Number.MAX_SAFE_INTEGER,available:true,enabled:true,demo:true});layoutChanged=true;
     }
