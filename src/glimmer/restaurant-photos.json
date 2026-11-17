@@ -1,0 +1,56 @@
+{
+  "r1-2": {
+    "photo": "restaurant-photos/r1-2.jpg",
+    "source": "https://nokaramen.com/menu",
+    "sourceImage": "https://photos.tryotter.com/menu-photos/13dcae89-3c6f-41ca-a19b-eef5800b633c.jpeg",
+    "sourceDish": "Spicy Miso Ramen",
+    "note": "Spicy miso variant",
+    "retrieved": "2026-11-17",
+    "sha256": "790ce0a8d78df6a1cdbd78ea5a488bc6beed6f1572f0f4d41abfd2bca08a6331"
+  },
+  "r1-4": {
+    "photo": "restaurant-photos/r1-4.jpg",
+    "source": "https://nokaramen.com/menu",
+    "sourceImage": "https://photos.tryotter.com/menu-photos/a4fcf983-7e53-458f-9975-77e29c2daf4e.jpeg",
+    "sourceDish": "Gyoza",
+    "note": "Matching menu dish",
+    "retrieved": "2026-11-17",
+    "sha256": "cae0d89b53ccd1fc63fff010e18e83a24f6d3079cd5fe7716cc8537b8fc3a91e"
+  },
+  "r2-3": {
+    "photo": "restaurant-photos/r2-3.jpg",
+    "source": "https://sonandgarden.com/menu",
+    "sourceImage": "https://photos.tryotter.com/menu-photos/cba377a9-a595-48b8-ace2-0db5463e07ef.jpeg",
+    "sourceDish": "Country Benedict",
+    "note": "Country Benedict variant; sausage instead of ham",
+    "retrieved": "2026-11-17",
+    "sha256": "2ebcd3d18e578aa8d76d21731bf498f1b0e907e4b11f2a47d192a76650647a2c"
+  },
+  "r3-1": {
+    "photo": "restaurant-photos/r3-1.jpg",
+    "source": "https://farmhousethai.com/menu/san-francisco",
+    "sourceImage": "https://photos.tryotter.com/menu-photos/dfa9465c-5654-4992-aaf8-c6fe750bcff0.jpeg",
+    "sourceDish": "Pad Thai",
+    "note": "Restaurant preparation; protein may vary",
+    "retrieved": "2026-11-17",
+    "sha256": "3cf3e4fbeee3e1236ddce26c9edc77bbdd737435d84f37aa9b3c6808df6fd0cc"
+  },
+  "r3-2": {
+    "photo": "restaurant-photos/r3-2.jpg",
+    "source": "https://farmhousethai.com/menu/san-francisco",
+    "sourceImage": "https://photos.tryotter.com/menu-photos/468e4672-4269-4f6b-9444-1a661ad289a9.jpeg",
+    "sourceDish": "Green Curry",
+    "note": "Restaurant preparation; protein may vary",
+    "retrieved": "2026-11-17",
+    "sha256": "c410011d23d44813eb1f00bb7d94cfc4821fa83806e5bb7b21ffb40643640ba6"
+  },
+  "r3-4": {
+    "photo": "restaurant-photos/r3-4.jpg",
+    "source": "https://farmhousethai.com/menu/san-francisco",
+    "sourceImage": "https://photos.tryotter.com/menu-photos/e84712e7-fd99-4b7a-b325-8eb7ca60b584.jpeg",
+    "sourceDish": "Pad Ka Pow",
+    "note": "Restaurant preparation; protein may vary",
+    "retrieved": "2026-11-17",
+    "sha256": "a674ddb194410c1947281a18f2979f502accb1e1c43ccb09f0b3a1358e9d1007"
+  }
+}

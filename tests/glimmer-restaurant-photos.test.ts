@@ -1,0 +1,12 @@
+import {it,expect} from 'vitest';
+import {createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
+import {marketCatalogue} from '../src/glimmer/catalogue';
+import {restaurants,dishes} from '../src/glimmer/data';
+import originals from '../src/glimmer/fixtures/restaurants.json';
+import photos from '../src/glimmer/restaurant-photos.json';
+import portions from '../src/glimmer/restaurant-portions.json';
+import {PublicPortionSchema} from '../src/published/portion';
+it('renames only the three venues while preserving every dish and save-code ID',()=>{expect(restaurants.slice(0,3).map(r=>r.name)).toEqual(['Noka Ramen','Sons and Garden','Farm House Thai']);expect(dishes.map(d=>[d.id,d.name,d.ingredients])).toEqual(originals.flatMap(r=>r.dishes).map(d=>[d.id,d.name,d.ingredients]));});
+it('pairs six source photos with validated cutouts and explicit restaurant variants',()=>{const list=marketCatalogue([]);for(const [id,photo]of Object.entries(photos)){const d=list.find(d=>d.id===id)!;expect(d.image).toBe('/'+photo.photo);expect(d.photoCredit).toContain(photo.sourceDish);expect(d.price).toContain('Demo');const bytes=readFileSync(new URL('../public/'+photo.photo,import.meta.url));expect(createHash('sha256').update(bytes).digest('hex')).toBe(photo.sha256);const portion=portions[id as keyof typeof portions].portion;expect(PublicPortionSchema.safeParse(portion).success).toBe(true);for(const layer of portion.layers){const b=readFileSync(new URL('../public/restaurant-portions/'+layer.url.split('.invalid/')[1],import.meta.url));expect(b.length).toBe(layer.size_bytes);expect(createHash('sha256').update(b).digest('hex')).toBe(layer.sha256);}}expect(Object.keys(photos)).toHaveLength(6);});
+it('retains illustrations and bounded fallbacks when no matching menu photo exists',()=>{for(const id of ['r1-1','r1-3','r2-1','r2-2','r2-4','r2-5','r3-3','r3-5','r3-6']){const d=marketCatalogue([]).find(d=>d.id===id)!;expect(d.image).toContain('/glimmer/');expect(d.photoCredit).toBeUndefined();expect(d.portion).toBeDefined();}});

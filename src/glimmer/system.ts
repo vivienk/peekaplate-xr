@@ -69,14 +69,14 @@ export class GlimmerSystem extends createSystem({}) {
   private async loadPreview(id:string|null){
     const generation=++this.previewGeneration;this.portalAbort?.abort();this.disposePortion?.();this.disposePortion=null;this.preview.clear();this.preview.visible=!!id;if(!id)return;
     const dish=marketCatalogue().find(d=>d.id===id);if(!dish){this.preview.visible=false;return;}
-    const generated=generatedModelId(dish.id),use3d=this.app.portalView!=='2.5d'&&(generated||dish.modelId);
+    const generated=dish.photoCredit?undefined:generatedModelId(dish.id),use3d=this.app.portalView!=='2.5d'&&!(this.app.portalView==='auto'&&dish.photoCredit)&&(generated||dish.modelId);
     this.app.portalFlat=!use3d;this.app.modelError='';this.app.portalStatus='Loading portion…';this.app.invalidate();
     const abort=new AbortController();this.portalAbort=abort;
     if(use3d){
       const candidates=[generated,dish.modelId?glimmerModelId(dish.modelId):undefined].filter((id):id is string=>!!id);
       for(const asset of candidates){try{
         const model=await this.model(dish.modelId??dish.id,.28,asset);if(this.stopped||generation!==this.previewGeneration)return;
-        this.preview.add(model);this.app.portalStatus=asset===generated?'Tripo 3D preview · approximate size':'Approximate 3D preview · not actual size';this.app.invalidate();return;
+        this.preview.add(model);this.app.portalStatus=asset===generated?'Tripo 3D preview · approximate size':dish.photoCredit?'Game 3D illustration · not the restaurant model':'Approximate 3D preview · not actual size';this.app.invalidate();return;
       }catch{if(this.stopped||generation!==this.previewGeneration)return;}}
     }
     this.app.portalFlat=true;this.app.resetPortal();

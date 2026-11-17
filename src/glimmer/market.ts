@@ -5,7 +5,7 @@ import rainAlley from './fixtures/market-map.json';
 import lanternSteps from './fixtures/district-lantern-steps.json';
 import foglinePier from './fixtures/district-fogline-pier.json';
 import manifest from './fixtures/manifest.json';
-import restaurants from './fixtures/restaurants.json';
+import { restaurants } from './data';
 
 type Point = [number, number];
 type Rect = [number, number, number, number];

@@ -1,0 +1,200 @@
+{
+  "r1-2": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "735f0f44-d32f-5096-abac-2c584e579490",
+      "dish_revision_id": "3c6f973e-83d9-56a9-84d5-c8e21f4875c6",
+      "width": 559,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/r1-2/background.svg",
+          "sha256": "089a4c77be8249ada9b033b821cf06f3957a5a8a687728b93034fccd186a59cb",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/r1-2/foreground.webp",
+          "sha256": "4852bde1ebbfe5ebeab5ba1e9ba27fa66aa9514e9786400128e277082660464b",
+          "size_bytes": 78726,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "rembg-2.0.67",
+      "model": "u2netp",
+      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "inference_edge": 1024
+    }
+  },
+  "r1-4": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "faae80ca-b2b9-539a-bb58-cc7c1b856708",
+      "dish_revision_id": "053fea10-40c8-5fc9-8ecf-73d5b517f4fb",
+      "width": 640,
+      "height": 427,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/r1-4/background.svg",
+          "sha256": "112fd776fa06216e196f5ee5e0389a435c5e71acd0b8475a717ae92695405117",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/r1-4/foreground.webp",
+          "sha256": "6093face6535a084a250cb6e5c155b4787820777acac9bc00e84dc1bb68243bf",
+          "size_bytes": 49826,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "rembg-2.0.67",
+      "model": "u2netp",
+      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "inference_edge": 1024
+    }
+  },
+  "r2-3": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "2d83c94e-cd10-55d8-8d0b-22fbacd180ea",
+      "dish_revision_id": "dd2ecbdf-0b93-55c0-acc7-1e370fd623df",
+      "width": 640,
+      "height": 427,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/r2-3/background.svg",
+          "sha256": "112fd776fa06216e196f5ee5e0389a435c5e71acd0b8475a717ae92695405117",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/r2-3/foreground.webp",
+          "sha256": "bca3399ebd56623cc6a8e00379a9182068f340827b8283ee76b965c4763dbe24",
+          "size_bytes": 44278,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "rembg-2.0.67",
+      "model": "u2netp",
+      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "inference_edge": 1024
+    }
+  },
+  "r3-1": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "00f60d9d-5787-5f6b-a017-8d2f7b6f4a7c",
+      "dish_revision_id": "574584d5-299f-5dde-8d12-6a0b6644b134",
+      "width": 640,
+      "height": 457,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/r3-1/background.svg",
+          "sha256": "262df69f6a697fafaaec2d88984f9453f6a083ab8d8917c245ba43f6af01df49",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/r3-1/foreground.webp",
+          "sha256": "0c2e5cc158deabd8f653c001c9daf2d2c4061e26a62bfc0915b8a7dc17d2e629",
+          "size_bytes": 50366,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "rembg-2.0.67",
+      "model": "u2netp",
+      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "inference_edge": 1024
+    }
+  },
+  "r3-2": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "481e8feb-ca4f-550f-8226-93f9f12bc4c5",
+      "dish_revision_id": "85876fd8-312d-509f-8643-318a7e9a8155",
+      "width": 640,
+      "height": 457,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/r3-2/background.svg",
+          "sha256": "262df69f6a697fafaaec2d88984f9453f6a083ab8d8917c245ba43f6af01df49",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/r3-2/foreground.webp",
+          "sha256": "7f1f40c4e26643b96bb65edbd014d0e94b7527e025f74ef4ce99454c658ca524",
+          "size_bytes": 34956,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "rembg-2.0.67",
+      "model": "u2netp",
+      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "inference_edge": 1024
+    }
+  },
+  "r3-4": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "ccf4bb14-7d13-5b8b-9d03-5fa51364b079",
+      "dish_revision_id": "463d732b-f549-5021-9c6e-947fec439db7",
+      "width": 640,
+      "height": 360,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/r3-4/background.svg",
+          "sha256": "d6d9a0f15179e0d91dd1c24b82d8c575929694518418002fa7f43ad671d7055d",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/r3-4/foreground.webp",
+          "sha256": "af196aa2d98b86d32c425d977efb027d72021c9cbbdcf24241bba680affdf1bb",
+          "size_bytes": 56926,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "rembg-2.0.67",
+      "model": "u2netp",
+      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "inference_edge": 1024
+    }
+  }
+}

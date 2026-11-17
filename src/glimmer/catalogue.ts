@@ -3,20 +3,23 @@ import { dishes, restaurants } from './data';
 import { liveRestaurants, type LiveRestaurant } from '../published/market';
 import { PublicPortionSchema, type PublicPortion } from '../published/portion';
 import prepared from './generated-portions.json';
+import photos from './restaurant-photos.json';
+import portions from './restaurant-portions.json';
 
 export interface MarketDish {
   id:string; venueId:string; restaurant:string; name:string; category:string; description:string;
   price:string; ingredients:string[]; allergens:string[]|null; dietary:string[];
-  image:string; modelId?:string; sample:boolean; servingCount?:number; portion?:PublicPortion;
+  photoCredit?:string; sourceUrl?:string; image:string; modelId?:string; sample:boolean; servingCount?:number; portion?:PublicPortion;
 }
-const originals:MarketDish[]=dishes.map(d=>({
+const originals:MarketDish[]=dishes.map(d=>{const photo=photos[d.id as keyof typeof photos],portion=portions[d.id as keyof typeof portions];return ({
   id:d.id, venueId:d.restaurantId, restaurant:restaurants.find(r=>r.id===d.restaurantId)!.name,
   name:d.name, category:sampleDishDetails[d.id].category,
-  description:d.description,price:demoPrice(d.id), ingredients:d.ingredients,allergens:d.allergens,
-  dietary:[...(d.dietary.vegan?['Vegan']:[]),...(d.dietary.vegetarian?['Vegetarian']:[]),...(d.dietary.glutenFree?['Gluten-free']:[])],
-  image:`${import.meta.env.BASE_URL}glimmer/${d.image}`,modelId:d.id,sample:true,
-  portion:PublicPortionSchema.parse(prepared[d.id as keyof typeof prepared].portion),
-}));
+  description:d.description,price:demoPrice(d.id), ingredients:d.ingredients,allergens:photo?null:d.allergens,
+  dietary:photo?[]:[...(d.dietary.vegan?['Vegan']:[]),...(d.dietary.vegetarian?['Vegetarian']:[]),...(d.dietary.glutenFree?['Gluten-free']:[])],
+  image:photo?`${import.meta.env.BASE_URL}${photo.photo}`:`${import.meta.env.BASE_URL}glimmer/${d.image}`,modelId:d.id,sample:true,
+  photoCredit:photo?`${photo.sourceDish} · ${photo.note}`:undefined,sourceUrl:photo?.source,
+  portion:PublicPortionSchema.parse(portion?.portion??prepared[d.id as keyof typeof prepared].portion),
+});});
 
 /** Always read the current publication; withdrawn/expired dishes never linger in search or comparison. */
 export function marketCatalogue(live:Iterable<LiveRestaurant>=liveRestaurants.values(),now=Date.now()):MarketDish[]{

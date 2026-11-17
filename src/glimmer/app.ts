@@ -282,7 +282,7 @@ export class GlimmerApp {
       this.button('Delete',220,558,260,60,()=>{this.code=this.code.slice(0,-1);});this.button('Continue',520,558,535,60,()=>this.restore(),this.code.length!==18);
     }else if(this.screen==='menu'){
       this.heading(this.restaurant.name);this.text(this.restaurant.cuisine,98,174,28);
-      this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.image(dish.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text(demoPrice(dish.id),x+125,y+101,25);});
+      this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.picture(marketCatalogue().find(d=>d.id===dish.id)!.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text(demoPrice(dish.id),x+125,y+101,25);});
     }else if(this.screen==='tray'||this.screen==='order'){
       this.heading(this.screen==='order'?'Order Portal':'Your Order Tray');
       if(!this.state.tray.length){this.text('Your tray is waiting for something delicious.',150,275,36);this.text('Open a restaurant menu and add a SAMPLE dish.',150,330,29);}

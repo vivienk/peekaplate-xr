@@ -54,7 +54,7 @@ export function renderReference(a:GlimmerApp):boolean {
    a.rect(1020,220,232,76);icon('passport',1045,242,28);a.text(`${a.state.stamps.length}/7`,1080,272,29);icon('charm',1140,242,28);a.text(`${a.state.finds.length}/28`,1178,272,29);
    a.hit('Passport',1020,220,232,76,()=>a.openPanel('passport'));
    a.rect(1150,314,102,76);icon('heart',1168,338,32,'#f89537');a.text(String(a.state.tastingList.length),1214,366,27);a.hit('Tasting List',1150,314,102,76,()=>a.openPanel('tasting'));
-   a.iconButton('Search dishes','search',1176,406,76,64,()=>a.dining.search());
+   a.iconButton('Search dishes','search',1150,406,102,64,()=>a.dining.search());
    // Small tray access belongs to the full game's HUD; the reference's corner layout stays clear.
    button('Order Tray',24,642,154,54,()=>a.openPanel('tray'),'tray');
    const o=a.market.focusDetails;

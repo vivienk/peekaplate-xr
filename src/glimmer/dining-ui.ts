@@ -1,6 +1,7 @@
 import type { GlimmerApp, Screen } from './app';
 import { marketCatalogue, searchDishes, similarDishes, allergenLabel, type MarketDish } from './catalogue';
 import { generatedModelId } from './generated-models';
+import { DetailPreview } from './detail-preview';
 import { loadPortionImages } from './portion-images';
 import { foodIcon } from './food-icons';
 import { toggleSavedDish, changeQuantity } from './state';
@@ -10,11 +11,12 @@ export class DiningUI {
  id='r1-1';query='';category='All';categoryPage=0;compareId='';comparisonAnchor='';replaceSide:0|1=1;keyboard=false;ingredientPage=0;infoPage=0;info=false;
  artX=0;artY=0;photoMode=false;
  private previews=new Map<string,{images:{image:HTMLImageElement;depth:number}[];layered:boolean}>();
- private pending=new Set<string>();private previewAbort=new AbortController();
+ private pending=new Set<string>();private failed=new Set<string>();private previewAbort=new AbortController();
  pointer(x:number,y:number){if(this.a.screen!=='dish'||this.a.reducedMotion)return;const dx=Math.max(-1,Math.min(1,(x-295)/200))*5,dy=Math.max(-1,Math.min(1,(y-350)/200))*3;if(dx!==this.artX||dy!==this.artY){this.artX=dx;this.artY=dy;this.a.invalidate();}}
  compareOrigin:Screen='menu';returnTo:Screen='menu';searchReturn:Screen='explore';pickerReturn:Screen='dish';portalReturn:Screen='dish';
  private input=document.createElement('input');
- private resize=()=>this.syncInput();
+ readonly detailPreview=new DetailPreview(()=>this.a.invalidate());
+ private resize=()=>{this.syncInput();this.a.invalidate();};
  constructor(private a:GlimmerApp){
   this.input.type='search';this.input.maxLength=80;this.input.autocomplete='off';this.input.placeholder='Category, ingredient or keyword…';this.input.setAttribute('aria-label','Search dishes by category, ingredient or keyword');
   this.input.style.cssText='position:fixed;display:none;z-index:20;box-sizing:border-box;background:#fff4db;color:#321b15;border:0;outline:0;border-radius:0;font-family:Jersey,monospace;';
@@ -23,16 +25,17 @@ export class DiningUI {
   document.body.append(this.input);window.addEventListener('resize',this.resize);
  }
  syncInput(){
+  if(this.a.screen!=='dish')this.detailPreview.hide();
   const shown=['search','comparePicker'].includes(this.a.screen)&&!this.a.immersive&&!this.keyboard;
   this.input.style.display=shown?'block':'none';if(!shown){this.input.blur();return;}
   const scale=Math.min(innerWidth/1280,innerHeight/720)/1.04,left=(innerWidth-1280*scale)/2,top=(innerHeight-720*scale)/2;
   Object.assign(this.input.style,{left:`${left+112*scale}px`,top:`${top+160*scale}px`,width:`${732*scale}px`,height:`${31*scale}px`,fontSize:`${28*scale}px`});
   if(this.input.value!==this.query)this.input.value=this.query;
  }
- dispose(){this.previewAbort.abort();this.previews.clear();this.input.remove();window.removeEventListener('resize',this.resize);}
+ dispose(){this.detailPreview.dispose();this.previewAbort.abort();this.previews.clear();this.input.remove();window.removeEventListener('resize',this.resize);}
 
  get selected(){return marketCatalogue().find(d=>d.id===this.id);}
- show(id:string,from:Screen='menu'){if(!marketCatalogue().some(d=>d.id===id))return;this.id=id;this.returnTo=from;this.info=false;this.photoMode=false;this.ingredientPage=0;this.infoPage=0;this.a.setScreen('dish');}
+ show(id:string,from:Screen='menu'){if(!marketCatalogue().some(d=>d.id===id))return;this.id=id;this.returnTo=from;this.info=false;this.photoMode=false;this.artX=this.artY=0;this.detailPreview.reset();this.ingredientPage=0;this.infoPage=0;this.a.setScreen('dish');}
  search(){this.searchReturn=this.a.screen;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.a.setScreen('search');}
  compare(){this.compareOrigin=this.returnTo;this.comparisonAnchor=this.id;this.compareId='';this.replaceSide=1;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='dish';this.a.setScreen('comparePicker');}
  replace(side:0|1){this.replaceSide=side;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='comparison';this.a.setScreen('comparePicker');}
@@ -52,7 +55,7 @@ export class DiningUI {
  private heading(title:string){this.a.heading(title);}
  private picture(d:MarketDish,x:number,y:number,size:number){
   const a=this.a,c=a.context,key=d.id+'|'+(d.portion?.layers.map(l=>l.sha256).join()??d.image);a.rect(x,y,size,size,'#e5d1a6');
-  if(!this.pending.has(key)&&!this.previews.has(key)){this.pending.add(key);void loadPortionImages(d,AbortSignal.any([this.previewAbort.signal,AbortSignal.timeout(15000)])).then(result=>{if(!this.previewAbort.signal.aborted){if(this.previews.size>=40)this.previews.delete(this.previews.keys().next().value!);this.previews.set(key,result);a.invalidate();}}).catch(()=>{});}
+  if(!this.pending.has(key)&&!this.previews.has(key)&&!this.failed.has(key)){this.pending.add(key);void loadPortionImages(d,AbortSignal.any([this.previewAbort.signal,AbortSignal.timeout(15000)])).then(result=>{if(!this.previewAbort.signal.aborted){if(this.previews.size>=40)this.previews.delete(this.previews.keys().next().value!);this.previews.set(key,result);a.invalidate();}}).catch(()=>{this.failed.add(key);a.invalidate();}).finally(()=>this.pending.delete(key));}
   const preview=this.previews.get(key);
   if(this.photoMode||!preview){a.picture(d.image,x+12,y+12,size-24,size-24);}else{
    c.save();c.beginPath();c.rect(x+4,y+4,size-8,size-8);c.clip();
@@ -61,7 +64,9 @@ export class DiningUI {
    for(const layer of preview.images){const ratio=layer.image.naturalHeight/layer.image.naturalWidth,w=size-24,h=w*ratio;c.save();c.translate(x+size/2+dx*layer.depth,y+size/2+dy*layer.depth);c.transform(1,dy*.002,dx*.002,1,0,0);c.drawImage(layer.image,-w/2,-h/2,w,h);c.restore();}c.restore();
   }
   a.text(this.photoMode?'PHOTO':preview?.layered?'2.5D PREVIEW':'PHOTO PREVIEW',x+14,y+27,20,muted);
-  a.button(this.photoMode?'2.5D preview':'Original photo',x+8,y+size-44,size-16,36,()=>{this.photoMode=!this.photoMode;},false,'normal');
+  this.detailPreview.show(d,this.photoMode,a.reducedMotion,a.immersive);
+  a.button(this.photoMode?'2.5D preview':'Original photo',x+8,y+size-44,214,36,()=>{this.photoMode=!this.photoMode;},false,'normal');
+  a.button(this.detailPreview.status.includes('Retry')?'Retry':'Reset view',x+230,y+size-44,122,36,()=>{this.artX=this.artY=0;this.detailPreview.reset();if(this.detailPreview.status.includes('Retry')){this.detailPreview.retry();this.failed.delete(key);this.previews.delete(key);}},false,'normal');
  }
  private pages(total:number,size:number,y:number){const a=this.a;a.button('Previous',96,y,155,42,()=>{a.page--;},a.page===0,'normal');a.text(`${a.page+1} / ${Math.max(1,Math.ceil(total/size))}`,585,y+28,24,muted);a.button('Next',1020,y,155,42,()=>{a.page++;},(a.page+1)*size>=total,'normal');}
  private allergy(d:MarketDish,x:number,y:number,width:number){const a=this.a;
@@ -126,7 +131,7 @@ export class DiningUI {
    });return true;
   }
   this.heading('Dish details');
-  this.picture(d,114,155,360);this.textBlock(d.description,110,548,388,24,2);a.text(d.sample?'SAMPLE MENU':'PUBLISHED MENU',112,609,23,muted);
+  this.picture(d,114,155,360);this.textBlock(d.photoCredit??d.description,110,540,388,22,2);a.text(d.photoCredit?'RESTAURANT PHOTO · GAME RECIPE':d.sample?'SAMPLE MENU':'PUBLISHED MENU',112,609,21,muted);
   a.text(d.servingCount?`Serves ${d.servingCount}`:'Serving count not supplied',112,644,23);
   const x=528;a.text(`CATEGORY · ${d.category.toUpperCase()}`,x,172,22,muted);this.textBlock(d.name,x,208,640,37,2);a.text(d.price,x,282,32,'#a65326');
   a.button(this.info?'Ingredients':'More info',1000,257,177,38,()=>{this.info=!this.info;this.infoPage=0;},false,'normal');
@@ -136,7 +141,7 @@ export class DiningUI {
    a.button('Previous info',x,575,190,38,()=>{this.infoPage--;},this.infoPage===0,'normal');a.button('Next info',990,575,190,38,()=>{this.infoPage++;},(this.infoPage+1)*7>=lines.length,'normal');
   }else{
    let y=this.allergy(d,x,315,640);y=Math.max(y+36,421);
-   a.text('INGREDIENTS',x,y,23,muted);
+   a.text(d.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x,y,23,muted);
    const rows=Math.max(1,Math.min(2,Math.floor((594-y)/65))),count=rows*3;
    this.ingredientPage=Math.min(this.ingredientPage,Math.max(0,Math.ceil(d.ingredients.length/count)-1));
    d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{const xx=x+(i%3)*216,yy=y+14+Math.floor(i/3)*65;a.rect(xx,yy,202,57,'#e6d4ad');foodIcon(a.context,name,xx+8,yy+12,32);this.textBlock(name,xx+48,yy+23,145,21,2);});
