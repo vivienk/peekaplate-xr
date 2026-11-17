@@ -1,0 +1,24 @@
+{
+  "r1-4": {
+    "engine": "imagegen",
+    "operation": "background-extraction",
+    "prompt": "Use case: background-extraction. Edit this exact restaurant photograph into a transparent-background cutout for a 2.5D menu. KEEP the entire dark teal ceramic plate including its complete outer rim, all gyoza with delicate lacy crust, garnish, and the dipping sauce bowl resting on the plate. Remove ONLY the wooden table and all background outside the plate. Preserve the original food, original plate color and shape, camera angle, lighting, detail and relative layout. Do not invent or rearrange food, do not crop any plate edge. No new plate, no text, no shadow outside the plate, no background. Output real alpha transparency, same landscape composition.",
+    "source_photo": "public/restaurant-photos/r1-4.jpg",
+    "source_sha256": "cae0d89b53ccd1fc63fff010e18e83a24f6d3079cd5fe7716cc8537b8fc3a91e",
+    "generated_sha256": "c98e3c4be58c2ee5305eaf30627df3658d6baab181681f1e0e5d9c0c2e32eec9",
+    "reviewed_cutout": "scripts/processing/reviewed-cutouts/r1-4.webp",
+    "sha256": "c10dc6046a900e3cd02993ec9b934b52bb95ca2fd3bb838d7f01fa367bc908cc",
+    "reviewed": true
+  },
+  "r2-3": {
+    "engine": "imagegen",
+    "operation": "background-extraction",
+    "prompt": "Use case: background-extraction. Edit the exact supplied restaurant photograph into a transparent 2.5D menu cutout. Isolate ONLY the main foreground eggs Benedict toast: two eggs with yellow hollandaise, sausage patties, avocado slices, two slices of rustic bread, bacon bits and herbs on top. REMOVE the yellow background sauce cup behind the right egg completely, and remove all the background dishes, drinking glass, table, and blue plate/background. Preserve the food's original arrangement, camera angle, colors, textures and lighting. Do not invent a plate or any new food. Keep all foreground bread edges and the main food intact. No text, no background, no shadow outside the food. Genuine transparent alpha, same landscape orientation.",
+    "source_photo": "public/restaurant-photos/r2-3.jpg",
+    "source_sha256": "2ebcd3d18e578aa8d76d21731bf498f1b0e907e4b11f2a47d192a76650647a2c",
+    "generated_sha256": "a6126efe2260c72f968f1ab46ce9ebe2436510696c72ae02e091838b497f5c5b",
+    "reviewed_cutout": "scripts/processing/reviewed-cutouts/r2-3.webp",
+    "sha256": "7c5be30c668d4a3535be4cfe4430751cae8cd0ac54b8a0972d8cd2d43121ef21",
+    "reviewed": true
+  }
+}

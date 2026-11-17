@@ -63,7 +63,7 @@ export class DiningUI {
    const dx=a.reducedMotion?0:this.artX,dy=a.reducedMotion?0:this.artY;
    for(const layer of preview.images){const ratio=layer.image.naturalHeight/layer.image.naturalWidth,w=size-24,h=w*ratio;c.save();c.translate(x+size/2+dx*layer.depth,y+size/2+dy*layer.depth);c.transform(1,dy*.002,dx*.002,1,0,0);c.drawImage(layer.image,-w/2,-h/2,w,h);c.restore();}c.restore();
   }
-  a.text(this.photoMode?(d.illustrative?'ILLUSTRATIVE IMAGE':'PHOTO'):preview?.layered?'2.5D PREVIEW':'PHOTO PREVIEW',x+14,y+27,20,muted);
+  a.text(this.photoMode?(d.illustrative?'ILLUSTRATIVE IMAGE':'PHOTO'):preview?.layered?(d.cutoutEdited?'2.5D · AI-CLEANED CUTOUT':'2.5D PREVIEW'):'PHOTO PREVIEW',x+14,y+27,20,muted);
   this.detailPreview.show(d,this.photoMode,a.reducedMotion,a.immersive);
   a.button(this.photoMode?'2.5D preview':d.illustrative?'Illustrative image':'Original photo',x+8,y+size-44,190,36,()=>{this.photoMode=!this.photoMode;},false,'normal','',0,26);
   a.button(this.detailPreview.status.includes('Retry')?'Retry':'Reset view',x+206,y+size-44,146,36,()=>{this.artX=this.artY=0;this.detailPreview.reset();if(this.detailPreview.status.includes('Retry')){this.detailPreview.retry();this.failed.delete(key);this.previews.delete(key);}},false,'normal','',0,26);

@@ -38,7 +38,7 @@
       "dish_id": "faae80ca-b2b9-539a-bb58-cc7c1b856708",
       "dish_revision_id": "053fea10-40c8-5fc9-8ecf-73d5b517f4fb",
       "width": 640,
-      "height": 427,
+      "height": 428,
       "motion": {
         "max_yaw_degrees": 3,
         "max_pitch_degrees": 3
@@ -46,23 +46,23 @@
       "layers": [
         {
           "url": "https://restaurant-portions.invalid/r1-4/background.svg",
-          "sha256": "112fd776fa06216e196f5ee5e0389a435c5e71acd0b8475a717ae92695405117",
+          "sha256": "dc9a4502082c0975ca194bd24db5ab34d68895523cda37f1e3c8ba306f04b376",
           "size_bytes": 71,
           "depth": 0
         },
         {
           "url": "https://restaurant-portions.invalid/r1-4/foreground.webp",
-          "sha256": "6093face6535a084a250cb6e5c155b4787820777acac9bc00e84dc1bb68243bf",
-          "size_bytes": 49826,
+          "sha256": "0035945dce0f76eb0a21813ed55684b093bd4e08918129e853cdeb39420f9d8c",
+          "size_bytes": 80900,
           "depth": 1
         }
       ]
     },
     "segmentation": {
-      "engine": "rembg-2.0.67",
-      "model": "u2netp",
-      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
-      "inference_edge": 1024
+      "engine": "imagegen",
+      "operation": "reviewed-background-extraction",
+      "source_sha256": "cae0d89b53ccd1fc63fff010e18e83a24f6d3079cd5fe7716cc8537b8fc3a91e",
+      "cutout_sha256": "c10dc6046a900e3cd02993ec9b934b52bb95ca2fd3bb838d7f01fa367bc908cc"
     }
   },
   "r2-3": {
@@ -85,17 +85,17 @@
         },
         {
           "url": "https://restaurant-portions.invalid/r2-3/foreground.webp",
-          "sha256": "bca3399ebd56623cc6a8e00379a9182068f340827b8283ee76b965c4763dbe24",
-          "size_bytes": 44278,
+          "sha256": "072f6e837968aec546c9a78b66f7ab34c006f725284f817a4bff6d93de5f58eb",
+          "size_bytes": 81470,
           "depth": 1
         }
       ]
     },
     "segmentation": {
-      "engine": "rembg-2.0.67",
-      "model": "u2netp",
-      "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
-      "inference_edge": 1024
+      "engine": "imagegen",
+      "operation": "reviewed-background-extraction",
+      "source_sha256": "2ebcd3d18e578aa8d76d21731bf498f1b0e907e4b11f2a47d192a76650647a2c",
+      "cutout_sha256": "7c5be30c668d4a3535be4cfe4430751cae8cd0ac54b8a0972d8cd2d43121ef21"
     }
   },
   "r3-1": {

@@ -1,16 +1,23 @@
-"""PR162 alpha-only segmentation of matched source photos, with hashed T1 layers."""
+"""Prepare hashed T1 layers from reviewed cutout edits or source-photo segmentation."""
 import sys,json,hashlib,io,os
 from pathlib import Path
 from uuid import uuid5,NAMESPACE_URL
 from PIL import Image,ImageOps
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts/processing'))
 os.environ['U2NET_HOME']=str(ROOT/'.model-pipeline/models')
-from peekaplate_processing.cutout import automatic_mask
 sha=lambda b:hashlib.sha256(b).hexdigest()
-index=json.loads((ROOT/'src/glimmer/restaurant-photos.json').read_text());out={}
+index=json.loads((ROOT/'src/glimmer/restaurant-photos.json').read_text());out=json.loads((ROOT/'src/glimmer/restaurant-portions.json').read_text())
+reviewed=json.loads((ROOT/'docs/restaurant-cutout-edits.json').read_text())
 for id,entry in index.items():
- source=ImageOps.exif_transpose(Image.open(ROOT/'public'/entry['photo'])).convert('RGB');source.thumbnail((640,640),Image.Resampling.LANCZOS)
- mask,metadata=automatic_mask(source);source=source.convert('RGBA');source.putalpha(Image.open(io.BytesIO(mask)).convert('L'))
+ if sys.argv[1:] and id not in sys.argv[1:]:continue
+ if id in reviewed:
+  edit=reviewed[id];data=(ROOT/edit['reviewed_cutout']).read_bytes()
+  assert sha(data)==edit['sha256'] and sha((ROOT/'public'/entry['photo']).read_bytes())==edit['source_sha256']
+  source=Image.open(io.BytesIO(data)).convert('RGBA');metadata={'engine':'imagegen','operation':'reviewed-background-extraction','source_sha256':edit['source_sha256'],'cutout_sha256':edit['sha256']}
+ else:
+  from peekaplate_processing.cutout import automatic_mask
+  source=ImageOps.exif_transpose(Image.open(ROOT/'public'/entry['photo'])).convert('RGB');source.thumbnail((640,640),Image.Resampling.LANCZOS)
+  mask,metadata=automatic_mask(source);source=source.convert('RGBA');source.putalpha(Image.open(io.BytesIO(mask)).convert('L'))
  folder=ROOT/'public/restaurant-portions'/id;folder.mkdir(parents=True,exist_ok=True)
  data=io.BytesIO();source.save(data,'WEBP',quality=88,method=6);foreground=data.getvalue()
  background=f'<svg xmlns="http://www.w3.org/2000/svg" width="{source.width}" height="{source.height}"></svg>'.encode()

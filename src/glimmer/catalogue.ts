@@ -10,7 +10,7 @@ import illustrations from './illustrative-portions.json';
 export interface MarketDish {
   id:string; venueId:string; restaurant:string; name:string; category:string; description:string;
   price:string; ingredients:string[]; allergens:string[]|null; dietary:string[];
-  illustrative?:boolean; menuImage?:string; photoCredit?:string; sourceUrl?:string; image:string; modelId?:string; sample:boolean; servingCount?:number; portion?:PublicPortion;
+  illustrative?:boolean; cutoutEdited?:boolean; menuImage?:string; photoCredit?:string; sourceUrl?:string; image:string; modelId?:string; sample:boolean; servingCount?:number; portion?:PublicPortion;
 }
 const originals:MarketDish[]=dishes.map(d=>{const photo=photos[d.id as keyof typeof photos],portion=portions[d.id as keyof typeof portions],illustration=illustrations[d.id as keyof typeof illustrations];return ({
   id:d.id, venueId:d.restaurantId, restaurant:restaurants.find(r=>r.id===d.restaurantId)!.name,
@@ -18,7 +18,7 @@ const originals:MarketDish[]=dishes.map(d=>{const photo=photos[d.id as keyof typ
   description:d.description.replace(/^Sample dish:\s*/i,''),price:demoPrice(d.id), ingredients:d.ingredients,allergens:photo?null:d.allergens,
   dietary:photo?[]:[...(d.dietary.vegan?['Vegan']:[]),...(d.dietary.vegetarian?['Vegetarian']:[]),...(d.dietary.glutenFree?['Gluten-free']:[])],
   image:photo?`${import.meta.env.BASE_URL}${photo.photo}`:illustration?`${import.meta.env.BASE_URL}${illustration.image}`:`${import.meta.env.BASE_URL}glimmer/${d.image}`,menuImage:`${import.meta.env.BASE_URL}glimmer/${d.image}`,illustrative:!!illustration,modelId:d.id,sample:true,
-  photoCredit:photo?`${photo.sourceDish} · ${photo.note}`:undefined,sourceUrl:photo?.source,
+  photoCredit:photo?`${photo.sourceDish} · ${photo.note}`:undefined,sourceUrl:photo?.source,cutoutEdited:portion?.segmentation.engine==='imagegen',
   portion:PublicPortionSchema.parse(portion?.portion??illustration?.portion??prepared[d.id as keyof typeof prepared].portion),
 });});
 
