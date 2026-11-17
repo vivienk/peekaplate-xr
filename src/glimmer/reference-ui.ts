@@ -1,3 +1,4 @@
+import { restaurantLogo } from './market-map-ui';
 import { districtIconNames } from './district-icons';
 import { liveRestaurants } from '../published/market';
 import type { GlimmerApp } from './app';
@@ -46,13 +47,14 @@ export function renderReference(a:GlimmerApp):boolean {
      c.fillStyle=cream;c.fillRect(x-20,y-20,40,40);c.fillStyle='#0f1533';c.fillRect(x-18,y-18,36,36);a.image(r.emblem,x-17,y-17,34);
      if(a.state.stamps.includes(r.id)){a.rect(x+8,y+8,20,22);icon('check',x+10,y+10,16,'#256b43');}
    });
-   d.objects.filter(o=>o.kind==='published-restaurant').forEach(o=>{const x=mx+15+o.pivot[0]*sx,y=my+13+(o.pivot[1]-3)*sy;c.fillStyle=cream;c.fillRect(x-12,y-12,24,24);a.image(`assets/ui/emblems/emblem-${o.asset.slice(4)}.png`,x-11,y-11,22);});
+   d.objects.filter(o=>o.kind==='published-restaurant').forEach(o=>{const x=mx+15+o.pivot[0]*sx,y=my+13+(o.pivot[1]-3)*sy;c.fillStyle=cream;c.fillRect(x-12,y-12,24,24);restaurantLogo(a,{id:o.id,cuisine:o.asset.slice(4)},x-11,y-11,22);});
    c.fillStyle='#f5c518';c.fillRect(mx+15+a.market.player.x*sx-4,my+13+a.market.player.y*sy-4,8,8);
    icon(districtIconNames[d.district],mx+20,my+mh-39,24,cream);a.text(d.name,mx+52,my+mh-18,26,cream);
    a.hit('Market Map',mx,my,mw,mh,()=>a.openPanel('map'));
    a.rect(1020,220,232,76);icon('passport',1045,242,28);a.text(`${a.state.stamps.length}/7`,1080,272,29);icon('charm',1140,242,28);a.text(`${a.state.finds.length}/28`,1178,272,29);
    a.hit('Passport',1020,220,232,76,()=>a.openPanel('passport'));
    a.rect(1150,314,102,76);icon('heart',1168,338,32,'#f89537');a.text(String(a.state.tastingList.length),1214,366,27);a.hit('Tasting List',1150,314,102,76,()=>a.openPanel('tasting'));
+   a.iconButton('Search dishes','search',1176,406,76,64,()=>a.dining.search());
    // Small tray access belongs to the full game's HUD; the reference's corner layout stays clear.
    button('Order Tray',24,642,154,54,()=>a.openPanel('tray'),'tray');
    const o=a.market.focusDetails;

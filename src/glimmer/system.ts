@@ -1,3 +1,4 @@
+import { generatedModelId } from './generated-models';
 import { marketCatalogue } from './catalogue';
 import { flatPortion } from './portion-scene';
 import { createSystem, SessionMode, CanvasTexture, Mesh, PlaneGeometry, MeshBasicMaterial, SRGBColorSpace, NearestFilter, RayInteractable, AssetManager, Group, Box3, Vector3, InputComponent, VisibilityState, AmbientLight, DirectionalLight, type Object3D } from '@iwsdk/core';
@@ -19,7 +20,6 @@ export class GlimmerSystem extends createSystem({}) {
   private portalAbort:AbortController|null=null;
   private disposePortion:(()=>void)|null=null;
   private stopped=false;
-  private accumulator=0;
   private pointerStart:{x:number;y:number}|null=null;
   private dragging=false;
   private touchStick:number|null=null;
@@ -62,19 +62,23 @@ export class GlimmerSystem extends createSystem({}) {
     if(import.meta.env.DEV){(window as unknown as {glimmer:GlimmerApp}).glimmer=this.app;(window as unknown as {glimmerLoadModel:(id:string)=>Promise<boolean>}).glimmerLoadModel=async(id)=>{const model=await AssetManager.loadGLTFById(glimmerModelId(id));return model.scene.children.length>0;};}
     console.info('[GLIMMER] runtime ready');
   }
-  private async model(id:string,width:number):Promise<Object3D>{
-    await AssetManager.loadGLTFById(glimmerModelId(id));const model=AssetManager.getGLTF(glimmerModelId(id))!.scene.clone(true);
+  private async model(id:string,width:number,assetId=glimmerModelId(id)):Promise<Object3D>{
+    await AssetManager.loadGLTFById(assetId);const model=AssetManager.getGLTF(assetId)!.scene.clone(true);
     model.updateMatrixWorld(true);const box=new Box3().setFromObject(model),size=box.getSize(new Vector3()),center=box.getCenter(new Vector3());const scale=width/Math.max(size.x,size.z,.001);model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);return model;
   }
   private async loadPreview(id:string|null){
     const generation=++this.previewGeneration;this.portalAbort?.abort();this.disposePortion?.();this.disposePortion=null;this.preview.clear();this.preview.visible=!!id;if(!id)return;
     const dish=marketCatalogue().find(d=>d.id===id);if(!dish){this.preview.visible=false;return;}
-    this.app.portalFlat=!dish.modelId;this.app.modelError='';this.app.portalStatus='Loading portion…';this.app.invalidate();
+    const generated=generatedModelId(dish.id),use3d=this.app.portalView!=='2.5d'&&(generated||dish.modelId);
+    this.app.portalFlat=!use3d;this.app.modelError='';this.app.portalStatus='Loading portion…';this.app.invalidate();
     const abort=new AbortController();this.portalAbort=abort;
-    if(dish.modelId){try{
-      const model=await this.model(dish.modelId,.28);if(this.stopped||generation!==this.previewGeneration)return;
-      this.preview.add(model);this.app.portalStatus='Approximate 3D preview · not actual size';this.app.invalidate();return;
-    }catch{/* A model failure keeps the dish available as a photo in the same spatial portal. */}}
+    if(use3d){
+      const candidates=[generated,dish.modelId?glimmerModelId(dish.modelId):undefined].filter((id):id is string=>!!id);
+      for(const asset of candidates){try{
+        const model=await this.model(dish.modelId??dish.id,.28,asset);if(this.stopped||generation!==this.previewGeneration)return;
+        this.preview.add(model);this.app.portalStatus=asset===generated?'Tripo 3D preview · approximate size':'Approximate 3D preview · not actual size';this.app.invalidate();return;
+      }catch{if(this.stopped||generation!==this.previewGeneration)return;}}
+    }
     this.app.portalFlat=true;this.app.resetPortal();
     try{const flat=await flatPortion(dish,AbortSignal.any([abort.signal,AbortSignal.timeout(15000)]));
       if(this.stopped||generation!==this.previewGeneration){flat.dispose();return;}
@@ -89,7 +93,7 @@ export class GlimmerSystem extends createSystem({}) {
     if(!immersive&&document.hasFocus()&&!document.hidden){try{pads=navigator.getGamepads?.()??noGamepads;}catch{/* Browser policy may disable gamepads. */}}
     this.browserGamepad.update(dt,pads,!immersive&&document.hasFocus()&&!document.hidden);
     if(immersive){const axes=pad?.getAxesValues(InputComponent.Thumbstick);this.app.market.setInput(axes?.x??0,axes?.y??0);}
-    this.accumulator+=dt;if(this.accumulator>=1/30){this.app.update(this.accumulator);this.texture.needsUpdate=true;this.accumulator=0;}
+    this.app.update(dt);this.texture.needsUpdate=true;
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
     if(this.app.screen==='ar'){
       this.preview.position.set(0,immersive?1.05:1.65,immersive?-1.05:-2.25);

@@ -67,3 +67,7 @@ blender-rpms*/
 node_modules
 dist/
 .iwsdk/
+
+# Private model preparation and provider job state
+.model-pipeline/
+__pycache__/

@@ -1,6 +1,8 @@
+import { sampleDishDetails, demoPrice } from './dish-metadata';
 import { dishes, restaurants } from './data';
 import { liveRestaurants, type LiveRestaurant } from '../published/market';
 import { PublicPortionSchema, type PublicPortion } from '../published/portion';
+import prepared from './generated-portions.json';
 
 export interface MarketDish {
   id:string; venueId:string; restaurant:string; name:string; category:string; description:string;
@@ -9,10 +11,11 @@ export interface MarketDish {
 }
 const originals:MarketDish[]=dishes.map(d=>({
   id:d.id, venueId:d.restaurantId, restaurant:restaurants.find(r=>r.id===d.restaurantId)!.name,
-  name:d.name, category:restaurants.find(r=>r.id===d.restaurantId)!.cuisine,
-  description:d.description,price:'Price TBA', ingredients:d.ingredients,allergens:d.allergens,
+  name:d.name, category:sampleDishDetails[d.id].category,
+  description:d.description,price:demoPrice(d.id), ingredients:d.ingredients,allergens:d.allergens,
   dietary:[...(d.dietary.vegan?['Vegan']:[]),...(d.dietary.vegetarian?['Vegetarian']:[]),...(d.dietary.glutenFree?['Gluten-free']:[])],
   image:`${import.meta.env.BASE_URL}glimmer/${d.image}`,modelId:d.id,sample:true,
+  portion:PublicPortionSchema.parse(prepared[d.id as keyof typeof prepared].portion),
 }));
 
 /** Always read the current publication; withdrawn/expired dishes never linger in search or comparison. */
@@ -33,10 +36,10 @@ export function marketCatalogue(live:Iterable<LiveRestaurant>=liveRestaurants.va
   }
   return result;
 }
-const words=(text:string)=>text.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,' ').trim().split(/\s+/);
-export function searchDishes(list:MarketDish[],query:string):MarketDish[]{
+const words=(text:string)=>text.toLowerCase().normalize('NFKD').replace(/\p{M}/gu,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim().split(/\s+/);
+export function searchDishes(list:MarketDish[],query:string,category='All'):MarketDish[]{
   const terms=words(query).filter(Boolean);
-  return list.filter(d=>{const haystack=words([d.name,d.restaurant,d.category,...d.ingredients].join(' ')).join(' ');return terms.every(t=>haystack.includes(t));});
+  return list.filter(d=>{if(category!=='All'&&words(d.category).join(' ')!==words(category).join(' '))return false;const haystack=words([d.name,d.restaurant,d.category,d.description,...d.ingredients].join(' ')).join(' ');return terms.every(t=>haystack.includes(t));});
 }
 export function similarDishes(list:MarketDish[],anchor:MarketDish):MarketDish[]{
   const tokens=new Set(words([anchor.name,...anchor.ingredients].join(' ')));

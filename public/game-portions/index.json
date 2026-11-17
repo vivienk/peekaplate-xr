@@ -1,0 +1,1186 @@
+{
+  "r1-1": {
+    "key": "03d5e1484b440d6e3a0d",
+    "name": "Shoyu-style Ramen",
+    "source_sha256": "c8829c80426ab15e81db760ec79ad4ea8ccd85b23316c3d40cb36e212e7c47de",
+    "cutout_sha256": "76bd93396b396d3a17a21ed8baa63add96d2903f53fc53ac09cf33dc05245c6f",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "dd08e3ba-d7ad-5f39-94b6-93606b8f84c5",
+      "dish_revision_id": "96582edd-f212-5918-a7ee-2fc1562bfe24",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/03d5e1484b440d6e3a0d/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/03d5e1484b440d6e3a0d/foreground.png",
+          "sha256": "76bd93396b396d3a17a21ed8baa63add96d2903f53fc53ac09cf33dc05245c6f",
+          "size_bytes": 3064,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/03d5e1484b440d6e3a0d/foreground.png"
+  },
+  "r1-2": {
+    "key": "7de518d6f3b953fad26d",
+    "name": "Miso-style Ramen",
+    "source_sha256": "0db1e23339100e80fb8a4bff3678e2f0c7953d9f5235da640745d6a788f377bf",
+    "cutout_sha256": "79e90a939fa7c2715562754609cbf0549b7afff689af510c121af01296f16608",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "67f2ea7a-82d3-56a7-8af5-62e8a29033f7",
+      "dish_revision_id": "fd06aa40-eb67-5401-8809-52fb65d4c5f7",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/7de518d6f3b953fad26d/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/7de518d6f3b953fad26d/foreground.png",
+          "sha256": "79e90a939fa7c2715562754609cbf0549b7afff689af510c121af01296f16608",
+          "size_bytes": 2883,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/7de518d6f3b953fad26d/foreground.png"
+  },
+  "r1-3": {
+    "key": "aeb0146cf09608add7b0",
+    "name": "Spicy Tantan-style Ramen",
+    "source_sha256": "7290666492f0cabfbe088eb5540cab467a72eedb1a496aa965f8c75aa3f19ff7",
+    "cutout_sha256": "86293f8006a9ffdce21b9e00c37040a468733db5763c88b52be3281469803ec7",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "61b0f40d-d761-5ac6-b109-c458f3d440e1",
+      "dish_revision_id": "c208698f-982c-5b11-a4da-39955ed5f858",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/aeb0146cf09608add7b0/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/aeb0146cf09608add7b0/foreground.png",
+          "sha256": "86293f8006a9ffdce21b9e00c37040a468733db5763c88b52be3281469803ec7",
+          "size_bytes": 2965,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/aeb0146cf09608add7b0/foreground.png"
+  },
+  "r1-4": {
+    "key": "221006290309391716e5",
+    "name": "Pan-fried Gyoza",
+    "source_sha256": "d7c516b35f1cfe773a50c052b20c2821485679c1f2178a3786687c26fad0939e",
+    "cutout_sha256": "9e9f0f3e715e18a2a3460b8e163839ab77cd93affb9c9d2f6f1e5495675498a8",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "c5701594-06f9-5998-b2d8-fbe8d74c7320",
+      "dish_revision_id": "ce5c9e63-57f9-59bc-941a-4dac672805b0",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/221006290309391716e5/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/221006290309391716e5/foreground.png",
+          "sha256": "9e9f0f3e715e18a2a3460b8e163839ab77cd93affb9c9d2f6f1e5495675498a8",
+          "size_bytes": 2642,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/221006290309391716e5/foreground.png"
+  },
+  "r2-1": {
+    "key": "a97c407b937e02704d89",
+    "name": "Berry Souffl\u00e9 Pancakes",
+    "source_sha256": "02d382c998216fa2ec1f57d81d8ee0df07cf400d3853715895624a99c55caab9",
+    "cutout_sha256": "79262bf30b37d68dcf0171cab428c2b601830206584a9a066f278bdd0546baf7",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "1e7da5a1-e46b-5eea-a270-8f21e34b683e",
+      "dish_revision_id": "4b08e1c5-c924-53a2-b5e8-3a99d6ed56e1",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/a97c407b937e02704d89/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/a97c407b937e02704d89/foreground.png",
+          "sha256": "79262bf30b37d68dcf0171cab428c2b601830206584a9a066f278bdd0546baf7",
+          "size_bytes": 2676,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/a97c407b937e02704d89/foreground.png"
+  },
+  "r2-2": {
+    "key": "cd78a69d6f80defe6607",
+    "name": "Avocado Toast with Flowers",
+    "source_sha256": "d6b991d28150c9927061eaccf063748cf07558504a5b066b13774d2dcc7f1d6c",
+    "cutout_sha256": "259728c27c74e4e1b9fc57ac5d832c95d852c8969aa12e5d0a3aabe2bf2fbe6e",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "efb4887b-a6ce-588f-8432-223cc9603cda",
+      "dish_revision_id": "d89e8021-8231-5c9a-95de-701d7dde8b86",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/cd78a69d6f80defe6607/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/cd78a69d6f80defe6607/foreground.png",
+          "sha256": "259728c27c74e4e1b9fc57ac5d832c95d852c8969aa12e5d0a3aabe2bf2fbe6e",
+          "size_bytes": 2550,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/cd78a69d6f80defe6607/foreground.png"
+  },
+  "r2-3": {
+    "key": "679ea14b8ea6d7b60201",
+    "name": "Eggs Benedict",
+    "source_sha256": "5e8841042c727b487fc2095cdce8b14d4a2c9d3dc7bb7145d1e7d0148e36bde0",
+    "cutout_sha256": "3c2cfa628d2c275b20c0d8de895d935f71b56a50f3c72e4ec489735483e4d6b9",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "5f7aea34-ce1d-5dfa-b021-630926e0d50f",
+      "dish_revision_id": "01819c22-9d5a-5843-8964-c4922367df4f",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/679ea14b8ea6d7b60201/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/679ea14b8ea6d7b60201/foreground.png",
+          "sha256": "3c2cfa628d2c275b20c0d8de895d935f71b56a50f3c72e4ec489735483e4d6b9",
+          "size_bytes": 2672,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/679ea14b8ea6d7b60201/foreground.png"
+  },
+  "r2-4": {
+    "key": "3fb5ae0df969c63535d3",
+    "name": "Matcha Latte",
+    "source_sha256": "15ae1aedf182c52a57bbe575e01aa8c9005429a8f91fa339fca50fc719ccebbc",
+    "cutout_sha256": "782379f6e55cb07ac7ee94110fa5703bfde3b87f2af1fb8af8d34054a95b0824",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "e66be08a-c975-5c03-96db-69a8e0cca181",
+      "dish_revision_id": "28b5cb84-7cac-5a17-817a-f36d2aad7ebe",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/3fb5ae0df969c63535d3/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/3fb5ae0df969c63535d3/foreground.png",
+          "sha256": "782379f6e55cb07ac7ee94110fa5703bfde3b87f2af1fb8af8d34054a95b0824",
+          "size_bytes": 2579,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/3fb5ae0df969c63535d3/foreground.png"
+  },
+  "r2-5": {
+    "key": "6fae67dfa5027cc5ef21",
+    "name": "Rose Berry Parfait",
+    "source_sha256": "658836891e785fcc2b4ab09e2af5ae00991871ad6006a8fae7a06fca33b65806",
+    "cutout_sha256": "66a57401d15ee95df5a10107b2d552a4937b78b84451abf53e964bf634676eed",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "1cca16fc-7d43-577d-ab1d-7695c91022fa",
+      "dish_revision_id": "d94339a1-f515-52ca-b069-06c058955fcc",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/6fae67dfa5027cc5ef21/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/6fae67dfa5027cc5ef21/foreground.png",
+          "sha256": "66a57401d15ee95df5a10107b2d552a4937b78b84451abf53e964bf634676eed",
+          "size_bytes": 2550,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/6fae67dfa5027cc5ef21/foreground.png"
+  },
+  "r3-1": {
+    "key": "cbc1ecac5bd9d84fb743",
+    "name": "Pad Thai-style Noodles",
+    "source_sha256": "ea58a146db50de5a536121f08cb4fce8cf5d6ee7c1b939706b563fec33b5199c",
+    "cutout_sha256": "9867e846067149d2bfadde8ee86538487096a7545548b031798b25af7156e9bc",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "3bb90c86-0606-52dd-b879-39f09d2d03fb",
+      "dish_revision_id": "ed831ff2-8e51-5e51-96d1-549e33e2851a",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/cbc1ecac5bd9d84fb743/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/cbc1ecac5bd9d84fb743/foreground.png",
+          "sha256": "9867e846067149d2bfadde8ee86538487096a7545548b031798b25af7156e9bc",
+          "size_bytes": 3086,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/cbc1ecac5bd9d84fb743/foreground.png"
+  },
+  "r3-2": {
+    "key": "964309dc67d227829293",
+    "name": "Green Curry with Rice",
+    "source_sha256": "47e8da92cfe8d6be7f5ec8d9956c36d1e970e19e16b5c4474c251f04e84c3c78",
+    "cutout_sha256": "c4fbf1a58e2d9d176ad48ce24f9e4cc8fc210bd8778f68888823b8defb79b09b",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "89a54af5-6c80-5192-877e-19808f797254",
+      "dish_revision_id": "bfe949bb-7df4-513a-bb52-99bb3814a314",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/964309dc67d227829293/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/964309dc67d227829293/foreground.png",
+          "sha256": "c4fbf1a58e2d9d176ad48ce24f9e4cc8fc210bd8778f68888823b8defb79b09b",
+          "size_bytes": 2833,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/964309dc67d227829293/foreground.png"
+  },
+  "r3-3": {
+    "key": "8e90038afcad0c6970b0",
+    "name": "Tom Yum-style Soup",
+    "source_sha256": "4920e03d2d7bc814af5eb527f88688a636024d9649dc829aa968c41afa318c55",
+    "cutout_sha256": "53af27fda063350b85aca33e027e2e7702754fa5e9f4e634c24798718be2da8e",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "4933db64-b461-5a0d-9a5f-76a68dd57aaf",
+      "dish_revision_id": "7835d371-e9e3-56e0-9b08-52ee82bbd3f2",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/8e90038afcad0c6970b0/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/8e90038afcad0c6970b0/foreground.png",
+          "sha256": "53af27fda063350b85aca33e027e2e7702754fa5e9f4e634c24798718be2da8e",
+          "size_bytes": 2834,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/8e90038afcad0c6970b0/foreground.png"
+  },
+  "r3-4": {
+    "key": "2048a2e4a88a505f462f",
+    "name": "Holy Basil Stir-fry",
+    "source_sha256": "853f679f56ab408797ba646de992ccc04b41365ba6fede82ec011bf5c2196a9b",
+    "cutout_sha256": "2a79622fa7543a6fd9f5247f7bff0d8a10307ecc099f78a5a80e840175631c01",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "bf4f671d-979b-524d-8dce-e8b5627e1504",
+      "dish_revision_id": "525a3f74-a9c8-5300-9016-13dd0b980bed",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/2048a2e4a88a505f462f/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/2048a2e4a88a505f462f/foreground.png",
+          "sha256": "2a79622fa7543a6fd9f5247f7bff0d8a10307ecc099f78a5a80e840175631c01",
+          "size_bytes": 2715,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/2048a2e4a88a505f462f/foreground.png"
+  },
+  "r3-5": {
+    "key": "0685e34c931fb9beeb7e",
+    "name": "Mango Sticky Rice",
+    "source_sha256": "e2c8dbc2cd89b1b8ae0866bde3c439624af1a46aa3c9f823d6f92679d215cbf4",
+    "cutout_sha256": "46eae54e5f4d4a1e9f1fe8593475b6e5f514bb4ce26b0b23b4180e5098ab6591",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "c73cda60-d1e5-5274-ab89-cecbdfeff6ea",
+      "dish_revision_id": "d14bc13d-9ac5-59f8-8892-5a7e296e591f",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/0685e34c931fb9beeb7e/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/0685e34c931fb9beeb7e/foreground.png",
+          "sha256": "46eae54e5f4d4a1e9f1fe8593475b6e5f514bb4ce26b0b23b4180e5098ab6591",
+          "size_bytes": 2356,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/0685e34c931fb9beeb7e/foreground.png"
+  },
+  "r3-6": {
+    "key": "5f23e97731064e2911f9",
+    "name": "Thai Iced Tea",
+    "source_sha256": "dd5043311615960039e67452085ab5a800039b9c5f2ac209c024319a29dd8c3e",
+    "cutout_sha256": "8ab25f6c9f9e8c12f2f28166b4ff52055f05b9aae9c6f05d26a1b8367e37a8e4",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "613a2732-0f50-591c-bb57-9515c1930517",
+      "dish_revision_id": "ce841c13-f138-55ed-a783-dec0a48f0338",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/5f23e97731064e2911f9/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/5f23e97731064e2911f9/foreground.png",
+          "sha256": "8ab25f6c9f9e8c12f2f28166b4ff52055f05b9aae9c6f05d26a1b8367e37a8e4",
+          "size_bytes": 2244,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/5f23e97731064e2911f9/foreground.png"
+  },
+  "r4-1": {
+    "key": "672274711b4d93706602",
+    "name": "Black-pepper Baked Bun",
+    "source_sha256": "a5acb93e0c9e7d182d9a4c3694eecabbb713b09d114bb39b3c0dc2f5093f7f5e",
+    "cutout_sha256": "a99b07dc6bc0c5e6bef5b874cf9357a8c9de9cdc79a1ed5077f5ebb17b40746b",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "16de23f9-6e95-5d80-8621-e8ad85d1126f",
+      "dish_revision_id": "99dd860f-df38-5bf6-b864-debb8ecd90c6",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/672274711b4d93706602/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/672274711b4d93706602/foreground.png",
+          "sha256": "a99b07dc6bc0c5e6bef5b874cf9357a8c9de9cdc79a1ed5077f5ebb17b40746b",
+          "size_bytes": 2321,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/672274711b4d93706602/foreground.png"
+  },
+  "r4-2": {
+    "key": "1f7964bc5b3be2c531de",
+    "name": "Brown-sugar Pearl Milk Tea",
+    "source_sha256": "848aacc5564b4b750fdf7b2928e26a6d92bef20a78d1a293228244ca4c2157e2",
+    "cutout_sha256": "725168639c146d2d2f3d4d290e8e8cb54b49f6e54ccef00c8d4570dc5840a4da",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "55cd5f6b-2fd6-51b5-9234-b1a69e711a29",
+      "dish_revision_id": "def97c22-75f1-5e0b-800e-d6684c6634b3",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/1f7964bc5b3be2c531de/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/1f7964bc5b3be2c531de/foreground.png",
+          "sha256": "725168639c146d2d2f3d4d290e8e8cb54b49f6e54ccef00c8d4570dc5840a4da",
+          "size_bytes": 2570,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/1f7964bc5b3be2c531de/foreground.png"
+  },
+  "r4-3": {
+    "key": "6862c5d3150865ceaf52",
+    "name": "Scallion Pancake",
+    "source_sha256": "4b7f05ad9b0cfd4bc2d72776c0ef1d54eae521f9525c91276c8bc0b11b8ba3c8",
+    "cutout_sha256": "63f373bc05d7cefafe6d7e34a2dc4482c8e1ae242c9a4c2ff4373fe4dc26c58e",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "4eccd1cb-b257-51ba-a2b1-3f18780c3e76",
+      "dish_revision_id": "0d47c2b7-4797-540c-9649-25304d33fd12",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/6862c5d3150865ceaf52/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/6862c5d3150865ceaf52/foreground.png",
+          "sha256": "63f373bc05d7cefafe6d7e34a2dc4482c8e1ae242c9a4c2ff4373fe4dc26c58e",
+          "size_bytes": 2431,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/6862c5d3150865ceaf52/foreground.png"
+  },
+  "r4-4": {
+    "key": "52c1a6296032f548b1a4",
+    "name": "Popcorn Chicken",
+    "source_sha256": "188d3d8c1f4009a9d06d473d65d4fae023ecefd16a5389ff55de0cf20a7444ec",
+    "cutout_sha256": "125e120c1533ee379fc10ac65847788cf9be6d519fe2f9837ef53f8ce37f9fe1",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "70ab4015-ae2e-51b0-895d-b416862c8e0d",
+      "dish_revision_id": "8fdfb5e4-9a3e-5feb-84b1-bb44769e0878",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/52c1a6296032f548b1a4/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/52c1a6296032f548b1a4/foreground.png",
+          "sha256": "125e120c1533ee379fc10ac65847788cf9be6d519fe2f9837ef53f8ce37f9fe1",
+          "size_bytes": 2488,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/52c1a6296032f548b1a4/foreground.png"
+  },
+  "r5-1": {
+    "key": "aadf237979b34dfa741f",
+    "name": "Grilled Chicken Skewers",
+    "source_sha256": "1ba18de438878308c33a7a063be505508d1c486cdb806906ced4f29ce4bdcc25",
+    "cutout_sha256": "19c2a7782051b2adc9c250f434b7392d85394211d7d140bef9fdf96cda19a2eb",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "27c41cda-3b97-5445-9c58-068db240ce6f",
+      "dish_revision_id": "ba503f9a-4f88-50cb-b2d3-8c37554b88e9",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/aadf237979b34dfa741f/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/aadf237979b34dfa741f/foreground.png",
+          "sha256": "19c2a7782051b2adc9c250f434b7392d85394211d7d140bef9fdf96cda19a2eb",
+          "size_bytes": 2689,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/aadf237979b34dfa741f/foreground.png"
+  },
+  "r5-2": {
+    "key": "c05cdc56bba1f80882d0",
+    "name": "Glazed Grilled Corn",
+    "source_sha256": "850b1866838f26e23b4556c6aba83836d3825e2a3105d69b5c0149d9630d2361",
+    "cutout_sha256": "f22052401d19bfce5a8d0433d39c2f46adbcde27e8eef79ba156a9d93e625f99",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "05168ad7-d8f9-5fd7-8249-9df662f8c3bb",
+      "dish_revision_id": "de76f347-e079-51ea-b892-d968388fe991",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/c05cdc56bba1f80882d0/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/c05cdc56bba1f80882d0/foreground.png",
+          "sha256": "f22052401d19bfce5a8d0433d39c2f46adbcde27e8eef79ba156a9d93e625f99",
+          "size_bytes": 2331,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/c05cdc56bba1f80882d0/foreground.png"
+  },
+  "r5-3": {
+    "key": "00e6825828cd66fce60d",
+    "name": "Crispy Tofu with Pickled Cabbage",
+    "source_sha256": "f7d542b63f5566d99d146060a22ece9a449f4b74df508ca9ba1943f7c64ea283",
+    "cutout_sha256": "9aacf58743d8938efe7d90d3d502b16343cc2f2997faef0ec530940155ef5184",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "e8e5f8b2-7d06-5d6e-818a-416812b7b727",
+      "dish_revision_id": "a5368919-4533-592f-abba-df8c63580ab1",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/00e6825828cd66fce60d/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/00e6825828cd66fce60d/foreground.png",
+          "sha256": "9aacf58743d8938efe7d90d3d502b16343cc2f2997faef0ec530940155ef5184",
+          "size_bytes": 2054,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/00e6825828cd66fce60d/foreground.png"
+  },
+  "r5-4": {
+    "key": "d4d3071708e13b3cb827",
+    "name": "Mango Shaved Ice",
+    "source_sha256": "fe46e351cb40fa3fc7b114ecb5ad0030c9b4690801bf1bb3957f982c7bf9f553",
+    "cutout_sha256": "144c73b55a4ce85cb98766316a597287d6a93256d63732c08122eebb09a5fa66",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "f7f6b161-92ee-5343-8958-4bd2c3227e0d",
+      "dish_revision_id": "e209d441-4554-55a6-bd52-5fc7de588747",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/d4d3071708e13b3cb827/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/d4d3071708e13b3cb827/foreground.png",
+          "sha256": "144c73b55a4ce85cb98766316a597287d6a93256d63732c08122eebb09a5fa66",
+          "size_bytes": 2492,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/d4d3071708e13b3cb827/foreground.png"
+  },
+  "r6-1": {
+    "key": "94e5f11ab24d518cb74f",
+    "name": "Clam Chowder Bread Bowl",
+    "source_sha256": "9aa88e98ebd40ea319d3f8006cf04a6a99d6de8f13a6f5bd1e177818a14718b0",
+    "cutout_sha256": "7f6ce55d6a5f7779e95507d8f77066ccc9745da75f5ff5220d97596683df9ea9",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "4c97d069-9357-5789-87fc-4540aa88700d",
+      "dish_revision_id": "e8708199-bb7d-57b2-9c40-11b602db0038",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/94e5f11ab24d518cb74f/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/94e5f11ab24d518cb74f/foreground.png",
+          "sha256": "7f6ce55d6a5f7779e95507d8f77066ccc9745da75f5ff5220d97596683df9ea9",
+          "size_bytes": 2370,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/94e5f11ab24d518cb74f/foreground.png"
+  },
+  "r6-2": {
+    "key": "0514b81537f9254780f1",
+    "name": "Fish and Chips",
+    "source_sha256": "b4091fdf52a23e634c609b6c83fe4ff53bd2b44458060ded226d0ccd379e3a1d",
+    "cutout_sha256": "f5031f70d3d2ca4e9ccfc1abd2d2eeff2da197ad075fb896ce37c2c690bd228b",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "764c4903-06a1-539b-98cb-e0d00b99c859",
+      "dish_revision_id": "e9670bda-fe09-50af-9230-c7296b2a148a",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/0514b81537f9254780f1/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/0514b81537f9254780f1/foreground.png",
+          "sha256": "f5031f70d3d2ca4e9ccfc1abd2d2eeff2da197ad075fb896ce37c2c690bd228b",
+          "size_bytes": 2353,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/0514b81537f9254780f1/foreground.png"
+  },
+  "r6-3": {
+    "key": "54dd213a647ba73a4337",
+    "name": "Crab Roll",
+    "source_sha256": "c89019e6c1f0c158238d80249f47db0be2897dbc18ac9cedab8d8696185e9f0b",
+    "cutout_sha256": "b0b21529de2dd74136ef8adb4445a12035f04feb4b2af531cbd01ae1acbf3a5f",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "d339fbf1-4e99-5a1e-9cf4-25909aa6b9fc",
+      "dish_revision_id": "0fa2c9a2-d2f9-5f4d-8df0-3ea6a4a0868e",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/54dd213a647ba73a4337/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/54dd213a647ba73a4337/foreground.png",
+          "sha256": "b0b21529de2dd74136ef8adb4445a12035f04feb4b2af531cbd01ae1acbf3a5f",
+          "size_bytes": 2169,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/54dd213a647ba73a4337/foreground.png"
+  },
+  "r6-4": {
+    "key": "ddcf4395e796e2e4e6a9",
+    "name": "Garlic Fries",
+    "source_sha256": "16d75ecad10663392e50a2a3f8efa578a7052469506300cfbc91dd1b4f4a5ce2",
+    "cutout_sha256": "8149af76db6237d6c89dadb1ba41763f90e874013c4f101154cdd985152c668c",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "c36059fa-af51-56a4-944a-d2c007194991",
+      "dish_revision_id": "b946373e-023a-52cd-bf5c-403daf36d7b8",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/ddcf4395e796e2e4e6a9/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/ddcf4395e796e2e4e6a9/foreground.png",
+          "sha256": "8149af76db6237d6c89dadb1ba41763f90e874013c4f101154cdd985152c668c",
+          "size_bytes": 2210,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/ddcf4395e796e2e4e6a9/foreground.png"
+  },
+  "r7-1": {
+    "key": "06a053543434c476cb39",
+    "name": "Chirashi Bowl",
+    "source_sha256": "d45d72fd431fcd23dc46a5d2660f6fca9819a1d19918b396d5e45f240ed4cdb2",
+    "cutout_sha256": "6b2a7898de79c7376ab9591652a9983c0fe06812b0e31a7d6cbade01b6ddb27b",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "0be8bb39-725d-54f0-8f8c-73a4c302cbdc",
+      "dish_revision_id": "500be081-c2f0-5226-9007-23b6c9df242d",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/06a053543434c476cb39/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/06a053543434c476cb39/foreground.png",
+          "sha256": "6b2a7898de79c7376ab9591652a9983c0fe06812b0e31a7d6cbade01b6ddb27b",
+          "size_bytes": 3109,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/06a053543434c476cb39/foreground.png"
+  },
+  "r7-2": {
+    "key": "297b7931bec1eb76bd72",
+    "name": "Salmon Nigiri Set",
+    "source_sha256": "d126e98ff259369d31f60b6b061775816ad83444f73387f09a159c82d533f1ae",
+    "cutout_sha256": "926fecbf61ca09bff37e91b425c153eca576f82ff532cd6b367712181bed825e",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "4a9da12f-c716-5a44-b5f3-f4643d40b163",
+      "dish_revision_id": "ea728d60-5507-5ae6-95e2-00285e933a04",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/297b7931bec1eb76bd72/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/297b7931bec1eb76bd72/foreground.png",
+          "sha256": "926fecbf61ca09bff37e91b425c153eca576f82ff532cd6b367712181bed825e",
+          "size_bytes": 1740,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/297b7931bec1eb76bd72/foreground.png"
+  },
+  "r7-3": {
+    "key": "a0b8c142940f6d0fddaa",
+    "name": "Hand Roll",
+    "source_sha256": "c38551f472e59f8a33773d7dd909bf19fcbed692888fc8af2fca4e05e732c613",
+    "cutout_sha256": "39a53269b6f2ece474ff66c426ca1fc8e110acc5965a7a825722481f8840c714",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "01e10310-e781-53fa-876f-299eabf8dd3f",
+      "dish_revision_id": "4be9ddc2-f4f9-53d8-b950-58a11936e5ee",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/a0b8c142940f6d0fddaa/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/a0b8c142940f6d0fddaa/foreground.png",
+          "sha256": "39a53269b6f2ece474ff66c426ca1fc8e110acc5965a7a825722481f8840c714",
+          "size_bytes": 2526,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/a0b8c142940f6d0fddaa/foreground.png"
+  },
+  "r7-4": {
+    "key": "a47dc2a1bcf01e080fc7",
+    "name": "Miso Soup",
+    "source_sha256": "e79ae1ffd3ad3e5c1d793a198b3ced7f41329c2f00415b52a8f9850aff6b813a",
+    "cutout_sha256": "a6cf4149ff2cad6cd00bb1bfe9da8c2ba8fb5e0ccc0a78c452278735a4d2f103",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "98efe04c-426f-55fe-bfa9-ee1433b416e1",
+      "dish_revision_id": "0acc30c7-2253-5bcd-9b9d-ab77b87044ec",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/a47dc2a1bcf01e080fc7/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/a47dc2a1bcf01e080fc7/foreground.png",
+          "sha256": "a6cf4149ff2cad6cd00bb1bfe9da8c2ba8fb5e0ccc0a78c452278735a4d2f103",
+          "size_bytes": 2281,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/a47dc2a1bcf01e080fc7/foreground.png"
+  },
+  "r7-5": {
+    "key": "0e72987cb1b98dd1ee5d",
+    "name": "Matcha Mochi",
+    "source_sha256": "38eb57e1883d18a6b255d7310f9c957e414c132589bd6a8b78e6e1bbb7540548",
+    "cutout_sha256": "275a1dc24761b0f3c994832d4e132bf87b1c3b447e56fe1eb29dfed35e8c38eb",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "08bbc228-d5d3-5ce9-81df-167fb2fecbc5",
+      "dish_revision_id": "6a76ff3c-0a7b-5c2f-a07e-19876ce8ea9e",
+      "width": 384,
+      "height": 384,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/0e72987cb1b98dd1ee5d/background.svg",
+          "sha256": "0ee4023d6e77b3453aa5a8d965915b7153fba5040b9a91076fe08f1acd7ca110",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/0e72987cb1b98dd1ee5d/foreground.png",
+          "sha256": "275a1dc24761b0f3c994832d4e132bf87b1c3b447e56fe1eb29dfed35e8c38eb",
+          "size_bytes": 1969,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/0e72987cb1b98dd1ee5d/foreground.png"
+  },
+  "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000001": {
+    "key": "180bd8d3b8ae04ceba2c",
+    "name": "Avocado Toast",
+    "source_sha256": "a8bd1c4efcbfc5a8a67e6a9fcf51ee8b2a79178a36fb5c8fca19fc974d598be0",
+    "cutout_sha256": "bd5fa9e022ce07ded6e0e5abefaec578525420c72fdfc981ceb8a7637cd74850",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "a1000000-0000-4000-8000-000000000001",
+      "dish_revision_id": "a2000000-0000-4000-8000-000000000001",
+      "width": 640,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/180bd8d3b8ae04ceba2c/background.svg",
+          "sha256": "4b9425dd14aa514507f94cc3eec93d69d5189473c45421b961f1a95acbc13795",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/180bd8d3b8ae04ceba2c/foreground.webp",
+          "sha256": "a8bd1c4efcbfc5a8a67e6a9fcf51ee8b2a79178a36fb5c8fca19fc974d598be0",
+          "size_bytes": 72722,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/180bd8d3b8ae04ceba2c/foreground.webp"
+  },
+  "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000003": {
+    "key": "a0170fc185d95a716945",
+    "name": "Classic Eggs Benedict",
+    "source_sha256": "dce9b6acd8f5692528f2501117d922042a2df4a2e6443209d9a82811ba98f51f",
+    "cutout_sha256": "d71992b27f3ae619381d7f1645c10e2e75259476aeccf4cb1899bc63642c346e",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "a1000000-0000-4000-8000-000000000003",
+      "dish_revision_id": "a2000000-0000-4000-8000-000000000003",
+      "width": 640,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/a0170fc185d95a716945/background.svg",
+          "sha256": "4b9425dd14aa514507f94cc3eec93d69d5189473c45421b961f1a95acbc13795",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/a0170fc185d95a716945/foreground.webp",
+          "sha256": "dce9b6acd8f5692528f2501117d922042a2df4a2e6443209d9a82811ba98f51f",
+          "size_bytes": 68842,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/a0170fc185d95a716945/foreground.webp"
+  },
+  "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000002": {
+    "key": "0c1b2298dfa439b6c972",
+    "name": "Harvest Power Bowl",
+    "source_sha256": "4b4c7a19f71519f6f926962b12843c4c9c03c032673f341c264e69f07db9933c",
+    "cutout_sha256": "cd286dd6da1c1cd175483f3633611e493e21a90e9799fdd9c91c05325adcf7c5",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "a1000000-0000-4000-8000-000000000002",
+      "dish_revision_id": "a2000000-0000-4000-8000-000000000002",
+      "width": 640,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/0c1b2298dfa439b6c972/background.svg",
+          "sha256": "4b9425dd14aa514507f94cc3eec93d69d5189473c45421b961f1a95acbc13795",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/0c1b2298dfa439b6c972/foreground.webp",
+          "sha256": "4b4c7a19f71519f6f926962b12843c4c9c03c032673f341c264e69f07db9933c",
+          "size_bytes": 95280,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/0c1b2298dfa439b6c972/foreground.webp"
+  },
+  "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000006": {
+    "key": "fc0462e7ee51b04630a1",
+    "name": "Salmon Poke Bowl",
+    "source_sha256": "3e83d63a4588793b9844b8de927da537db51387f1b2031379164997187b9770a",
+    "cutout_sha256": "872a45aa8c4d3cd071e144a207a2572d111fd2a1e3150f4de1799173aaa9d1f4",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "a1000000-0000-4000-8000-000000000006",
+      "dish_revision_id": "a2000000-0000-4000-8000-000000000006",
+      "width": 640,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/fc0462e7ee51b04630a1/background.svg",
+          "sha256": "4b9425dd14aa514507f94cc3eec93d69d5189473c45421b961f1a95acbc13795",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/fc0462e7ee51b04630a1/foreground.webp",
+          "sha256": "3e83d63a4588793b9844b8de927da537db51387f1b2031379164997187b9770a",
+          "size_bytes": 83288,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/fc0462e7ee51b04630a1/foreground.webp"
+  },
+  "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000004": {
+    "key": "574113baab1ec746876b",
+    "name": "Garden Avocado Salad",
+    "source_sha256": "91cdc1681dfe59e76576c8d5c83ff039ea3bba28449e7d4f51404d8f54b0f0dd",
+    "cutout_sha256": "48e31e5989a147548d474227a54c206025fd3710852e94e68fa0467dfb63198e",
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "a1000000-0000-4000-8000-000000000004",
+      "dish_revision_id": "a2000000-0000-4000-8000-000000000004",
+      "width": 640,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://game-portions.invalid/574113baab1ec746876b/background.svg",
+          "sha256": "4b9425dd14aa514507f94cc3eec93d69d5189473c45421b961f1a95acbc13795",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://game-portions.invalid/574113baab1ec746876b/foreground.webp",
+          "sha256": "91cdc1681dfe59e76576c8d5c83ff039ea3bba28449e7d4f51404d8f54b0f0dd",
+          "size_bytes": 90842,
+          "depth": 1
+        }
+      ]
+    },
+    "image": "/game-portions/574113baab1ec746876b/foreground.webp"
+  }
+}

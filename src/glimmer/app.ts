@@ -1,3 +1,6 @@
+import { demoPrice } from './dish-metadata';
+import { MarketMapUI } from './market-map-ui';
+import { interfaceIcon } from './interface-icons';
 import { DiningUI } from './dining-ui';
 import { marketCatalogue } from './catalogue';
 import { districtIconNames, drawDistrictIcon } from './district-icons';
@@ -28,7 +31,8 @@ export class GlimmerApp {
   buttons:Button[]=[];
   selectedDish: Dish=dishes[0];
   dining=new DiningUI(this);
-  portalDishId='';portalStatus='';portalFlat=false;immersive=false;
+  marketMap=new MarketMapUI(this);
+  portalView:'auto'|'2.5d'|'3d'='auto';portalDishId='';portalStatus='';portalFlat=false;immersive=false;
   restaurant=restaurants[0];
   page=0;
   code='';
@@ -80,11 +84,12 @@ export class GlimmerApp {
     }
   }
   setScreen(screen:Screen){
-    this.screenAge=0;this.pressedIndex=-1;this.uiDirty=true;const wasAR=this.screen==='ar';this.screen=screen;this.page=0;this.keyboardFocus=-1;this.buttons=[];
+    this.screenAge=0;this.pressedIndex=-1;this.uiDirty=true;const wasAR=this.screen==='ar';this.screen=screen;this.dining.syncInput();this.page=0;this.keyboardFocus=-1;this.buttons=[];
+    if(screen==='map'){this.marketMap.district=Math.max(0,districts.findIndex(d=>d.district===this.state.district));this.marketMap.page=0;}
     this.market.setEnabled(screen==='explore');this.market.setPaused(this.paused);
     if(wasAR&&screen!=='ar')this.onPortal(null);
     if(screen==='explore'){this.kioskOpen=false;for(const reward of this.deferredRewards){if(reward.changed)this.sound(reward.message.startsWith('Stamp')?'sfx-stamp':'sfx-find');this.result(reward);}this.deferredRewards=[];}
-    if(screen==='ar'){this.resetPortal();this.modelError='';this.portalDishId ||= this.dining.id;this.portalStatus='Loading portion…';this.onPortal(this.portalDishId);this.sound('sfx-portal-open');}
+    if(screen==='ar'){this.portalView='auto';this.resetPortal();this.modelError='';this.portalDishId ||= this.dining.id;this.portalStatus='Loading portion…';this.onPortal(this.portalDishId);this.sound('sfx-portal-open');}
 
     console.info(`[GLIMMER] screen=${screen} stamps=${this.state.stamps.length} finds=${this.state.finds.length}`);
   }
@@ -147,7 +152,7 @@ export class GlimmerApp {
   rotate(dx:number,dy=0){const limit=this.portalFlat?Math.PI/60:Math.PI*7/18;this.portalYaw=this.portalFlat?Math.max(-limit,Math.min(limit,this.portalYaw+dx)):this.portalYaw+dx;this.portalPitch=Math.max(-limit,Math.min(limit,this.portalPitch+dy));this.portalIdle=3;}
   zoom(delta:number){if(this.immersive)return;this.portalZoom=Math.max(.7,Math.min(1.6,this.portalZoom+delta));}
   nextDish(delta:number){const all=marketCatalogue(),current=all.find(d=>d.id===this.portalDishId);if(!current)return;const list=all.filter(d=>d.venueId===current.venueId);this.portalDishId=list[(list.indexOf(current)+delta+list.length)%list.length].id;this.resetPortal();this.onPortal(this.portalDishId);this.invalidate();}
-  key(e:KeyboardEvent){if(e.defaultPrevented)return;this.uiDirty=true;
+  key(e:KeyboardEvent){if(e.defaultPrevented)return;if(e.target instanceof HTMLInputElement&&!['Escape','Enter'].includes(e.key))return;this.uiDirty=true;
     if(e.metaKey||e.ctrlKey||e.altKey)return;
     if(this.dining.type(e.key)){e.preventDefault();return;}
     // A held interaction key must not activate the panel it just opened.
@@ -232,6 +237,12 @@ export class GlimmerApp {
     if(fill==='#0f1533'&&this.patch('assets/ui/panels/panel_holo.png',x,y,w,h,[20,20,20,24]))return;
     const c=this.context;c.fillStyle=ink;c.fillRect(x+4,y+6,w,h);c.fillStyle=fill;c.fillRect(x,y,w,h);c.strokeStyle='#80502f';c.lineWidth=3;c.strokeRect(x,y,w,h);
   }
+  iconButton(label:string,icon:string,x:number,y:number,w:number,h:number,action:()=>void){
+    this.button(label,x,y,w,h,action,false,'normal','',0);
+    // The label remains in the accessible controls; the visible face uses a pixel icon.
+    this.context.fillStyle='#f3e6c8';this.context.fillRect(x+7,y+6,w-14,h-15);
+    interfaceIcon(this.context,icon,x+(w-36)/2,y+(h-36)/2,36);
+  }
   button(label:string,x:number,y:number,w:number,h:number,action:()=>void,disabled=false,style='primary',icon='',inset=0){
     const i=this.buttons.length;if(this.gamepadConnected&&this.keyboardFocus<0&&!disabled&&label!=='Back')this.focusIndex=i;
     const hovered=this.keyboardFocus===i;const part=disabled?'btn_disabled':this.pressedIndex===i?(style==='primary'?'btn_primary_pressed':'btn_pressed'):style==='selected'?'btn_normal':style==='normal'?(hovered?'btn_hover':'btn_normal'):(hovered?'btn_primary_hover':'btn_primary');
@@ -253,7 +264,7 @@ export class GlimmerApp {
   private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;}
   render(){
     this.output.imageSmoothingEnabled=false;this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
-    if(this.dining.render()||renderReference(this)){
+    if(this.marketMap.render()||this.dining.render()||renderReference(this)){
       // Reference HUD and modal layouts share the existing interaction targets.
     }else if(this.screen==='explore'){
       this.rect(20,15,400,52,'#101730');this.text(`${districts.find(d=>d.district===this.state.district)?.name}  •  ${this.state.stamps.length}/7 stamps`,35,49,28,cream);
@@ -271,7 +282,7 @@ export class GlimmerApp {
       this.button('Delete',220,558,260,60,()=>{this.code=this.code.slice(0,-1);});this.button('Continue',520,558,535,60,()=>this.restore(),this.code.length!==18);
     }else if(this.screen==='menu'){
       this.heading(this.restaurant.name);this.text(this.restaurant.cuisine,98,174,28);
-      this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.image(dish.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text('SAMPLE  ·  Price TBA',x+125,y+101,25);});
+      this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.image(dish.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text(demoPrice(dish.id),x+125,y+101,25);});
     }else if(this.screen==='tray'||this.screen==='order'){
       this.heading(this.screen==='order'?'Order Portal':'Your Order Tray');
       if(!this.state.tray.length){this.text('Your tray is waiting for something delicious.',150,275,36);this.text('Open a restaurant menu and add a SAMPLE dish.',150,330,29);}
@@ -319,10 +330,10 @@ export class GlimmerApp {
       this.text('Demo menus only. No payment or real order submission.',155,645,26);
     }
     if(this.toastTime>0&&this.screen==='explore'){const stamp=this.toast.startsWith('Stamp')?restaurants.find(r=>this.toast.endsWith(r.name)):null;this.rect(250,616,780,64);if(stamp)this.image(stamp.stamp,268,599,82);else this.icon('charm',272,634,30);this.text(this.toast,stamp?366:320,658,28);}
-    if(this.screen==='explore'||this.screen==='menu')this.button('Search dishes',194,642,205,54,()=>this.dining.search(),false,'normal');
-    this.button(this.muted?'Sound off':'Sound on',1090,680,174,34,()=>this.toggleSound(),false,'normal');
+    if(this.screen==='menu')this.button('Search dishes',194,642,205,54,()=>this.dining.search(),false,'normal');
+    this.iconButton(this.muted?'Sound off':'Sound on',this.muted?'sound-off':'sound-on',1196,646,60,60,()=>this.toggleSound());
     this.drawOverlay();
     const key=[this.screen,this.dining.id,this.dining.comparisonAnchor,this.dining.compareId,this.page,...this.buttons.map(b=>b.label+String(b.disabled))].join('|');if(key!==this.accessibleKey){this.accessibleKey=key;this.accessible.replaceChildren(...this.buttons.map(b=>{const el=document.createElement('button');el.textContent=b.label;el.disabled=b.disabled;el.onclick=()=>{this.unlockAudio();b.action();};return el;}));}
   }
-  dispose(){window.removeEventListener('keydown',this.keyHandler);window.removeEventListener('blur',this.blurHandler);this.market.dispose();this.audio.dispose();this.accessible.remove();}
+  dispose(){window.removeEventListener('keydown',this.keyHandler);window.removeEventListener('blur',this.blurHandler);this.dining.dispose();this.market.dispose();this.audio.dispose();this.accessible.remove();}
 }

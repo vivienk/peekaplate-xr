@@ -30,6 +30,7 @@ interface Particle { x: number; y: number; age: number; live: boolean }
 interface DrawItem { y: number; object?: MarketObject; walker?: Walker; player?: boolean }
 interface MarketLight { x:number; y:number; groundY:number; tint:keyof typeof tintColors; scale:number; alpha:number }
 const districts = [rainAlley, lanternSteps, foglinePier] as District[];
+export const WALK_SPEED = 100;
 const colors = ['yellow', 'cherry', 'teal', 'lavender', 'mint', 'coral', 'midnight', 'peach'];
 const hats = ['hood', 'buckethat', 'catbeanie', 'souwester'];
 const kinds = ['published-restaurant', 'restaurant', 'order-portal', 'kiosk', 'find-person', 'find-holo', 'find-wish', 'find-bottle', 'find-cat', 'find-puddle', 'bench', 'vending', 'signpost', 'gate'];
@@ -203,6 +204,18 @@ export class MarketWorld {
     if (this.loaded) this.paintBackground();
   }
 
+  travelToRestaurant(district:string,id:string):boolean {
+    if(this.isTravelling)return false;
+    const previous=this.district,position:[number,number]=[this.player.x,this.player.y];
+    this.setDistrict(district);const object=this.map.objects.find(o=>o.id===id&&['restaurant','published-restaurant'].includes(o.kind));
+    if(object){const zone=this.zone(object);
+      for(let y=zone[1]+8;y<=zone[1]+zone[3];y+=2)for(let x=zone[0]+zone[2]/2-16;x<=zone[0]+zone[2]/2+16;x+=2){
+        if(this.free(x,y)){this.setDistrict(district,[x/16,y/16]);this.callbacks.onTravel(district);this.callbacks.onSound?.('sfx-district-travel');this.facing=1;return true;}
+      }
+    }
+    this.setDistrict(previous,position);return false;
+  }
+
   interact(): void {
     if (!this.enabled || this.paused || this.entering || this.travelRemaining > 0) return;
     const object = this.findFocus(); if (!object) return;
@@ -269,7 +282,12 @@ export class MarketWorld {
   }
 
   update(delta: number): void {
-    const dt = Math.min(Math.max(delta,0),.05);
+    const elapsed=Math.min(Math.max(delta,0),.1);
+    for(let remaining=elapsed;remaining>1e-8;){const dt=Math.min(remaining,1/60);this.step(dt);remaining-=dt;}
+    this.focusObject=this.findFocus();this.draw();
+  }
+
+  private step(dt:number):void {
     if (!this.paused) {
       this.clock += dt;
       this.updateEffects(dt);
@@ -285,9 +303,8 @@ export class MarketWorld {
     }
     const targetX = clamp(this.player.x * 16 + (this.reducedMotion ? 0 : this.lookX) - this.canvas.width / 2,0,Math.max(0,this.map.width_tiles * 16 - this.canvas.width));
     const targetY = clamp(this.player.y * 16 + (this.reducedMotion ? 0 : this.lookY) - this.canvas.height / 2,0,Math.max(0,this.map.height_tiles * 16 - this.canvas.height));
-    this.cameraX += (targetX - this.cameraX) * (1 - Math.exp(-dt / .15));
-    this.cameraY += (targetY - this.cameraY) * (1 - Math.exp(-dt / .15));
-    this.focusObject = this.findFocus(); this.draw();
+    this.cameraX += (targetX - this.cameraX) * (1 - Math.exp(-dt / .065));
+    this.cameraY += (targetY - this.cameraY) * (1 - Math.exp(-dt / .065));
   }
 
   private random(): number { this.randomSeed = (Math.imul(this.randomSeed,1664525) + 1013904223) >>> 0; return this.randomSeed / 4294967296; }
@@ -364,23 +381,27 @@ export class MarketWorld {
   }
 
   private updatePlayer(dt: number): void {
+    let budget=WALK_SPEED*dt,advanced=false;
     let dx = this.inputX + Number(this.keys.has('d') || this.keys.has('arrowright')) - Number(this.keys.has('a') || this.keys.has('arrowleft'));
     let dy = this.inputY + Number(this.keys.has('s') || this.keys.has('arrowdown')) - Number(this.keys.has('w') || this.keys.has('arrowup'));
     if (Math.abs(dx) + Math.abs(dy) > .1) { this.path = []; this.pendingObject = null; this.marker = null; this.seated = false; }
     else if (this.pathIndex < this.path.length) {
-      const target = this.path[this.pathIndex]; dx = target[0] - this.player.x * 16; dy = target[1] - this.player.y * 16;
-      if (Math.hypot(dx,dy) <= 72 * dt) { if (this.movementFree(target[0],target[1])) { this.player.x = target[0] / 16; this.player.y = target[1] / 16; this.pathIndex++; dx = dy = 0; } }
+      while(this.pathIndex<this.path.length){
+        const target=this.path[this.pathIndex];dx=target[0]-this.player.x*16;dy=target[1]-this.player.y*16;
+        const distance=Math.hypot(dx,dy);if(distance>budget||!this.movementFree(target[0],target[1]))break;
+        this.player.x=target[0]/16;this.player.y=target[1]/16;this.pathIndex++;budget-=distance;advanced ||=distance>0;dx=dy=0;
+      }
       if (this.pathIndex >= this.path.length) {
         this.entering = false;
         this.marker = null; const pending = this.pendingObject; this.pendingObject = null;
         if (pending && this.findFocus()?.id === pending) this.interact();
       }
     }
-    const norm = Math.hypot(dx,dy); this.walking = norm > .05;
-    if (this.walking) {
+    const norm = Math.hypot(dx,dy); this.walking = norm > .05||advanced;
+    if (norm>.05) {
       this.facing = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 2 : 3) : (dy < 0 ? 1 : 0);
       this.lookX = dx / norm * 12; this.lookY = dy / norm * 12;
-      dx = dx / norm * 72 * dt; dy = dy / norm * 72 * dt;
+      dx = dx / norm * budget; dy = dy / norm * budget;
       const px = this.player.x * 16, py = this.player.y * 16;
       if (this.movementFree(px + dx,py)) this.player.x += dx / 16;
       if (this.movementFree(this.player.x * 16,py + dy)) this.player.y += dy / 16;

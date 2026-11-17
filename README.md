@@ -52,3 +52,5 @@ These development scripts distinguish direct application-state scenarios from ac
 ## Source-format limitation
 
 The original Market-code weighted checksum does **not** detect every single-character typo, despite the GDD acceptance wording. We preserve compatibility with `800000-000000-000020` and `E1R000-021000-00J31T`. See [rule evidence](design/RULES.md). Fixing all collisions requires a separately versioned save format.
+
+Movement, market map travel, dish search, demo pricing and the private Tripo workflow are documented in [Market portion pipeline](docs/market-portion-pipeline.md).
