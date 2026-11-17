@@ -2,7 +2,7 @@
 
 Run `npm run review:storefronts` from the repository root. It typechecks, tests
 stable per-venue architecture, then uses the renderer itself in headless
-Playwright to create `artifacts/storefront-cuisine-comparison-v5.png` and
+Playwright to create `artifacts/storefront-cuisine-comparison-v6.png` and
 `artifacts/storefront-review.json`. The seven cuisine variants are shown above
 the unmodified source art at 2× nearest-neighbor scale. Ember & Stone uses its
 actual game ID; the remaining columns use reproducible example IDs.
@@ -28,3 +28,10 @@ because the current public contract has no cuisine field.
 The next warmth pass reduced the facade shadow strength, added kitchen strip
 lighting and amber transoms, enlarged the neon halos, and introduced ribbed
 paper lanterns, flower clusters and colorful bunting.
+
+The cuisine-material pass replaces shared brick with timber-framed plaster
+(ramen), stippled stucco (café), node-jointed bamboo (Thai), glazed square tiles
+(tea/dim sum), warm brick and iron (grill), weathered blue dock boards (seafood),
+and pale wood with indigo noren (sushi). Fixtures include pastry cases, herb
+baskets, hanging woks, stacked steamers, charcoal/log bins, ice crates and
+serving boards. Existing source neon emblems are retained as cuisine symbols.

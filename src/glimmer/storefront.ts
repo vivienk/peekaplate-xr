@@ -17,20 +17,37 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  const r=(color:string,x:number,y:number,a:number,b:number,c=g)=>{c.fillStyle=color;c.fillRect(Math.round(x),Math.round(y),Math.round(a),Math.round(b));};
  const poly=(points:number[][],color:string)=>{g.fillStyle=color;g.beginPath();points.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.fill();};
  const noise=(x:number,y:number)=>{let q=Math.imul(x+13,374761393)^Math.imul(y+7,668265263)^p.seed;q=Math.imul(q^(q>>>13),1274126177);return(q^(q>>>16))>>>0;};
+ const material:Record<string,string[]>={ramen:['#c8ac81','#a78760','#ead5a8','#704334'],cafe:['#d2b5bb','#c49ca9','#f3d9d0','#9a728e'],thai:['#a0a46c','#7c874d','#d9d39a','#50684e'],pearl:['#6a9e93','#54867c','#bce1c3','#365f64'],ember:['#96634f','#7c4d40','#c28c65','#453039'],tide:['#648f9c','#487382','#afcacc','#2c4f64'],kaigan:['#baa37b','#9c855e','#e4d5ac','#65543f']};
+ const mat=material[style]??material.cafe;
  const masonry=(x:number,y:number,a:number,b:number)=>{
+  if(style==='cafe'){
+   r(mat[0],x,y,a,b);
+   for(let j=1;j<b-1;j+=3)for(let i=1;i<a-1;i+=3){const v=noise(x+i,y+j);if(v%3===0)r(v%2?mat[1]:mat[2],x+i,y+j,1,1);}
+   r(mat[2],x,y,a,2);r(mat[3],x,y+b-3,a,3);return;
+  }
+  if(style==='pearl'){
+   r(mat[3],x,y,a,b);
+   for(let j=1;j<b-5;j+=6)for(let i=1;i<a-5;i+=6){r(mat[0],x+i,y+j,5,5);r(mat[2],x+i,y+j,4,1);r(mat[1],x+i+1,y+j+4,4,1);if((i+j)%12===2)r('#f5d99d',x+i+2,y+j+2,1,1);}return;
+  }
+  if(style==='ramen'){
+   r(mat[0],x,y,a,b);for(let j=3;j<b-2;j+=5)for(let i=2;i<a-2;i+=4)if(noise(x+i,y+j)%3===0)r(mat[1],x+i,y+j,2,1);
+   for(let i=0;i<a;i+=18){r(mat[3],x+i,y,3,b);r('#b16f4c',x+i,y,1,b);}r(mat[3],x,y+b-3,a,3);return;
+  }
   r('#24283c',x,y,a,b);
   for(let j=0;j<b;j+=6)for(let i=-4;i<a;i+=9){const xx=x+i+(j%12?4:0);if(xx<x||xx+8>x+a||j+5>b)continue;
    const v=noise(xx,y+j)%4;
-   r(['#514a61','#4d5066','#5c5368','#42495c'][v],xx,y+j,8,5);
-   r(['#938092','#82788b','#9c8996','#777b91'][v],xx+1,y+j,6,1);
+   r([mat[0],mat[1],mat[0],mat[3]][v],xx,y+j,8,5);
+   r(mat[2],xx+1,y+j,6,1);
    r('#242b42',xx+7,y+j+1,1,4);r('#303149',xx+1,y+j+4,6,1);
    r('#b6a0a555',xx+2+v,y+j+1,1,1);r('#202b3d55',xx+3,y+j+2,2,1);
   }
  };
  const timber=(x:number,y:number,a:number,b:number)=>{
   r('#241f2e',x,y,a,b);
-  for(let i=1;i<a-3;i+=5){const v=noise(x+i,y)%3;r(['#79543f','#684837','#896047'][v],x+i,y+1,4,b-2);r('#c28d5d',x+i,y+1,1,b-3);
+  for(let i=1;i<a-3;i+=5){const v=noise(x+i,y)%3;r([mat[0],mat[1],mat[0]][v],x+i,y+1,4,b-2);r(mat[2],x+i,y+1,1,b-3);
    for(let j=4;j<b-3;j+=7){r('#362d32',x+i+2,y+j,1,4);r('#a9784e',x+i+1,y+j+1,1,2);}
+   if(style==='thai')for(let j=5;j<b-2;j+=10){r('#4d6943',x+i,y+j,4,2);r('#e0d8a0',x+i,y+j,4,1);}
+   if(style==='tide')for(let j=6;j<b-2;j+=11)r('#c4d8cd',x+i+1,y+j,2,1);
    r('#e2b575',x+i+1,y+2,1,1);r('#1c2532',x+i+2,y+b-3,1,1);
   }
  };
@@ -96,7 +113,7 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  const cy=by+29;timber(bx-3,cy,p.bay+6,20);
  f.drawImage(rear,bx-3,cy,p.bay+6,20,bx-3,cy,p.bay+6,20);
  r('#e5c299',bx-5,cy,p.bay+10,2,f);r('#422e30',bx-4,cy+2,p.bay+8,2,f);
- r('#242232',bx,cy+5,p.bay,10,f);r(accent,bx,cy+5,p.bay,1,f);f.font='bold 6px monospace';f.textAlign='center';f.fillStyle='#f4dfb2';f.fillText(name,bx+p.bay/2,cy+12,p.bay-4);
+ r(mat[3],bx,cy+5,p.bay,10,f);r(accent,bx,cy+5,p.bay,1,f);f.font='bold 6px monospace';f.textAlign='center';f.fillStyle='#f4dfb2';f.fillText(name,bx+p.bay/2,cy+12,p.bay-4);
  // Street-level variety: alternating stools, planters and individual tile inlays.
  for(let i=0;i<2+p.variant;i++){const xx=bx+3+i*13;if(xx>w-12)break;r('#212238',xx+3,h-8,2,8,f);r('#a77d5c',xx,h-10,10,3,f);r('#dec291',xx+1,h-10,8,1,f);}
  for(let i=0;i<12;i++)if((p.seed>>>i)&1)r('#a3bdb0',bx+i*4,cy+17,2,1,f);
@@ -135,6 +152,43 @@ function build(id:string,name:string,style:string,w:number,h:number,source:HTMLI
  }
  // A lit transom and brass frame brighten the entrance side of the composition.
  r('#9b5f51',p.doorX+3,dy+3,11,15);r('#e7a65e',p.doorX+4,dy+4,9,13);r('#ffe0a0',p.doorX+5,dy+4,3,13);r('#6f4a46',p.doorX+8,dy+3,1,15);r('#6f4a46',p.doorX+3,dy+10,11,1);
+ // Cuisine fixtures use different forms and materials, not palette-swapped decorations.
+ const px=p.side>0?9:w-25,py=h-24;
+ if(style==='ramen'){
+  // Lacquer bowl stack and a red fabric shop banner.
+  for(let i=0;i<3;i++){r('#c8d7ce',px,py+i*3,13,2,f);r('#a3483c',px+2,py+2+i*3,9,1,f);}
+  r('#a03d3b',p.doorX,dy-18,17,14);r('#edc797',p.doorX+2,dy-17,13,1);
+  for(let i=0;i<3;i++)r('#f7dfb2',p.doorX+3+i*5,dy-13,2,5);
+ }else if(style==='cafe'){
+  // Glass pastry case, croissants, and flowering window boxes.
+  r('#47676c',px-2,py-5,19,14,f);r('#b9e1d4',px-1,py-4,17,1,f);
+  for(let i=0;i<3;i++){r('#a76538',px+i*5,py+2,4,3,f);r('#f6c277',px+1+i*5,py+1,3,1,f);}
+  r('#d6eee0',px+1,py-3,1,8,f);
+  for(let i=0;i<5;i++){const xx=12+i*20;r('#65856a',xx,46,10,3);r('#f2a0c2',xx+2,44,3,3);r('#ffe5cd',xx+3,45,1,1);}
+ }else if(style==='thai'){
+  // Woven herb basket and a brass wok suspended from a bracket.
+  r('#b68b51',px,py,15,11,f);for(let i=0;i<4;i++)r('#e0bd7a',px+1+i*4,py,1,10,f);
+  for(let i=0;i<4;i++){r('#638c4b',px+2+i*3,py-5-i%2*3,2,8,f);r('#b6c870',px+2+i*3,py-5-i%2*3,1,3,f);}
+  r('#40383e',p.doorX,dy-18,16,2);r('#d3b475',p.doorX+5,dy-16,9,5);r('#7c6850',p.doorX+7,dy-11,5,2);
+ }else if(style==='pearl'){
+  // Stacked bamboo steamers and a jade tea urn.
+  for(let i=0;i<3;i++){r('#b38d54',px,py-3+i*4,17,4,f);r('#f0cf8c',px+1,py-3+i*4,15,1,f);for(let k=0;k<4;k++)r('#73583b',px+3+k*4,py-1+i*4,1,1,f);}
+  r('#7bb6a0',bx+p.bay-10,by+19,7,8);r('#c5e7ce',bx+p.bay-9,by+18,5,2);
+ }else if(style==='ember'){
+  // Riveted iron charcoal bin, logs and copper exhaust flue.
+  r('#343640',px,py-4,16,15,f);r('#8e9291',px,py-4,16,1,f);
+  for(let i=0;i<3;i++){r('#70513c',px+2,py+i*3,12,2,f);r('#c29165',px+3,py+i*3,2,2,f);}
+  for(let i=0;i<3;i++)r('#b4a9a0',px+1+i*6,py+9,1,1,f);
+ }else if(style==='tide'){
+  // Ice crate, silver fish and coiled dock rope.
+  r('#648e9a',px-2,py,19,11,f);r('#d2e5df',px-1,py,17,2,f);
+  for(let i=0;i<3;i++){r('#c3dedf',px+i*5,py+4,4,2,f);r('#5b9fae',px+i*5,py+4,2,1,f);}
+  for(let i=0;i<3;i++){r('#b4a172',p.doorX+i*2,dy-12+i*2,14-i*4,1);r('#e7d5a7',p.doorX+i*2,dy-8-i*2,14-i*4,1);}
+ }else{
+  // Indigo split noren, pale hinoki serving board and soy bottles.
+  for(let i=0;i<3;i++){r('#344769',p.doorX+i*6,dy-17,5,12);r('#b4c9cf',p.doorX+2+i*6,dy-14,1,5);}
+  r('#e1c898',px-1,py+4,18,3,f);for(let i=0;i<3;i++){r('#f1e1bd',px+i*5,py+1,4,3,f);r('#dd8d79',px+i*5,py,4,2,f);}
+ }
  // Enrich the foreground plants and stools with leaf clusters, highlights and feet.
  for(const xx of [4,w-12])for(let k=0;k<9;k++){const px=xx+(noise(xx,k)%9),py=h-16-(noise(k,xx)%12);r('#1f413e',px,py,3,3,f);r('#59886a',px,py,2,1,f);r('#9aa276',px+1,py,1,1,f);}
  for(let k=0;k<2+p.variant;k++){const xx=bx+3+k*13;if(xx>w-12)break;r('#9c6a48',xx+1,h-9,8,2,f);r('#181f30',xx+2,h-7,1,6,f);r('#88837a',xx+3,h-7,1,4,f);r('#151e2c',xx,h-2,8,2,f);}
