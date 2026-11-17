@@ -1,4 +1,4 @@
-import { drawStorefront } from './storefront';
+import { drawStorefront, storefrontPlan } from './storefront';
 import { liveRestaurants } from '../published/market';
 import { districtIconNames, drawDistrictIcon } from './district-icons';
 import rainAlley from './fixtures/market-map.json';
@@ -337,7 +337,7 @@ export class MarketWorld {
       const add=(dx:number,dy:number,tint:MarketLight['tint'],scale=1,alpha=.35)=>this.lights.push({x:x+dx,y:y+dy,groundY:y+22,tint,scale,alpha});
       if(o.kind==='restaurant'||o.kind==='published-restaurant'){
         const key=o.asset.slice(4) as keyof typeof building,b=building[key];
-        if(o.kind==='published-restaurant'&&/ember.*stone/i.test(liveRestaurants.get(o.id)?.name??'')){add(0,-b.h+36,'red',1.4,.4);add(-30,-35,'gold',1.3,.4);add(45,-55,'cyan',.7,.25);continue;}
+        if(o.kind==='published-restaurant'){const plan=storefrontPlan(o.id,key,b.w,b.h);add(-b.w/2+plan.signX+24,-b.h+plan.signY+16,key==='ember'?'red':'cyan',1.3,.4);add(-b.w/2+plan.center,-b.h+plan.windowY+20,'gold',1.4,.3);continue;}
         const tint=key==='ramen'||key==='ember'?'red':key==='cafe'?'magenta':key==='pearl'?'violet':'cyan';
         add(b.sign[0],b.sign[1]-16,tint,1.25);add(b.chef[0],b.chef[1]-12,key==='cafe'?'magenta':'gold',1.5,.28);
       }else if(o.asset==='prop-lamp')add(0,-40,'gold',1.25,.45);
