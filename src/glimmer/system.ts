@@ -1,3 +1,4 @@
+import { RenderCadence, renderInterval } from './low-power';
 import { FrameRateMeter } from './frame-rate';
 import { ARPortionPortal } from './ar-portal';
 import { generatedModelId } from './generated-models';
@@ -20,6 +21,7 @@ export class GlimmerSystem extends createSystem({}) {
   private texture!:CanvasTexture;
   private board!:Mesh<PlaneGeometry,MeshBasicMaterial>;
   private flatScreen=false;
+  private powerPixelRatio=0;
   private preview=new Group();
   private holograms=new Group();
   private previewGeneration=0;
@@ -47,6 +49,15 @@ export class GlimmerSystem extends createSystem({}) {
     surface.addEventListener('pointerdown',focusGame);
     this.cleanupFuncs.push(()=>{surface.removeEventListener('pointerdown',focusGame);if(previousTabIndex===null)surface.removeAttribute('tabindex');else surface.setAttribute('tabindex',previousTabIndex);});
     this.browserGamepad=new BrowserGamepad(this.app);
+    const renderer=this.world.renderer,originalRender=renderer.render,renderCadence=new RenderCadence();
+    renderer.render=(scene,camera)=>{
+      const immersive=renderer.xr.isPresenting;
+      if(!renderCadence.due(performance.now(),renderInterval(this.app.lowPower,immersive,this.flatScreen)))return;
+      originalRender.call(renderer,scene,camera);
+    };
+    const resetRenderCadence=()=>renderCadence.reset();
+    window.addEventListener('resize',resetRenderCadence);
+    this.cleanupFuncs.push(()=>{renderer.render=originalRender;window.removeEventListener('resize',resetRenderCadence);});
     const fit=()=>{if(this.world.visibilityState.peek()!==VisibilityState.NonImmersive)return;const camera=this.world.camera;const aspect=window.innerWidth/window.innerHeight;const distance=Math.max(2.025/2,3.6/(2*aspect))/Math.tan(camera.fov*Math.PI/360)*1.04;camera.position.set(0,1.65,distance-2.8);camera.lookAt(0,1.65,-2.8);camera.updateProjectionMatrix();};
     window.addEventListener('resize',fit);fit();this.cleanupFuncs.push(()=>window.removeEventListener('resize',fit),this.world.visibilityState.subscribe(()=>fit()));
 
@@ -110,6 +121,11 @@ export class GlimmerSystem extends createSystem({}) {
     else if(this.frameRate.sample(performance.now()))this.app.setFPS(this.frameRate.fps);
     const dt=Math.min(delta,.1);const pad=this.input.xr.gamepads.left;
     const immersive=this.world.visibilityState.peek()!==VisibilityState.NonImmersive;
+    // Keep pixel density changes outside XR sessions; never throttle headset frames.
+    if(!immersive&&this.app.handPlacement){
+      const ratio=this.app.lowPower?.75:1;
+      if(ratio!==this.powerPixelRatio){this.world.renderer.setPixelRatio(ratio);this.powerPixelRatio=ratio;}
+    }
     let pads: readonly (Gamepad|null)[]=noGamepads;
     if(!immersive&&document.hasFocus()&&!document.hidden){try{pads=navigator.getGamepads?.()??noGamepads;}catch{/* Browser policy may disable gamepads. */}}
     this.browserGamepad.update(dt,pads,!immersive&&document.hasFocus()&&!document.hidden);
@@ -133,6 +149,6 @@ export class GlimmerSystem extends createSystem({}) {
       this.preview.rotation.x=this.app.portalPitch+(immersive?0:Math.PI/2-.25);
       this.preview.scale.setScalar(immersive?1:2.5/this.app.portalZoom);
     }
-    if(this.app.screen!=='pause'&&!this.app.reducedMotion)for(const model of this.holograms.children)model.rotation.y+=dt*Math.PI/6;
+    if(this.app.screen!=='pause'&&!this.app.lowPower&&!this.app.reducedMotion)for(const model of this.holograms.children)model.rotation.y+=dt*Math.PI/6;
   }
 }

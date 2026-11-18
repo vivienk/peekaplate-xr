@@ -1,3 +1,4 @@
+import { RenderCadence, readLowPower } from './low-power';
 import { focusOutline } from './focus-outline';
 import { brandIconEffects } from './brand-icon-effects';
 import { demoPrice } from './dish-metadata';
@@ -81,6 +82,8 @@ export class GlimmerApp {
   onXR:()=>void=()=>{};
   onSpectacles:()=>void=()=>{};
   handPlacement=typeof location!=='undefined'&&(location.hostname==='peekaplate-ar.vercel.app'||new URLSearchParams(location.search).get('spectacles')==='1');
+  lowPower=readLowPower(this.handPlacement);
+  private marketCadence=new RenderCadence();
   onEnterPortal:()=>void=()=>{};
   onReposition:()=>void=()=>{};
   arSupported=false;portalAR=false;portalPlacement="";
@@ -200,6 +203,7 @@ export class GlimmerApp {
   openPanel(screen:Screen){this.panelReturn.set(screen,this.screen);this.setScreen(screen);}
   toggleSound(){this.muted=!this.muted;this.audio.setSoundMuted(this.muted);this.audio.setMusicMuted(this.muted||this.musicMuted);this.invalidate();}
   toggleMusic(){this.musicMuted=!this.musicMuted;this.audio.setMusicMuted(this.muted||this.musicMuted);this.invalidate();}
+  toggleLowPower(){this.lowPower=!this.lowPower;this.marketCadence.reset();try{localStorage.setItem('peekaplate-low-power',this.lowPower?'on':'off');}catch{/* Storage can be unavailable in Browser Lens. */}this.invalidate();}
   toggleMotion(){this.reducedMotion=!this.reducedMotion;this.market.reducedMotion=this.reducedMotion;this.invalidate();}
   private deferReward(result:RuleResult){if(result.changed)this.deferredRewards.push(result);this.uiDirty=true;}
   get dialogueTyping(){return this.dialogueElapsed*40<(this.dialogue[this.dialogueIndex]?.length??0);}
@@ -227,17 +231,20 @@ export class GlimmerApp {
     this.liveRefresh+=dt;if(this.liveRefresh>=60&&this.screen==='explore'){this.liveRefresh=0;this.refreshPublished();}
     if(this.screen==='publishedMenu'){const live=liveRestaurants.get(this.publishedId);if(live?.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.publishedMessage='This menu has expired. Reopen the restaurant to refresh.';this.invalidate();}}
     if(['dish','ar','comparison','comparePicker','search'].includes(this.screen)){for(const live of liveRestaurants.values()){if(live.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.invalidate();if(this.screen==='ar'&&this.portalDishId.startsWith(live.id+'/'))this.onPortal(null);}}}
-    const previousLogoFrame=Math.floor(this.screenAge*8);
+    const logoRate=this.lowPower?4:8;
+    const previousLogoFrame=Math.floor(this.screenAge*logoRate);
     this.screenAge+=dt;
-    if(this.screen==='title'&&!this.reducedMotion&&previousLogoFrame!==Math.floor(this.screenAge*8))this.uiDirty=true;
+    if(this.screen==='title'&&!this.reducedMotion&&previousLogoFrame!==Math.floor(this.screenAge*logoRate))this.uiDirty=true;
     if(this.screen==='dialogue'){this.dialogueElapsed+=dt;const blip=Math.floor(Math.min(this.dialogueElapsed*40,this.dialogue[this.dialogueIndex]?.length??0)/3);if(this.dialogueTyping&&blip>this.dialogueBlip){this.sound(`sfx-talk-blip-${blip%3+1}`);this.dialogueBlip=blip;}this.market.setTalking(this.dialogueTyping);this.uiDirty=true;}else this.market.setTalking(false);
-    if(this.screen==='explore')this.uiDirty=true;
-    const paused=this.paused;if(!this.handPlacement||this.screen==='explore'||!this.marketPainted){this.market.update(dt);this.marketPainted=true;}this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
+    const paintMarket=!this.lowPower||this.immersive||this.screen!=='explore'||this.marketCadence.due(performance.now(),1000/30);
+    this.market.lowPower=this.lowPower;
+    if(this.screen==='explore'&&paintMarket)this.uiDirty=true;
+    const paused=this.paused;if(!this.handPlacement||this.screen==='explore'||!this.marketPainted){this.market.update(dt,paintMarket);this.marketPainted=true;}this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
     const ready=advanceTime(this.state,dt,paused);if(ready.changed){this.result(ready);this.sound('sfx-order-ready');this.onOrderReady();}
     if(!paused&&this.screen==='explore'){const hadToast=this.toastTime>0;this.toastTime=Math.max(0,this.toastTime-dt);if(hadToast&&!this.toastTime)this.uiDirty=true;if(!this.toastTime&&this.queue.length)this.notify(this.queue.shift()!);}
     if(this.screen==='explore'&&this.checkFinale&&!this.toastTime&&!this.queue.length){this.checkFinale=false;const finale=nextFinale(this.state);if(finale){this.finaleDistrict=finale.kind==='grand'?null:finale.district??null;this.market.triggerFinale(finale.kind==='grand');this.title=finale.kind==='grand'?'The whole market, in your passport!':`${districts.find(d=>d.district===finale.district)?.name} complete!`;this.setScreen('finale');this.sound(finale.kind==='grand'?'sfx-grand-finale':'sfx-finale');}}
-    if(this.screen==='ar'){this.portalIdle=Math.max(0,this.portalIdle-dt);if(!this.portalAR&&!this.reducedMotion&&!this.portalFlat&&!this.portalIdle)this.portalYaw+=dt*Math.PI/9;}
-    this.render();
+    if(this.screen==='ar'){this.portalIdle=Math.max(0,this.portalIdle-dt);if(!this.portalAR&&!this.lowPower&&!this.reducedMotion&&!this.portalFlat&&!this.portalIdle)this.portalYaw+=dt*Math.PI/9;}
+    if(paintMarket)this.render();
   }
   text(s:string,x:number,y:number,size=28,color=ink){const c=this.context;c.fillStyle=color;c.font=`${size}px Jersey, monospace`;c.fillText(s,x,y);}
   wrap(s:string,x:number,y:number,width:number,size=26,color=ink){const c=this.context;c.font=`${size}px Jersey, monospace`;let line='';for(const word of s.split(' ')){if(c.measureText(line+word).width>width){this.text(line,x,y,size,color);y+=size+5;line='';}line+=word+' ';}this.text(line,x,y,size,color);return y+size+5;}

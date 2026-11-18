@@ -30,7 +30,7 @@ interface Particle { x: number; y: number; age: number; live: boolean }
 interface DrawItem { y: number; object?: MarketObject; walker?: Walker; player?: boolean }
 interface MarketLight { x:number; y:number; groundY:number; tint:keyof typeof tintColors; scale:number; alpha:number }
 const districts = [rainAlley, lanternSteps, foglinePier] as District[];
-export const WALK_SPEED = 85;
+export const WALK_SPEED = 85 * .87; // 13% slower for every movement input.
 const colors = ['yellow', 'cherry', 'teal', 'lavender', 'mint', 'coral', 'midnight', 'peach'];
 const hats = ['hood', 'buckethat', 'catbeanie', 'souwester'];
 const kinds = ['published-restaurant', 'restaurant', 'order-portal', 'kiosk', 'find-person', 'find-holo', 'find-wish', 'find-bottle', 'find-cat', 'find-puddle', 'bench', 'vending', 'signpost', 'gate'];
@@ -57,6 +57,7 @@ export class MarketWorld {
   readonly ready: Promise<void>;
   readonly player = { x: 22, y: 29.6 };
   district = 'd1-rain-alley';
+  lowPower=false;
   reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   private ctx: CanvasRenderingContext2D;
   private map = districts[0];
@@ -281,10 +282,10 @@ export class MarketWorld {
     this.path = route.reverse(); this.pathIndex = 0; this.marker = [x,y]; return true;
   }
 
-  update(delta: number): void {
+  update(delta: number,paint=true): void {
     const elapsed=Math.min(Math.max(delta,0),.1);
     for(let remaining=elapsed;remaining>1e-8;){const dt=Math.min(remaining,1/60);this.step(dt);remaining-=dt;}
-    this.focusObject=this.findFocus();this.draw();
+    this.focusObject=this.findFocus();if(paint)this.draw();
   }
 
   private step(dt:number):void {
@@ -631,7 +632,7 @@ export class MarketWorld {
     this.drawLights(false);
     if (this.marker && (this.pathIndex < this.path.length || this.clock < this.markerBadUntil)) { c.strokeStyle = this.clock < this.markerBadUntil ? '#f89537' : '#ffd27c'; c.beginPath(); c.ellipse(this.marker[0],this.marker[1],7,3,0,0,Math.PI * 2); c.stroke(); }
     c.restore();
-    const rainCount = this.reducedMotion ? 30 : window.matchMedia('(pointer: coarse)').matches ? 60 : 90;
+    const rainCount = this.lowPower ? 24 : this.reducedMotion ? 30 : window.matchMedia('(pointer: coarse)').matches ? 60 : 90;
     c.globalAlpha = 1;
     for (let i = 0; i < rainCount; i++) {
       const speed = 260 + i % 61, y = (i * 53 + this.clock * speed) % (this.canvas.height + 16) - 8;

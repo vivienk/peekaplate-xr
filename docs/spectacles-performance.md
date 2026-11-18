@@ -9,3 +9,15 @@ FPS-only changes now composite the cached UI without rebuilding dish panels or n
 Validation: typecheck, Vitest, production build, and browser checks for movement, menu entry, dish viewing, FPS-only invalidation, portion switching and return. Run a development server on port 4174 and `node scripts/check-spectacles-render.mjs` for the focused regression check.
 
 A local Chromium CPU profile before the change identified `texSubImage2D` as the largest named native hotspot (605 samples in a four-second walking capture). It disappeared from the top sampled functions after direct-canvas presentation. These are local diagnostic samples, not a measured Spectacles speedup. Physical-device FPS and immersive placement still require testing on Spectacles.
+
+## Low-power mode
+
+Defaults on at `peekaplate-ar.vercel.app` (including `/xr/1`) and with `?spectacles=1`. Pause → Low power switches it on/off; the choice is saved locally, with a safe default if storage is blocked.
+
+- Market artwork redraws at up to 30 Hz; simulation, input polling, collision, audio and interaction checks continue on every game-loop tick.
+- Rain uses 24 streaks. Title effects update at 4 Hz instead of 8 Hz. Automatic portion/hologram rotation stops; manual rotation and photo tilt still work.
+- The otherwise static WebGL background behind direct-canvas screens renders at 4 Hz; non-immersive 3D portions render at up to 30 Hz. Browser Lens WebGL pixel density drops from 1 to 0.75, while the direct game/menu canvas stays full-resolution.
+- Immersive XR rendering is never frame-capped. The FPS badge continues to report game-loop cadence, which can be higher than the low-power visual refresh rate.
+- Walking speed is now 73.95 world pixels/second (13% below 85), shared by keyboard, controller and click/tap navigation, independent of the low-power setting.
+
+This reduces application workload; no thermal-runtime or shutdown-prevention claim is established without physical Spectacles testing.

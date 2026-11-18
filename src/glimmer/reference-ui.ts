@@ -100,7 +100,7 @@ export function renderReference(a:GlimmerApp):boolean {
    a.hit('Next',x,y,w,h,()=>a.advanceDialogue());return true;
  }
  if(a.screen==='pause'){
-   frame('Paused','pause',430);
+   frame('Paused','pause',524);
    const col=[180,496,812],row=[166,260,354],w=286,h=78;
    a.button('Resume',col[0],row[0],w,h,()=>a.close(),false,'primary');
    button(`Passport     ${a.state.stamps.length}/7`,col[0],row[1],w,h,()=>a.openPanel('passport'),'passport');
@@ -110,7 +110,8 @@ export function renderReference(a:GlimmerApp):boolean {
    button('Restart market',col[1],row[2],w,h,()=>a.setScreen('restart'),'restart');
    button(`Sound       ${a.muted?'Off':'On'}`,col[2],row[0],w,h,()=>a.toggleSound(),'sound');
    button(`Music       ${a.musicMuted?'Off':'On'}`,col[2],row[1],w,h,()=>a.toggleMusic(),'music');
-   button(`Reduced motion  ${a.reducedMotion?'On':'Off'}`,col[2],row[2],w,h,()=>a.toggleMotion(),'motion');return true;
+   button(`Reduced motion  ${a.reducedMotion?'On':'Off'}`,col[2],row[2],w,h,()=>a.toggleMotion(),'motion');
+   button(`Low power: ${a.lowPower?'On':'Off'}`,180,448,918,62,()=>a.toggleLowPower(),'motion');return true;
  }
  if(a.screen==='wardrobe'){
    frame(a.kioskOpen?'PeekaPlate Kiosk':a.wardrobeInPortal?'Order Portal':'Wardrobe','lantern');tabs();
