@@ -1,4 +1,3 @@
-import { titleLogoEffects } from './title-logo-effects';
 import { demoPrice } from './dish-metadata';
 import { MarketMapUI } from './market-map-ui';
 import { interfaceIcon } from './interface-icons';
@@ -285,14 +284,16 @@ export class GlimmerApp {
       this.button(this.handPlacement?'Dishes in AR':'Enter VR',1090,16,165,45,()=>this.handPlacement?this.dining.search():this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
-      this.heading('');
-      this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',100,63,56,56);
-      this.titleText('PeekaPlate',170,109,43,ink);
-      this.picture(import.meta.env.BASE_URL+'branding/night-market-2049-brown-cyan-pixel.png',280,138,720,238);
-      if(this.images.get(import.meta.env.BASE_URL+'branding/night-market-2049-brown-cyan-pixel.png')?.naturalWidth)titleLogoEffects(c,280,138,720,238,this.screenAge,this.reducedMotion);
-      if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,383,24);
-      this.button('Start',350,395,580,60,()=>this.start());this.button('Continue with code',350,475,580,60,()=>{this.code='';this.setScreen('codeEntry');});
-      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,550,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);
+      this.heading('PeekaPlate');
+      this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',521,134,238,238);
+      // Use the same title face as the PeekaPlate wordmark, at half the old logo width.
+      c.save();c.font='36px JerseyTitle, monospace';
+      const name='Night Market ',year='2049',nameWidth=c.measureText(name).width;
+      const left=(1280-nameWidth-c.measureText(year).width)/2;
+      this.titleText(name,left,400,36,ink);this.titleText(year,left+nameWidth,400,36,'#19c9ed');c.restore();
+      if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,423,20);
+      this.button('Start',350,438,580,54,()=>this.start());this.button('Continue with code',350,507,580,54,()=>{this.code='';this.setScreen('codeEntry');});
+      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,576,580,54,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,654,22);
     }else if(this.screen==='codeEntry'){
       this.heading('Continue with Market code');this.text((this.code.padEnd(this.code.length>18?19:18,'_').match(/.{1,6}/g)??[]).join(' - '),300,211,43);
       [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<19)this.code+=ch;}));
