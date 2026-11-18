@@ -16,6 +16,12 @@ const noGamepads: readonly (Gamepad|null)[] = [];
 export class GlimmerSystem extends createSystem({}) {
   app!:GlimmerApp;
   private frameRate=new FrameRateMeter();
+  private renderedFrame=false;
+  private measuredScreen='';
+  private measuredFlat=false;
+  private measuredLowPower=false;
+  private lastVisualRevision=0;
+  private lastDetailRevision=0;
   private arPortal!:ARPortionPortal;
   private browserGamepad!:BrowserGamepad;
   private texture!:CanvasTexture;
@@ -38,7 +44,7 @@ export class GlimmerSystem extends createSystem({}) {
   private dragX=0;private dragY=0;
   init(){
     this.app=new GlimmerApp();this.app.refreshPublished();
-    const resetFrameRate=()=>this.frameRate.reset();
+    const resetFrameRate=()=>{this.frameRate.reset();this.renderedFrame=false;this.app.setFPS(null);};
     document.addEventListener('visibilitychange',resetFrameRate);
     this.cleanupFuncs.push(()=>document.removeEventListener('visibilitychange',resetFrameRate));
     if(this.app.handPlacement)this.world.renderer.setPixelRatio(1);
@@ -54,6 +60,7 @@ export class GlimmerSystem extends createSystem({}) {
       const immersive=renderer.xr.isPresenting;
       if(!renderCadence.due(performance.now(),renderInterval(this.app.lowPower,immersive,this.flatScreen)))return;
       originalRender.call(renderer,scene,camera);
+      if(!this.flatScreen&&scene===this.world.scene&&camera===this.world.camera)this.renderedFrame=true;
     };
     const resetRenderCadence=()=>renderCadence.reset();
     window.addEventListener('resize',resetRenderCadence);
@@ -116,9 +123,6 @@ export class GlimmerSystem extends createSystem({}) {
   }
   private async loadOrder(){const generation=++this.orderGeneration;this.holograms.clear();for(const [index,line]of this.app.state.holograms.entries()){try{const model=await this.model(line.dish,.28);if(this.stopped||generation!==this.orderGeneration)return;const pivot=new Group();pivot.position.x=(index-(this.app.state.holograms.length-1)/2)*.4;pivot.add(model);this.holograms.add(pivot);}catch(error){console.error('[GLIMMER] order model failed',line.dish,error);this.app.notify('One order hologram is unavailable. Your ticket is still valid.');}}}
   update(delta:number){
-    // Use wall time, not the capped simulation delta; includes slow frames.
-    if(document.hidden)this.frameRate.reset();
-    else if(this.frameRate.sample(performance.now()))this.app.setFPS(this.frameRate.fps);
     const dt=Math.min(delta,.1);const pad=this.input.xr.gamepads.left;
     const immersive=this.world.visibilityState.peek()!==VisibilityState.NonImmersive;
     // Keep pixel density changes outside XR sessions; never throttle headset frames.
@@ -140,6 +144,18 @@ export class GlimmerSystem extends createSystem({}) {
       if(!flatScreen)this.texture.needsUpdate=true;
     }
     if(!flatScreen&&revision!==this.app.canvasRevision)this.texture.needsUpdate=true;
+    // Count visible canvas/DOM updates, or successful 3D renders after the cap.
+    // The invisible WebGL background behind the flat canvas is never counted.
+    const detailRevision=this.app.dining.detailPreview.visualRevision;
+    const presented=flatScreen
+      ? this.lastVisualRevision!==this.app.visualRevision||(this.app.screen==='dish'&&this.lastDetailRevision!==detailRevision)
+      : this.renderedFrame;
+    this.lastVisualRevision=this.app.visualRevision;this.lastDetailRevision=detailRevision;this.renderedFrame=false;
+    if(this.measuredScreen!==this.app.screen||this.measuredFlat!==flatScreen||this.measuredLowPower!==this.app.lowPower){
+      this.frameRate.reset();this.app.setFPS(null);this.measuredScreen=this.app.screen;this.measuredFlat=flatScreen;this.measuredLowPower=this.app.lowPower;
+    }
+    if(document.hidden)this.frameRate.reset();
+    else if(this.frameRate.sample(performance.now(),presented))this.app.setFPS(this.frameRate.fps);
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
     const placedAR=this.arPortal.update();this.holograms.visible=!this.app.portalAR;
     if(this.app.screen==='ar'&&!placedAR){

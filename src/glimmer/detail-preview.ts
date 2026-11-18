@@ -5,6 +5,8 @@ export class DetailPreview {
  readonly element=document.createElement('div');private card=document.createElement('div');
  private abort:AbortController|null=null;private key='';private original=false;private reduced=false;private layers:HTMLImageElement[]=[];private photo:HTMLImageElement|null=null;private x=0;private y=0;
  status='';
+ visualRevision=0;
+ private lastTiltX=NaN;private lastTiltY=NaN;
  constructor(private changed:()=>void){
   this.element.tabIndex=0;this.element.setAttribute('role','img');this.element.setAttribute('aria-label','Dish preview. Move pointer or drag to tilt; arrow keys adjust; Home resets.');
   this.element.style.cssText='display:none;position:fixed;z-index:10;outline-offset:2px;touch-action:pan-y;overflow:hidden;background:#1f222a;';
@@ -15,6 +17,8 @@ export class DetailPreview {
   this.element.addEventListener('keydown',e=>{let x=this.x,y=this.y;if(e.key==='Home')x=y=0;else if(e.key==='ArrowLeft')x-=1/6;else if(e.key==='ArrowRight')x+=1/6;else if(e.key==='ArrowUp')y-=1/6;else if(e.key==='ArrowDown')y+=1/6;else return;e.preventDefault();e.stopPropagation();this.move(x,y);});
  }
  private move(x:number,y:number){this.x=Math.max(-1,Math.min(1,x));this.y=Math.max(-1,Math.min(1,y));const nx=this.original||this.reduced?0:this.x,ny=this.original||this.reduced?0:this.y;
+  if((nx!==this.lastTiltX||ny!==this.lastTiltY)&&this.element.style.display!=='none')this.visualRevision++;
+  this.lastTiltX=nx;this.lastTiltY=ny;
   this.card.style.transform=`perspective(900px) rotateX(${-ny*3}deg) rotateY(${nx*3}deg)`;for(const img of this.layers)img.style.transform=`translate(${nx*5}px,${ny*3}px)`;
  }
  reset(){this.move(0,0);}

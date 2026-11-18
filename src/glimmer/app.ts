@@ -27,7 +27,7 @@ export class GlimmerApp {
   private uiDirty=true;
   private fpsLabel='FPS —';
   private fpsDirty=true;
-  setFPS(fps:number){const label=`FPS ${fps}`;if(label!==this.fpsLabel){this.fpsLabel=label;this.fpsDirty=true;}}
+  setFPS(fps:number|null){const label=fps===null?'FPS —':`FPS ${fps}`;if(label!==this.fpsLabel){this.fpsLabel=label;this.fpsDirty=true;}}
   private screenAge=1;
   private pressedIndex=-1;
   finaleDistrict:string|null=null;
@@ -76,6 +76,7 @@ export class GlimmerApp {
   private accessible=document.createElement('nav');
   private accessibleKey='';
   canvasRevision=0;
+  visualRevision=0;
   private marketPainted=false;
   onPortal:(id:string|null)=>void=()=>{};
   onOrderReady:()=>void=()=>{};
@@ -288,6 +289,8 @@ export class GlimmerApp {
   render(){
     // Static Spectacles panels need no canvas redraw or GPU upload between changes.
     if(this.handPlacement&&this.screen!=='explore'&&!this.uiDirty&&!this.fpsDirty&&this.screenAge>.3)return;
+    // Badge-only refreshes are not new content frames.
+    if(this.uiDirty||this.screen==='explore'||this.screenAge<=.3||!this.handPlacement)this.visualRevision++;
     this.fpsDirty=false;
     this.canvasRevision++;
     this.output.imageSmoothingEnabled=false;if(this.portalAR)this.output.clearRect(0,0,1280,720);else this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
