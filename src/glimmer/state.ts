@@ -55,26 +55,31 @@ function mask(ids: string[], records: {id: string}[]): string {
   return records.map(record => ids.includes(record.id) ? '1' : '0').join('');
 }
 export function encodeMarketCode(state: GameState): string {
-  const payload = '01' + mask(state.stamps, restaurants) + mask(state.finds, finds) + mask(state.tastingList, dishes)
+  const extended=state.tastingList.some(id=>requireIndex(id,dishes)>=32);
+  // Version 1 retains all original indices; version 2 appends these two dishes.
+  const records=dishes.slice(0,extended?34:32);
+  const payload = (extended?'10':'01') + mask(state.stamps, restaurants) + mask(state.finds, finds) + mask(state.tastingList, records)
     + bits(state.colour, 3) + bits(state.headwear, 2) + (state.grandFinaleShown ? '1' : '0')
     + bits(Math.min(15, state.ordersPlaced), 4)
     + (state.visited.includes('d2-lantern-steps') ? '1' : '0') + (state.visited.includes('d3-fogline-pier') ? '1' : '0');
-  return encodeBits(payload + bits(marketChecksum(payload), 9)).match(/.{6}/g)!.join('-');
+  const code=payload+bits(marketChecksum(payload),9);
+  return encodeBits(code.padEnd(Math.ceil(code.length/5)*5,'0')).match(/.{1,6}/g)!.join('-');
 }
 export function decodeMarketCode(code: string): GameState {
-  const value = decodeBits(code, 18);
-  const payload = value.slice(0, 81);
-  if (payload.slice(0, 2) !== '01' || marketChecksum(payload) !== parseInt(value.slice(81), 2)) throw new Error("That code doesn't match. Check each character and try again.");
+  const extended=normalizeCode(code).length===19,offset=extended?2:0;
+  const value = decodeBits(code, extended?19:18);
+  const payload = value.slice(0, 81+offset);
+  if (payload.slice(0, 2) !== (extended?'10':'01') || marketChecksum(payload) !== parseInt(value.slice(81+offset,90+offset), 2) || /1/.test(value.slice(90+offset))) throw new Error("That code doesn't match. Check each character and try again.");
   const state = createState();
   const readMask = (start: number, records: {id: string}[]) => records.filter((_, index) => value[start + index] === '1').map(record => record.id);
   state.stamps = readMask(2, restaurants);
   state.finds = readMask(9, finds);
-  state.tastingList = readMask(37, dishes);
-  state.colour = parseInt(value.slice(69, 72), 2);
-  state.headwear = parseInt(value.slice(72, 74), 2);
-  state.grandFinaleShown = value[74] === '1';
-  state.ordersPlaced = parseInt(value.slice(75, 79), 2);
-  state.visited = districts.slice(1).filter((_, index) => value[79 + index] === '1').map(district => district.district);
+  state.tastingList = readMask(37, dishes.slice(0,extended?34:32));
+  state.colour = parseInt(value.slice(69+offset, 72+offset), 2);
+  state.headwear = parseInt(value.slice(72+offset, 74+offset), 2);
+  state.grandFinaleShown = value[74+offset] === '1';
+  state.ordersPlaced = parseInt(value.slice(75+offset, 79+offset), 2);
+  state.visited = districts.slice(1).filter((_, index) => value[79 + offset + index] === '1').map(district => district.district);
   // Completed district finales and the grand finale must not replay on restore.
   state.districtFinales = districts.filter(district => restaurants.filter(r => r.district === district.district).every(r => state.stamps.includes(r.id))).map(district => district.district);
   if (state.stamps.length === restaurants.length) state.grandFinaleShown = true;
@@ -89,11 +94,23 @@ function validateTray(lines: TrayLine[]): void {
 }
 export function encodeOrderCode(lines: TrayLine[]): string {
   validateTray(lines);
+  if(lines.some(l=>requireIndex(l.dish,dishes)>=32)){
+    const payload=(bits(lines.length,3)+lines.map(l=>bits(requireIndex(l.dish,dishes),6)+bits(l.qty-1,2)).join('')).padEnd(55,'0');
+    const checksum=payload.match(/.{5}/g)!.reduce((sum,part)=>sum+parseInt(part,2),0)%32;
+    return 'P2-'+encodeBits(payload+bits(checksum,5));
+  }
   const payload = (bits(lines.length, 3) + lines.map(line => bits(requireIndex(line.dish, dishes), 5) + bits(line.qty - 1, 2)).join('')).padEnd(45, '0');
   const checksum = payload.match(/.{5}/g)!.reduce((sum, chunk) => sum + parseInt(chunk, 2), 0) % 32;
   return encodeBits(payload + bits(checksum, 5)).match(/.{5}/g)!.join('-');
 }
 export function decodeOrderCode(code: string): TrayLine[] {
+  if(normalizeCode(code).length===14&&normalizeCode(code).startsWith('P2')){
+    const value=decodeBits(normalizeCode(code).slice(2),12),count=parseInt(value.slice(0,3),2);
+    const checksum=value.slice(0,55).match(/.{5}/g)!.reduce((sum,part)=>sum+parseInt(part,2),0)%32;
+    if(count>6||checksum!==parseInt(value.slice(55),2)||/1/.test(value.slice(3+count*8,55)))throw new Error('Invalid order code');
+    const lines=Array.from({length:count},(_,i)=>({dish:dishes[parseInt(value.slice(3+i*8,9+i*8),2)]?.id,qty:1+parseInt(value.slice(9+i*8,11+i*8),2)}));
+    validateTray(lines);return lines;
+  }
   const value = decodeBits(code, 10);
   const count = parseInt(value.slice(0, 3), 2);
   const sum = value.slice(0, 45).match(/.{5}/g)!.reduce((total, part) => total + parseInt(part, 2), 0) % 32;

@@ -52,5 +52,19 @@
     "note": "Restaurant preparation; protein may vary",
     "retrieved": "2026-11-17",
     "sha256": "a674ddb194410c1947281a18f2979f502accb1e1c43ccb09f0b3a1358e9d1007"
+  },
+  "thai-chicken-bowl": {
+    "photo": "supplied-dishes/thai-chicken-bowl-photo.jpg",
+    "sourceDish": "Fried Chicken Bowl with Sunny Egg",
+    "source": "",
+    "sha256": "74eb1cd001d4c3813de7273f9c243b8e5077084a57f2bea9fd41708a5979128b",
+    "note": "User-supplied photo; AI-edited cutout. Ingredients are descriptive, not restaurant-verified."
+  },
+  "noka-steak-ramen": {
+    "photo": "supplied-dishes/noka-steak-ramen-photo.jpg",
+    "sourceDish": "Flaming Steak Ramen",
+    "source": "",
+    "sha256": "1f3a351971f3f2e58aba0dbadf59dc9b74381741d386d3dbac5c852c39b0336c",
+    "note": "User-supplied photo; AI-edited cutout. Ingredients are descriptive, not restaurant-verified."
   }
 }

@@ -1,3 +1,4 @@
+import suppliedDishes from './supplied-dishes.json';
 import restaurantFixture from './fixtures/restaurants.json';
 import rainFixture from './fixtures/market-map.json';
 import stepsFixture from './fixtures/district-lantern-steps.json';
@@ -8,9 +9,9 @@ export interface MapObject { id: string; kind: string; asset: string; pivot: num
 export interface Exit { id: string; rect_tiles: number[]; to: string; arrive_at: number[]; facing: string }
 export interface District { district: DistrictId; name: string; width_tiles: number; height_tiles: number; tile_size_px: number; rows: string[]; player_spawn: number[]; player_entry_walk_to?: number[]; objects: MapObject[]; exits: Exit[]; walker_paths: unknown; [key: string]: unknown }
 const venueNames:Record<string,string>={'r1-ramen':'Noka Ramen','r2-cafe':'Sons and Garden','r3-thai':'Farm House Thai'};
-export const restaurants = restaurantFixture.map(r=>({...r,name:venueNames[r.id]??r.name}));
+export const restaurants = restaurantFixture.map(r=>({...r,name:venueNames[r.id]??r.name,dishes:[...r.dishes,...suppliedDishes.filter(d=>d.restaurantId===r.id)]}));
 export type Restaurant = typeof restaurants[number];
-export const dishes = restaurants.flatMap(restaurant => restaurant.dishes.map(dish => ({ ...dish, restaurantId: restaurant.id })) ).map((dish, index) => ({ ...dish, index }));
+export const dishes = [...restaurantFixture.flatMap(restaurant => restaurant.dishes.map(dish => ({ ...dish, restaurantId: restaurant.id }))),...suppliedDishes].map((dish, index) => ({ ...dish, index }));
 export type Dish = typeof dishes[number];
 export const districts = [rainFixture, stepsFixture, pierFixture] as unknown as District[];
 export interface Find { coupon?: boolean; id: string; district: DistrictId; label: string; lines: string[]; pivot: number[]; kind: string }

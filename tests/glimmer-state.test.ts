@@ -5,8 +5,8 @@ import { advanceTime, awardStamp, changeQuantity, chooseOutfit, CODE_ALPHABET, c
 describe('authoritative game content', () => {
   it('preserves all district, restaurant, dish and find counts and ordering', () => {
     expect(districts.map(d => [d.width_tiles, d.height_tiles])).toEqual([[44,32],[40,28],[40,28]]);
-    expect(restaurants.map(r => r.dishes.length)).toEqual([4,5,6,4,4,4,5]);
-    expect(dishes).toHaveLength(32);
+    expect(restaurants.map(r => r.dishes.length)).toEqual([5,5,7,4,4,4,5]);
+    expect(dishes).toHaveLength(34);
     expect(dishes[16].id).toBe('r4-2');
     expect(dishes[27].id).toBe('r7-1');
     expect(finds).toHaveLength(28);

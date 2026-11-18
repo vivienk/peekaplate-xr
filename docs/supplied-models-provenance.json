@@ -1,0 +1,22 @@
+[
+  {
+    "id": "thai-chicken-bowl",
+    "source": "fried chicken bowl 3d model.glb",
+    "source_sha256": "7a2a6d819fa5ae60a4cb03bd2f4f75c84b503e4293af0344f160e1e2995f127c",
+    "source_triangles": 1942826,
+    "triangles": 45000,
+    "bytes": 3989160,
+    "sha256": "f5b4fd96086eedcad961e44b95a98ba197ae32416a8832696c25c3f82e094b86",
+    "physical_size": "27 cm reference, estimated; not measured"
+  },
+  {
+    "id": "noka-steak-ramen",
+    "source": "Meshy_AI_handpainted_steak_ram_1118014748_image-to-3d-texture.glb",
+    "source_sha256": "7c8faac67ec2d240a46107579c4060dd3e19690d77d890eeff5a7f7b8e445320",
+    "source_triangles": 840028,
+    "triangles": 45000,
+    "bytes": 4788248,
+    "sha256": "93ab9b7274d5576d9be701872342cb2a146a69a60f4cc64c2a9c5810dc757130",
+    "physical_size": "27 cm reference, estimated; not measured"
+  }
+]

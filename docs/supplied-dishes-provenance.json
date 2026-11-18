@@ -1,0 +1,20 @@
+[
+  {
+    "id": "thai-chicken-bowl",
+    "name": "Fried Chicken Bowl with Sunny Egg",
+    "source_filename": "10bbe9b3-37c8-4002-88fb-85ac2332a452.jpeg",
+    "photo_sha256": "2572cdca8eee43927d55119348685c643f424e6c2d16ddc4136c538844df4c8e",
+    "generated_cutout_sha256": "267f9cb88c74d64bbe49ab5ee1832de84ffc824986305e9c67e4026599bc18e0",
+    "generated_icon_sha256": "a07e5343a13cecdce8d07e0f2b2cfecd67bec770318eb424a4ca6e1308e911bf",
+    "size": "27 cm reference; estimated, not measured"
+  },
+  {
+    "id": "noka-steak-ramen",
+    "name": "Flaming Steak Ramen",
+    "source_filename": "Screenshot 2026-11-17 at 6.03.42 PM.png",
+    "photo_sha256": "cfd9cf2e4c4ef368069a4694c36b4716122deb0d9964969476d51e690b4b4552",
+    "generated_cutout_sha256": "457f0afca782ab34429e1308cbf50530dd223f44db080fdb85161de5e48b57d9",
+    "generated_icon_sha256": "060cc29f78c48bec97e64105e855d41bb9f409c2d751f69ef460aeb36fc854c8",
+    "size": "27 cm reference; estimated, not measured"
+  }
+]

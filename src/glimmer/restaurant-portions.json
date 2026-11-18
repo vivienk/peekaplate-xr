@@ -196,5 +196,71 @@
       "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
       "inference_edge": 1024
     }
+  },
+  "thai-chicken-bowl": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "a9dfd556-733f-564e-8ae0-dce63252741d",
+      "dish_revision_id": "267f9cb8-8c74-564b-8e49-ab5ee1832de8",
+      "width": 498,
+      "height": 640,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/thai-chicken-bowl/background.svg",
+          "sha256": "10a370d61bca7384d1ce511fe55fbf918864ae73f74575ef0f33edecee4a6684",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/thai-chicken-bowl/foreground.webp",
+          "sha256": "4a559fc2348cce382b2d92e83bbf7808edaa1b00c3587ff8d99511e3eecac144",
+          "size_bytes": 80166,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "imagegen",
+      "operation": "user-photo-background-extraction",
+      "source_sha256": "2572cdca8eee43927d55119348685c643f424e6c2d16ddc4136c538844df4c8e",
+      "cutout_sha256": "267f9cb88c74d64bbe49ab5ee1832de84ffc824986305e9c67e4026599bc18e0"
+    }
+  },
+  "noka-steak-ramen": {
+    "portion": {
+      "schema_version": 1,
+      "dish_id": "1d0c3656-1357-5942-8429-54b37ccd038b",
+      "dish_revision_id": "457f0afc-a782-5b34-829e-1308cbf50530",
+      "width": 640,
+      "height": 427,
+      "motion": {
+        "max_yaw_degrees": 3,
+        "max_pitch_degrees": 3
+      },
+      "layers": [
+        {
+          "url": "https://restaurant-portions.invalid/noka-steak-ramen/background.svg",
+          "sha256": "112fd776fa06216e196f5ee5e0389a435c5e71acd0b8475a717ae92695405117",
+          "size_bytes": 71,
+          "depth": 0
+        },
+        {
+          "url": "https://restaurant-portions.invalid/noka-steak-ramen/foreground.webp",
+          "sha256": "17b48991e240022de235c50d2b116057522a1f425d3441ae532733b244669b81",
+          "size_bytes": 56546,
+          "depth": 1
+        }
+      ]
+    },
+    "segmentation": {
+      "engine": "imagegen",
+      "operation": "user-photo-background-extraction",
+      "source_sha256": "cfd9cf2e4c4ef368069a4694c36b4716122deb0d9964969476d51e690b4b4552",
+      "cutout_sha256": "457f0afca782ab34429e1308cbf50530dd223f44db080fdb85161de5e48b57d9"
+    }
   }
 }

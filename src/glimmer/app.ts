@@ -167,8 +167,8 @@ export class GlimmerApp {
     if(e.repeat&&['e',' ','enter','escape'].includes(e.key.toLowerCase())){e.preventDefault();return;}
     if(this.screen==='codeEntry'){
       if(e.key==='Backspace'){e.preventDefault();this.code=this.code.slice(0,-1);return;}
-      if(e.key==='Enter'){if(this.code.length===18)this.restore();return;}
-      if(e.key.length===1&&CODE_ALPHABET.includes(normalizeCode(e.key))){e.preventDefault();if(this.code.length<18)this.code+=normalizeCode(e.key);return;}
+      if(e.key==='Enter'){if([18,19].includes(this.code.length))this.restore();return;}
+      if(e.key.length===1&&CODE_ALPHABET.includes(normalizeCode(e.key))){e.preventDefault();if(this.code.length<19)this.code+=normalizeCode(e.key);return;}
     }
     if(this.screen==='dialogue'&&['e','Enter',' '].includes(e.key)){e.preventDefault();this.advanceDialogue();this.unlockAudio();return;}
     if(e.key==='Escape'){e.preventDefault();if(this.screen==='explore'){this.pauseReturn='explore';this.setScreen('pause');}else this.close();return;}
@@ -294,9 +294,9 @@ export class GlimmerApp {
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,530,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);
     }else if(this.screen==='codeEntry'){
-      this.heading('Continue with Market code');this.text((this.code.padEnd(18,'_').match(/.{6}/g)??[]).join(' - '),300,211,43);
-      [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<18)this.code+=ch;}));
-      this.button('Delete',220,558,260,60,()=>{this.code=this.code.slice(0,-1);});this.button('Continue',520,558,535,60,()=>this.restore(),this.code.length!==18);
+      this.heading('Continue with Market code');this.text((this.code.padEnd(this.code.length>18?19:18,'_').match(/.{1,6}/g)??[]).join(' - '),300,211,43);
+      [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<19)this.code+=ch;}));
+      this.button('Delete',220,558,260,60,()=>{this.code=this.code.slice(0,-1);});this.button('Continue',520,558,535,60,()=>this.restore(),![18,19].includes(this.code.length));
     }else if(this.screen==='menu'){
       this.heading(this.restaurant.name);this.text(this.restaurant.cuisine,98,174,28);
       this.restaurant.dishes.forEach((dish,i)=>{const x=100+i%2*555,y=195+Math.floor(i/2)*138;this.rect(x,y,530,120);this.image(dish.image,x+8,y+10,100);this.button(dish.name,x+120,y+10,393,58,()=>this.showDish(dish.id));this.text(demoPrice(dish.id),x+125,y+101,25);});
