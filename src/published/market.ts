@@ -9,6 +9,7 @@ export type Entry=z.infer<typeof Registry>['restaurants'][number];
 export interface LiveRestaurant { id:string; entry:Entry; name:string; content:PublicMenuContentBundle|null; expiresAt:number; available:boolean; enabled:boolean; demo?:boolean }
 export const liveRestaurants=new Map<string,LiveRestaurant>();
 export let connectionStatus='Published menus are not connected';
+export function artworkApiOrigin(){return origin;}
 let origin='';let refreshing=false;const requests=new Map<string,number>();
 const liveId=(e:Entry)=>`published:${e.venueId}`;
 /** Fill an unused facade beside an existing shop; otherwise append a connected east block. */

@@ -8,12 +8,14 @@ import { DetailPreview } from './detail-preview';
 import { loadPortionImages } from './portion-images';
 import { foodIcon } from './food-icons';
 import { toggleSavedDish, changeQuantity } from './state';
-import { liveRestaurants } from '../published/market';
+import { IngredientArtwork } from './ingredient-artwork';
+import { artworkApiOrigin, liveRestaurants } from '../published/market';
 const ink='#321b15',cream='#f3e6c8',muted='#82634e';
 export class DiningUI {
  id='r1-1';query='';category='All';categoryPage=0;compareId='';comparisonAnchor='';replaceSide:0|1=1;keyboard=false;ingredientPage=0;infoPage=0;info=false;
  menuCategory='All';private menuCategoryPage=0;private menuVenue='';
  artX=0;artY=0;photoMode=false;
+ private ingredientArtwork=new IngredientArtwork(()=>this.a.invalidate());
  private previews=new Map<string,{images:{image:HTMLImageElement;depth:number}[];layered:boolean}>();
  private pending=new Set<string>();private failed=new Set<string>();private previewAbort=new AbortController();
  pointer(x:number,y:number){if(this.a.screen!=='dish'||this.a.reducedMotion)return;const dx=Math.max(-1,Math.min(1,(x-295)/200))*5,dy=Math.max(-1,Math.min(1,(y-350)/200))*3;if(dx!==this.artX||dy!==this.artY){this.artX=dx;this.artY=dy;this.a.invalidate();}}
@@ -29,7 +31,7 @@ export class DiningUI {
   document.body.append(this.input);window.addEventListener('resize',this.resize);
  }
  syncInput(){
-  if(this.a.screen!=='dish')this.detailPreview.hide();
+  if(this.a.screen!=='dish'){this.detailPreview.hide();this.ingredientArtwork.clear();}
   const shown=['search','comparePicker'].includes(this.a.screen)&&!this.a.immersive&&!this.keyboard;
   const modern=this.a.screen==='comparePicker';Object.assign(this.input.style,{background:modern?dc.deep:'#fff4db',color:modern?dc.text:ink,fontFamily:modern?'Arial, sans-serif':'Jersey, monospace',borderRadius:modern?'8px':'0'});
   this.input.style.display=shown?'block':'none';if(!shown){this.input.blur();return;}
@@ -37,7 +39,7 @@ export class DiningUI {
   Object.assign(this.input.style,{left:`${left+112*scale}px`,top:`${top+160*scale}px`,width:`${732*scale}px`,height:`${31*scale}px`,fontSize:`${28*scale}px`});
   if(this.input.value!==this.query)this.input.value=this.query;
  }
- dispose(){this.detailPreview.dispose();this.previewAbort.abort();this.previews.clear();this.input.remove();window.removeEventListener('resize',this.resize);}
+ dispose(){this.ingredientArtwork.dispose();this.detailPreview.dispose();this.previewAbort.abort();this.previews.clear();this.input.remove();window.removeEventListener('resize',this.resize);}
 
  get selected(){return marketCatalogue().find(d=>d.id===this.id);}
  show(id:string,from:Screen='menu'){if(!marketCatalogue().some(d=>d.id===id))return;this.id=id;this.returnTo=from;this.info=false;this.photoMode=false;this.artX=this.artY=0;this.detailPreview.reset();this.ingredientPage=0;this.infoPage=0;this.a.setScreen('dish');}
@@ -109,6 +111,8 @@ export class DiningUI {
  }
  private dishDetail(d:MarketDish){
   const a=this.a,u=new DinerSurface(a),x=608;
+  const venue=liveRestaurants.get(d.venueId);
+  this.ingredientArtwork.sync(venue&&!venue.demo&&venue.enabled&&venue.available&&venue.expiresAt>Date.now()&&artworkApiOrigin()?{apiBase:artworkApiOrigin(),venueId:venue.entry.venueId,labels:d.ingredients}:null,d.id);
   u.shell(d.restaurant);
   if(d.modelId)u.button(a.state.tastingList.includes(d.id)?'Saved':'Save',1098,46,48,48,()=>a.result(toggleSavedDish(a.state,d.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(d.id)});
   this.picture(d,80,144,484);a.context.fillStyle=dc.line;a.context.fillRect(585,144,1,484);
@@ -120,7 +124,7 @@ export class DiningUI {
   else {
    u.text(d.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x,347,15,dc.muted);
    const count=4;this.ingredientPage=Math.min(this.ingredientPage,Math.max(0,Math.ceil(d.ingredients.length/count)-1));
-   d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{const xx=x+i*147;u.box(xx,362,135,94,'#ffffff',10);foodIcon(a.context,name,xx+48,370,38);const lines=u.lines(name,0,0,115,16,0).slice(0,2);lines.forEach((line,j)=>{a.context.save();a.context.font='16px Arial, sans-serif';const width=a.context.measureText(line).width;a.context.restore();u.text(line,xx+(135-width)/2,429+j*18,16,dc.deep,123);});});
+   d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{const xx=x+i*147;u.box(xx,362,135,94,'#ffffff',10);this.ingredientArtwork.draw(a.context,name,xx+48,370,38);const lines=u.lines(name,0,0,115,16,0).slice(0,2);lines.forEach((line,j)=>{a.context.save();a.context.font='16px Arial, sans-serif';const width=a.context.measureText(line).width;a.context.restore();u.text(line,xx+(135-width)/2,429+j*18,16,dc.deep,123);});});
    if(!d.ingredients.length)u.text('Ingredients not supplied',x,400,19,dc.muted);
    if(d.ingredients.length>count){u.button('Previous ingredients',1055,324,58,30,()=>{this.ingredientPage--;},{disabled:this.ingredientPage===0,visible:'‹'});u.button('Next ingredients',1126,324,58,30,()=>{this.ingredientPage++;},{disabled:(this.ingredientPage+1)*count>=d.ingredients.length,visible:'›'});}
    u.text('ALLERGENS & DIETARY INFO',x,483,15,dc.muted);
@@ -165,6 +169,7 @@ export class DiningUI {
  render(){const a=this.a;
   if(!['menu','dish','ar','search','comparison','comparePicker','publishedMenu'].includes(a.screen))return false;
   const list=marketCatalogue(),d=list.find(d=>d.id===(a.screen==='ar'?a.portalDishId:a.screen==='comparison'?this.comparisonAnchor:this.id));
+  if(a.screen==='dish'&&!d)this.ingredientArtwork.clear();
   if(a.screen==='menu'||a.screen==='publishedMenu'){this.restaurantMenu(list);return true;}
   if(a.screen==='comparePicker'){this.comparePicker(list);return true;}
   if(a.screen==='search'){

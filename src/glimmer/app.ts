@@ -1,3 +1,4 @@
+import { brandIconEffects } from './brand-icon-effects';
 import { demoPrice } from './dish-metadata';
 import { MarketMapUI } from './market-map-ui';
 import { interfaceIcon } from './interface-icons';
@@ -285,12 +286,13 @@ export class GlimmerApp {
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
       this.heading('PeekaPlate');
-      this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',521,134,238,238);
-      // Use the same title face as the PeekaPlate wordmark, at half the old logo width.
-      c.save();c.font='36px JerseyTitle, monospace';
+      this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',539,150,202,202);
+      if(this.images.get(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png')?.naturalWidth)brandIconEffects(c,539,150,202,this.screenAge,this.reducedMotion);
+      // Match the PeekaPlate wordmark, with a larger single-color market title.
+      c.save();c.font='60.75px JerseyTitle, monospace';
       const name='Night Market ',year='2049',nameWidth=c.measureText(name).width;
       const left=(1280-nameWidth-c.measureText(year).width)/2;
-      this.titleText(name,left,400,36,ink);this.titleText(year,left+nameWidth,400,36,'#19c9ed');c.restore();
+      this.titleText(name,left,400,60.75,ink);this.titleText(year,left+nameWidth,400,60.75,ink);c.restore();
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,423,20);
       this.button('Start',350,438,580,54,()=>this.start());this.button('Continue with code',350,507,580,54,()=>{this.code='';this.setScreen('codeEntry');});
       this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,576,580,54,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,654,22);
