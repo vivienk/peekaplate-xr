@@ -214,7 +214,7 @@ export class DiningUI {
    a.button('Reset',48,628,150,46,()=>a.resetPortal(),false,'normal');a.button('−',212,628,65,46,()=>a.zoom(.1),a.immersive,'normal');a.button('+',289,628,65,46,()=>a.zoom(-.1),a.immersive,'normal');
    a.button('Previous dish',374,628,210,46,()=>a.nextDish(-1),false,'normal');a.button('Next dish',600,628,200,46,()=>a.nextDish(1),false,'normal');
    a.button('Open AR portal',820,628,240,46,()=>a.onXR());
-   a.button('Spectacles',1078,628,154,46,()=>a.onSpectacles(),false,'normal');
+   a.button(a.handPlacement?'Spectacles':'Meta IWSDK',1078,628,154,46,()=>a.handPlacement?a.onSpectacles():a.onXR(),false,'normal');
    if(a.portalPlacement)a.text(a.portalPlacement,65,565,22,cream);else if(!a.arSupported&&!a.immersive)a.text('AR placement requires a compatible headset or AR browser.',65,565,22,cream);return true;
   }
   if(a.screen==='comparison'){this.comparison(d,list.find(item=>item.id===this.compareId));return true;}

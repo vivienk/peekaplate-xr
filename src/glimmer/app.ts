@@ -1,3 +1,4 @@
+import { usesSpectacles } from './xr-mode';
 import { RenderCadence, readLowPower } from './low-power';
 import { focusOutline } from './focus-outline';
 import { brandIconEffects } from './brand-icon-effects';
@@ -82,7 +83,7 @@ export class GlimmerApp {
   onOrderReady:()=>void=()=>{};
   onXR:()=>void=()=>{};
   onSpectacles:()=>void=()=>{};
-  handPlacement=typeof location!=='undefined'&&(location.hostname==='peekaplate-ar.vercel.app'||new URLSearchParams(location.search).get('spectacles')==='1');
+  handPlacement=typeof location!=='undefined'&&usesSpectacles(location);
   lowPower=readLowPower(this.handPlacement);
   private marketCadence=new RenderCadence();
   onEnterPortal:()=>void=()=>{};

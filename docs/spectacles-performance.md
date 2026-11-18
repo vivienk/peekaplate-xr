@@ -1,6 +1,6 @@
 # Spectacles rendering
 
-Browser Lens (`peekaplate-ar.vercel.app` or `?spectacles=1`) presents the original 1280 × 720 game canvas directly for flat screens. Native controls retain their existing coordinates. This removes repeated canvas-to-WebGL uploads; it does not change movement speed, rain, lights, artwork, menus or game rules.
+Browser Lens (`/xr/1`, the legacy AR-host home page, or `?spectacles=1` outside `/xr`) presents the original 1280 × 720 game canvas directly for flat screens. Native controls retain their existing coordinates. This removes repeated canvas-to-WebGL uploads; it does not change movement speed, rain, lights, artwork, menus or game rules.
 
 Portion view and immersive sessions keep the existing WebGL/XR path. Returning restores the flat canvas. The FPS badge measures application visual updates: canvas/2.5D changes for flat screens and completed render calls for 3D/XR. It cannot measure headset compositor or reprojection FPS.
 
@@ -12,7 +12,7 @@ A local Chromium CPU profile before the change identified `texSubImage2D` as the
 
 ## Low-power mode
 
-Defaults on at `peekaplate-ar.vercel.app` (including `/xr/1`) and with `?spectacles=1`. Pause → Low power switches it on/off; the choice is saved locally, with a safe default if storage is blocked.
+Defaults on for Spectacles routes. `/xr` and `/xr/` always select Meta IWSDK, even on the AR hostname or with an old Spectacles query. `/xr/1` selects Spectacles on either hostname. Pause → Low power switches it on/off; the choice is saved locally, with a safe default if storage is blocked.
 
 - Market artwork redraws at up to 30 Hz; simulation, input polling, collision, audio and interaction checks continue on every game-loop tick.
 - Rain uses 24 streaks. Title effects update at 4 Hz instead of 8 Hz. Automatic portion/hologram rotation stops; manual rotation and photo tilt still work.
