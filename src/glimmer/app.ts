@@ -1,5 +1,4 @@
 import { demoPrice } from './dish-metadata';
-import { nightMarketLogo } from './night-market-logo';
 import { MarketMapUI } from './market-map-ui';
 import { interfaceIcon } from './interface-icons';
 import { DiningUI } from './dining-ui';
@@ -285,11 +284,10 @@ export class GlimmerApp {
       this.button(this.handPlacement?'Dishes in AR':'Enter VR',1090,16,165,45,()=>this.handPlacement?this.dining.search():this.onXR());
       this.button('Interact [E]',1060,654,200,45,()=>this.market.interact());
     }else if(this.screen==='title'){
-      this.heading('PeekaPlate');c.save();c.font='68px Jersey, monospace';
-      const titleWidth=c.measureText('Night Market 2049').width;
-      const titleLeft=Math.round((1280-titleWidth-116)/2);
-      nightMarketLogo(c,titleLeft,176,this.reducedMotion?0:Math.floor(this.screenAge*4)%4);
-      c.textAlign='left';this.text('Night Market 2049',titleLeft+116,250,68);c.restore();
+      this.heading('');
+      this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',100,63,56,56);
+      this.titleText('PeekaPlate',170,109,43,ink);
+      this.picture(import.meta.env.BASE_URL+'branding/night-market-2049-pixel.png',350,143,580,175);
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,530,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);

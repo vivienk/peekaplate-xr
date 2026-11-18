@@ -13,6 +13,7 @@ export class DinerSurface {
  else if(name==='heart'){c.moveTo(12,21);c.bezierCurveTo(-7,9,5,-3,12,6);c.bezierCurveTo(19,-3,31,9,12,21);}
  else if(name==='portion'){c.rect(5,6,14,12);c.moveTo(2,8);c.lineTo(2,2);c.lineTo(8,2);c.moveTo(16,22);c.lineTo(22,22);c.lineTo(22,16);}
  else if(name==='compare'){c.rect(2,4,8,16);c.rect(14,4,8,16);}
+ else if(name==='order'){c.moveTo(3,18);c.lineTo(21,18);c.moveTo(5,15);c.arc(12,15,7,Math.PI,0);c.moveTo(12,8);c.lineTo(12,5);c.moveTo(10,5);c.lineTo(14,5);c.moveTo(5,21);c.lineTo(19,21);}
  else if(name==='plus'){c.moveTo(12,4);c.lineTo(12,20);c.moveTo(4,12);c.lineTo(20,12);}
  else if(name==='sound'||name==='muted'){c.moveTo(3,9);c.lineTo(7,9);c.lineTo(12,5);c.lineTo(12,19);c.lineTo(7,15);c.lineTo(3,15);c.closePath();if(name==='sound'){c.moveTo(16,8);c.quadraticCurveTo(21,12,16,16);}else{c.moveTo(17,9);c.lineTo(22,15);c.moveTo(22,9);c.lineTo(17,15);}}
  c.stroke();c.restore();}

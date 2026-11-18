@@ -85,7 +85,8 @@ export class DiningUI {
  private restaurantMenu(list:MarketDish[]){
   const a=this.a,u=new DinerSurface(a),published=a.screen==='publishedMenu',venue=published?a.publishedId:a.restaurant.id,live=liveRestaurants.get(venue),name=published?live?.name??'Restaurant':a.restaurant.name;
   if(this.menuVenue!==venue){this.menuVenue=venue;this.menuCategory='All';this.menuCategoryPage=0;a.page=0;}
-  const items=list.filter(d=>d.venueId===venue),categories=['All',...new Set(items.map(d=>d.category))];
+  const featured=['thai-chicken-bowl','noka-steak-ramen'];
+  const items=list.filter(d=>d.venueId===venue).sort((a,b)=>Number(featured.includes(b.id))-Number(featured.includes(a.id))),categories=['All',...new Set(items.map(d=>d.category))];
   if(!categories.includes(this.menuCategory))this.menuCategory='All';
   u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.text(name,210,80,28,dc.text,850,600);
   u.button('Search dishes',1098,46,48,48,()=>this.search(),{icon:'search',iconOnly:true});
@@ -112,7 +113,7 @@ export class DiningUI {
   if(d.modelId)u.button(a.state.tastingList.includes(d.id)?'Saved':'Save',1098,46,48,48,()=>a.result(toggleSavedDish(a.state,d.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(d.id)});
   this.picture(d,80,144,484);a.context.fillStyle=dc.line;a.context.fillRect(585,144,1,484);
   u.lines(d.photoCredit??(d.illustrative?'Illustrative image · not a restaurant photograph':'Dish preview'),92,651,460,14,2);
-  u.text(d.category.toUpperCase(),x,154,16,dc.muted,480);u.lines(d.name,x,192,575,30,2,dc.text);u.text(d.price,x,260,28,dc.orange);
+  u.text(d.category.toUpperCase(),x,154,16,dc.muted,480);u.lines(d.name,x,192,d.modelId?505:575,30,2,dc.text);u.text(d.price,x,260,28,dc.orange);
   u.button(this.info?'Ingredients':'More info',1030,237,158,36,()=>{this.info=!this.info;this.infoPage=0;});
   u.lines(d.description,x,290,575,18,2);
   if(this.info){const lines=u.lines(`${d.description} ${allergenLabel(d)}. ${d.dietary.join(' · ')}. ${d.servingCount?'Serves '+d.servingCount:'Serving count not supplied'}. For allergy questions, ask restaurant staff.`,0,0,568,20,0);lines.slice(this.infoPage*8,this.infoPage*8+8).forEach((line,i)=>u.text(line,x,345+i*25,20,dc.text,568));u.button('Previous info',x,548,160,36,()=>{this.infoPage--;},{disabled:this.infoPage===0});u.button('Next info',1028,548,160,36,()=>{this.infoPage++;},{disabled:(this.infoPage+1)*8>=lines.length});}
@@ -129,7 +130,7 @@ export class DiningUI {
   u.button('View Portion',x,590,342,48,()=>this.portion(),{icon:'portion',primary:true,visible:'View portion in AR'});
   u.button('Compare',966,590,222,48,()=>this.compare(),{icon:'compare'});
   u.lines(portionScale(d).label,x,654,342,14,2,dc.muted);
-  if(d.modelId)u.button('+ Tray',966,648,170,34,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'plus',visible:'Tray',disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
+  if(d.modelId)u.button('Add to order',1138,170,50,50,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'order',iconOnly:true,primary:true,disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
   else u.button('Search dishes',966,648,170,34,()=>this.search());
   u.sound();
  }
