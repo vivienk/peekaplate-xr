@@ -1,4 +1,4 @@
-import { RenderCadence, renderInterval } from './low-power';
+import { RenderCadence, renderInterval, PortionResolution } from './low-power';
 import { FrameRateMeter } from './frame-rate';
 import { ARPortionPortal } from './ar-portal';
 import { generatedModelId } from './generated-models';
@@ -28,6 +28,7 @@ export class GlimmerSystem extends createSystem({}) {
   private board!:Mesh<PlaneGeometry,MeshBasicMaterial>;
   private flatScreen=false;
   private powerPixelRatio=0;
+  private portionResolution=new PortionResolution();
   private preview=new Group();
   private holograms=new Group();
   private previewGeneration=0;
@@ -103,6 +104,7 @@ export class GlimmerSystem extends createSystem({}) {
     model.updateMatrixWorld(true);const box=new Box3().setFromObject(model),size=box.getSize(new Vector3()),center=box.getCenter(new Vector3());const scale=width/Math.max(size.x,size.z,.001);model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);return model;
   }
   private async loadPreview(id:string|null){
+    this.portionResolution.reset();
     const generation=++this.previewGeneration;this.portalAbort?.abort();this.disposePortion?.();this.disposePortion=null;this.preview.clear();this.preview.visible=!!id;if(!id)return;
     const dish=marketCatalogue().find(d=>d.id===id);if(!dish){this.preview.visible=false;return;}
     const generated=dish.photoCredit||dish.illustrative?undefined:generatedModelId(dish.id),use3d=this.app.portalView==='3d'&&(generated||dish.modelId);
@@ -127,7 +129,8 @@ export class GlimmerSystem extends createSystem({}) {
     const immersive=this.world.visibilityState.peek()!==VisibilityState.NonImmersive;
     // Keep pixel density changes outside XR sessions; never throttle headset frames.
     if(!immersive&&this.app.handPlacement){
-      const ratio=this.app.lowPower?.75:1;
+      if(this.app.screen!=='ar'||!this.app.lowPower)this.portionResolution.reset();
+      const ratio=this.app.lowPower?(this.app.screen==='ar'?this.portionResolution.scale:.75):1;
       if(ratio!==this.powerPixelRatio){this.world.renderer.setPixelRatio(ratio);this.powerPixelRatio=ratio;}
     }
     let pads: readonly (Gamepad|null)[]=noGamepads;
@@ -155,7 +158,10 @@ export class GlimmerSystem extends createSystem({}) {
       this.frameRate.reset();this.app.setFPS(null);this.measuredScreen=this.app.screen;this.measuredFlat=flatScreen;this.measuredLowPower=this.app.lowPower;
     }
     if(document.hidden)this.frameRate.reset();
-    else if(this.frameRate.sample(performance.now(),presented))this.app.setFPS(this.frameRate.fps);
+    else if(this.frameRate.sample(performance.now(),presented)){
+      this.app.setFPS(this.frameRate.fps);
+      if(this.app.lowPower&&!immersive&&this.app.screen==='ar'&&this.preview.children.length>0&&!this.app.portalStatus.startsWith('Loading'))this.portionResolution.observe(this.frameRate.fps);
+    }
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
     const placedAR=this.arPortal.update();this.holograms.visible=!this.app.portalAR;
     if(this.app.screen==='ar'&&!placedAR){

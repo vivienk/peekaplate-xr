@@ -21,3 +21,11 @@ Defaults on at `peekaplate-ar.vercel.app` (including `/xr/1`) and with `?spectac
 - Normal walking speed is 73.95 world pixels/second (13% below 85). Low-power mode applies an additional 15% reduction to 62.8575 world pixels/second. Both speeds are shared by keyboard, controller and click/tap navigation.
 
 This reduces application workload; no thermal-runtime or shutdown-prevention claim is established without physical Spectacles testing.
+
+## Frame pacing and portion rendering follow-up
+
+The 30 Hz limiter now preserves its scheduled phase across late callbacks. Previously it restarted the interval at each draw, which dropped regular 60 Hz browser delivery to approximately 20–25 visual FPS when callbacks were slightly late. Missed deadlines advance to the next slot without a catch-up burst.
+
+Non-immersive, low-power portions begin at 0.75 pixel density. After two consecutive measured windows below 29 FPS, density steps down to 0.65, then 0.55 at minimum. Loading, native immersive XR and normal-power mode are excluded. Opening another portion resets quality. Model geometry, textures, physical scale and interaction controls are unchanged; the raster image may become slightly softer.
+
+Reproduce with `PREVIEW_URL=https://peekaplate-ar.vercel.app ALL_DISTRICTS=1 node scripts/benchmark-visual-fps.mjs`. The benchmark records eight one-second visual FPS readings per scenario and CPU-profile hotspots. Continuous dish tilting uses synthetic pointer movement; idle 2.5D screens intentionally report 0. This is headless Chromium using SwiftShader software graphics at 1280×800, not Spectacles hardware or immersive-session acceptance.
