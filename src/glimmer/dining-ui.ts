@@ -94,7 +94,7 @@ export class DiningUI {
   if(!categories.includes(this.menuCategory))this.menuCategory='All';
   u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.text(name,210,80,28,dc.text,650,600);
   const coupons=restaurantCoupons(a.state.finds,venue);
-  if(coupons.length)u.button('Coupon available',880,46,200,48,()=>a.readFind(coupons[0].id),{icon:'coupon',primary:true});
+  if(coupons.length)u.button('Coupon available',880,46,200,48,()=>a.readFind(coupons[0].id),{icon:'coupon',primary:true,visible:'Coupon ready'});
   u.button('Search dishes',1098,46,48,48,()=>this.search(),{icon:'search',iconOnly:true});
   let cx=80;categories.slice(this.menuCategoryPage*5,this.menuCategoryPage*5+5).forEach(category=>{const width=Math.min(170,Math.max(90,category.length*11+32));if(cx+width>1195)return;u.button(category,cx,134,width,44,()=>{this.menuCategory=category;a.page=0;},{selected:this.menuCategory===category});cx+=width+12;});
   if(categories.length>5){u.button('Previous categories',1080,134,48,44,()=>{this.menuCategoryPage--;},{disabled:this.menuCategoryPage===0,visible:'‹'});u.button('Next categories',1140,134,48,44,()=>{this.menuCategoryPage++;},{disabled:(this.menuCategoryPage+1)*5>=categories.length,visible:'›'});}
