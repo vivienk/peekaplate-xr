@@ -1,4 +1,5 @@
 import suppliedDishes from './supplied-dishes.json';
+import { menuModelDishes } from './menu-models';
 import { sampleDishDetails, demoPrice } from './dish-metadata';
 import { dishes, restaurants } from './data';
 import { liveRestaurants, type LiveRestaurant } from '../published/market';
@@ -11,10 +12,10 @@ import illustrations from './illustrative-portions.json';
 export interface MarketDish {
   id:string; venueId:string; restaurant:string; name:string; category:string; description:string;
   price:string; ingredients:string[]; allergens:string[]|null; dietary:string[];
-  illustrative?:boolean; cutoutEdited?:boolean; menuImage?:string; photoCredit?:string; sourceUrl?:string; image:string; modelId?:string; sample:boolean; servingCount?:number; portion?:PublicPortion;
+  illustrative?:boolean; cutoutEdited?:boolean; menuImage?:string; photoCredit?:string; sourceUrl?:string; image:string; modelId?:string; orderable?:boolean; sample:boolean; servingCount?:number; portion?:PublicPortion;
 }
 const originals:MarketDish[]=dishes.map(d=>{const supplied=suppliedDishes.find(item=>item.id===d.id);const photo=photos[d.id as keyof typeof photos],portion=portions[d.id as keyof typeof portions],illustration=illustrations[d.id as keyof typeof illustrations];return ({
-  id:d.id, venueId:d.restaurantId, restaurant:restaurants.find(r=>r.id===d.restaurantId)!.name,
+  id:d.id, venueId:d.restaurantId, restaurant:restaurants.find(r=>r.id===d.restaurantId)!.name, orderable:true,
   name:d.name, category:supplied?.category??sampleDishDetails[d.id].category,
   description:d.description.replace(/^Sample dish:\s*/i,''),price:supplied?.price??demoPrice(d.id), ingredients:d.ingredients,allergens:photo?null:d.allergens,
   dietary:photo?[]:[...(d.dietary.vegan?['Vegan']:[]),...(d.dietary.vegetarian?['Vegetarian']:[]),...(d.dietary.glutenFree?['Gluten-free']:[])],
@@ -23,9 +24,20 @@ const originals:MarketDish[]=dishes.map(d=>{const supplied=suppliedDishes.find(i
   portion:PublicPortionSchema.parse(portion?.portion??illustration?.portion??prepared[d.id as keyof typeof prepared].portion),
 });});
 
+const menuDishes: MarketDish[] = menuModelDishes.map(dish => {
+  const image = import.meta.env.BASE_URL + dish.modelUrl.slice(1).replace(/\.glb$/, '.png');
+  return {
+    id: dish.id, venueId: dish.venueId, restaurant: dish.restaurant, name: dish.name,
+    category: dish.category.toLowerCase().replace(/(^|\s)\S/g, first => first.toUpperCase()),
+    description: dish.description, price: `USD ${dish.price.toFixed(2)}`,
+    ingredients: dish.ingredients, allergens: null, dietary: dish.dietary,
+    image, menuImage: image, modelId: dish.id, illustrative: true, sample: true,
+  };
+});
+
 /** Always read the current publication; withdrawn/expired dishes never linger in search or comparison. */
 export function marketCatalogue(live:Iterable<LiveRestaurant>=liveRestaurants.values(),now=Date.now()):MarketDish[]{
-  const result=[...originals];
+  const result=[...originals, ...menuDishes];
   for(const restaurant of live){
     if(!restaurant.enabled||!restaurant.available||!restaurant.content||restaurant.expiresAt<=now)continue;
     for(const category of restaurant.content.categories)for(const dish of category.dishes){

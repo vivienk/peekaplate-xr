@@ -51,7 +51,7 @@
       "device": "metaQuest3",
       "injectOnBuild": true,
       "activation": {
-        "source": "^(localhost|127\\.0\\.0\\.1|peekaplate-xr\\.vercel\\.app|peekaplate(?:-xr)?-[a-z0-9-]+-viviens-projects-842ec178\\.vercel\\.app)$"
+        "source": "^(localhost|127\\.0\\.0\\.1|peekaplate(?:-xr)?\\.vercel\\.app|peekaplate(?:-xr)?-[a-z0-9-]+-viviens-projects-842ec178\\.vercel\\.app)$"
       },
       "environment": "meeting_room"
     }

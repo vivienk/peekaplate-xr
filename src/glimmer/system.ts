@@ -1,14 +1,13 @@
 import { RenderCadence, renderInterval, PortionResolution } from './low-power';
 import { FrameRateMeter } from './frame-rate';
 import { ARPortionPortal } from './ar-portal';
-import { generatedModelId } from './generated-models';
 import { marketCatalogue } from './catalogue';
 import { flatPortion } from './portion-scene';
 import { STANDARD_PLATE_METRES } from './standard-plate';
 import { createSystem, SessionMode, CanvasTexture, Mesh, PlaneGeometry, MeshBasicMaterial, SRGBColorSpace, NearestFilter, RayInteractable, AssetManager, Group, Box3, Vector3, InputComponent, VisibilityState, AmbientLight, DirectionalLight, type Object3D } from '@iwsdk/core';
 import { GlimmerApp } from './app';
 import { BrowserGamepad } from './gamepad';
-import { glimmerModelId } from './model-assets';
+import { glimmerModelId, modelsForDish } from './model-assets';
 import { makeTable } from '../dining-room';
 
 const noGamepads: readonly (Gamepad|null)[] = [];
@@ -106,7 +105,7 @@ export class GlimmerSystem extends createSystem({}) {
     if(import.meta.env.DEV){(window as unknown as {glimmer:GlimmerApp}).glimmer=this.app;(window as unknown as {glimmerARPortal:ARPortionPortal}).glimmerARPortal=this.arPortal;(window as unknown as {glimmerLoadModel:(id:string)=>Promise<boolean>}).glimmerLoadModel=async(id)=>{const model=await AssetManager.loadGLTFById(glimmerModelId(id));return model.scene.children.length>0;};}
     console.info('[GLIMMER] runtime ready');
   }
-  private async model(id:string,width:number,assetId=glimmerModelId(id)):Promise<Object3D>{
+  private async model(id:string,width:number,assetId=modelsForDish(id)[0]?.assetId ?? glimmerModelId(id)):Promise<Object3D>{
     await AssetManager.loadGLTFById(assetId);const model=AssetManager.getGLTF(assetId)!.scene.clone(true);
     model.updateMatrixWorld(true);const box=new Box3().setFromObject(model),size=box.getSize(new Vector3()),center=box.getCenter(new Vector3());const scale=width/Math.max(size.x,size.z,.001);model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);return model;
   }
@@ -114,16 +113,27 @@ export class GlimmerSystem extends createSystem({}) {
     this.portionResolution.reset();
     const generation=++this.previewGeneration;this.portalAbort?.abort();this.disposePortion?.();this.disposePortion=null;this.preview.clear();this.preview.visible=!!id;if(!id)return;
     const dish=marketCatalogue().find(d=>d.id===id);if(!dish){this.preview.visible=false;return;}
-    const generated = dish.photoCredit || dish.illustrative ? undefined : generatedModelId(dish.id);
-    const use3d = this.app.portalView !== '2.5d' && Boolean(generated || dish.modelId);
+    const models = modelsForDish(dish.id);
+    const use3d = this.app.portalView !== '2.5d' && models.length > 0;
     this.app.portalFlat=!use3d;this.app.modelError='';this.app.portalStatus='Loading portion…';this.app.invalidate();
     const abort=new AbortController();this.portalAbort=abort;
     if(use3d){
-      const candidates=[generated,dish.modelId?glimmerModelId(dish.modelId):undefined].filter((id):id is string=>!!id);
-      for(const asset of candidates){try{
-        const model=await this.model(dish.modelId??dish.id,STANDARD_PLATE_METRES,asset);if(this.stopped||generation!==this.previewGeneration)return;
-        this.arPortal.addPortion(model);this.app.portalStatus=asset===generated?'Tripo 3D · 27 cm reference · estimated size':dish.sample?'Game 3D illustration · 27 cm reference · estimated size':'3D · 27 cm reference · estimated size';this.app.invalidate();return;
-      }catch{if(this.stopped||generation!==this.previewGeneration)return;}}
+      const start = this.app.portalModelIndex % models.length;
+      for (let offset = 0; offset < models.length; offset++) {
+        const index = (start + offset) % models.length;
+        const option = models[index];
+        try {
+          const model = await this.model(dish.id, STANDARD_PLATE_METRES, option.assetId);
+          if (this.stopped || generation !== this.previewGeneration) return;
+          this.arPortal.addPortion(model);
+          this.app.portalModelIndex = index;
+          this.app.portalStatus = option.label + ' · 27 cm reference · estimated size';
+          this.app.invalidate();
+          return;
+        } catch {
+          if (this.stopped || generation !== this.previewGeneration) return;
+        }
+      }
     }
     this.app.portalFlat=true;this.app.resetPortal();
     try{const flat=await flatPortion(dish,AbortSignal.any([abort.signal,AbortSignal.timeout(15000)]));

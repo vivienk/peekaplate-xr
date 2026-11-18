@@ -4,7 +4,7 @@ import type { GlimmerApp, Screen } from './app';
 import { DinerSurface, dinerColors as dc } from './diner-surface';
 import { restaurantLogo } from './market-map-ui';
 import { marketCatalogue, searchDishes, similarDishes, allergenLabel, type MarketDish } from './catalogue';
-import { generatedModelId } from './generated-models';
+import { modelsForDish } from './model-assets';
 import { servingLabel } from './serving-label';
 import { portionScale } from './portion-preview';
 import { DetailPreview } from './detail-preview';
@@ -106,7 +106,7 @@ export class DiningUI {
    u.lines(dish.name,tx,y+34,345,25,2,dc.text);u.text(dish.category,tx,y+98,18,dc.muted,340);u.text(dish.price,tx,y+132,25,dc.orange);
    if(a.keyboardFocus===a.buttons.length)focusOutline(a.context,x,y,540,154);
    a.hit(dish.name,x,y,540,154,()=>this.show(dish.id,published?'publishedMenu':'menu'));
-   if(dish.modelId)u.button(a.state.tastingList.includes(dish.id)?`Saved ${dish.name}`:`Save ${dish.name}`,tx+260,y+105,48,40,()=>a.result(toggleSavedDish(a.state,dish.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(dish.id)});
+   if(dish.orderable)u.button(a.state.tastingList.includes(dish.id)?`Saved ${dish.name}`:`Save ${dish.name}`,tx+260,y+105,48,40,()=>a.result(toggleSavedDish(a.state,dish.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(dish.id)});
    a.context.fillStyle=dc.line;a.context.fillRect(x,y+172,530,1);
   });
   if(!items.length)u.lines(a.publishedMessage||'Menu unavailable. Reopen this restaurant to refresh.',90,260,1000,24,3);
@@ -119,10 +119,10 @@ export class DiningUI {
   const venue=liveRestaurants.get(d.venueId);
   this.ingredientArtwork.sync(venue&&!venue.demo&&venue.enabled&&venue.available&&venue.expiresAt>Date.now()&&artworkApiOrigin()?{apiBase:artworkApiOrigin(),venueId:venue.entry.venueId,labels:d.ingredients}:null,d.id);
   u.shell('');u.restaurantName(d.restaurant,140,80,930);
-  if(d.modelId)u.button(a.state.tastingList.includes(d.id)?'Saved':'Save',1098,46,48,48,()=>a.result(toggleSavedDish(a.state,d.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(d.id)});
+  if(d.orderable)u.button(a.state.tastingList.includes(d.id)?'Saved':'Save',1098,46,48,48,()=>a.result(toggleSavedDish(a.state,d.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(d.id)});
   this.picture(d,80,144,484);a.context.fillStyle=dc.line;a.context.fillRect(585,144,1,484);
   u.lines(d.photoCredit??(d.illustrative?'Illustrative image · not a restaurant photograph':'Dish preview'),92,651,460,14,2);
-  u.text(d.category.toUpperCase(),x,154,16,dc.muted,480);u.lines(d.name,x,192,d.modelId?505:575,30,2,dc.text);u.text(d.price,x,260,28,dc.orange);
+  u.text(d.category.toUpperCase(),x,154,16,dc.muted,480);u.lines(d.name,x,192,d.orderable?505:575,30,2,dc.text);u.text(d.price,x,260,28,dc.orange);
   u.button(this.info?'Ingredients':'More info',1030,237,158,36,()=>{this.info=!this.info;this.infoPage=0;});
   u.lines(d.description,x,290,575,18,2);
   if(this.info){const lines=u.lines(`${d.description} ${allergenLabel(d)}. ${d.dietary.join(' · ')}. ${d.servingCount?'Serves '+d.servingCount:'Serving count not supplied'}. For allergy questions, ask restaurant staff.`,0,0,568,20,0);lines.slice(this.infoPage*8,this.infoPage*8+8).forEach((line,i)=>u.text(line,x,345+i*25,20,dc.text,568));u.button('Previous info',x,548,160,36,()=>{this.infoPage--;},{disabled:this.infoPage===0});u.button('Next info',1028,548,160,36,()=>{this.infoPage++;},{disabled:(this.infoPage+1)*8>=lines.length});}
@@ -139,7 +139,7 @@ export class DiningUI {
   u.button('View Portion',x,590,342,48,()=>this.portion(),{icon:'portion',primary:true,visible:'View portion in AR'});
   u.button('Compare',966,590,222,48,()=>this.compare(),{icon:'compare'});
   u.lines(portionScale(d).label,x,654,342,14,2,dc.muted);
-  if(d.modelId)u.button('Add to order',1138,134,50,50,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'order',iconOnly:true,primary:true,disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
+  if(d.orderable)u.button('Add to order',1138,134,50,50,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'order',iconOnly:true,primary:true,disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
   else u.button('Search dishes',966,648,170,34,()=>this.search());
   u.sound();
  }
@@ -159,6 +159,16 @@ export class DiningUI {
   if(!matches.length)u.text('No matches. Try another dish, ingredient or restaurant.',110,340,22,dc.muted,1000);
   if(this.keyboard){['1234567890','QWERTYUIOP','ASDFGHJKL','ZXCVBNM'].forEach((row,r)=>[...row].forEach((ch,i)=>u.button(ch,165+Math.max(0,r-1)*24+i*87,430+r*44,78,41,()=>this.type(ch.toLowerCase()))));u.button('Space',900,562,130,41,()=>this.type(' '));u.button('Delete',1040,562,130,41,()=>this.type('Backspace'),{disabled:!this.query});}
   u.button('Previous',98,630,155,44,()=>{a.page--;},{disabled:a.page===0});u.text(`${a.page+1} / ${Math.max(1,Math.ceil(matches.length/count))}`,590,660,18,dc.muted);u.button('Next',960,630,155,44,()=>{a.page++;},{disabled:(a.page+1)*count>=matches.length});u.sound();
+ }
+ private modelSwitch(dish: MarketDish, x: number, y: number, width: number, height: number) {
+  const models = modelsForDish(dish.id);
+  if (models.length < 2) return;
+  const app = this.a;
+  app.button('Switch 3D model', x, y, width, height, () => {
+   app.portalModelIndex = (app.portalModelIndex + 1) % models.length;
+   app.portalView = '3d';
+   app.onPortal(dish.id);
+  }, false, 'normal');
  }
  private comparison(d:MarketDish,other?:MarketDish){
   const a=this.a,u=new DinerSurface(a);u.shell('Compare dishes');
@@ -201,15 +211,16 @@ export class DiningUI {
    a.rect(22,20,1236,254);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,103,23,muted);a.text(servingLabel(d.servingCount),48,134,23,muted);
    a.text(a.portalPlacement,48,169,24);
    a.button('Reposition',48,207,230,48,()=>a.onReposition(),false,'normal');a.button('Back to dish',302,207,270,48,()=>a.close(),false,'normal');
-   a.button('Exit AR',600,207,190,48,()=>a.onXR(),false,'normal');return true;
+   a.button('Exit AR',600,207,190,48,()=>a.onXR(),false,'normal');this.modelSwitch(d,814,207,315,48);return true;
   }
   if(a.screen==='ar'){
-   const has3d=!!d.modelId||(!d.photoCredit&&!d.illustrative&&!!generatedModelId(d.id));
+   const has3d = modelsForDish(d.id).length > 0;
    a.context.fillStyle='#0b1428';a.context.fillRect(0,0,1280,720);
    a.rect(22,20,1236,122);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,99,23,muted);a.text(servingLabel(d.servingCount),48,128,23,muted);a.button('Back',1134,42,100,50,()=>a.close(),false,'normal');
    a.context.strokeStyle='#40b8bb';a.context.lineWidth=3;a.context.strokeRect(46,145,1188,429);
    if(a.modelError){a.picture(d.image,460,176,360,360);a.text(a.modelError,65,565,24,cream);}
    a.text(a.immersive?'VR preview · Open AR portal for passthrough':a.portalFlat?'2.5D · Zoomed screen preview · Physical scale in AR glasses':'3D · Drag to rotate · Zoom for a closer look',65,605,24,cream);
+   this.modelSwitch(d,846,583,218,38);
    a.button(a.portalFlat?'3D model':'2.5D view',1078,583,154,38,()=>{a.portalView=a.portalFlat?'3d':'2.5d';a.resetPortal();a.onPortal(d.id);},a.portalFlat&&!has3d,'normal');
    a.button('Reset',48,628,150,46,()=>a.resetPortal(),false,'normal');a.button('−',212,628,65,46,()=>a.zoom(.1),a.immersive,'normal');a.button('+',289,628,65,46,()=>a.zoom(-.1),a.immersive,'normal');
    a.button('Previous dish',374,628,210,46,()=>a.nextDish(-1),false,'normal');a.button('Next dish',600,628,200,46,()=>a.nextDish(1),false,'normal');

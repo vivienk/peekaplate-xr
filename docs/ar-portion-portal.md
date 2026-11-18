@@ -1,12 +1,14 @@
 # AR portion portal
 
-**View Portion** loads the selected dish’s available 3D model and requests immersive AR on compatible browsers. Dishes with photo-only assets use their portion image. In AR, the dish appears in front of the viewer while they aim. A horizontal surface moves the preview to the placement ring. A trigger press or pinch locks it there at physical scale. **Reposition** returns to the live preview. **Exit AR** returns to the browser. From an existing VR session, choose **Open AR portal** after VR closes.
+Choose a dish from a restaurant menu or **Search dishes**, then select **View portion in AR**. The portal opens its preferred 3D model. For Berry Soufflé Pancakes, **Switch 3D model** cycles between the supplied textured pancakes and the original game illustration. Search includes the eight illustrated menu dishes from Dumpling Home and Flores. Dishes with only photos use their portion preview.
+
+In AR, the dish appears in front of you while you aim. Point at a horizontal surface, then press the trigger or pinch when the placement ring appears. You can walk around the placed dish or choose **Reposition**. **Exit AR** returns to the browser preview. From an existing VR session, choose **Open AR portal** after VR closes.
 
 The portal uses IWSDK EnvironmentRaycastTarget (left/right input spaces), with required native WebXR hit-test support. No guessed table height is substituted when detection fails. Vertical surfaces are rejected. After placement, the dish stays at its world position with scale fixed to one; screen zoom and rotation do not affect AR. A compact panel leaves the remainder transparent for passthrough. Targets and reticle resources are cleaned up on exit/disposal.
 
 Scale follows existing portion metadata: measured dimensions when available; otherwise a 27 cm dinner-plate reference, explicitly marked as estimated. This reference is life-sized in world metres, not a claim that the restaurant's serving or plate was measured. 2.5D cutouts remain layered images, not reconstructed volumetric food.
 
-The Quest 3 emulator showed both Berry Soufflé Pancakes and Flaming Steak Ramen before placement. In its meeting room, the controller detected a table about 0.73 m high. Pressing the trigger placed the ramen, which stayed in position when the simulated headset moved. Physical Quest passthrough and real-room tracking still require headset validation.
+The Quest 3 emulator displayed all 43 bundled food models across 42 dishes before placement. The check opened each dish through **View Portion**, switched pancake models inside AR, and matched the displayed mesh to its bundled file. In its meeting room, the controller detected a table about 0.73 m high. Pressing the trigger placed the ramen, which stayed in position when the simulated headset moved. Physical Quest passthrough and real-room tracking still require headset validation.
 
 The public Night Market demo enables the Quest 3 emulator on desktop and includes its simulated meeting room. The browser portion preview is also available when an immersive session cannot start.
 

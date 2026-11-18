@@ -11,6 +11,8 @@ The supplied chicken model contains utensils and a background cup; these remain 
 
 Model derivatives retain the supplied textures at up to 2048px and reduce geometry to 45,000 triangles each. Source and output hashes are in `supplied-models-provenance.json`; image provenance is in `supplied-dishes-provenance.json`.
 
+Berry Soufflé Pancakes keeps its original catalogue ID, `r2-1`. Its default portal model uses the supplied textured pancake GLB, reduced from 1,957,134 to 44,994 triangles for the browser. **Switch 3D model** also opens the original game illustration. The portal presents both at an estimated 27 cm plate width.
+
 Legacy market and order codes retain their original bit layouts. Market version 2 adds two saved-dish bits and accepts 19 characters; extended orders use a P2 prefix and six-bit dish indices. Existing 18-character market and 10-character order codes still decode. Original dish indices never shift.
 
 Validation: typecheck, 122 tests, production build, and browser verification of both menus, search, save, tray, photo layers, 3D loading and 2.5D/3D switching. Headset hardware is not verified.
