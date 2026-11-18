@@ -39,7 +39,7 @@ export class GlimmerApp {
   selectedDish: Dish=dishes[0];
   dining=new DiningUI(this);
   marketMap=new MarketMapUI(this);
-  portalView:'auto'|'2.5d'|'3d'='auto';portalDishId='';portalStatus='';portalFlat=false;immersive=false;
+  portalView:'auto'|'2.5d'|'3d'='auto';portalDishId='';portalModelIndex=0;portalStatus='';portalFlat=false;immersive=false;
   restaurant=restaurants[0];
   page=0;
   code='';
@@ -106,7 +106,7 @@ export class GlimmerApp {
     this.market.setEnabled(screen==='explore');this.market.setPaused(this.paused);
     if(wasAR&&screen!=='ar')this.onPortal(null);
     if(screen==='explore'){this.kioskOpen=false;for(const reward of this.deferredRewards){if(reward.changed)this.sound(reward.message.startsWith('Stamp')?'sfx-stamp':'sfx-find');this.result(reward);}this.deferredRewards=[];}
-    if(screen==='ar'){this.portalView='auto';this.resetPortal();this.modelError='';this.portalDishId ||= this.dining.id;this.portalStatus='Loading portion…';this.onPortal(this.portalDishId);this.sound('sfx-portal-open');}
+    if(screen==='ar'){this.portalView='auto';this.portalModelIndex=0;this.resetPortal();this.modelError='';this.portalDishId ||= this.dining.id;this.portalStatus='Loading portion…';this.onPortal(this.portalDishId);this.sound('sfx-portal-open');}
 
     console.info(`[GLIMMER] screen=${screen} stamps=${this.state.stamps.length} finds=${this.state.finds.length}`);
   }
@@ -168,7 +168,7 @@ export class GlimmerApp {
   resetPortal(){this.portalYaw=0;this.portalPitch=0;this.portalZoom=1;this.portalIdle=0;}
   rotate(dx:number,dy=0){if(this.portalAR)return;const limit=this.portalFlat?Math.PI/60:Math.PI*7/18;this.portalYaw=this.portalFlat?Math.max(-limit,Math.min(limit,this.portalYaw+dx)):this.portalYaw+dx;this.portalPitch=Math.max(-limit,Math.min(limit,this.portalPitch+dy));this.portalIdle=3;}
   zoom(delta:number){if(this.immersive)return;this.portalZoom=Math.max(.7,Math.min(1.6,this.portalZoom+delta));}
-  nextDish(delta:number){const all=marketCatalogue(),current=all.find(d=>d.id===this.portalDishId);if(!current)return;const list=all.filter(d=>d.venueId===current.venueId);this.portalDishId=list[(list.indexOf(current)+delta+list.length)%list.length].id;this.resetPortal();this.onPortal(this.portalDishId);this.invalidate();}
+  nextDish(delta:number){const all=marketCatalogue(),current=all.find(d=>d.id===this.portalDishId);if(!current)return;const list=all.filter(d=>d.venueId===current.venueId);this.portalDishId=list[(list.indexOf(current)+delta+list.length)%list.length].id;this.portalView='auto';this.portalModelIndex=0;this.resetPortal();this.onPortal(this.portalDishId);this.invalidate();}
   key(e:KeyboardEvent){if(e.defaultPrevented)return;if(e.target instanceof HTMLInputElement&&!['Escape','Enter'].includes(e.key))return;this.uiDirty=true;
     if(e.metaKey||e.ctrlKey||e.altKey)return;
     if(this.dining.type(e.key)){e.preventDefault();return;}

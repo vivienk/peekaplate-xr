@@ -11,7 +11,7 @@ export async function flatPortion(dish:MarketDish,signal:AbortSignal){
   const loaded=await loadPortionImages(dish,signal),images=loaded.images;layered=loaded.layered;
   signal.throwIfAborted();
   let scale=portionScale(layered?dish:{...dish,portion:undefined});measured=scale.measured;
-  if(measured)label=scale.label;else if(!layered)label='Approximate photo preview · not actual size';
+  if(measured)label=scale.label;else if(!layered)label=dish.illustrative?'Flat illustration · estimated size':'Approximate photo preview · not actual size';
   if(!measured&&layered&&images.length){
    const image=images[0].image,canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;
    const c=canvas.getContext('2d')!;

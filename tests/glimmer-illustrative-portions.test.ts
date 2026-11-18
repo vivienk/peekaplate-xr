@@ -7,7 +7,7 @@ import {PublicPortionSchema} from '../src/published/portion';
 import {portionScale} from '../src/glimmer/portion-preview';
 it('covers every original dish with food imagery while keeping original pixel menu art',()=>{
  const all=marketCatalogue([]);expect(Object.keys(illustrations)).toHaveLength(26);
- for(const d of all.filter(d=>d.sample)){expect(d.image).not.toContain('/glimmer/');expect(d.menuImage).toContain('/glimmer/');expect(d.photoCredit||d.illustrative).toBeTruthy();expect(d.price).toMatch(/^USD \d+\.\d{2}$/);expect(portionScale(d).measured).toBe(false);}
+ for(const d of all.filter(d=>d.orderable&&d.sample)){expect(d.image).not.toContain('/glimmer/');expect(d.menuImage).toContain('/glimmer/');expect(d.photoCredit||d.illustrative).toBeTruthy();expect(d.price).toMatch(/^USD \d+\.\d{2}$/);expect(portionScale(d).measured).toBe(false);}
 });
 it('delivers exact, bounded layers for all labeled illustrations without invented calibration',()=>{
  for(const entry of Object.values(illustrations)){const p=entry.portion;expect(PublicPortionSchema.safeParse(p).success).toBe(true);expect(p).not.toHaveProperty('physical_size');

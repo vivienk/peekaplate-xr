@@ -18,5 +18,17 @@
     "bytes": 4788248,
     "sha256": "93ab9b7274d5576d9be701872342cb2a146a69a60f4cc64c2a9c5810dc757130",
     "physical_size": "27 cm reference, estimated; not measured"
+  },
+  {
+    "id": "r2-1",
+    "source": "pancakes 3d model.glb",
+    "source_sha256": "27ee8decae7c69f82bf188d3414569da7608af57a6d3eb02db9f1b3725f2cc72",
+    "source_triangles": 1957134,
+    "triangles": 44994,
+    "bytes": 2126660,
+    "sha256": "3fbcfc4cfbd81e8595b9d9e282942be2ab5863e35a201a6289f87b704a8db9bf",
+    "file": "supplied-dishes/berry-souffle-pancakes.glb",
+    "physical_size": "27 cm reference, estimated; not measured",
+    "processing": "gltfpack 0.25.0, target ratio 0.02299, permissive simplification, max error 0.02. Embedded base colour up to 2048 px, normal and metallic-roughness up to 1024 px."
   }
 ]
