@@ -31,6 +31,7 @@ export class DiningUI {
  syncInput(){
   if(this.a.screen!=='dish')this.detailPreview.hide();
   const shown=['search','comparePicker'].includes(this.a.screen)&&!this.a.immersive&&!this.keyboard;
+  const modern=this.a.screen==='comparePicker';Object.assign(this.input.style,{background:modern?dc.deep:'#fff4db',color:modern?dc.text:ink,fontFamily:modern?'Arial, sans-serif':'Jersey, monospace',borderRadius:modern?'8px':'0'});
   this.input.style.display=shown?'block':'none';if(!shown){this.input.blur();return;}
   const scale=Math.min(innerWidth/1280,innerHeight/720)/1.04,left=(innerWidth-1280*scale)/2,top=(innerHeight-720*scale)/2;
   Object.assign(this.input.style,{left:`${left+112*scale}px`,top:`${top+160*scale}px`,width:`${732*scale}px`,height:`${31*scale}px`,fontSize:`${28*scale}px`});
@@ -132,12 +133,41 @@ export class DiningUI {
   else u.button('Search dishes',966,648,170,34,()=>this.search());
   u.sound();
  }
+ private comparePicker(list:MarketDish[]){
+  const a=this.a,u=new DinerSurface(a);u.shell('Compare · choose a dish');
+  const anchor=list.find(item=>item.id===(this.replaceSide===0?this.compareId:this.comparisonAnchor));
+  const matches=searchDishes(anchor?similarDishes(list,anchor):list,this.query,this.category);
+  u.box(98,150,760,52,dc.deep,12);if(a.immersive||this.keyboard)u.text(this.query||'Category, ingredient or keyword…',114,185,24,this.query?dc.text:dc.muted,728);
+  this.syncInput();a.hit('Search input',98,150,760,52,()=>{if(a.immersive)this.keyboard=true;else{this.keyboard=false;this.syncInput();this.input.focus();}});
+  u.button(this.keyboard?'Hide keys':'Keyboard',880,150,170,52,()=>{this.keyboard=!this.keyboard;a.page=0;});u.button('Clear',1070,150,106,52,()=>{this.query='';a.page=0;},{disabled:!this.query});
+  const categories=['All',...new Set(list.map(item=>item.category))];
+  categories.slice(this.categoryPage*6,this.categoryPage*6+6).forEach((category,i)=>u.button(category,98+i*164,214,154,38,()=>{this.category=category;a.page=0;},{selected:this.category===category}));
+  u.button('‹',1090,214,38,38,()=>{this.categoryPage--;},{disabled:this.categoryPage===0});u.button('›',1138,214,38,38,()=>{this.categoryPage++;},{disabled:(this.categoryPage+1)*6>=categories.length});
+  u.text(`${matches.length} dishes · ${this.category} · Similar dishes first`,102,281,18,dc.muted,1050);
+  const count=this.keyboard?2:5;a.page=Math.min(a.page,Math.max(0,Math.ceil(matches.length/count)-1));
+  matches.slice(a.page*count,a.page*count+count).forEach((item,i)=>{const y=300+i*61;item.menuImage?a.picture(item.menuImage,104,y,54,54):foodIcon(a.context,item.category,110,y+6,42);u.button(item.name,176,y,637,51,()=>this.choose(item.id));u.text(item.restaurant,838,y+21,18,dc.muted,340);u.text(item.price,838,y+48,20,dc.orange,340);});
+  if(!matches.length)u.text('No matches. Try another dish, ingredient or restaurant.',110,340,22,dc.muted,1000);
+  if(this.keyboard){['1234567890','QWERTYUIOP','ASDFGHJKL','ZXCVBNM'].forEach((row,r)=>[...row].forEach((ch,i)=>u.button(ch,165+Math.max(0,r-1)*24+i*87,430+r*44,78,41,()=>this.type(ch.toLowerCase()))));u.button('Space',900,562,130,41,()=>this.type(' '));u.button('Delete',1040,562,130,41,()=>this.type('Backspace'),{disabled:!this.query});}
+  u.button('Previous',98,630,155,44,()=>{a.page--;},{disabled:a.page===0});u.text(`${a.page+1} / ${Math.max(1,Math.ceil(matches.length/count))}`,590,660,18,dc.muted);u.button('Next',960,630,155,44,()=>{a.page++;},{disabled:(a.page+1)*count>=matches.length});u.sound();
+ }
+ private comparison(d:MarketDish,other?:MarketDish){
+  const a=this.a,u=new DinerSurface(a);u.shell('Compare dishes');
+  if(!other||other.id===d.id){u.text('Choose another available dish to compare.',100,235,25);u.button('Choose dish',100,300,500,54,()=>this.replace(1),{primary:true});u.sound();return;}
+  [d,other].forEach((dish,i)=>{const x=80+i*572;u.box(x,136,548,480,dc.deep);a.picture(dish.image,x+20,154,190,180);
+   u.text(dish.category.toUpperCase(),x+228,170,15,dc.muted,298);u.lines(dish.name,x+228,203,298,24,2,dc.text);u.text(dish.price,x+228,273,27,dc.orange,298);u.lines(dish.restaurant,x+228,303,298,18,2);
+   a.context.fillStyle=dc.line;a.context.fillRect(x+20,350,508,1);
+   u.text('ALLERGENS',x+20,378,15,dc.muted);u.lines(allergenLabel(dish),x+20,404,508,18,2,dc.text);u.text(dish.dietary.join(' · ')||'Dietary information not supplied',x+20,451,17,dc.muted,508);
+   u.text(dish.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x+20,480,15,dc.muted);u.lines(dish.ingredients.join(', ')||'Ingredients not supplied',x+20,506,508,18,2,dc.text);
+   u.button('Details',x+20,558,160,42,()=>this.show(dish.id,'comparison'));u.button('Replace',x+192,558,160,42,()=>this.replace(i as 0|1));u.button('Portion',x+364,558,164,42,()=>this.portion(dish.id,'comparison'),{primary:true,icon:'portion'});
+  });u.text('Compare any two dishes across the night market.',82,659,18,dc.muted,1000);u.sound();
+ }
  render(){const a=this.a;
   if(!['menu','dish','ar','search','comparison','comparePicker','publishedMenu'].includes(a.screen))return false;
   const list=marketCatalogue(),d=list.find(d=>d.id===(a.screen==='ar'?a.portalDishId:a.screen==='comparison'?this.comparisonAnchor:this.id));
   if(a.screen==='menu'||a.screen==='publishedMenu'){this.restaurantMenu(list);return true;}
-  if(a.screen==='search'||a.screen==='comparePicker'){
-   const picking=a.screen==='comparePicker';this.heading(picking?'Compare · choose any second dish':'Search the night market');
+  if(a.screen==='comparePicker'){this.comparePicker(list);return true;}
+  if(a.screen==='search'){
+   const picking=false;this.heading(picking?'Compare · choose any second dish':'Search the night market');
    const anchor=list.find(item=>item.id===(this.replaceSide===0?this.compareId:this.comparisonAnchor));
    const candidates=picking&&anchor?similarDishes(list,anchor):list;
    const matches=searchDishes(candidates,this.query,this.category);a.rect(98,150,760,52,'#fff4db');if(this.a.immersive||this.keyboard)a.text(this.query||'Category, ingredient or keyword…',114,185,28,this.query?ink:muted);this.syncInput();a.hit('Search input',98,150,760,52,()=>{if(this.a.immersive){this.keyboard=true;}else{this.keyboard=false;this.syncInput();this.input.focus();}});
@@ -176,17 +206,7 @@ export class DiningUI {
    a.button('Spectacles',1078,628,154,46,()=>a.onSpectacles(),false,'normal');
    if(a.portalPlacement)a.text(a.portalPlacement,65,565,22,cream);else if(!a.arSupported&&!a.immersive)a.text('AR placement requires a compatible headset or AR browser.',65,565,22,cream);return true;
   }
-  if(a.screen==='comparison'){
-   const other=list.find(item=>item.id===this.compareId);this.heading('Compare dishes');
-   if(!other||other.id===d.id){a.text('Choose another available dish to compare.',100,235,30);a.button('Choose dish',100,300,500,54,()=>this.replace(1));return true;}
-   [d,other].forEach((dish,i)=>{const x=94+i*560;a.rect(x,151,530,441);a.picture(dish.image,x+20,170,170,170);this.textBlock(dish.name,x+209,189,294,29,2);a.text(dish.price,x+209,262,30,'#a65326');this.textBlock(dish.restaurant,x+209,294,294,23,2);a.text(dish.sample?'Menu':'Published menu',x+209,329,21,muted);
-    this.textBlock(allergenLabel(dish),x+20,371,480,24,2);this.textBlock(dish.dietary.join(' · ')||'Dietary information not supplied',x+20,433,480,23,2);
-    this.textBlock(`Ingredients: ${dish.ingredients.join(', ')}`,x+20,490,480,22,3);
-    a.button('Details',x,606,160,46,()=>this.show(dish.id,'comparison'),false,'normal');
-    a.button('Replace',x+176,606,160,46,()=>this.replace(i as 0|1),false,'normal');
-    a.button('Portion',x+352,606,160,46,()=>{this.portion(dish.id,'comparison');});
-   });return true;
-  }
+  if(a.screen==='comparison'){this.comparison(d,list.find(item=>item.id===this.compareId));return true;}
   this.dishDetail(d);return true;
  }
 }
