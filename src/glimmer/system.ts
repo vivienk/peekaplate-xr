@@ -1,3 +1,4 @@
+import { FrameRateMeter } from './frame-rate';
 import { ARPortionPortal } from './ar-portal';
 import { generatedModelId } from './generated-models';
 import { marketCatalogue } from './catalogue';
@@ -13,6 +14,7 @@ const noGamepads: readonly (Gamepad|null)[] = [];
 /** Original pixel world stays stationary in viewing space; dishes are native 3D. */
 export class GlimmerSystem extends createSystem({}) {
   app!:GlimmerApp;
+  private frameRate=new FrameRateMeter();
   private arPortal!:ARPortionPortal;
   private browserGamepad!:BrowserGamepad;
   private texture!:CanvasTexture;
@@ -32,6 +34,9 @@ export class GlimmerSystem extends createSystem({}) {
   private dragX=0;private dragY=0;
   init(){
     this.app=new GlimmerApp();this.app.refreshPublished();
+    const resetFrameRate=()=>this.frameRate.reset();
+    document.addEventListener('visibilitychange',resetFrameRate);
+    this.cleanupFuncs.push(()=>document.removeEventListener('visibilitychange',resetFrameRate));
     if(this.app.handPlacement)this.world.renderer.setPixelRatio(1);
     // Make the game surface an explicit keyboard target in embedded browsers.
     const surface=this.world.renderer.domElement, previousTabIndex=surface.getAttribute('tabindex');
@@ -94,6 +99,9 @@ export class GlimmerSystem extends createSystem({}) {
   }
   private async loadOrder(){const generation=++this.orderGeneration;this.holograms.clear();for(const [index,line]of this.app.state.holograms.entries()){try{const model=await this.model(line.dish,.28);if(this.stopped||generation!==this.orderGeneration)return;const pivot=new Group();pivot.position.x=(index-(this.app.state.holograms.length-1)/2)*.4;pivot.add(model);this.holograms.add(pivot);}catch(error){console.error('[GLIMMER] order model failed',line.dish,error);this.app.notify('One order hologram is unavailable. Your ticket is still valid.');}}}
   update(delta:number){
+    // Use wall time, not the capped simulation delta; includes slow frames.
+    if(document.hidden)this.frameRate.reset();
+    else if(this.frameRate.sample(performance.now()))this.app.setFPS(this.frameRate.fps);
     const dt=Math.min(delta,.1);const pad=this.input.xr.gamepads.left;
     const immersive=this.world.visibilityState.peek()!==VisibilityState.NonImmersive;
     let pads: readonly (Gamepad|null)[]=noGamepads;

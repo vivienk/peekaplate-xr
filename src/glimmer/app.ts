@@ -24,6 +24,8 @@ export class GlimmerApp {
   private overlay=document.createElement('canvas');
   private output:CanvasRenderingContext2D;
   private uiDirty=true;
+  private fpsLabel='FPS —';
+  setFPS(fps:number){const label=`FPS ${fps}`;if(label!==this.fpsLabel){this.fpsLabel=label;this.uiDirty=true;}}
   private screenAge=1;
   private pressedIndex=-1;
   finaleDistrict:string|null=null;
@@ -272,7 +274,9 @@ export class GlimmerApp {
   }
   heading(title:string){this.context.fillStyle='#05071acc';this.context.fillRect(0,0,1280,720);this.rect(60,42,1160,625);this.patch('assets/ui/panels/rail_wood.png',44,30,1192,18,[24,0,24,0]);this.patch(`assets/ui/panels/flap_${this.screen==='title'?'red':'cream'}.png`,76,58,1128,76,[24,16,24,32]);this.titleText(title,100,109,43,ink);if(this.screen!=='title')this.button('Back',1080,72,100,45,()=>this.close());}
   private add(id:string,delta=1){const r=changeQuantity(this.state,id,delta);this.result(r);this.sound(r.changed?(delta>0?'sfx-order-add':'sfx-order-remove'):'sfx-code-bad');}
-  private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;}
+  private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;
+    // Part of the game canvas so the same badge is visible inside XR.
+    const c=this.output;c.save();c.fillStyle='#101730dd';c.beginPath();c.roundRect(578,6,124,30,8);c.fill();c.font='bold 20px monospace';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#ffffff';c.fillText(this.fpsLabel,640,21);c.restore();}
   render(){
     // Static Spectacles panels need no canvas redraw or GPU upload between changes.
     if(this.handPlacement&&this.screen!=='explore'&&!this.uiDirty&&this.screenAge>.3)return;
