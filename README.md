@@ -1,217 +1,79 @@
-# IWSDK Template for v0
+# PeekaPlate XR
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![IWSDK](https://img.shields.io/badge/IWSDK-1.0.0-6f42c1.svg)](https://developers.meta.com/horizon/documentation/web/webxr-iwsdk-overview)
-[![Framework: Vite](https://img.shields.io/badge/Framework-Vite-646cff.svg)](https://vite.dev/)
+PeekaPlate XR is the WebXR companion to `vivienk/peekaplate`, the canonical PeekaPlate restaurant-menu application. In **Night Market 2049**, you walk between pixel-art food stalls on a screen in a virtual dining room, compare dishes at the counter, then place a 3D bowl on a table to judge its portion. [PeekaPlate application][core]
 
-A WebXR starter built with the [Immersive Web SDK](https://developers.meta.com/horizon/documentation/web/webxr-iwsdk-overview)
-(IWSDK 1.0.0), packaged as a template for [v0](https://v0.app/) and deployable to
-Vercel as a static Vite app.
+**[Play the live XR demo][live]** · [Open the PeekaPlate web game][web-game] · [Browse the demo branch][demo-branch]
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmeta-quest%2Fiwsdk-v0-template)
+| Rain Alley on the virtual screen | The fried chicken bowl on the simulated table |
+| --- | --- |
+| ![The Rain Alley gate on a screen between two emulated Quest controllers][market-still] | ![The Fried Chicken Bowl with Sunny Egg placed on the emulator’s tabletop][table-still] |
 
-## What's included
+## Watch the demos
 
-- **A VR desk scene** — environment, robot, plant, a grabbable demo cube, a
-  spatial welcome panel and a controller-input HUD, composed declaratively in
-  `public/scenes/main.iwsdk.scene.json`.
-- **Controller mapping** — `ControllerInputSystem` maps the right A/B buttons to
-  scale, left X to cycle color and left Y to reset, and mirrors live button,
-  trigger, grip and thumbstick state onto the HUD panel.
-- **Manifest-first project layout** — `iwsdk.config.json` is the single authority
-  for the active scene, asset catalog, component catalog, XR mode and world
-  features.
-- **Hand and gaze tracking** — `iwsdk.config.json` requests the `handTracking`
-  and `gazeTracking` XR features and enables the `gaze` world feature, so both
-  are on in-session without any app code.
-- **XR emulation without a headset** — IWER lets any browser enter an emulated
-  Quest 3 session on the dev server, including the v0 sandbox preview. See
-  [XR emulation](#xr-emulation) for how it is gated.
-- **Agent guidance** for v0, Claude Code, Cursor and Copilot, synced from the
-  upstream IWSDK guidance in `facebook/immersive-web-sdk`.
+Both recordings run **2:45** and use the Quest 3 profile in Meta’s Immersive Web Emulator. The gray room and table are simulated. Physical-headset passthrough remains unverified.
 
-## Getting Started
+| Walkthrough | Moments in the recording |
+| --- | --- |
+| [Noka Ramen (MP4)][ramen-video] | **0:18** find the coupon in a puddle · **0:49** open it at Noka · **1:19** compare the two ramen bowls · **2:04** place the steak ramen on the table |
+| [Farm House Thai (MP4)][chicken-video] | **0:13** walk through Rain Alley · **1:04** choose the Fried Chicken Bowl with Sunny Egg · **1:55** place it on the table |
 
-First, run the development server:
+## How XR connects to PeekaPlate
 
-```bash
-npm install
+The core application publishes restaurant menus. XR adopts its published-menu format, ingredient artwork, and tools for preparing dish cutouts and 3D models. This repository owns the pixel-art market, Quest controls, and AR placement. [Core menu publication flow][core-menus] · [Upstream portion tools (PR #162)][portion-pr] · [Upstream ingredient artwork (PR #165)][artwork-pr]
+
+The XR client is configured to read PeekaPlate’s public staging restaurant directory. For each available restaurant, it checks the venue and menu IDs and verifies the downloaded menu bundle against its published hash before adding the storefront. On November 18, 2026, the staging API returned HTTP 404 for `GET /public/restaurants`. Noka Ramen and Farm House Thai ship with the game, so both walkthroughs are playable independently of that service. [Live connection settings][registry] · [XR menu reader][reader] · [Upstream directory work][directory-pr]
+
+## Try the Noka Ramen route
+
+1. Open the live demo, select **Enter Meta Quest VR**, then **Start**. In Rain Alley, follow the lane east from Noka’s red counter toward the pink café. Pause in the puddle by the turquoise sign to find the Flaming Steak Ramen coupon.
+2. Walk back to Noka, choose **Open menu**, then **Coupon ready**. The coupon is a Passport collectible. The menu keeps its displayed prices.
+3. Open **Spicy Tantan-style Ramen**, select **Compare**, and choose **Flaming Steak Ramen**. The cards show the Tan Tan bowl at **$18** with sesame, chili, and minced pork, and the steak bowl at **$19** with noodles, egg yolk, and scallion.
+4. Choose **Portion** on the steak ramen card to leave VR for the browser preview. Select **3D model**, then **Open AR portal**. Aim at a tabletop and press the right trigger when the placement ring appears. Move around the bowl to inspect it at its fixed scale.
+
+The steak ramen preview labels the dish as an estimated serving for one. Its size uses a **27 cm dinner plate** as a reference. [AR placement and scale][ar]
+
+## Run the game locally
+
+The Vite and TypeScript game uses Meta’s Immersive Web SDK (IWSDK). Clone `night-market-xr-demo` for the version running on the live site. The `main` branch contains the earlier dining-room prototype. The game’s `.nvmrc` pins Node.js `22.12.0`.
+
+```sh
+git clone --branch night-market-xr-demo https://github.com/vivienk/peekaplate-xr.git
+cd peekaplate-xr
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) with your browser to see the
-result, then click **Enter XR** to start an emulated immersive session. You can
-start editing the scene by modifying `public/scenes/main.iwsdk.scene.json`, or
-the systems that drive it under `src/`. The page auto-updates as you edit.
+Open the local URL printed by the server. Use **WASD** or the **arrow keys** to walk, **E** to interact, **M** for the map, and **Tab** for the Passport. In VR, walk with the left thumbstick and point and select with the controller. To resume a visit later, copy the **Market code** from the pause menu and choose **Continue with code** on the title screen.
 
-`npm run dev` is the IWSDK managed dev server (`iwsdk dev restart --foreground`),
-and the one script v0 starts on your behalf. It serves the app the way Vite does
-and additionally hosts the MCP command bridge behind the scene editor and the
-scene/ECS/XR tooling. There is no `--open`, so it does not launch the managed
-browser on boot — the first MCP or CLI command starts it lazily.
+On the demo branch, `npm run check` runs TypeScript checks, tests, and the production build. `npm run convert:models` rebuilds the GLB files from the supplied dish models. The original Nimble Fox market package, including its art, audio, fonts, and 32 source models, is in `public/glimmer/`. [Model pipeline][portion-tools] · [Verification notes][verification] · [World design][world] · [Save-code rules][rules]
 
-A `predev` hook runs `scripts/setup-browser-deps.mjs` first. That script installs
-the system libraries managed Chromium needs inside the Fedora-based v0 sandbox,
-and exits immediately on every other platform.
+## Development history
 
-Two companion scripts drive that server's lifecycle:
+Shared diner features are reviewed in `vivienk/peekaplate`. XR pull request #3 grouped 69 commits for the market rebuild and closed unmerged. The playable Quest screen and first demo recording landed directly on `night-market-xr-demo`. [Core pull requests][core-prs] · [XR pull requests, including closed reviews][xr-prs] · [Quest screen commit][screen-commit] · [XR demo commit history][demo-history]
 
-```bash
-npm run dev:status
-npm run dev:down
-```
+For the project’s license, see [Apache License 2.0][license].
 
-For plain Vite with none of the managed infrastructure — the mode `vercel dev`
-expects — use the runtime-only script:
-
-```bash
-npm run dev:runtime   # vite
-```
-
-Run only one of the two at a time: `npm run dev:down` first if a managed server
-already holds the port.
-
-Optional one-time setup for the semantic code-reference MCP tools:
-
-```sh
-npm run reference:warmup
-```
-
-Before testing anything, typecheck. Type errors stop systems from initialising
-without necessarily logging to the console:
-
-```sh
-npm run typecheck
-```
-
-## Project structure
-
-```
-iwsdk.config.json                 project authority: scene, assets, components, world, dev
-vercel.json                       framework, output directory and SPA rewrite
-src/
-  index.ts                        World.create() + explicit system registration
-  assets.ts                       defineAssets() — catalog shared by runtime and editor
-  components.ts                   defineComponents() — catalog shared by runtime and editor
-  robot-component.ts              Robot tag component
-  robot.ts                        RobotSystem — look-at behavior and click audio
-  demo-cube-component.ts          DemoCube tag component and its color palette
-  input.ts                        ControllerInputSystem — face buttons and HUD mirroring
-  panel.ts                        PanelSystem — Enter XR / Exit to Browser wiring
-  scene-assets/                   *.scene-asset.ts — parentless Object3D prototypes
-public/
-  scenes/main.iwsdk.scene.json    composition only — manifest IDs, transforms, components
-  ui/*.uikitml                    runtime-loaded panels
-  gltf/ audio/ textures/          static assets
-scripts/
-  setup-browser-deps.mjs          predev — managed-browser system libs for the v0 sandbox
-```
-
-Composition lives in JSON; geometry, materials and URLs live in TypeScript. Scene
-JSON references assets only by manifest ID.
-
-## Using this template in v0
-
-Open the repository in [v0](https://v0.app/) and it runs in a Vercel Sandbox: a
-real Node.js VM with a framework-aware dev server, a terminal and Claude Code
-pre-installed. v0 detects Vite, starts `npm run dev` itself, and proxies the
-result through a generated HTTPS hostname — a secure context, which is what
-WebXR requires. That script starts the managed dev server rather than bare Vite;
-it serves the app on the same port, and its `predev` hook prepares the sandbox
-for the managed browser the agent tooling drives.
-
-To point a fresh chat at your own copy, fork this repository and give v0 the fork
-URL. Agent guidance is already wired up: `AGENTS.md` at the root, path-scoped
-detail in `src/AGENTS.md`, `public/ui/AGENTS.md` and `public/scenes/AGENTS.md`,
-and skill procedures under `.claude/skills/` mirrored into `.agents/skills/`.
-
-## Deploy on Vercel
-
-The easiest way to deploy is to import the repository into
-[Vercel](https://vercel.com/new), or run `vercel` from the project root.
-
-`vercel.json` selects the Vite framework preset, builds to `dist/`, sends
-`Permissions-Policy: xr-spatial-tracking=*` so WebXR is allowed, and rewrites
-unmatched paths to `/index.html`. Static files under `public/` still win, because
-Vercel checks the filesystem before applying rewrites.
-
-WebXR requires a secure context. The deployed HTTPS URL and `http://localhost`
-both qualify; a plain-HTTP LAN address does not. To test on a physical headset
-against your dev machine, run `IWSDK_DEV_HTTPS=1 npm run dev` and accept the
-self-signed certificate on the device.
-
-To deploy under a subpath, set `VITE_BASE_PATH` at build time.
-
-## XR emulation
-
-IWER is not part of the app bundle by default — `@iwsdk/vite-plugin-dev` injects
-it, and two separate gates decide whether it reaches the page. Both are set in
-`iwsdk.config.json` under `dev.emulator`, which is the project authority for this;
-the plugin rejects the same options passed to `iwsdkDev()` in `vite.config.ts`.
-
-| Gate            | Default     | Effect of the default                                            |
-| --------------- | ----------- | ---------------------------------------------------------------- |
-| `injectOnBuild` | `false`     | `vite build` emits no emulator, so deploys have nothing to run   |
-| `activation`    | `localhost` | the injected runtime stays inert on any non-localhost hostname   |
-
-The default `activation` is the one that bites in practice: the dev server always
-injects IWER, but a v0 preview is served from a generated `*.v0.build` hostname
-(older sandboxes used `*.vusercontent.net`), so the runtime loads and then sits
-inert. This template widens `activation` to cover the hostnames a preview
-actually uses:
-
-```jsonc
-"dev": {
-  "emulator": {
-    "device": "metaQuest3",
-    "activation": {
-      "source": "^(localhost|127\\.0\\.0\\.1|.*\\.vercel\\.app|.*\\.vusercontent\\.net|.*\\.v0\\.build)$"
-    }
-  }
-}
-```
-
-The pattern is matched against `location.hostname` alone — no scheme, port or
-path — so each term is a bare host suffix. v0 has renamed its preview domain
-before; if it happens again, add a term here rather than widening to `.*`.
-
-A regex is an object here (`{ source, flags }`), not a `/.../` string. On a real
-headset IWER steps aside regardless, via the default `userAgentException` of
-`/OculusBrowser/`.
-
-`injectOnBuild` is deliberately left at its default. Emulating a headset is a
-development affordance, and injecting the runtime adds roughly 1 MB to the
-production bundle — a cost every visitor pays, including on domains where
-`activation` returns false. The consequence is that **a deployed build ships no
-emulator**: `npm run dev` and the v0 sandbox get IWER, a `vercel deploy` does
-not. Set `injectOnBuild: true` if you want deploys emulated too; the
-`.vercel.app` term in `activation` is there for that case and is otherwise inert.
-
-## Notes
-
-- Import Three.js classes from `@iwsdk/core`, never from `three` — a direct
-  `three` import creates a duplicate instance and subtle breakage.
-- `@iwsdk/vite-plugin-dev` depends on Playwright, so the first `npm install` in a
-  fresh sandbox downloads Chromium, and `predev` installs the system libraries it
-  needs to launch. Set `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` to skip the download
-  when you only need to build — CI does exactly that.
-- `package-lock.json` is committed, so `npm ci` reproduces the dependency tree
-  exactly. Regenerate it with `npm install` whenever you change `package.json`.
-
-## Learn More
-
-- [Immersive Web SDK documentation](https://developers.meta.com/horizon/documentation/web/webxr-iwsdk-overview)
-- [`facebook/immersive-web-sdk`](https://github.com/facebook/immersive-web-sdk) —
-  the upstream repository this template's agent guidance is synced from
-- [v0 documentation](https://v0.app/docs)
-- [Vite documentation](https://vite.dev/) and the
-  [Vercel Vite preset](https://vercel.com/docs/frameworks/vite)
-- [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-
-## License
-
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the
-full text.
-
-Note that IWSDK itself is MIT-licensed; this template's Apache-2.0 terms cover
-the template's own source, not its dependencies.
+[core]: https://github.com/vivienk/peekaplate
+[live]: https://peekaplate-xr.vercel.app/
+[web-game]: https://peekaplate.vercel.app/xr
+[demo-branch]: https://github.com/vivienk/peekaplate-xr/tree/night-market-xr-demo
+[market-still]: https://raw.githubusercontent.com/vivienk/peekaplate-xr/night-market-xr-demo/docs/demo/quest-emulator/night-market-quest-emulator.jpg
+[table-still]: https://raw.githubusercontent.com/vivienk/peekaplate-xr/night-market-xr-demo/docs/demo/quest-emulator/Night%20Market%202049%20-%20AR%20tabletop.jpg
+[ramen-video]: https://raw.githubusercontent.com/vivienk/peekaplate-xr/night-market-xr-demo/docs/demo/quest-emulator/PeekaPlate%20-%20Noka%20Ramen%20-%20Quest%20Emulator.mp4
+[chicken-video]: https://raw.githubusercontent.com/vivienk/peekaplate-xr/night-market-xr-demo/docs/demo/quest-emulator/PeekaPlate%20-%20Night%20Market%202049%20-%20Quest%20Emulator.mp4
+[core-menus]: https://github.com/vivienk/peekaplate/blob/main/docs/diner-connection.md
+[portion-tools]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/docs/market-portion-pipeline.md
+[portion-pr]: https://github.com/vivienk/peekaplate/pull/162
+[artwork-pr]: https://github.com/vivienk/peekaplate/pull/165
+[registry]: https://peekaplate-xr.vercel.app/market-restaurants.json
+[reader]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/src/published/client.ts
+[directory-pr]: https://github.com/vivienk/peekaplate/pull/214
+[ar]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/docs/ar-portion-portal.md
+[verification]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/design/VERIFICATION.md
+[world]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/design/WORLD.md
+[rules]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/design/RULES.md
+[core-prs]: https://github.com/vivienk/peekaplate/pulls?q=is%3Apr
+[xr-prs]: https://github.com/vivienk/peekaplate-xr/pulls?q=is%3Apr
+[screen-commit]: https://github.com/vivienk/peekaplate-xr/commit/d8bfb13966da14ded184d0764e94960d406cb59c
+[demo-history]: https://github.com/vivienk/peekaplate-xr/commits/night-market-xr-demo/
+[license]: LICENSE
