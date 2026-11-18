@@ -1,3 +1,4 @@
+import { titleLogoEffects } from './title-logo-effects';
 import { demoPrice } from './dish-metadata';
 import { MarketMapUI } from './market-map-ui';
 import { interfaceIcon } from './interface-icons';
@@ -222,9 +223,9 @@ export class GlimmerApp {
     this.liveRefresh+=dt;if(this.liveRefresh>=60&&this.screen==='explore'){this.liveRefresh=0;this.refreshPublished();}
     if(this.screen==='publishedMenu'){const live=liveRestaurants.get(this.publishedId);if(live?.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.publishedMessage='This menu has expired. Reopen the restaurant to refresh.';this.invalidate();}}
     if(['dish','ar','comparison','comparePicker','search'].includes(this.screen)){for(const live of liveRestaurants.values()){if(live.content&&live.expiresAt<=Date.now()){live.content=null;live.available=false;this.invalidate();if(this.screen==='ar'&&this.portalDishId.startsWith(live.id+'/'))this.onPortal(null);}}}
-    const previousLogoFrame=Math.floor(this.screenAge*4)%4;
+    const previousLogoFrame=Math.floor(this.screenAge*8);
     this.screenAge+=dt;
-    if(this.screen==='title'&&!this.reducedMotion&&previousLogoFrame!==Math.floor(this.screenAge*4)%4)this.uiDirty=true;
+    if(this.screen==='title'&&!this.reducedMotion&&previousLogoFrame!==Math.floor(this.screenAge*8))this.uiDirty=true;
     if(this.screen==='dialogue'){this.dialogueElapsed+=dt;const blip=Math.floor(Math.min(this.dialogueElapsed*40,this.dialogue[this.dialogueIndex]?.length??0)/3);if(this.dialogueTyping&&blip>this.dialogueBlip){this.sound(`sfx-talk-blip-${blip%3+1}`);this.dialogueBlip=blip;}this.market.setTalking(this.dialogueTyping);this.uiDirty=true;}else this.market.setTalking(false);
     if(this.screen==='explore')this.uiDirty=true;
     const paused=this.paused;if(!this.handPlacement||this.screen==='explore'||!this.marketPainted){this.market.update(dt);this.marketPainted=true;}this.audio.update(dt,this.market.player,paused,this.screen==='ar',this.market.isSeated);
@@ -287,7 +288,8 @@ export class GlimmerApp {
       this.heading('');
       this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',100,63,56,56);
       this.titleText('PeekaPlate',170,109,43,ink);
-      this.picture(import.meta.env.BASE_URL+'branding/night-market-2049-pixel.png',350,143,580,175);
+      this.picture(import.meta.env.BASE_URL+'branding/night-market-2049-orange-pixel.png',350,143,580,175);
+      if(this.images.get(import.meta.env.BASE_URL+'branding/night-market-2049-orange-pixel.png')?.naturalWidth)titleLogoEffects(c,350,143,580,175,this.screenAge,this.reducedMotion);
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
       this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
       this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,530,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);
