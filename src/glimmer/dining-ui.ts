@@ -61,11 +61,11 @@ export class DiningUI {
   const a=this.a,c=a.context,key=d.id+'|'+(d.portion?.layers.map(l=>l.sha256).join()??d.image);new DinerSurface(a).box(x,y,size,size,dc.deep);
   if(!this.pending.has(key)&&!this.previews.has(key)&&!this.failed.has(key)){this.pending.add(key);void loadPortionImages(d,AbortSignal.any([this.previewAbort.signal,AbortSignal.timeout(15000)])).then(result=>{if(!this.previewAbort.signal.aborted){if(this.previews.size>=40)this.previews.delete(this.previews.keys().next().value!);this.previews.set(key,result);a.invalidate();}}).catch(()=>{this.failed.add(key);a.invalidate();}).finally(()=>this.pending.delete(key));}
   const preview=this.previews.get(key);
-  if(this.photoMode||!preview){a.picture(d.image,x+12,y+12,size-24,size-24);}else{
-   c.save();c.beginPath();c.rect(x+4,y+4,size-8,size-8);c.clip();
+  if(this.photoMode||!preview){a.picture(d.image,x+12,y+40,size-24,size-100);}else{
+   c.save();c.beginPath();c.rect(x+12,y+40,size-24,size-100);c.clip();
    c.fillStyle='#967a4c40';c.beginPath();c.ellipse(x+size/2,y+size*.83,size*.3,size*.045,0,0,Math.PI*2);c.fill();
    const dx=a.reducedMotion?0:this.artX,dy=a.reducedMotion?0:this.artY;
-   for(const layer of preview.images){const ratio=layer.image.naturalHeight/layer.image.naturalWidth,w=size-24,h=w*ratio;c.save();c.translate(x+size/2+dx*layer.depth,y+size/2+dy*layer.depth);c.transform(1,dy*.002,dx*.002,1,0,0);c.drawImage(layer.image,-w/2,-h/2,w,h);c.restore();}c.restore();
+   for(const layer of preview.images){const ratio=layer.image.naturalHeight/layer.image.naturalWidth,w=Math.min(size-24,(size-100)/ratio),h=w*ratio;c.save();c.translate(x+size/2+dx*layer.depth,y+40+(size-100)/2+dy*layer.depth);c.transform(1,dy*.002,dx*.002,1,0,0);c.drawImage(layer.image,-w/2,-h/2,w,h);c.restore();}c.restore();
   }
   new DinerSurface(a).text(this.photoMode?(d.illustrative?'ILLUSTRATIVE IMAGE':'PHOTO'):preview?.layered?(d.cutoutEdited?'2.5D · AI-CLEANED CUTOUT':'2.5D PREVIEW'):'PHOTO PREVIEW',x+14,y+27,16,dc.muted);
   this.detailPreview.show(d,this.photoMode,a.reducedMotion,a.immersive,{x:x+12,y:y+40,w:size-24,h:size-100});
