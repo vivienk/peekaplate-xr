@@ -13,3 +13,10 @@ unmeasured dishes remain explicitly estimated from a 27cm plate reference.
 
 Device table alignment and passthrough still require headset validation. Desktop
 unit checks cannot establish physical accuracy.
+
+Ingredient artwork now renders in a centered 56px slot (previously 38px), above
+centered one/two-line ingredient names. Restaurant headers and comparison labels
+use the original JerseyTitle pixel face. User-provided prices are $21.00 for the
+fried chicken bowl and $19.00 for the steak ramen; dish/save IDs are unchanged.
+Portion screens (desktop and immersive AR) show the menu serving count or the
+user-authorized fallback “Estimated serving for 1 person” when absent.

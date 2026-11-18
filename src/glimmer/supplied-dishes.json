@@ -4,7 +4,7 @@
     "restaurantId": "r3-thai",
     "name": "Fried Chicken Bowl with Sunny Egg",
     "sample": false,
-    "price": "Price unavailable",
+    "price": "$21.00",
     "description": "Crispy chicken over rice with a sunny egg, watermelon radish, carrot and greens.",
     "ingredients": [
       "chicken",
@@ -33,7 +33,7 @@
     "restaurantId": "r1-ramen",
     "name": "Flaming Steak Ramen",
     "sample": false,
-    "price": "Price unavailable",
+    "price": "$19.00",
     "description": "Seared steak over ramen noodles with egg yolk and scallions.",
     "ingredients": [
       "steak",

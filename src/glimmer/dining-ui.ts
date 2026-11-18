@@ -5,6 +5,7 @@ import { DinerSurface, dinerColors as dc } from './diner-surface';
 import { restaurantLogo } from './market-map-ui';
 import { marketCatalogue, searchDishes, similarDishes, allergenLabel, type MarketDish } from './catalogue';
 import { generatedModelId } from './generated-models';
+import { servingLabel } from './serving-label';
 import { portionScale } from './portion-preview';
 import { DetailPreview } from './detail-preview';
 import { loadPortionImages } from './portion-images';
@@ -92,7 +93,7 @@ export class DiningUI {
   const featured=['thai-chicken-bowl','noka-steak-ramen'];
   const items=list.filter(d=>d.venueId===venue).sort((a,b)=>Number(featured.includes(b.id))-Number(featured.includes(a.id))),categories=['All',...new Set(items.map(d=>d.category))];
   if(!categories.includes(this.menuCategory))this.menuCategory='All';
-  u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.text(name,210,80,28,dc.text,650,600);
+  u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.restaurantName(name,210,80,650);
   const coupons=restaurantCoupons(a.state.finds,venue);
   if(coupons.length)u.button('Coupon available',880,46,200,48,()=>a.readFind(coupons[0].id),{icon:'coupon',primary:true,visible:'Coupon ready'});
   u.button('Search dishes',1098,46,48,48,()=>this.search(),{icon:'search',iconOnly:true});
@@ -117,7 +118,7 @@ export class DiningUI {
   const a=this.a,u=new DinerSurface(a),x=608;
   const venue=liveRestaurants.get(d.venueId);
   this.ingredientArtwork.sync(venue&&!venue.demo&&venue.enabled&&venue.available&&venue.expiresAt>Date.now()&&artworkApiOrigin()?{apiBase:artworkApiOrigin(),venueId:venue.entry.venueId,labels:d.ingredients}:null,d.id);
-  u.shell(d.restaurant);
+  u.shell('');u.restaurantName(d.restaurant,140,80,930);
   if(d.modelId)u.button(a.state.tastingList.includes(d.id)?'Saved':'Save',1098,46,48,48,()=>a.result(toggleSavedDish(a.state,d.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(d.id)});
   this.picture(d,80,144,484);a.context.fillStyle=dc.line;a.context.fillRect(585,144,1,484);
   u.lines(d.photoCredit??(d.illustrative?'Illustrative image · not a restaurant photograph':'Dish preview'),92,651,460,14,2);
@@ -128,7 +129,7 @@ export class DiningUI {
   else {
    u.text(d.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x,347,15,dc.muted);
    const count=4;this.ingredientPage=Math.min(this.ingredientPage,Math.max(0,Math.ceil(d.ingredients.length/count)-1));
-   d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{const xx=x+i*147;u.box(xx,362,135,94,'#ffffff',10);this.ingredientArtwork.draw(a.context,name,xx+48,370,38);const lines=u.lines(name,0,0,115,16,0).slice(0,2);lines.forEach((line,j)=>{a.context.save();a.context.font='16px Arial, sans-serif';const width=a.context.measureText(line).width;a.context.restore();u.text(line,xx+(135-width)/2,429+j*18,16,dc.deep,123);});});
+   d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{const xx=x+i*147;u.box(xx,362,135,100,'#ffffff',10);this.ingredientArtwork.draw(a.context,name,xx+(135-56)/2,366,56);const lines=u.lines(name,0,0,115,16,0).slice(0,2);lines.forEach((line,j)=>{a.context.save();a.context.font='16px Arial, sans-serif';const width=a.context.measureText(line).width;a.context.restore();u.text(line,xx+(135-width)/2,438+j*18,16,dc.deep,123);});});
    if(!d.ingredients.length)u.text('Ingredients not supplied',x,400,19,dc.muted);
    if(d.ingredients.length>count){u.button('Previous ingredients',1055,324,58,30,()=>{this.ingredientPage--;},{disabled:this.ingredientPage===0,visible:'‹'});u.button('Next ingredients',1126,324,58,30,()=>{this.ingredientPage++;},{disabled:(this.ingredientPage+1)*count>=d.ingredients.length,visible:'›'});}
    u.text('ALLERGENS & DIETARY INFO',x,483,15,dc.muted);
@@ -154,7 +155,7 @@ export class DiningUI {
   u.button('‹',1090,214,38,38,()=>{this.categoryPage--;},{disabled:this.categoryPage===0});u.button('›',1138,214,38,38,()=>{this.categoryPage++;},{disabled:(this.categoryPage+1)*6>=categories.length});
   u.text(`${matches.length} dishes · ${this.category} · Similar dishes first`,102,281,18,dc.muted,1050);
   const count=this.keyboard?2:5;a.page=Math.min(a.page,Math.max(0,Math.ceil(matches.length/count)-1));
-  matches.slice(a.page*count,a.page*count+count).forEach((item,i)=>{const y=300+i*61;item.menuImage?a.picture(item.menuImage,104,y,54,54):foodIcon(a.context,item.category,110,y+6,42);u.button(item.name,176,y,637,51,()=>this.choose(item.id));u.text(item.restaurant,838,y+21,18,dc.muted,340);u.text(item.price,838,y+48,20,dc.orange,340);});
+  matches.slice(a.page*count,a.page*count+count).forEach((item,i)=>{const y=300+i*61;item.menuImage?a.picture(item.menuImage,104,y,54,54):foodIcon(a.context,item.category,110,y+6,42);u.button(item.name,176,y,637,51,()=>this.choose(item.id));u.restaurantName(item.restaurant,838,y+21,340,23,dc.muted);u.text(item.price,838,y+48,20,dc.orange,340);});
   if(!matches.length)u.text('No matches. Try another dish, ingredient or restaurant.',110,340,22,dc.muted,1000);
   if(this.keyboard){['1234567890','QWERTYUIOP','ASDFGHJKL','ZXCVBNM'].forEach((row,r)=>[...row].forEach((ch,i)=>u.button(ch,165+Math.max(0,r-1)*24+i*87,430+r*44,78,41,()=>this.type(ch.toLowerCase()))));u.button('Space',900,562,130,41,()=>this.type(' '));u.button('Delete',1040,562,130,41,()=>this.type('Backspace'),{disabled:!this.query});}
   u.button('Previous',98,630,155,44,()=>{a.page--;},{disabled:a.page===0});u.text(`${a.page+1} / ${Math.max(1,Math.ceil(matches.length/count))}`,590,660,18,dc.muted);u.button('Next',960,630,155,44,()=>{a.page++;},{disabled:(a.page+1)*count>=matches.length});u.sound();
@@ -163,7 +164,7 @@ export class DiningUI {
   const a=this.a,u=new DinerSurface(a);u.shell('Compare dishes');
   if(!other||other.id===d.id){u.text('Choose another available dish to compare.',100,235,25);u.button('Choose dish',100,300,500,54,()=>this.replace(1),{primary:true});u.sound();return;}
   [d,other].forEach((dish,i)=>{const x=80+i*572;u.box(x,136,548,480,dc.deep);a.picture(dish.image,x+20,154,190,180);
-   u.text(dish.category.toUpperCase(),x+228,170,15,dc.muted,298);u.lines(dish.name,x+228,203,298,24,2,dc.text);u.text(dish.price,x+228,273,27,dc.orange,298);u.lines(dish.restaurant,x+228,303,298,18,2);
+   u.text(dish.category.toUpperCase(),x+228,170,15,dc.muted,298);u.lines(dish.name,x+228,203,298,24,2,dc.text);u.text(dish.price,x+228,273,27,dc.orange,298);u.restaurantName(dish.restaurant,x+228,303,298,24);
    a.context.fillStyle=dc.line;a.context.fillRect(x+20,350,508,1);
    u.text('ALLERGENS',x+20,378,15,dc.muted);u.lines(allergenLabel(dish),x+20,404,508,18,2,dc.text);u.text(dish.dietary.join(' · ')||'Dietary information not supplied',x+20,451,17,dc.muted,508);
    u.text(dish.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x+20,480,15,dc.muted);u.lines(dish.ingredients.join(', ')||'Ingredients not supplied',x+20,506,508,18,2,dc.text);
@@ -197,15 +198,15 @@ export class DiningUI {
   }
   if(!d){this.heading('Dish unavailable');this.textBlock('This menu changed or expired. Return to the market and reopen the restaurant.',100,250,1000,32);return true;}
   if(a.screen==='ar'&&a.portalAR){
-   a.rect(22,20,1236,230);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,103,23,muted);
-   a.text(a.portalPlacement,48,143,24);
-   a.button('Reposition',48,181,230,48,()=>a.onReposition(),false,'normal');a.button('Back to dish',302,181,270,48,()=>a.close(),false,'normal');
-   a.button('Exit AR',600,181,190,48,()=>a.onXR(),false,'normal');return true;
+   a.rect(22,20,1236,254);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,103,23,muted);a.text(servingLabel(d.servingCount),48,134,23,muted);
+   a.text(a.portalPlacement,48,169,24);
+   a.button('Reposition',48,207,230,48,()=>a.onReposition(),false,'normal');a.button('Back to dish',302,207,270,48,()=>a.close(),false,'normal');
+   a.button('Exit AR',600,207,190,48,()=>a.onXR(),false,'normal');return true;
   }
   if(a.screen==='ar'){
    const has3d=!!d.modelId||(!d.photoCredit&&!d.illustrative&&!!generatedModelId(d.id));
    a.context.fillStyle='#0b1428';a.context.fillRect(0,0,1280,720);
-   a.rect(22,20,1236,105);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,99,23,muted);a.button('Back',1134,42,100,50,()=>a.close(),false,'normal');
+   a.rect(22,20,1236,122);a.titleText(d.name,46,65,40);a.text(a.portalStatus||'Loading portion…',48,99,23,muted);a.text(servingLabel(d.servingCount),48,128,23,muted);a.button('Back',1134,42,100,50,()=>a.close(),false,'normal');
    a.context.strokeStyle='#40b8bb';a.context.lineWidth=3;a.context.strokeRect(46,145,1188,429);
    if(a.modelError){a.picture(d.image,460,176,360,360);a.text(a.modelError,65,565,24,cream);}
    a.text(a.immersive?'VR preview · Open AR portal for passthrough':a.portalFlat?'2.5D · Zoomed screen preview · Physical scale in AR glasses':'3D · Drag to rotate · Zoom for a closer look',65,605,24,cream);
