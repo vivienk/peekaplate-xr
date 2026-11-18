@@ -18,6 +18,8 @@ export class GlimmerSystem extends createSystem({}) {
   private arPortal!:ARPortionPortal;
   private browserGamepad!:BrowserGamepad;
   private texture!:CanvasTexture;
+  private board!:Mesh<PlaneGeometry,MeshBasicMaterial>;
+  private flatScreen=false;
   private preview=new Group();
   private holograms=new Group();
   private previewGeneration=0;
@@ -50,6 +52,10 @@ export class GlimmerSystem extends createSystem({}) {
 
     this.texture=new CanvasTexture(this.app.canvas);this.texture.colorSpace=SRGBColorSpace;this.texture.magFilter=NearestFilter;this.texture.minFilter=NearestFilter;this.texture.generateMipmaps=false;
     const board=new Mesh(new PlaneGeometry(3.6,2.025),new MeshBasicMaterial({map:this.texture,toneMapped:false,transparent:true}));
+    this.board=board;
+    this.app.canvas.style.cssText='display:none;position:fixed;left:50%;top:50%;width:min(96.153846vw,170.940171vh);aspect-ratio:16/9;transform:translate(-50%,-50%);z-index:1;pointer-events:none;image-rendering:pixelated;';
+    document.body.append(this.app.canvas);
+    this.cleanupFuncs.push(()=>this.app.canvas.remove());
     board.name='PeekaPlate Market Screen';board.position.set(0,1.65,-2.8);
     const boardEntity=this.world.createTransformEntity(board);boardEntity.addComponent(RayInteractable);
     type Hit={uv?:{x:number;y:number};pointerId?:number;nativeEvent?:{pointerType?:string}};
@@ -108,7 +114,16 @@ export class GlimmerSystem extends createSystem({}) {
     if(!immersive&&document.hasFocus()&&!document.hidden){try{pads=navigator.getGamepads?.()??noGamepads;}catch{/* Browser policy may disable gamepads. */}}
     this.browserGamepad.update(dt,pads,!immersive&&document.hasFocus()&&!document.hidden);
     if(immersive){const axes=pad?.getAxesValues(InputComponent.Thumbstick);this.app.market.setInput(axes?.x??0,axes?.y??0);}
-    const revision=this.app.canvasRevision;this.app.update(dt);if(revision!==this.app.canvasRevision)this.texture.needsUpdate=true;
+    const revision=this.app.canvasRevision;this.app.update(dt);
+    // Flat Browser Lens screens already have native input targets. Present their
+    // canvas directly instead of uploading it to a full-screen 3D texture.
+    const flatScreen=this.app.handPlacement&&!immersive&&this.app.screen!=='ar';
+    if(flatScreen!==this.flatScreen){
+      this.flatScreen=flatScreen;this.board.visible=!flatScreen;
+      this.app.canvas.style.display=flatScreen?'block':'none';
+      if(!flatScreen)this.texture.needsUpdate=true;
+    }
+    if(!flatScreen&&revision!==this.app.canvasRevision)this.texture.needsUpdate=true;
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
     const placedAR=this.arPortal.update();this.holograms.visible=!this.app.portalAR;
     if(this.app.screen==='ar'&&!placedAR){

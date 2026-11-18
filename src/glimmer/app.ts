@@ -25,7 +25,8 @@ export class GlimmerApp {
   private output:CanvasRenderingContext2D;
   private uiDirty=true;
   private fpsLabel='FPS —';
-  setFPS(fps:number){const label=`FPS ${fps}`;if(label!==this.fpsLabel){this.fpsLabel=label;this.uiDirty=true;}}
+  private fpsDirty=true;
+  setFPS(fps:number){const label=`FPS ${fps}`;if(label!==this.fpsLabel){this.fpsLabel=label;this.fpsDirty=true;}}
   private screenAge=1;
   private pressedIndex=-1;
   finaleDistrict:string|null=null;
@@ -279,7 +280,8 @@ export class GlimmerApp {
     const c=this.output;c.save();c.fillStyle='#101730dd';c.beginPath();c.roundRect(578,6,124,30,8);c.fill();c.font='bold 20px monospace';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#ffffff';c.fillText(this.fpsLabel,640,21);c.restore();}
   render(){
     // Static Spectacles panels need no canvas redraw or GPU upload between changes.
-    if(this.handPlacement&&this.screen!=='explore'&&!this.uiDirty&&this.screenAge>.3)return;
+    if(this.handPlacement&&this.screen!=='explore'&&!this.uiDirty&&!this.fpsDirty&&this.screenAge>.3)return;
+    this.fpsDirty=false;
     this.canvasRevision++;
     this.output.imageSmoothingEnabled=false;if(this.portalAR)this.output.clearRect(0,0,1280,720);else this.output.drawImage(this.market.canvas,0,0,1280,720);if(!this.uiDirty){this.drawOverlay();return;}this.uiDirty=false;const c=this.context;c.imageSmoothingEnabled=false;c.clearRect(0,0,1280,720);this.buttons=[];
     if(this.marketMap.render()||this.dining.render()||renderReference(this)){

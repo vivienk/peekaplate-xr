@@ -8,6 +8,19 @@ const cream='#f3e6c8', ink='#3a1f18';
 const coatHex=['#f5c518','#e0414f','#1fb5a8','#a98be6','#94d8b5','#ef8868','#29345e','#f6c49f'];
 const coatFiles=['yellow','cherry','teal','lavender','mint','coral','midnight','peach'];
 const hatFiles=['hood','buckethat','catbeanie','souwester'];
+const minimapTiles=new WeakMap<object,{rows:unknown;width:number;height:number;canvas:HTMLCanvasElement}>();
+function minimap(d:typeof districts[number],width:number,height:number){
+ let cached=minimapTiles.get(d);
+ if(!cached||cached.rows!==d.rows||cached.width!==d.width_tiles||cached.height!==d.height_tiles){
+  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+  const c=canvas.getContext('2d')!,sx=width/d.width_tiles,sy=height/d.height_tiles;
+  for(let y=0;y<d.rows.length;y++)for(let x=0;x<d.rows[y].length;x++){
+   const cell=d.rows[y][x];c.fillStyle=cell==='#'?'#242b60':cell==='~'?'#183c58':'#3d487a';c.fillRect(x*sx,y*sy,sx-.3,sy-.3);
+  }
+  cached={rows:d.rows,width:d.width_tiles,height:d.height_tiles,canvas};minimapTiles.set(d,cached);
+ }
+ return cached.canvas;
+}
 
 /** Reference layouts, in the same canvas space used by mouse and Quest rays. */
 export function renderReference(a:GlimmerApp):boolean {
@@ -41,7 +54,7 @@ export function renderReference(a:GlimmerApp):boolean {
    a.patch('assets/ui/minimap/minimap_frame.png',mx,my,mw,mh,[24,24,24,24]);
    c.fillStyle='#171d44';c.fillRect(mx+13,my+13,mw-26,mh-26);
    const sx=(mw-30)/d.width_tiles,sy=(mh-46)/d.height_tiles;
-   d.rows.forEach((row,y)=>[...row].forEach((cell,x)=>{c.fillStyle=cell==='#'?'#242b60':cell==='~'?'#183c58':'#3d487a';c.fillRect(mx+15+x*sx,my+13+y*sy,sx-.3,sy-.3);}));
+   c.drawImage(minimap(d,mw-30,mh-46),mx+15,my+13);
    restaurants.filter(r=>r.district===d.district).forEach(r=>{
      const o=d.objects.find(o=>o.id===r.id)!;const x=mx+15+o.pivot[0]*sx,y=my+13+(o.pivot[1]-3)*sy;
      c.fillStyle=cream;c.fillRect(x-20,y-20,40,40);c.fillStyle='#0f1533';c.fillRect(x-18,y-18,36,36);a.image(r.emblem,x-17,y-17,34);
