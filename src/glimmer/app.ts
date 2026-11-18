@@ -288,11 +288,11 @@ export class GlimmerApp {
       this.heading('');
       this.picture(import.meta.env.BASE_URL+'branding/peekaplate-pixel.png',100,63,56,56);
       this.titleText('PeekaPlate',170,109,43,ink);
-      this.picture(import.meta.env.BASE_URL+'branding/night-market-2049-orange-pixel.png',350,143,580,175);
-      if(this.images.get(import.meta.env.BASE_URL+'branding/night-market-2049-orange-pixel.png')?.naturalWidth)titleLogoEffects(c,350,143,580,175,this.screenAge,this.reducedMotion);
-      if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,325,24);
-      this.button('Start',350,345,580,65,()=>this.start());this.button('Continue with code',350,435,580,65,()=>{this.code='';this.setScreen('codeEntry');});
-      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,530,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);
+      this.picture(import.meta.env.BASE_URL+'branding/night-market-2049-brown-cyan-pixel.png',280,138,720,238);
+      if(this.images.get(import.meta.env.BASE_URL+'branding/night-market-2049-brown-cyan-pixel.png')?.naturalWidth)titleLogoEffects(c,280,138,720,238,this.screenAge,this.reducedMotion);
+      if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,383,24);
+      this.button('Start',350,395,580,60,()=>this.start());this.button('Continue with code',350,475,580,60,()=>{this.code='';this.setScreen('codeEntry');});
+      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,550,580,60,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,635,25);
     }else if(this.screen==='codeEntry'){
       this.heading('Continue with Market code');this.text((this.code.padEnd(this.code.length>18?19:18,'_').match(/.{1,6}/g)??[]).join(' - '),300,211,43);
       [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<19)this.code+=ch;}));
