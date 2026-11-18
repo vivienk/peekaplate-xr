@@ -2,7 +2,7 @@
 
 PeekaPlate XR is the WebXR companion to `vivienk/peekaplate`, the canonical PeekaPlate restaurant-menu application. In **Night Market 2049**, you walk between pixel-art food stalls on a screen in a virtual dining room, compare dishes at the counter, then place a 3D bowl on a table to judge its portion. [PeekaPlate application][core]
 
-**[Play the live XR demo][live]** · [Open the PeekaPlate web game][web-game] · [Browse the demo branch][demo-branch]
+**[Play Night Market in XR][live]** · [Open the PeekaPlate web game][web-game] · [Browse the demo branch][demo-branch]
 
 | Rain Alley on the virtual screen | The fried chicken bowl on the simulated table |
 | --- | --- |
@@ -34,7 +34,7 @@ The steak ramen preview labels the dish as an estimated serving for one. Its siz
 
 ## Run the game locally
 
-The Vite and TypeScript game uses Meta’s Immersive Web SDK (IWSDK). Clone `night-market-xr-demo` for the version running on the live site. The `main` branch contains the earlier dining-room prototype. The game’s `.nvmrc` pins Node.js `22.12.0`.
+The Vite and TypeScript game uses Meta’s Immersive Web SDK (IWSDK). Clone `night-market-xr-demo` for the version shown in both recordings. The game’s `.nvmrc` pins Node.js `22.12.0`.
 
 ```sh
 git clone --branch night-market-xr-demo https://github.com/vivienk/peekaplate-xr.git
@@ -51,10 +51,13 @@ On the demo branch, `npm run check` runs TypeScript checks, tests, and the produ
 
 Shared diner features are reviewed in `vivienk/peekaplate`. XR pull request #3 grouped 69 commits for the market rebuild and closed unmerged. The playable Quest screen and first demo recording landed directly on `night-market-xr-demo`. [Core pull requests][core-prs] · [XR pull requests, including closed reviews][xr-prs] · [Quest screen commit][screen-commit] · [XR demo commit history][demo-history]
 
+The Play link opens the Night Market build directly. Vercel can put the earlier dining-room prototype at the shared project address when `main` is updated. [XR project address][project-address]
+
 For the project’s license, see [Apache License 2.0][license].
 
 [core]: https://github.com/vivienk/peekaplate
-[live]: https://peekaplate-xr.vercel.app/
+[live]: https://peekaplate-b484j0gfa-viviens-projects-842ec178.vercel.app/
+[project-address]: https://peekaplate-xr.vercel.app/
 [web-game]: https://peekaplate.vercel.app/xr
 [demo-branch]: https://github.com/vivienk/peekaplate-xr/tree/night-market-xr-demo
 [market-still]: https://raw.githubusercontent.com/vivienk/peekaplate-xr/night-market-xr-demo/docs/demo/quest-emulator/night-market-quest-emulator.jpg
@@ -65,7 +68,7 @@ For the project’s license, see [Apache License 2.0][license].
 [portion-tools]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/docs/market-portion-pipeline.md
 [portion-pr]: https://github.com/vivienk/peekaplate/pull/162
 [artwork-pr]: https://github.com/vivienk/peekaplate/pull/165
-[registry]: https://peekaplate-xr.vercel.app/market-restaurants.json
+[registry]: https://peekaplate-b484j0gfa-viviens-projects-842ec178.vercel.app/market-restaurants.json
 [reader]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/src/published/client.ts
 [directory-pr]: https://github.com/vivienk/peekaplate/pull/214
 [ar]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/docs/ar-portion-portal.md
