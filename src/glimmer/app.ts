@@ -347,8 +347,7 @@ export class GlimmerApp {
       this.text('No payment or real order submission.',155,645,26);
     }
     if(this.toastTime>0&&this.screen==='explore'){const stamp=this.toast.startsWith('Stamp')?restaurants.find(r=>this.toast.endsWith(r.name)):null;this.rect(250,616,780,64);if(stamp)this.image(stamp.stamp,268,599,82);else this.icon('charm',272,634,30);this.text(this.toast,stamp?366:320,658,28);}
-    if(this.screen==='menu')this.button('Search dishes',194,642,205,54,()=>this.dining.search(),false,'normal');
-    this.iconButton(this.muted?'Sound off':'Sound on',this.muted?'sound-off':'sound-on',1196,646,60,60,()=>this.toggleSound());
+    if(!['menu','publishedMenu','dish'].includes(this.screen))this.iconButton(this.muted?'Sound off':'Sound on',this.muted?'sound-off':'sound-on',1196,646,60,60,()=>this.toggleSound());
     this.drawOverlay();
     const native=this.handPlacement&&!this.immersive;
     const key=[native,this.screen,this.dining.id,this.dining.comparisonAnchor,this.dining.compareId,this.page,...this.buttons.map(b=>[b.label,b.disabled,b.x,b.y,b.w,b.h].join(','))].join('|');

@@ -1,6 +1,9 @@
 import type { GlimmerApp, Screen } from './app';
+import { DinerSurface, dinerColors as dc } from './diner-surface';
+import { restaurantLogo } from './market-map-ui';
 import { marketCatalogue, searchDishes, similarDishes, allergenLabel, type MarketDish } from './catalogue';
 import { generatedModelId } from './generated-models';
+import { portionScale } from './portion-preview';
 import { DetailPreview } from './detail-preview';
 import { loadPortionImages } from './portion-images';
 import { foodIcon } from './food-icons';
@@ -9,6 +12,7 @@ import { liveRestaurants } from '../published/market';
 const ink='#321b15',cream='#f3e6c8',muted='#82634e';
 export class DiningUI {
  id='r1-1';query='';category='All';categoryPage=0;compareId='';comparisonAnchor='';replaceSide:0|1=1;keyboard=false;ingredientPage=0;infoPage=0;info=false;
+ menuCategory='All';private menuCategoryPage=0;private menuVenue='';
  artX=0;artY=0;photoMode=false;
  private previews=new Map<string,{images:{image:HTMLImageElement;depth:number}[];layered:boolean}>();
  private pending=new Set<string>();private failed=new Set<string>();private previewAbort=new AbortController();
@@ -54,7 +58,7 @@ export class DiningUI {
  }
  private heading(title:string){this.a.heading(title);}
  private picture(d:MarketDish,x:number,y:number,size:number){
-  const a=this.a,c=a.context,key=d.id+'|'+(d.portion?.layers.map(l=>l.sha256).join()??d.image);a.rect(x,y,size,size,'#e5d1a6');
+  const a=this.a,c=a.context,key=d.id+'|'+(d.portion?.layers.map(l=>l.sha256).join()??d.image);new DinerSurface(a).box(x,y,size,size,dc.deep);
   if(!this.pending.has(key)&&!this.previews.has(key)&&!this.failed.has(key)){this.pending.add(key);void loadPortionImages(d,AbortSignal.any([this.previewAbort.signal,AbortSignal.timeout(15000)])).then(result=>{if(!this.previewAbort.signal.aborted){if(this.previews.size>=40)this.previews.delete(this.previews.keys().next().value!);this.previews.set(key,result);a.invalidate();}}).catch(()=>{this.failed.add(key);a.invalidate();}).finally(()=>this.pending.delete(key));}
   const preview=this.previews.get(key);
   if(this.photoMode||!preview){a.picture(d.image,x+12,y+12,size-24,size-24);}else{
@@ -63,10 +67,10 @@ export class DiningUI {
    const dx=a.reducedMotion?0:this.artX,dy=a.reducedMotion?0:this.artY;
    for(const layer of preview.images){const ratio=layer.image.naturalHeight/layer.image.naturalWidth,w=size-24,h=w*ratio;c.save();c.translate(x+size/2+dx*layer.depth,y+size/2+dy*layer.depth);c.transform(1,dy*.002,dx*.002,1,0,0);c.drawImage(layer.image,-w/2,-h/2,w,h);c.restore();}c.restore();
   }
-  a.text(this.photoMode?(d.illustrative?'ILLUSTRATIVE IMAGE':'PHOTO'):preview?.layered?(d.cutoutEdited?'2.5D · AI-CLEANED CUTOUT':'2.5D PREVIEW'):'PHOTO PREVIEW',x+14,y+27,20,muted);
-  this.detailPreview.show(d,this.photoMode,a.reducedMotion,a.immersive);
-  a.button(this.photoMode?'2.5D preview':d.illustrative?'Illustrative image':'Original photo',x+8,y+size-44,190,36,()=>{this.photoMode=!this.photoMode;},false,'normal','',0,26);
-  a.button(this.detailPreview.status.includes('Retry')?'Retry':'Reset view',x+206,y+size-44,146,36,()=>{this.artX=this.artY=0;this.detailPreview.reset();if(this.detailPreview.status.includes('Retry')){this.detailPreview.retry();this.failed.delete(key);this.previews.delete(key);}},false,'normal','',0,26);
+  new DinerSurface(a).text(this.photoMode?(d.illustrative?'ILLUSTRATIVE IMAGE':'PHOTO'):preview?.layered?(d.cutoutEdited?'2.5D · AI-CLEANED CUTOUT':'2.5D PREVIEW'):'PHOTO PREVIEW',x+14,y+27,16,dc.muted);
+  this.detailPreview.show(d,this.photoMode,a.reducedMotion,a.immersive,{x:x+12,y:y+40,w:size-24,h:size-100});
+  new DinerSurface(a).button(this.photoMode?'2.5D preview':d.illustrative?'Illustrative image':'Original photo',x+8,y+size-44,190,36,()=>{this.photoMode=!this.photoMode;});
+  new DinerSurface(a).button(this.detailPreview.status.includes('Retry')?'Retry':'Reset view',x+size-160,y+size-44,152,36,()=>{this.artX=this.artY=0;this.detailPreview.reset();if(this.detailPreview.status.includes('Retry')){this.detailPreview.retry();this.failed.delete(key);this.previews.delete(key);}});
  }
  private pages(total:number,size:number,y:number){const a=this.a;a.button('Previous',96,y,155,42,()=>{a.page--;},a.page===0,'normal');a.text(`${a.page+1} / ${Math.max(1,Math.ceil(total/size))}`,585,y+28,24,muted);a.button('Next',1020,y,155,42,()=>{a.page++;},(a.page+1)*size>=total,'normal');}
  private allergy(d:MarketDish,x:number,y:number,width:number){const a=this.a;
@@ -76,17 +80,62 @@ export class DiningUI {
   if(d.dietary.length){a.text(d.dietary.join(' · '),x,y+22,22,'#437349');y+=28;}
   return y;
  }
- render(){const a=this.a;
-  if(!['dish','ar','search','comparison','comparePicker','publishedMenu'].includes(a.screen))return false;
-  const list=marketCatalogue(),d=list.find(d=>d.id===(a.screen==='ar'?a.portalDishId:a.screen==='comparison'?this.comparisonAnchor:this.id));
-  if(a.screen==='publishedMenu'){
-   const live=liveRestaurants.get(a.publishedId),items=list.filter(d=>d.venueId===a.publishedId);
-   this.heading(live?.name??'Restaurant');a.text(live?.demo?'MENU':'PUBLISHED MENU',100,166,24,muted);
-   a.button('Search all dishes',880,146,290,42,()=>this.search(),false,'normal');
-   if(!items.length)this.textBlock(a.publishedMessage||'Menu unavailable. Reopen this restaurant to refresh.',100,260,990,32);
-   items.slice(a.page*4,a.page*4+4).forEach((dish,i)=>{const y=204+i*92;dish.menuImage?a.picture(dish.menuImage,100,y,78,78):foodIcon(a.context,dish.category,110,y+10,58);a.button(dish.name,200,y,680,48,()=>this.show(dish.id,'publishedMenu'),false,'normal');a.text(dish.category,212,y+76,23,muted);a.text(dish.price,925,y+34,28);});
-   this.pages(items.length,4,605);return true;
+
+ private restaurantMenu(list:MarketDish[]){
+  const a=this.a,u=new DinerSurface(a),published=a.screen==='publishedMenu',venue=published?a.publishedId:a.restaurant.id,live=liveRestaurants.get(venue),name=published?live?.name??'Restaurant':a.restaurant.name;
+  if(this.menuVenue!==venue){this.menuVenue=venue;this.menuCategory='All';this.menuCategoryPage=0;a.page=0;}
+  const items=list.filter(d=>d.venueId===venue),categories=['All',...new Set(items.map(d=>d.category))];
+  if(!categories.includes(this.menuCategory))this.menuCategory='All';
+  u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.text(name,210,80,28,dc.text,850,600);
+  u.button('Search dishes',1098,46,48,48,()=>this.search(),{icon:'search',iconOnly:true});
+  let cx=80;categories.slice(this.menuCategoryPage*5,this.menuCategoryPage*5+5).forEach(category=>{const width=Math.min(170,Math.max(90,category.length*11+32));if(cx+width>1195)return;u.button(category,cx,134,width,44,()=>{this.menuCategory=category;a.page=0;},{selected:this.menuCategory===category});cx+=width+12;});
+  if(categories.length>5){u.button('Previous categories',1080,134,48,44,()=>{this.menuCategoryPage--;},{disabled:this.menuCategoryPage===0,visible:'‹'});u.button('Next categories',1140,134,48,44,()=>{this.menuCategoryPage++;},{disabled:(this.menuCategoryPage+1)*5>=categories.length,visible:'›'});}
+  const filtered=items.filter(d=>this.menuCategory==='All'||d.category===this.menuCategory);a.page=Math.min(a.page,Math.max(0,Math.ceil(filtered.length/4)-1));
+  filtered.slice(a.page*4,a.page*4+4).forEach((dish,i)=>{
+   const col=i%2,row=Math.floor(i/2),x=80+col*570,y=205+row*195,reverse=i%2===1,px=reverse?x+370:x,tx=reverse?x:x+164;
+   if(dish.menuImage)a.picture(dish.menuImage,px,y,154,154);else foodIcon(a.context,dish.category,px+30,y+30,90);
+   u.lines(dish.name,tx,y+34,345,25,2,dc.text);u.text(dish.category,tx,y+98,18,dc.muted,340);u.text(dish.price,tx,y+132,25,dc.orange);
+   if(a.keyboardFocus===a.buttons.length){a.context.strokeStyle=dc.orange;a.context.lineWidth=3;a.context.strokeRect(x-4,y-4,544,162);}
+   a.hit(dish.name,x,y,540,154,()=>this.show(dish.id,published?'publishedMenu':'menu'));
+   if(dish.modelId)u.button(a.state.tastingList.includes(dish.id)?`Saved ${dish.name}`:`Save ${dish.name}`,tx+260,y+105,48,40,()=>a.result(toggleSavedDish(a.state,dish.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(dish.id)});
+   a.context.fillStyle=dc.line;a.context.fillRect(x,y+172,530,1);
+  });
+  if(!items.length)u.lines(a.publishedMessage||'Menu unavailable. Reopen this restaurant to refresh.',90,260,1000,24,3);
+  u.text(`${filtered.length} dishes`,84,662,18,dc.muted);
+  if(filtered.length>4){u.button('Previous',440,634,150,44,()=>{a.page--;},{disabled:a.page===0});u.text(`${a.page+1} / ${Math.ceil(filtered.length/4)}`,616,663,18);u.button('Next',710,634,150,44,()=>{a.page++;},{disabled:(a.page+1)*4>=filtered.length});}
+  u.sound();
+ }
+ private dishDetail(d:MarketDish){
+  const a=this.a,u=new DinerSurface(a),x=608;
+  u.shell(d.restaurant);
+  if(d.modelId)u.button(a.state.tastingList.includes(d.id)?'Saved':'Save',1098,46,48,48,()=>a.result(toggleSavedDish(a.state,d.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(d.id)});
+  this.picture(d,80,144,484);a.context.fillStyle=dc.line;a.context.fillRect(585,144,1,484);
+  u.lines(d.photoCredit??(d.illustrative?'Illustrative image · not a restaurant photograph':'Dish preview'),92,651,460,14,2);
+  u.text(d.category.toUpperCase(),x,154,16,dc.muted,480);u.lines(d.name,x,192,575,30,2,dc.text);u.text(d.price,x,260,28,dc.orange);
+  u.button(this.info?'Ingredients':'More info',1030,237,158,36,()=>{this.info=!this.info;this.infoPage=0;});
+  u.lines(d.description,x,290,575,18,2);
+  if(this.info){const lines=u.lines(`${d.description} ${allergenLabel(d)}. ${d.dietary.join(' · ')}. ${d.servingCount?'Serves '+d.servingCount:'Serving count not supplied'}. For allergy questions, ask restaurant staff.`,0,0,568,20,0);lines.slice(this.infoPage*8,this.infoPage*8+8).forEach((line,i)=>u.text(line,x,345+i*25,20,dc.text,568));u.button('Previous info',x,548,160,36,()=>{this.infoPage--;},{disabled:this.infoPage===0});u.button('Next info',1028,548,160,36,()=>{this.infoPage++;},{disabled:(this.infoPage+1)*8>=lines.length});}
+  else {
+   u.text(d.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x,347,15,dc.muted);
+   const count=4;this.ingredientPage=Math.min(this.ingredientPage,Math.max(0,Math.ceil(d.ingredients.length/count)-1));
+   d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{const xx=x+i*147;u.box(xx,362,135,94,'#ffffff',10);foodIcon(a.context,name,xx+48,370,38);const lines=u.lines(name,0,0,115,16,0).slice(0,2);lines.forEach((line,j)=>{a.context.save();a.context.font='16px Arial, sans-serif';const width=a.context.measureText(line).width;a.context.restore();u.text(line,xx+(135-width)/2,429+j*18,16,dc.deep,123);});});
+   if(!d.ingredients.length)u.text('Ingredients not supplied',x,400,19,dc.muted);
+   if(d.ingredients.length>count){u.button('Previous ingredients',1055,324,58,30,()=>{this.ingredientPage--;},{disabled:this.ingredientPage===0,visible:'‹'});u.button('Next ingredients',1126,324,58,30,()=>{this.ingredientPage++;},{disabled:(this.ingredientPage+1)*count>=d.ingredients.length,visible:'›'});}
+   u.text('ALLERGENS & DIETARY INFO',x,483,15,dc.muted);
+   if(d.allergens?.length){d.allergens.forEach((name,i)=>{const xx=x+i%4*147,yy=496+Math.floor(i/4)*32;if(yy>530)return;foodIcon(a.context,name,xx,yy,24);u.text(name,xx+30,yy+18,15,dc.text,110);});}else u.text(allergenLabel(d),x,518,18,dc.muted,570);
+   if(d.dietary.length)u.text(d.dietary.join(' · '),x,551,17,dc.muted,570);
   }
+  u.button('View Portion',x,590,342,48,()=>this.portion(),{icon:'portion',primary:true,visible:'View portion in AR'});
+  u.button('Compare',966,590,222,48,()=>this.compare(),{icon:'compare'});
+  u.lines(portionScale(d).label,x,654,342,14,2,dc.muted);
+  if(d.modelId)u.button('+ Tray',966,648,170,34,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'plus',visible:'Tray',disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
+  else u.button('Search dishes',966,648,170,34,()=>this.search());
+  u.sound();
+ }
+ render(){const a=this.a;
+  if(!['menu','dish','ar','search','comparison','comparePicker','publishedMenu'].includes(a.screen))return false;
+  const list=marketCatalogue(),d=list.find(d=>d.id===(a.screen==='ar'?a.portalDishId:a.screen==='comparison'?this.comparisonAnchor:this.id));
+  if(a.screen==='menu'||a.screen==='publishedMenu'){this.restaurantMenu(list);return true;}
   if(a.screen==='search'||a.screen==='comparePicker'){
    const picking=a.screen==='comparePicker';this.heading(picking?'Compare · choose any second dish':'Search the night market');
    const anchor=list.find(item=>item.id===(this.replaceSide===0?this.compareId:this.comparisonAnchor));
@@ -138,33 +187,6 @@ export class DiningUI {
     a.button('Portion',x+352,606,160,46,()=>{this.portion(dish.id,'comparison');});
    });return true;
   }
-  this.heading('Dish details');
-  this.picture(d,114,155,360);this.textBlock(d.photoCredit??d.description,110,540,388,22,2);a.text(d.illustrative?'ILLUSTRATIVE IMAGE':d.photoCredit?'RESTAURANT PHOTO · GAME RECIPE':d.sample?'MENU':'PUBLISHED MENU',112,609,21,muted);
-  a.text(d.servingCount?`Serves ${d.servingCount}`:'Serving count not supplied',112,644,23);
-  const x=528;a.text(`CATEGORY · ${d.category.toUpperCase()}`,x,172,22,muted);this.textBlock(d.name,x,208,640,37,2);a.text(d.price,x,282,32,'#a65326');
-  a.button(this.info?'Ingredients':'More info',1000,257,177,38,()=>{this.info=!this.info;this.infoPage=0;},false,'normal');
-  if(this.info){
-   const lines=this.textBlock(d.description,x,330,640,26,0);lines.slice(this.infoPage*7,this.infoPage*7+7).forEach((line,i)=>a.text(line,x,330+i*30,26));
-   a.text('For allergy questions, ask the restaurant staff.',x,563,23,muted);
-   a.button('Previous info',x,575,190,38,()=>{this.infoPage--;},this.infoPage===0,'normal');a.button('Next info',990,575,190,38,()=>{this.infoPage++;},(this.infoPage+1)*7>=lines.length,'normal');
-  }else{
-   let y=this.allergy(d,x,315,640);y=Math.max(y+36,421);
-   a.text(d.photoCredit?'GAME RECIPE INGREDIENTS':'INGREDIENTS',x,y,23,muted);
-   const rows=Math.max(1,Math.min(2,Math.floor((594-y)/65))),count=rows*3;
-   this.ingredientPage=Math.min(this.ingredientPage,Math.max(0,Math.ceil(d.ingredients.length/count)-1));
-   d.ingredients.slice(this.ingredientPage*count,this.ingredientPage*count+count).forEach((name,i)=>{
-    const xx=x+(i%3)*216,yy=y+14+Math.floor(i/3)*65;
-    a.context.save();a.context.fillStyle='rgba(255,255,255,.45)';a.context.fillRect(xx,yy,202,57);a.context.strokeStyle='rgba(128,80,47,.55)';a.context.lineWidth=2;a.context.strokeRect(xx,yy,202,57);a.context.restore();foodIcon(a.context,name,xx+8,yy+12.5,32);
-    const lines=this.textBlock(name,0,0,145,21,0).slice(0,2),c=a.context;
-    c.save();c.textAlign='center';c.textBaseline='middle';
-    lines.forEach((line,j)=>a.text(line,xx+120.5,yy+28.5+(j-(lines.length-1)/2)*23,21));c.restore();
-   });
-   if(!d.ingredients.length)a.text('Ingredients not supplied',x,y+40,23);
-   if(d.ingredients.length>count){a.button('‹',x+380,y-28,45,34,()=>{this.ingredientPage--;},this.ingredientPage===0,'normal');a.text(`${this.ingredientPage+1}/${Math.ceil(d.ingredients.length/count)}`,x+438,y-3,22);a.button('›',x+500,y-28,45,34,()=>{this.ingredientPage++;},(this.ingredientPage+1)*count>=d.ingredients.length,'normal');}
-  }
-  a.button('View Portion',528,622,218,46,()=>this.portion());a.button('Compare',762,622,190,46,()=>this.compare(),false,'normal');
-  if(d.modelId){a.button(a.state.tastingList.includes(d.id)?'Saved':'Save',970,622,100,46,()=>a.result(toggleSavedDish(a.state,d.id)),false,'normal');a.button('+ Tray',1082,622,110,46,()=>a.result(changeQuantity(a.state,d.id,1)),(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3,'normal','',0,29);}
-  else a.button('Search dishes',970,622,210,46,()=>this.search(),false,'normal');
-  return true;
+  this.dishDetail(d);return true;
  }
 }

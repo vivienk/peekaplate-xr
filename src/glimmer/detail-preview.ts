@@ -7,7 +7,7 @@ export class DetailPreview {
  status='';
  constructor(private changed:()=>void){
   this.element.tabIndex=0;this.element.setAttribute('role','img');this.element.setAttribute('aria-label','Dish preview. Move pointer or drag to tilt; arrow keys adjust; Home resets.');
-  this.element.style.cssText='display:none;position:fixed;z-index:10;outline-offset:2px;touch-action:pan-y;overflow:hidden;background:#e5d1a6;';
+  this.element.style.cssText='display:none;position:fixed;z-index:10;outline-offset:2px;touch-action:pan-y;overflow:hidden;background:#1f222a;';
   this.card.style.cssText='position:absolute;inset:10px;transform-style:preserve-3d;';this.element.append(this.card);document.body.append(this.element);
   this.element.addEventListener('pointermove',e=>{const b=this.element.getBoundingClientRect();this.move((e.clientX-b.left)/b.width*2-1,(e.clientY-b.top)/b.height*2-1);});
   this.element.addEventListener('pointerleave',()=>this.reset());
@@ -20,10 +20,10 @@ export class DetailPreview {
  reset(){this.move(0,0);}
  hide(){this.element.style.display='none';}
  retry(){this.key='';this.abort?.abort();}
- show(d:MarketDish,original:boolean,reduced:boolean,immersive:boolean){
+ show(d:MarketDish,original:boolean,reduced:boolean,immersive:boolean,rect={x:126,y:190,w:336,h:272}){
   if(immersive){this.hide();return;}this.original=original;this.reduced=reduced;
   const scale=Math.min(innerWidth/1280,innerHeight/720)/1.04;
-  Object.assign(this.element.style,{display:'block',left:`${(innerWidth-1280*scale)/2+126*scale}px`,top:`${(innerHeight-720*scale)/2+190*scale}px`,width:`${336*scale}px`,height:`${272*scale}px`});
+  Object.assign(this.element.style,{display:'block',left:`${(innerWidth-1280*scale)/2+rect.x*scale}px`,top:`${(innerHeight-720*scale)/2+rect.y*scale}px`,width:`${rect.w*scale}px`,height:`${rect.h*scale}px`});
   const key=d.id+'|'+d.image+'|'+(d.portion?.layers.map(l=>l.sha256).join()??'');
   if(key!==this.key){this.abort?.abort();this.key=key;this.layers=[];this.photo=null;this.card.replaceChildren();this.reset();this.status='Loading preview…';const abort=new AbortController();this.abort=abort;
    void Promise.allSettled([loadPortionImages(d,AbortSignal.any([abort.signal,AbortSignal.timeout(15000)])),decodePortionImage(d.image,AbortSignal.any([abort.signal,AbortSignal.timeout(15000)]))]).then(([preview,photo])=>{
