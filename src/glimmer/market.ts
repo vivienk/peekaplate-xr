@@ -30,7 +30,7 @@ interface Particle { x: number; y: number; age: number; live: boolean }
 interface DrawItem { y: number; object?: MarketObject; walker?: Walker; player?: boolean }
 interface MarketLight { x:number; y:number; groundY:number; tint:keyof typeof tintColors; scale:number; alpha:number }
 const districts = [rainAlley, lanternSteps, foglinePier] as District[];
-export const WALK_SPEED = 100;
+export const WALK_SPEED = 85;
 const colors = ['yellow', 'cherry', 'teal', 'lavender', 'mint', 'coral', 'midnight', 'peach'];
 const hats = ['hood', 'buckethat', 'catbeanie', 'souwester'];
 const kinds = ['published-restaurant', 'restaurant', 'order-portal', 'kiosk', 'find-person', 'find-holo', 'find-wish', 'find-bottle', 'find-cat', 'find-puddle', 'bench', 'vending', 'signpost', 'gate'];
