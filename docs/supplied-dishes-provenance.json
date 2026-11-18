@@ -5,9 +5,10 @@
     "source_filename": "10bbe9b3-37c8-4002-88fb-85ac2332a452.jpeg",
     "photo_sha256": "2572cdca8eee43927d55119348685c643f424e6c2d16ddc4136c538844df4c8e",
     "generated_cutout_sha256": "267f9cb88c74d64bbe49ab5ee1832de84ffc824986305e9c67e4026599bc18e0",
-    "generated_icon_sha256": "d91b6bda747586d7a5ca15950dca29a16ec5fcc6fb2576e32dd7afbe53e595ed",
+    "generated_icon_sha256": "a96d45926a4d7b33e38886b5370150ee155859940c4395b056970dc726587b96",
     "size": "27 cm reference; estimated, not measured",
-    "icon_style": "Detailed flat 24x24 sprite: deliberate crust or sear marks, ingredient separation and rim highlights; 24-color palette, no dithering."
+    "icon_style": "Exact user-selected attached artwork, copied unchanged; no resampling or palette reduction.",
+    "icon_file": "supplied-dishes/thai-chicken-bowl-approved-pixel.png"
   },
   {
     "id": "noka-steak-ramen",
@@ -15,8 +16,9 @@
     "source_filename": "Screenshot 2026-11-17 at 6.03.42 PM.png",
     "photo_sha256": "cfd9cf2e4c4ef368069a4694c36b4716122deb0d9964969476d51e690b4b4552",
     "generated_cutout_sha256": "457f0afca782ab34429e1308cbf50530dd223f44db080fdb85161de5e48b57d9",
-    "generated_icon_sha256": "741ef284ceb74ac5dfcfaf8ef7bff273c6813b8ee7c05b5713e0d9b3e7a0f191",
+    "generated_icon_sha256": "23c926ab5a4470219953012bb5f635bbd2e5bfd48486abde3ec9b96dbb73b03c",
     "size": "27 cm reference; estimated, not measured",
-    "icon_style": "Detailed flat 24x24 sprite: deliberate crust or sear marks, ingredient separation and rim highlights; 24-color palette, no dithering."
+    "icon_style": "Exact user-selected attached artwork, copied unchanged; no resampling or palette reduction.",
+    "icon_file": "supplied-dishes/noka-steak-ramen-approved-pixel.png"
   }
 ]

@@ -21,10 +21,10 @@
       "glutenFree": false,
       "spicy": 0
     },
-    "image": "../supplied-dishes/thai-chicken-bowl-pixel.png",
+    "image": "../supplied-dishes/thai-chicken-bowl-approved-pixel.png",
     "xr": {
       "model": "../supplied-dishes/thai-chicken-bowl.glb",
-      "previewScale": 1.0
+      "previewScale": 1
     },
     "category": "Rice & Curry"
   },
@@ -48,10 +48,10 @@
       "glutenFree": false,
       "spicy": 0
     },
-    "image": "../supplied-dishes/noka-steak-ramen-pixel.png",
+    "image": "../supplied-dishes/noka-steak-ramen-approved-pixel.png",
     "xr": {
       "model": "../supplied-dishes/noka-steak-ramen.glb",
-      "previewScale": 1.0
+      "previewScale": 1
     },
     "category": "Noodles"
   }

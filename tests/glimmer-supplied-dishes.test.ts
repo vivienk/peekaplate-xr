@@ -9,7 +9,7 @@ const ids=['thai-chicken-bowl','noka-steak-ramen'];
 it('adds the supplied dishes with the correct venues, photo layers, pixel icons and bounded models',()=>{
  for(const [i,id] of ids.entries()){
   const d=marketCatalogue([]).find(d=>d.id===id)!;
-  expect(d.restaurant).toBe(i===0?'Farm House Thai':'Noka Ramen');expect(d.menuImage).toContain(`${id}-pixel.png`);
+  expect(d.restaurant).toBe(i===0?'Farm House Thai':'Noka Ramen');expect(d.menuImage).toContain(`${id}-approved-pixel.png`);
   expect(d.modelId).toBe(id);expect(d.price).toBe('Price unavailable');expect(d.allergens).toBeNull();expect(portionScale(d).measured).toBe(false);
   for(const l of d.portion!.layers){const b=readFileSync('public/restaurant-portions/'+l.url.split('.invalid/')[1]);expect(b.length).toBe(l.size_bytes);expect(createHash('sha256').update(b).digest('hex')).toBe(l.sha256);}
   const b=readFileSync(`public/supplied-dishes/${id}.glb`);expect(b.readUInt32LE(0)).toBe(0x46546c67);expect(b.readUInt32LE(8)).toBe(b.length);expect(b.length).toBeLessThan(15_000_000);
