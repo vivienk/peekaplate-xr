@@ -6,7 +6,7 @@ import { interfaceIcon } from './interface-icons';
 import { DiningUI } from './dining-ui';
 import { marketCatalogue } from './catalogue';
 import { districtIconNames, drawDistrictIcon } from './district-icons';
-import { liveRestaurants, readRestaurant, refreshRestaurants, connectionStatus } from '../published/market';
+import { liveRestaurants, readRestaurant, refreshRestaurants } from '../published/market';
 import { renderReference } from './reference-ui';
 import { GlimmerAudio } from './audio';
 import { defaultFocus, directionalFocus } from './gamepad';
@@ -296,7 +296,7 @@ export class GlimmerApp {
       this.titleText(name,left,400,60.75,ink);this.titleText(year,left+nameWidth,400,60.75,ink);c.restore();
       if(this.gamepadConnected)this.text('Controller ready · A / Cross selects · B / Circle goes back',235,423,20);
       this.button('Start',350,438,580,54,()=>this.start());this.button('Continue with code',350,507,580,54,()=>{this.code='';this.setScreen('codeEntry');});
-      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,576,580,54,()=>this.handPlacement?this.dining.search():this.onXR());this.text(connectionStatus,300,654,22);
+      this.button(this.handPlacement?'Browse dishes for Spectacles':'Enter Meta Quest VR',350,576,580,54,()=>this.handPlacement?this.dining.search():this.onXR());
     }else if(this.screen==='codeEntry'){
       this.heading('Continue with Market code');this.text((this.code.padEnd(this.code.length>18?19:18,'_').match(/.{1,6}/g)??[]).join(' - '),300,211,43);
       [...CODE_ALPHABET].forEach((ch,i)=>this.button(ch,220+(i%8)*105,252+Math.floor(i/8)*69,90,55,()=>{if(this.code.length<19)this.code+=ch;}));
