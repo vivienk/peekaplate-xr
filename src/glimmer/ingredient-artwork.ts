@@ -3,7 +3,9 @@ import { sha256 } from '../published/contracts';
 const bundled=import.meta.glob<string>('./ingredient-assets/*.svg',{eager:true,query:'?url',import:'default'});
 export function ingredientIcon(name:string):string|null{
  const key=artworkLabel(name).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
- return bundled[`./ingredient-assets/${key}.svg`]??null;
+ // PR165's house-sauce export is text-only; use an explicit decorative replacement.
+ const assetKey=key==='house-sauce'?'house-sauce-illustration':key;
+ return bundled[`./ingredient-assets/${assetKey}.svg`]??null;
 }
 /** Draw approved decoration or the exact bundled icon; unknown food remains text-only. */
 export class IngredientArtwork {

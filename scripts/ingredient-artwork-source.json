@@ -1,0 +1,1474 @@
+{
+  "source": "Current XR catalogue at 25cb59b: 34 game/supplied dishes and 5 Ember & Stone diner fixture dishes. Ingredient labels are taken verbatim from that catalogue; no recipe contents are inferred.",
+  "jobs": [
+    {
+      "ingredient": "wheat noodles",
+      "dishBindings": [
+        {
+          "dishId": "r1-1",
+          "dishName": "Shoyu-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r1-2",
+          "dishName": "Miso-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r1-3",
+          "dishName": "Spicy Tantan-style Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: wheat noodles. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "soy broth",
+      "dishBindings": [
+        {
+          "dishId": "r1-1",
+          "dishName": "Shoyu-style Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: soy broth. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "pork",
+      "dishBindings": [
+        {
+          "dishId": "r1-1",
+          "dishName": "Shoyu-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r1-2",
+          "dishName": "Miso-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r1-4",
+          "dishName": "Pan-fried Gyoza",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r4-1",
+          "dishName": "Black-pepper Baked Bun",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: pork. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "egg",
+      "dishBindings": [
+        {
+          "dishId": "r1-1",
+          "dishName": "Shoyu-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r2-1",
+          "dishName": "Berry Souffl\u00e9 Pancakes",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r2-3",
+          "dishName": "Eggs Benedict",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r3-1",
+          "dishName": "Pad Thai-style Noodles",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r3-4",
+          "dishName": "Holy Basil Stir-fry",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "thai-chicken-bowl",
+          "dishName": "Fried Chicken Bowl with Sunny Egg",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: egg. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "scallion",
+      "dishBindings": [
+        {
+          "dishId": "r1-1",
+          "dishName": "Shoyu-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r4-1",
+          "dishName": "Black-pepper Baked Bun",
+          "venueId": "r4-pearl"
+        },
+        {
+          "dishId": "r4-3",
+          "dishName": "Scallion Pancake",
+          "venueId": "r4-pearl"
+        },
+        {
+          "dishId": "r5-1",
+          "dishName": "Grilled Chicken Skewers",
+          "venueId": "r5-ember"
+        },
+        {
+          "dishId": "r7-4",
+          "dishName": "Miso Soup",
+          "venueId": "r7-kaigan"
+        },
+        {
+          "dishId": "noka-steak-ramen",
+          "dishName": "Flaming Steak Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: scallion. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "miso broth",
+      "dishBindings": [
+        {
+          "dishId": "r1-2",
+          "dishName": "Miso-style Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: miso broth. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "corn",
+      "dishBindings": [
+        {
+          "dishId": "r1-2",
+          "dishName": "Miso-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r5-2",
+          "dishName": "Glazed Grilled Corn",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: corn. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "butter",
+      "dishBindings": [
+        {
+          "dishId": "r1-2",
+          "dishName": "Miso-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r2-3",
+          "dishName": "Eggs Benedict",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r5-2",
+          "dishName": "Glazed Grilled Corn",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: butter. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "bean sprouts",
+      "dishBindings": [
+        {
+          "dishId": "r1-2",
+          "dishName": "Miso-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r3-1",
+          "dishName": "Pad Thai-style Noodles",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: bean sprouts. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sesame paste",
+      "dishBindings": [
+        {
+          "dishId": "r1-3",
+          "dishName": "Spicy Tantan-style Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sesame paste. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "chili oil",
+      "dishBindings": [
+        {
+          "dishId": "r1-3",
+          "dishName": "Spicy Tantan-style Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: chili oil. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "minced pork",
+      "dishBindings": [
+        {
+          "dishId": "r1-3",
+          "dishName": "Spicy Tantan-style Ramen",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r3-4",
+          "dishName": "Holy Basil Stir-fry",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: minced pork. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "bok choy",
+      "dishBindings": [
+        {
+          "dishId": "r1-3",
+          "dishName": "Spicy Tantan-style Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: bok choy. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "wheat wrappers",
+      "dishBindings": [
+        {
+          "dishId": "r1-4",
+          "dishName": "Pan-fried Gyoza",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: wheat wrappers. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "cabbage",
+      "dishBindings": [
+        {
+          "dishId": "r1-4",
+          "dishName": "Pan-fried Gyoza",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: cabbage. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "garlic",
+      "dishBindings": [
+        {
+          "dishId": "r1-4",
+          "dishName": "Pan-fried Gyoza",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r3-4",
+          "dishName": "Holy Basil Stir-fry",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r4-4",
+          "dishName": "Popcorn Chicken",
+          "venueId": "r4-pearl"
+        },
+        {
+          "dishId": "r5-3",
+          "dishName": "Crispy Tofu with Pickled Cabbage",
+          "venueId": "r5-ember"
+        },
+        {
+          "dishId": "r6-4",
+          "dishName": "Garlic Fries",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: garlic. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "soy dip",
+      "dishBindings": [
+        {
+          "dishId": "r1-4",
+          "dishName": "Pan-fried Gyoza",
+          "venueId": "r1-ramen"
+        },
+        {
+          "dishId": "r4-3",
+          "dishName": "Scallion Pancake",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: soy dip. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "flour",
+      "dishBindings": [
+        {
+          "dishId": "r2-1",
+          "dishName": "Berry Souffl\u00e9 Pancakes",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: flour. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "milk",
+      "dishBindings": [
+        {
+          "dishId": "r2-1",
+          "dishName": "Berry Souffl\u00e9 Pancakes",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r4-2",
+          "dishName": "Brown-sugar Pearl Milk Tea",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: milk. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "cream",
+      "dishBindings": [
+        {
+          "dishId": "r2-1",
+          "dishName": "Berry Souffl\u00e9 Pancakes",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r2-5",
+          "dishName": "Rose Berry Parfait",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r6-1",
+          "dishName": "Clam Chowder Bread Bowl",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: cream. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "berries",
+      "dishBindings": [
+        {
+          "dishId": "r2-1",
+          "dishName": "Berry Souffl\u00e9 Pancakes",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r2-5",
+          "dishName": "Rose Berry Parfait",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: berries. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sourdough",
+      "dishBindings": [
+        {
+          "dishId": "r2-2",
+          "dishName": "Avocado Toast with Flowers",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r6-1",
+          "dishName": "Clam Chowder Bread Bowl",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sourdough. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "lemon",
+      "dishBindings": [
+        {
+          "dishId": "r2-2",
+          "dishName": "Avocado Toast with Flowers",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r6-2",
+          "dishName": "Fish and Chips",
+          "venueId": "r6-tide"
+        },
+        {
+          "dishId": "r6-3",
+          "dishName": "Crab Roll",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: lemon. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "edible flowers",
+      "dishBindings": [
+        {
+          "dishId": "r2-2",
+          "dishName": "Avocado Toast with Flowers",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: edible flowers. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "matcha",
+      "dishBindings": [
+        {
+          "dishId": "r2-4",
+          "dishName": "Matcha Latte",
+          "venueId": "r2-cafe"
+        },
+        {
+          "dishId": "r7-5",
+          "dishName": "Matcha Mochi",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: matcha. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "steamed milk",
+      "dishBindings": [
+        {
+          "dishId": "r2-4",
+          "dishName": "Matcha Latte",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: steamed milk. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "hot water",
+      "dishBindings": [
+        {
+          "dishId": "r2-4",
+          "dishName": "Matcha Latte",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: hot water. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "yogurt",
+      "dishBindings": [
+        {
+          "dishId": "r2-5",
+          "dishName": "Rose Berry Parfait",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: yogurt. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "rose syrup",
+      "dishBindings": [
+        {
+          "dishId": "r2-5",
+          "dishName": "Rose Berry Parfait",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: rose syrup. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "granola",
+      "dishBindings": [
+        {
+          "dishId": "r2-5",
+          "dishName": "Rose Berry Parfait",
+          "venueId": "r2-cafe"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: granola. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "rice noodles",
+      "dishBindings": [
+        {
+          "dishId": "r3-1",
+          "dishName": "Pad Thai-style Noodles",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: rice noodles. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "shrimp",
+      "dishBindings": [
+        {
+          "dishId": "r3-1",
+          "dishName": "Pad Thai-style Noodles",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r3-3",
+          "dishName": "Tom Yum-style Soup",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: shrimp. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "peanuts",
+      "dishBindings": [
+        {
+          "dishId": "r3-1",
+          "dishName": "Pad Thai-style Noodles",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: peanuts. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "lime",
+      "dishBindings": [
+        {
+          "dishId": "r3-1",
+          "dishName": "Pad Thai-style Noodles",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: lime. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "green curry paste",
+      "dishBindings": [
+        {
+          "dishId": "r3-2",
+          "dishName": "Green Curry with Rice",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: green curry paste. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "coconut milk",
+      "dishBindings": [
+        {
+          "dishId": "r3-2",
+          "dishName": "Green Curry with Rice",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r3-5",
+          "dishName": "Mango Sticky Rice",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: coconut milk. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "chicken",
+      "dishBindings": [
+        {
+          "dishId": "r3-2",
+          "dishName": "Green Curry with Rice",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r4-4",
+          "dishName": "Popcorn Chicken",
+          "venueId": "r4-pearl"
+        },
+        {
+          "dishId": "r5-1",
+          "dishName": "Grilled Chicken Skewers",
+          "venueId": "r5-ember"
+        },
+        {
+          "dishId": "thai-chicken-bowl",
+          "dishName": "Fried Chicken Bowl with Sunny Egg",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: chicken. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "thai basil",
+      "dishBindings": [
+        {
+          "dishId": "r3-2",
+          "dishName": "Green Curry with Rice",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: thai basil. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "jasmine rice",
+      "dishBindings": [
+        {
+          "dishId": "r3-2",
+          "dishName": "Green Curry with Rice",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: jasmine rice. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "mushrooms",
+      "dishBindings": [
+        {
+          "dishId": "r3-3",
+          "dishName": "Tom Yum-style Soup",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: mushrooms. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "lemongrass",
+      "dishBindings": [
+        {
+          "dishId": "r3-3",
+          "dishName": "Tom Yum-style Soup",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: lemongrass. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "lime leaf",
+      "dishBindings": [
+        {
+          "dishId": "r3-3",
+          "dishName": "Tom Yum-style Soup",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: lime leaf. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "chili",
+      "dishBindings": [
+        {
+          "dishId": "r3-3",
+          "dishName": "Tom Yum-style Soup",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r3-4",
+          "dishName": "Holy Basil Stir-fry",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r5-3",
+          "dishName": "Crispy Tofu with Pickled Cabbage",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: chili. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "holy basil",
+      "dishBindings": [
+        {
+          "dishId": "r3-4",
+          "dishName": "Holy Basil Stir-fry",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: holy basil. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "rice",
+      "dishBindings": [
+        {
+          "dishId": "r3-4",
+          "dishName": "Holy Basil Stir-fry",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "thai-chicken-bowl",
+          "dishName": "Fried Chicken Bowl with Sunny Egg",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: rice. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "mango",
+      "dishBindings": [
+        {
+          "dishId": "r3-5",
+          "dishName": "Mango Sticky Rice",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r5-4",
+          "dishName": "Mango Shaved Ice",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: mango. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sticky rice",
+      "dishBindings": [
+        {
+          "dishId": "r3-5",
+          "dishName": "Mango Sticky Rice",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sticky rice. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "black tea",
+      "dishBindings": [
+        {
+          "dishId": "r3-6",
+          "dishName": "Thai Iced Tea",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r4-2",
+          "dishName": "Brown-sugar Pearl Milk Tea",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: black tea. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "condensed milk",
+      "dishBindings": [
+        {
+          "dishId": "r3-6",
+          "dishName": "Thai Iced Tea",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r5-4",
+          "dishName": "Mango Shaved Ice",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: condensed milk. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "ice",
+      "dishBindings": [
+        {
+          "dishId": "r3-6",
+          "dishName": "Thai Iced Tea",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: ice. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sugar",
+      "dishBindings": [
+        {
+          "dishId": "r3-6",
+          "dishName": "Thai Iced Tea",
+          "venueId": "r3-thai"
+        },
+        {
+          "dishId": "r7-5",
+          "dishName": "Matcha Mochi",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sugar. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "wheat dough",
+      "dishBindings": [
+        {
+          "dishId": "r4-1",
+          "dishName": "Black-pepper Baked Bun",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: wheat dough. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "black pepper",
+      "dishBindings": [
+        {
+          "dishId": "r4-1",
+          "dishName": "Black-pepper Baked Bun",
+          "venueId": "r4-pearl"
+        },
+        {
+          "dishId": "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000003",
+          "dishName": "Classic Eggs Benedict",
+          "venueId": "diner-demo:ember-stone"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: black pepper. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "brown sugar",
+      "dishBindings": [
+        {
+          "dishId": "r4-2",
+          "dishName": "Brown-sugar Pearl Milk Tea",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: brown sugar. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "tapioca pearls",
+      "dishBindings": [
+        {
+          "dishId": "r4-2",
+          "dishName": "Brown-sugar Pearl Milk Tea",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: tapioca pearls. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "wheat flour",
+      "dishBindings": [
+        {
+          "dishId": "r4-3",
+          "dishName": "Scallion Pancake",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: wheat flour. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "oil",
+      "dishBindings": [
+        {
+          "dishId": "r4-3",
+          "dishName": "Scallion Pancake",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: oil. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "potato starch",
+      "dishBindings": [
+        {
+          "dishId": "r4-4",
+          "dishName": "Popcorn Chicken",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: potato starch. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "basil",
+      "dishBindings": [
+        {
+          "dishId": "r4-4",
+          "dishName": "Popcorn Chicken",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: basil. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "pepper salt",
+      "dishBindings": [
+        {
+          "dishId": "r4-4",
+          "dishName": "Popcorn Chicken",
+          "venueId": "r4-pearl"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: pepper salt. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "soy glaze",
+      "dishBindings": [
+        {
+          "dishId": "r5-1",
+          "dishName": "Grilled Chicken Skewers",
+          "venueId": "r5-ember"
+        },
+        {
+          "dishId": "r5-2",
+          "dishName": "Glazed Grilled Corn",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: soy glaze. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "bamboo skewer",
+      "dishBindings": [
+        {
+          "dishId": "r5-1",
+          "dishName": "Grilled Chicken Skewers",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: bamboo skewer. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "tofu",
+      "dishBindings": [
+        {
+          "dishId": "r5-3",
+          "dishName": "Crispy Tofu with Pickled Cabbage",
+          "venueId": "r5-ember"
+        },
+        {
+          "dishId": "r7-4",
+          "dishName": "Miso Soup",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: tofu. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "pickled cabbage",
+      "dishBindings": [
+        {
+          "dishId": "r5-3",
+          "dishName": "Crispy Tofu with Pickled Cabbage",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: pickled cabbage. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "shaved ice",
+      "dishBindings": [
+        {
+          "dishId": "r5-4",
+          "dishName": "Mango Shaved Ice",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: shaved ice. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "mango syrup",
+      "dishBindings": [
+        {
+          "dishId": "r5-4",
+          "dishName": "Mango Shaved Ice",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: mango syrup. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "mint",
+      "dishBindings": [
+        {
+          "dishId": "r5-4",
+          "dishName": "Mango Shaved Ice",
+          "venueId": "r5-ember"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: mint. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "clams",
+      "dishBindings": [
+        {
+          "dishId": "r6-1",
+          "dishName": "Clam Chowder Bread Bowl",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: clams. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "potato",
+      "dishBindings": [
+        {
+          "dishId": "r6-1",
+          "dishName": "Clam Chowder Bread Bowl",
+          "venueId": "r6-tide"
+        },
+        {
+          "dishId": "r6-2",
+          "dishName": "Fish and Chips",
+          "venueId": "r6-tide"
+        },
+        {
+          "dishId": "r6-4",
+          "dishName": "Garlic Fries",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: potato. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "celery",
+      "dishBindings": [
+        {
+          "dishId": "r6-1",
+          "dishName": "Clam Chowder Bread Bowl",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: celery. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "thyme",
+      "dishBindings": [
+        {
+          "dishId": "r6-1",
+          "dishName": "Clam Chowder Bread Bowl",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: thyme. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "white fish",
+      "dishBindings": [
+        {
+          "dishId": "r6-2",
+          "dishName": "Fish and Chips",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: white fish. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "batter",
+      "dishBindings": [
+        {
+          "dishId": "r6-2",
+          "dishName": "Fish and Chips",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: batter. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "tartar sauce",
+      "dishBindings": [
+        {
+          "dishId": "r6-2",
+          "dishName": "Fish and Chips",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: tartar sauce. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "crab",
+      "dishBindings": [
+        {
+          "dishId": "r6-3",
+          "dishName": "Crab Roll",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: crab. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "mayo",
+      "dishBindings": [
+        {
+          "dishId": "r6-3",
+          "dishName": "Crab Roll",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: mayo. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "lettuce",
+      "dishBindings": [
+        {
+          "dishId": "r6-3",
+          "dishName": "Crab Roll",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: lettuce. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "butter bun",
+      "dishBindings": [
+        {
+          "dishId": "r6-3",
+          "dishName": "Crab Roll",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: butter bun. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "parsley",
+      "dishBindings": [
+        {
+          "dishId": "r6-4",
+          "dishName": "Garlic Fries",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: parsley. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sea salt",
+      "dishBindings": [
+        {
+          "dishId": "r6-4",
+          "dishName": "Garlic Fries",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sea salt. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "aioli",
+      "dishBindings": [
+        {
+          "dishId": "r6-4",
+          "dishName": "Garlic Fries",
+          "venueId": "r6-tide"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: aioli. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "tuna",
+      "dishBindings": [
+        {
+          "dishId": "r7-1",
+          "dishName": "Chirashi Bowl",
+          "venueId": "r7-kaigan"
+        },
+        {
+          "dishId": "r7-3",
+          "dishName": "Hand Roll",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: tuna. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "tamago",
+      "dishBindings": [
+        {
+          "dishId": "r7-1",
+          "dishName": "Chirashi Bowl",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: tamago. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "fish roe",
+      "dishBindings": [
+        {
+          "dishId": "r7-1",
+          "dishName": "Chirashi Bowl",
+          "venueId": "r7-kaigan"
+        },
+        {
+          "dishId": "r7-3",
+          "dishName": "Hand Roll",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: fish roe. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "wasabi",
+      "dishBindings": [
+        {
+          "dishId": "r7-2",
+          "dishName": "Salmon Nigiri Set",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: wasabi. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "miso",
+      "dishBindings": [
+        {
+          "dishId": "r7-4",
+          "dishName": "Miso Soup",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: miso. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "dashi",
+      "dishBindings": [
+        {
+          "dishId": "r7-4",
+          "dishName": "Miso Soup",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: dashi. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "wakame",
+      "dishBindings": [
+        {
+          "dishId": "r7-4",
+          "dishName": "Miso Soup",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: wakame. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "glutinous rice",
+      "dishBindings": [
+        {
+          "dishId": "r7-5",
+          "dishName": "Matcha Mochi",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: glutinous rice. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sweet bean paste",
+      "dishBindings": [
+        {
+          "dishId": "r7-5",
+          "dishName": "Matcha Mochi",
+          "venueId": "r7-kaigan"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sweet bean paste. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "watermelon radish",
+      "dishBindings": [
+        {
+          "dishId": "thai-chicken-bowl",
+          "dishName": "Fried Chicken Bowl with Sunny Egg",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: watermelon radish. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "greens",
+      "dishBindings": [
+        {
+          "dishId": "thai-chicken-bowl",
+          "dishName": "Fried Chicken Bowl with Sunny Egg",
+          "venueId": "r3-thai"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: greens. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "steak",
+      "dishBindings": [
+        {
+          "dishId": "noka-steak-ramen",
+          "dishName": "Flaming Steak Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: steak. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "ramen noodles",
+      "dishBindings": [
+        {
+          "dishId": "noka-steak-ramen",
+          "dishName": "Flaming Steak Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: ramen noodles. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "egg yolk",
+      "dishBindings": [
+        {
+          "dishId": "noka-steak-ramen",
+          "dishName": "Flaming Steak Ramen",
+          "venueId": "r1-ramen"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: egg yolk. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "sourdough bread",
+      "dishBindings": [
+        {
+          "dishId": "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000001",
+          "dishName": "Avocado Toast",
+          "venueId": "diner-demo:ember-stone"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: sourdough bread. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "quinoa",
+      "dishBindings": [
+        {
+          "dishId": "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000002",
+          "dishName": "Harvest Power Bowl",
+          "venueId": "diner-demo:ember-stone"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: quinoa. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "walnuts",
+      "dishBindings": [
+        {
+          "dishId": "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000004",
+          "dishName": "Garden Avocado Salad",
+          "venueId": "diner-demo:ember-stone"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: walnuts. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "peanut dressing",
+      "dishBindings": [
+        {
+          "dishId": "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000004",
+          "dishName": "Garden Avocado Salad",
+          "venueId": "diner-demo:ember-stone"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: peanut dressing. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "tofu croutons",
+      "dishBindings": [
+        {
+          "dishId": "diner-demo:ember-stone/a1000000-0000-4000-8000-000000000004",
+          "dishName": "Garden Avocado Salad",
+          "venueId": "diner-demo:ember-stone"
+        }
+      ],
+      "status": "generated_local_svg",
+      "drawing_spec": "Draw only the explicitly named ingredient: tofu croutons. Match the PR165 ingredient illustration style; readable at 24px, transparent background, no text, no invented recipe constituents."
+    },
+    {
+      "ingredient": "house sauce",
+      "assetKey": "house-sauce-illustration",
+      "dishBindings": [],
+      "status": "generated_local_svg",
+      "drawing_spec": "Neutral sauce droplet in PR165 style. The original house-sauce export contains text rather than a food illustration; preserve it, and select this new illustration for the exact ingredient. Do not infer sauce contents.",
+      "reason": "Reference asset repair; house sauce is not used by any of the current 39 dishes."
+    }
+  ],
+  "format": "Native SVG extension matching PR165; hand-authored geometric illustrations, not AI raster output or upstream approved venue artwork."
+}
