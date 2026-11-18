@@ -15,7 +15,7 @@ for(const item of inputs){
  if(!meta.hasAlpha||stats.channels[3].min!==0||fg.length>180000)throw Error(`Invalid cutout ${id}`);
  const bg=Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${meta.width}" height="${meta.height}"></svg>`);
  await writeFile(`${folder}/foreground.webp`,fg);await writeFile(`${folder}/background.svg`,bg);
- await sharp(icon).resize(256,256,{fit:'contain',background:'#00000000',kernel:'nearest'}).png().toFile(`public/supplied-dishes/${id}-pixel.png`);
+ await sharp(icon).resize(24,24,{fit:'contain',background:'#00000000',kernel:'nearest'}).png().toFile(`public/supplied-dishes/${id}-pixel.png`);
  await sharp(original).resize({width:1200,height:1200,fit:'inside'}).jpeg({quality:88}).toFile(`public/supplied-dishes/${id}-photo.jpg`);
  const uuid=h=>`${h.slice(0,8)}-${h.slice(8,12)}-5${h.slice(13,16)}-8${h.slice(17,20)}-${h.slice(20,32)}`;
  portions[id]={portion:{schema_version:1,dish_id:uuid(sha(id)),dish_revision_id:uuid(sha(raw)),width:meta.width,height:meta.height,motion:{max_yaw_degrees:3,max_pitch_degrees:3},layers:[['background.svg',bg,0],['foreground.webp',fg,1]].map(([file,bytes,depth])=>({url:`https://restaurant-portions.invalid/${id}/${file}`,sha256:sha(bytes),size_bytes:bytes.length,depth}))},segmentation:{engine:'imagegen',operation:'user-photo-background-extraction',source_sha256:sha(original),cutout_sha256:sha(raw)}};
