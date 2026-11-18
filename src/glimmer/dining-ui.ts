@@ -138,7 +138,7 @@ export class DiningUI {
   u.button('View Portion',x,590,342,48,()=>this.portion(),{icon:'portion',primary:true,visible:'View portion in AR'});
   u.button('Compare',966,590,222,48,()=>this.compare(),{icon:'compare'});
   u.lines(portionScale(d).label,x,654,342,14,2,dc.muted);
-  if(d.modelId)u.button('Add to order',1138,170,50,50,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'order',iconOnly:true,primary:true,disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
+  if(d.modelId)u.button('Add to order',1138,134,50,50,()=>a.result(changeQuantity(a.state,d.id,1)),{icon:'order',iconOnly:true,primary:true,disabled:(a.state.tray.find(l=>l.dish===d.id)?.qty??0)>=3});
   else u.button('Search dishes',966,648,170,34,()=>this.search());
   u.sound();
  }
