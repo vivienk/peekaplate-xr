@@ -382,7 +382,7 @@ export class MarketWorld {
   }
 
   private updatePlayer(dt: number): void {
-    let budget=WALK_SPEED*dt,advanced=false;
+    let budget=WALK_SPEED*(this.lowPower?.85:1)*dt,advanced=false;
     let dx = this.inputX + Number(this.keys.has('d') || this.keys.has('arrowright')) - Number(this.keys.has('a') || this.keys.has('arrowleft'));
     let dy = this.inputY + Number(this.keys.has('s') || this.keys.has('arrowdown')) - Number(this.keys.has('w') || this.keys.has('arrowup'));
     if (Math.abs(dx) + Math.abs(dy) > .1) { this.path = []; this.pendingObject = null; this.marker = null; this.seated = false; }

@@ -18,6 +18,6 @@ Defaults on at `peekaplate-ar.vercel.app` (including `/xr/1`) and with `?spectac
 - Rain uses 24 streaks. Title effects update at 4 Hz instead of 8 Hz. Automatic portion/hologram rotation stops; manual rotation and photo tilt still work.
 - The otherwise static WebGL background behind direct-canvas screens renders at 4 Hz; non-immersive 3D portions render at up to 30 Hz. Browser Lens WebGL pixel density drops from 1 to 0.75, while the direct game/menu canvas stays full-resolution.
 - Immersive XR rendering is never frame-capped. The FPS badge continues to report game-loop cadence, which can be higher than the low-power visual refresh rate.
-- Walking speed is now 73.95 world pixels/second (13% below 85), shared by keyboard, controller and click/tap navigation, independent of the low-power setting.
+- Normal walking speed is 73.95 world pixels/second (13% below 85). Low-power mode applies an additional 15% reduction to 62.8575 world pixels/second. Both speeds are shared by keyboard, controller and click/tap navigation.
 
 This reduces application workload; no thermal-runtime or shutdown-prevention claim is established without physical Spectacles testing.
