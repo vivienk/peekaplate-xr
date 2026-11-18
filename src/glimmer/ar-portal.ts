@@ -33,7 +33,7 @@ export class ARPortionPortal {
   this.world.player.head.getWorldPosition(this.head);this.world.player.head.getWorldDirection(this.direction);this.direction.y=0;this.direction.normalize();
   // A compact control panel above the table; the scene behind it remains passthrough.
   this.board.scale.setScalar(.36);this.board.position.copy(this.head).addScaledVector(this.direction,-1.2);this.board.position.y+=.12;this.board.lookAt(this.head);
-  this.message('Point at a table · Trigger or pinch to place');
+  this.message(this.app.handPlacement?'Touch table with one index finger; pinch with the other hand':'Point at a table · Trigger or pinch to place');
  }
  private end(){
   this.listeningSession?.removeEventListener?.('selectstart',this.onSelect);this.listeningSession=null;this.selectedHand='none';
@@ -61,7 +61,7 @@ export class ARPortionPortal {
    this.hits.length=0;this.ray.intersectObject(this.board,false,this.hits);if(this.hits.length)continue;
    this.reticle.position.copy(this.point);this.reticle.quaternion.copy(this.orientation);this.reticle.rotateX(-Math.PI/2);this.reticle.visible=true;
    this.message('Table found · Trigger or pinch to place');
-   if(this.world.input.xr.gamepads[hand]?.getSelectStart()){
+   if(selected===hand||this.world.input.xr.gamepads[hand]?.getSelectStart()){
     this.placed=true;this.dish.position.copy(this.point);this.dish.quaternion.copy(this.orientation);this.dish.visible=this.dish.children.length>0;this.reticle.visible=false;
     this.message('Placed · Physical scale locked · Walk around to inspect');this.app.sound('sfx-ui-select');break;
    }

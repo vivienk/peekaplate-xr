@@ -1,3 +1,4 @@
+import { focusOutline } from './focus-outline';
 import { brandIconEffects } from './brand-icon-effects';
 import { demoPrice } from './dish-metadata';
 import { MarketMapUI } from './market-map-ui';
@@ -258,7 +259,7 @@ export class GlimmerApp {
     const hovered=this.keyboardFocus===i;const part=disabled?'btn_disabled':this.pressedIndex===i?(style==='primary'?'btn_primary_pressed':'btn_pressed'):style==='selected'?'btn_normal':style==='normal'?(hovered?'btn_hover':'btn_normal'):(hovered?'btn_primary_hover':'btn_primary');
     if(!this.patch(`assets/ui/buttons/${part}.png`,x,y,w,h,[20,20,20,24]))this.rect(x,y,w,h,disabled?'#b9ad96':style==='normal'?cream:orange);
     if(style==='selected'&&!disabled){this.context.fillStyle='#ffd56b';this.context.fillRect(x+5,y+5,w-10,h-13);this.patch('assets/ui/buttons/tab_selected_mark.png',x,y,w,h,[16,16,16,20]);}
-    if(hovered)this.patch('assets/ui/buttons/focus_ring.png',x-4,y-4,w+8,h+8,[20,20,20,20]);
+    if(hovered&&!disabled)focusOutline(this.context,x,y,w,h);
     const iconOnly=['Pause','Back'].includes(label)&&w<100;
     if(icon)this.icon(icon,x+(iconOnly?(w-32)/2:16),y+(h-32)/2,32,disabled?'#776a56':icon==='heart'?'#f89537':ink);
     if(!iconOnly){const tx=x+(inset||(icon?54:16));if(disabled&&label.includes(' · ')){const [name,requirement]=label.split(' · ');this.text(name,tx,y+29,Math.min(24,(w-50)/name.length*1.7),'#776a56');this.text(requirement,tx,y+57,24,'#776a56');}else if(labelSize){this.context.font=`${labelSize}px Jersey, monospace`;const size=Math.min(labelSize,labelSize*(x+w-16-tx)/Math.max(1,this.context.measureText(label).width));this.text(label,tx,y+h/2+size*.3,size,disabled?'#776a56':ink);}else this.text(label,tx,y+h/2+9,Math.min(29,(w-(inset|| (icon?66:32)))/Math.max(1,label.length)*1.8),disabled?'#776a56':ink);}

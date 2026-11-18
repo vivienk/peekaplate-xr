@@ -1,3 +1,5 @@
+import { restaurantCoupons } from './data';
+import { focusOutline } from './focus-outline';
 import type { GlimmerApp, Screen } from './app';
 import { DinerSurface, dinerColors as dc } from './diner-surface';
 import { restaurantLogo } from './market-map-ui';
@@ -47,7 +49,7 @@ export class DiningUI {
  compare(){this.compareOrigin=this.returnTo;this.comparisonAnchor=this.id;this.compareId='';this.replaceSide=1;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='dish';this.a.setScreen('comparePicker');}
  replace(side:0|1){this.replaceSide=side;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='comparison';this.a.setScreen('comparePicker');}
  choose(id:string){if(this.replaceSide===0)this.comparisonAnchor=id;else this.compareId=id;this.a.setScreen('comparison');}
- portion(id=this.id,from:Screen='dish'){this.id=id;this.portalReturn=from;this.a.portalDishId=id;this.a.setScreen('ar');this.a.onEnterPortal();}
+ portion(id=this.id,from:Screen='dish'){this.id=id;this.portalReturn=from;this.a.portalDishId=id;this.a.setScreen('ar');this.a.onEnterPortal();if(this.a.arSupported&&!this.a.immersive)this.a.onXR();}
  close(){const a=this.a;if(a.screen==='ar'){if(this.portalReturn==='dish')this.id=a.portalDishId;a.setScreen(this.portalReturn);return true;}if(a.screen==='dish'){a.setScreen(this.returnTo);return true;}if(a.screen==='search'){a.setScreen(this.searchReturn);return true;}if(a.screen==='comparePicker'){a.setScreen(this.pickerReturn);return true;}if(a.screen==='comparison'){this.id=this.comparisonAnchor;this.returnTo=this.compareOrigin;a.setScreen('dish');return true;}return false;}
  type(key:string){if(!['search','comparePicker'].includes(this.a.screen))return false;
   if(key==='Backspace'){this.query=this.query.slice(0,-1);}else if(key.length===1){if(this.query.length<80)this.query+=key;}else return false;
@@ -90,7 +92,9 @@ export class DiningUI {
   const featured=['thai-chicken-bowl','noka-steak-ramen'];
   const items=list.filter(d=>d.venueId===venue).sort((a,b)=>Number(featured.includes(b.id))-Number(featured.includes(a.id))),categories=['All',...new Set(items.map(d=>d.category))];
   if(!categories.includes(this.menuCategory))this.menuCategory='All';
-  u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.text(name,210,80,28,dc.text,850,600);
+  u.shell('');restaurantLogo(a,published?{id:venue,cuisine:live?.entry.style??'restaurant'}:a.restaurant,140,44,52);u.text(name,210,80,28,dc.text,650,600);
+  const coupons=restaurantCoupons(a.state.finds,venue);
+  if(coupons.length)u.button('Coupon available',880,46,200,48,()=>a.readFind(coupons[0].id),{icon:'coupon',primary:true});
   u.button('Search dishes',1098,46,48,48,()=>this.search(),{icon:'search',iconOnly:true});
   let cx=80;categories.slice(this.menuCategoryPage*5,this.menuCategoryPage*5+5).forEach(category=>{const width=Math.min(170,Math.max(90,category.length*11+32));if(cx+width>1195)return;u.button(category,cx,134,width,44,()=>{this.menuCategory=category;a.page=0;},{selected:this.menuCategory===category});cx+=width+12;});
   if(categories.length>5){u.button('Previous categories',1080,134,48,44,()=>{this.menuCategoryPage--;},{disabled:this.menuCategoryPage===0,visible:'‹'});u.button('Next categories',1140,134,48,44,()=>{this.menuCategoryPage++;},{disabled:(this.menuCategoryPage+1)*5>=categories.length,visible:'›'});}
@@ -99,7 +103,7 @@ export class DiningUI {
    const col=i%2,row=Math.floor(i/2),x=80+col*570,y=205+row*195,reverse=i%2===1,px=reverse?x+370:x,tx=reverse?x:x+164;
    if(dish.menuImage)a.picture(dish.menuImage,px,y,154,154);else foodIcon(a.context,dish.category,px+30,y+30,90);
    u.lines(dish.name,tx,y+34,345,25,2,dc.text);u.text(dish.category,tx,y+98,18,dc.muted,340);u.text(dish.price,tx,y+132,25,dc.orange);
-   if(a.keyboardFocus===a.buttons.length){a.context.strokeStyle=dc.orange;a.context.lineWidth=3;a.context.strokeRect(x-4,y-4,544,162);}
+   if(a.keyboardFocus===a.buttons.length)focusOutline(a.context,x,y,540,154);
    a.hit(dish.name,x,y,540,154,()=>this.show(dish.id,published?'publishedMenu':'menu'));
    if(dish.modelId)u.button(a.state.tastingList.includes(dish.id)?`Saved ${dish.name}`:`Save ${dish.name}`,tx+260,y+105,48,40,()=>a.result(toggleSavedDish(a.state,dish.id)),{icon:'heart',iconOnly:true,selected:a.state.tastingList.includes(dish.id)});
    a.context.fillStyle=dc.line;a.context.fillRect(x,y+172,530,1);

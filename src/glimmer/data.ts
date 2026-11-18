@@ -14,7 +14,7 @@ export type Restaurant = typeof restaurants[number];
 export const dishes = [...restaurantFixture.flatMap(restaurant => restaurant.dishes.map(dish => ({ ...dish, restaurantId: restaurant.id }))),...suppliedDishes].map((dish, index) => ({ ...dish, index }));
 export type Dish = typeof dishes[number];
 export const districts = [rainFixture, stepsFixture, pierFixture] as unknown as District[];
-export interface Find { coupon?: boolean; id: string; district: DistrictId; label: string; lines: string[]; pivot: number[]; kind: string }
+export interface Find { coupon?: boolean; couponRestaurantId?: string; id: string; district: DistrictId; label: string; lines: string[]; pivot: number[]; kind: string }
 export const finds: Find[] = [
   {
     "id": "cat-1",
@@ -405,6 +405,9 @@ const couponVendors=[0,1,2,3,4,5];
 finds.filter(f=>f.kind==='find-puddle').forEach((f,i)=>{
   if(i>=couponVendors.length)return;
   const r=restaurants[couponVendors[i]];
-  f.coupon=true;f.label=`${r.name} coupon`;
+  f.coupon=true;f.couponRestaurantId=r.id;f.label=`${r.name} coupon`;
   f.lines=[`${r.name}: a rain-night coupon for ${r.dishes[0].name}!`, 'Game collectible — not redeemable for a real purchase. Keep it in your Passport and visit the restaurant to view the dish.'];
 });
+
+/** Saved find IDs are authoritative; restaurant names may change. */
+export const restaurantCoupons=(collected:readonly string[],restaurantId:string)=>finds.filter(f=>f.coupon&&f.couponRestaurantId===restaurantId&&collected.includes(f.id));
