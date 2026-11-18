@@ -45,7 +45,7 @@ function makeFallback(dish: MenuDish, index: number): Group {
   return group;
 }
 
-function makeTable(): Group {
+export function makeTable(): Group {
   const table = new Group();
   const wood = new MeshStandardMaterial({ color: 0x8a593b, roughness: 0.72 });
   const top = new Mesh(new BoxGeometry(1.9, 0.09, 0.9), wood);

@@ -9,6 +9,7 @@ import { createSystem, SessionMode, CanvasTexture, Mesh, PlaneGeometry, MeshBasi
 import { GlimmerApp } from './app';
 import { BrowserGamepad } from './gamepad';
 import { glimmerModelId } from './model-assets';
+import { makeTable } from '../dining-room';
 
 const noGamepads: readonly (Gamepad|null)[] = [];
 
@@ -26,6 +27,7 @@ export class GlimmerSystem extends createSystem({}) {
   private browserGamepad!:BrowserGamepad;
   private texture!:CanvasTexture;
   private board!:Mesh<PlaneGeometry,MeshBasicMaterial>;
+  private diningTable!: Group;
   private flatScreen=false;
   private powerPixelRatio=0;
   private portionResolution=new PortionResolution();
@@ -77,6 +79,11 @@ export class GlimmerSystem extends createSystem({}) {
     this.cleanupFuncs.push(()=>this.app.canvas.remove());
     board.name='PeekaPlate Market Screen';board.position.set(0,1.65,-2.8);
     const boardEntity=this.world.createTransformEntity(board);boardEntity.addComponent(RayInteractable);
+    this.diningTable = makeTable();
+    this.diningTable.name = 'PeekaPlate dining table';
+    this.diningTable.position.set(0, 0, -0.8);
+    this.diningTable.visible = false;
+    this.world.createTransformEntity(this.diningTable);
     type Hit={uv?:{x:number;y:number};pointerId?:number;nativeEvent?:{pointerType?:string}};
     const down=(event:Hit)=>{if(!event.uv)return;const x=event.uv.x*1280,y=(1-event.uv.y)*720;if(event.nativeEvent?.pointerType==='touch'){this.touches.set(event.pointerId??0,{x,y});if(this.app.screen==='explore'&&x<512&&y>80&&y<640&&!this.app.buttons.some(b=>x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h)){this.touchStick=event.pointerId??0;this.touchStartX=x;this.touchStartY=y;this.app.unlockAudio();return;}if(this.touches.size===2){const points=[...this.touches.values()];this.pinchDistance=Math.hypot(points[0].x-points[1].x,points[0].y-points[1].y);}}this.app.pointerDown(x,y);this.pointerStart={x:event.uv.x*1280,y:(1-event.uv.y)*720};this.dragX=this.pointerStart.x;this.dragY=this.pointerStart.y;this.dragging=false;this.app.unlockAudio();};
     const move=(event:Hit)=>{if(!event.uv)return;const x=event.uv.x*1280,y=(1-event.uv.y)*720;if(this.touchStick!==null&&event.pointerId===this.touchStick){this.app.market.setInput(Math.max(-1,Math.min(1,(x-this.touchStartX)/80)),Math.max(-1,Math.min(1,(y-this.touchStartY)/80)));return;}if(this.touches.has(event.pointerId??-1)){const point=this.touches.get(event.pointerId!)!;point.x=x;point.y=y;if(this.touches.size===2&&this.app.screen==='ar'){const points=[...this.touches.values()],distance=Math.hypot(points[0].x-points[1].x,points[0].y-points[1].y);this.app.zoom((this.pinchDistance-distance)/250);this.pinchDistance=distance;this.dragging=true;return;}}if(!this.pointerStart){this.app.dining.pointer(x,y);this.app.keyboardFocus=this.app.buttons.findIndex(b=>x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h);return;}if(this.app.screen!=='ar')return;if(this.pointerStart.x<46||this.pointerStart.x>1234||this.pointerStart.y<145||this.pointerStart.y>574)return;if(Math.hypot(x-this.pointerStart.x,y-this.pointerStart.y)>6)this.dragging=true;if(this.dragging)this.app.rotate((x-this.dragX)*Math.PI/450,(y-this.dragY)*Math.PI/450);this.dragX=x;this.dragY=y;};
@@ -164,6 +171,7 @@ export class GlimmerSystem extends createSystem({}) {
     }
     if(this.app.immersive!==immersive){this.app.immersive=immersive;this.app.resetPortal();this.app.invalidate();}
     const placedAR=this.arPortal.update();this.holograms.visible=!this.app.portalAR;
+    this.diningTable.visible = immersive && !this.app.portalAR;
     if(this.app.screen==='ar'&&!placedAR){
       this.preview.visible=this.preview.children.length>0;
       this.preview.position.set(0,immersive?1.05:1.65,immersive?-1.05:-2.25);

@@ -49,9 +49,9 @@
   "dev": {
     "emulator": {
       "device": "metaQuest3",
-      "injectOnBuild": false,
+      "injectOnBuild": true,
       "activation": {
-        "source": "^(localhost|127\\.0\\.0\\.1|.*\\.vercel\\.app|.*\\.vusercontent\\.net|.*\\.v0\\.build)$"
+        "source": "^(localhost|127\\.0\\.0\\.1|peekaplate-xr\\.vercel\\.app|peekaplate(?:-xr)?-[a-z0-9-]+-viviens-projects-842ec178\\.vercel\\.app)$"
       },
       "environment": "meeting_room"
     }
