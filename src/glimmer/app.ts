@@ -277,7 +277,7 @@ export class GlimmerApp {
   private add(id:string,delta=1){const r=changeQuantity(this.state,id,delta);this.result(r);this.sound(r.changed?(delta>0?'sfx-order-add':'sfx-order-remove'):'sfx-code-bad');}
   private drawOverlay(){const modal=!['explore','title'].includes(this.screen);const progress=Math.min(1,this.screenAge/(this.reducedMotion?.15:.24));this.output.globalAlpha=modal?progress:1;this.output.drawImage(this.overlay,0,modal&&!this.reducedMotion?-10*(1-progress)**3:0);this.output.globalAlpha=1;
     // Part of the game canvas so the same badge is visible inside XR.
-    const c=this.output;c.save();c.fillStyle='#101730dd';c.beginPath();c.roundRect(578,6,124,30,8);c.fill();c.font='bold 20px monospace';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#ffffff';c.fillText(this.fpsLabel,640,21);c.restore();}
+    const c=this.output;c.save();c.fillStyle='#101730dd';c.beginPath();c.roundRect(8,698,76,18,4);c.fill();c.font='normal 8.5pt monospace';c.textAlign='left';c.textBaseline='middle';c.fillStyle='#ffffff';c.fillText(this.fpsLabel,14,707);c.restore();}
   render(){
     // Static Spectacles panels need no canvas redraw or GPU upload between changes.
     if(this.handPlacement&&this.screen!=='explore'&&!this.uiDirty&&!this.fpsDirty&&this.screenAge>.3)return;
