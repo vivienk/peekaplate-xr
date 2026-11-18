@@ -79,7 +79,13 @@ describe('IWSDK glTF transport conversion', () => {
     for (const m of doc.materials) {
       const original = m.extras.originalMTL;
       const linear = (x: number) => x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
-      expect(m.pbrMetallicRoughness.baseColorFactor).toEqual([...original.Kd.map(linear), original.d]);
+      const color = m.pbrMetallicRoughness.baseColorFactor;
+      expect(color).toHaveLength(4);
+      // The sRGB exponent can round differently on different CPU architectures.
+      original.Kd.forEach((channel: number, index: number) => {
+        expect(Math.abs(color[index] - linear(channel))).toBeLessThanOrEqual(Number.EPSILON);
+      });
+      expect(color[3]).toBe(original.d);
       expect(m.alphaMode).toBe(original.d < 1 ? 'BLEND' : 'OPAQUE');
       expect(m.doubleSided).toBe(false);
     }

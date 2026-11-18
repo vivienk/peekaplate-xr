@@ -28,7 +28,7 @@ The XR client is configured to read PeekaPlate’s public staging restaurant dir
 1. Open the live demo, select **Enter Meta Quest VR**, then **Start**. In Rain Alley, follow the lane east from Noka’s red counter toward the pink café. Pause in the puddle by the turquoise sign to find the Flaming Steak Ramen coupon.
 2. Walk back to Noka, choose **Open menu**, then **Coupon ready**. The coupon is a Passport collectible. The menu keeps its displayed prices.
 3. Open **Spicy Tantan-style Ramen**, select **Compare**, and choose **Flaming Steak Ramen**. The cards show the Tan Tan bowl at **$18** with sesame, chili, and minced pork, and the steak bowl at **$19** with noodles, egg yolk, and scallion.
-4. Choose **Portion** on the steak ramen card to leave VR for the browser preview. Select **3D model**, then **Open AR portal**. Aim at a tabletop and press the right trigger when the placement ring appears. Move around the bowl to inspect it at its fixed scale.
+4. Choose **Portion** on the steak ramen card. If you started in VR, choose **Open AR portal** from the browser preview. The 3D bowl appears in front of you while you aim. Point at a tabletop and press the right trigger when the placement ring appears. Move around the bowl to inspect it at its fixed scale.
 
 The steak ramen preview labels the dish as an estimated serving for one. Its size uses a **27 cm dinner plate** as a reference. [AR placement and scale][ar]
 
@@ -51,13 +51,13 @@ On the demo branch, `npm run check` runs TypeScript checks, tests, and the produ
 
 Shared diner features are reviewed in `vivienk/peekaplate`. XR pull request #3 grouped 69 commits for the market rebuild and closed unmerged. The playable Quest screen and first demo recording landed directly on `night-market-xr-demo`. [Core pull requests][core-prs] · [XR pull requests, including closed reviews][xr-prs] · [Quest screen commit][screen-commit] · [XR demo commit history][demo-history]
 
-The Play link opens the Night Market build directly. Vercel can put the earlier dining-room prototype at the shared project address when `main` is updated. [XR project address][project-address]
+The Play link opens the current public XR game. The recordings used an earlier Night Market build where you selected **3D model** before opening the portal. [Recorded build][recorded-build]
 
 For the project’s license, see [Apache License 2.0][license].
 
 [core]: https://github.com/vivienk/peekaplate
-[live]: https://peekaplate-b484j0gfa-viviens-projects-842ec178.vercel.app/
-[project-address]: https://peekaplate-xr.vercel.app/
+[live]: https://peekaplate-xr.vercel.app/
+[recorded-build]: https://peekaplate-b484j0gfa-viviens-projects-842ec178.vercel.app/
 [web-game]: https://peekaplate.vercel.app/xr
 [demo-branch]: https://github.com/vivienk/peekaplate-xr/tree/night-market-xr-demo
 [market-still]: https://raw.githubusercontent.com/vivienk/peekaplate-xr/night-market-xr-demo/docs/demo/quest-emulator/night-market-quest-emulator.jpg
@@ -68,7 +68,7 @@ For the project’s license, see [Apache License 2.0][license].
 [portion-tools]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/docs/market-portion-pipeline.md
 [portion-pr]: https://github.com/vivienk/peekaplate/pull/162
 [artwork-pr]: https://github.com/vivienk/peekaplate/pull/165
-[registry]: https://peekaplate-b484j0gfa-viviens-projects-842ec178.vercel.app/market-restaurants.json
+[registry]: https://peekaplate-xr.vercel.app/market-restaurants.json
 [reader]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/src/published/client.ts
 [directory-pr]: https://github.com/vivienk/peekaplate/pull/214
 [ar]: https://github.com/vivienk/peekaplate-xr/blob/night-market-xr-demo/docs/ar-portion-portal.md

@@ -114,21 +114,22 @@ export class GlimmerSystem extends createSystem({}) {
     this.portionResolution.reset();
     const generation=++this.previewGeneration;this.portalAbort?.abort();this.disposePortion?.();this.disposePortion=null;this.preview.clear();this.preview.visible=!!id;if(!id)return;
     const dish=marketCatalogue().find(d=>d.id===id);if(!dish){this.preview.visible=false;return;}
-    const generated=dish.photoCredit||dish.illustrative?undefined:generatedModelId(dish.id),use3d=this.app.portalView==='3d'&&(generated||dish.modelId);
+    const generated = dish.photoCredit || dish.illustrative ? undefined : generatedModelId(dish.id);
+    const use3d = this.app.portalView !== '2.5d' && Boolean(generated || dish.modelId);
     this.app.portalFlat=!use3d;this.app.modelError='';this.app.portalStatus='Loading portion…';this.app.invalidate();
     const abort=new AbortController();this.portalAbort=abort;
     if(use3d){
       const candidates=[generated,dish.modelId?glimmerModelId(dish.modelId):undefined].filter((id):id is string=>!!id);
       for(const asset of candidates){try{
         const model=await this.model(dish.modelId??dish.id,STANDARD_PLATE_METRES,asset);if(this.stopped||generation!==this.previewGeneration)return;
-        this.preview.add(model);this.app.portalStatus=asset===generated?'Tripo 3D · 27 cm reference · estimated size':dish.sample?'Game 3D illustration · 27 cm reference · estimated size':'3D · 27 cm reference · estimated size';this.app.invalidate();return;
+        this.arPortal.addPortion(model);this.app.portalStatus=asset===generated?'Tripo 3D · 27 cm reference · estimated size':dish.sample?'Game 3D illustration · 27 cm reference · estimated size':'3D · 27 cm reference · estimated size';this.app.invalidate();return;
       }catch{if(this.stopped||generation!==this.previewGeneration)return;}}
     }
     this.app.portalFlat=true;this.app.resetPortal();
     try{const flat=await flatPortion(dish,AbortSignal.any([abort.signal,AbortSignal.timeout(15000)]));
       if(this.stopped||generation!==this.previewGeneration){flat.dispose();return;}
-      this.disposePortion=flat.dispose;this.preview.add(flat.group);this.app.portalStatus=flat.label;this.app.invalidate();
-    }catch{if(generation===this.previewGeneration){this.app.modelError='Portion unavailable. Showing the menu photo.';this.app.portalStatus='Approximate photo · not actual size';}}
+      this.disposePortion=flat.dispose;this.arPortal.addPortion(flat.group);this.app.portalStatus=flat.label;this.app.invalidate();
+    }catch{if(generation===this.previewGeneration){this.app.modelError='Portion unavailable. Showing the menu photo.';this.app.portalStatus='Portion unavailable';this.app.invalidate();}}
   }
   private async loadOrder(){const generation=++this.orderGeneration;this.holograms.clear();for(const [index,line]of this.app.state.holograms.entries()){try{const model=await this.model(line.dish,.28);if(this.stopped||generation!==this.orderGeneration)return;const pivot=new Group();pivot.position.x=(index-(this.app.state.holograms.length-1)/2)*.4;pivot.add(model);this.holograms.add(pivot);}catch(error){console.error('[GLIMMER] order model failed',line.dish,error);this.app.notify('One order hologram is unavailable. Your ticket is still valid.');}}}
   update(delta:number){

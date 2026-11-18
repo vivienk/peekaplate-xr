@@ -1,14 +1,14 @@
 # AR portion portal
 
-View Portion requests immersive AR on compatible browsers. Quest users allow mixed reality, point a controller or hand at a horizontal table, and press the trigger or pinch when the placement ring appears. Reposition scans again; Exit AR returns to the browser preview. When already in opaque VR, the first action closes VR and the next Open AR portal action requests passthrough with a fresh user gesture.
+**View Portion** loads the selected dish’s available 3D model and requests immersive AR on compatible browsers. Dishes with photo-only assets use their portion image. In AR, the dish appears in front of the viewer while they aim. A horizontal surface moves the preview to the placement ring. A trigger press or pinch locks it there at physical scale. **Reposition** returns to the live preview. **Exit AR** returns to the browser. From an existing VR session, choose **Open AR portal** after VR closes.
 
 The portal uses IWSDK EnvironmentRaycastTarget (left/right input spaces), with required native WebXR hit-test support. No guessed table height is substituted when detection fails. Vertical surfaces are rejected. After placement, the dish stays at its world position with scale fixed to one; screen zoom and rotation do not affect AR. A compact panel leaves the remainder transparent for passthrough. Targets and reticle resources are cleaned up on exit/disposal.
 
 Scale follows existing portion metadata: measured dimensions when available; otherwise a 27 cm dinner-plate reference, explicitly marked as estimated. This reference is life-sized in world metres, not a claim that the restaurant's serving or plate was measured. 2.5D cutouts remain layered images, not reconstructed volumetric food.
 
-Validation: TypeScript passed; 118 tests passed; production build passed. Managed Quest 3 emulator with the meeting-room environment granted hit-test and alpha-blend AR, detected the table around 0.73 m high, and placed the dish with controller trigger at scale [1,1,1]. The panel canvas is transparent outside its controls. Unit tests cover no-hit/wall rejection, locked scale and position after viewer movement, reposition, and exit cleanup. Physical Quest passthrough, pinch ergonomics and real-room tracking still require headset validation.
+The Quest 3 emulator showed both Berry Soufflé Pancakes and Flaming Steak Ramen before placement. In its meeting room, the controller detected a table about 0.73 m high. Pressing the trigger placed the ramen, which stayed in position when the simulated headset moved. Physical Quest passthrough and real-room tracking still require headset validation.
 
-Development simulation is excluded from production builds. Unsupported desktop browsers retain the screen preview and an explicit AR requirement; they do not receive a simulated headset runtime.
+The public Night Market demo enables the Quest 3 emulator on desktop and includes its simulated meeting room. The browser portion preview is also available when an immersive session cannot start.
 
 ## Snap Spectacles Browser Lens
 

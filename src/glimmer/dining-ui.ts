@@ -50,7 +50,7 @@ export class DiningUI {
  compare(){this.compareOrigin=this.returnTo;this.comparisonAnchor=this.id;this.compareId='';this.replaceSide=1;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='dish';this.a.setScreen('comparePicker');}
  replace(side:0|1){this.replaceSide=side;this.query='';this.category='All';this.categoryPage=0;this.keyboard=false;this.pickerReturn='comparison';this.a.setScreen('comparePicker');}
  choose(id:string){if(this.replaceSide===0)this.comparisonAnchor=id;else this.compareId=id;this.a.setScreen('comparison');}
- portion(id=this.id,from:Screen='dish'){this.id=id;this.portalReturn=from;this.a.portalDishId=id;this.a.setScreen('ar');this.a.onEnterPortal();if(this.a.arSupported&&!this.a.immersive)this.a.onXR();}
+ portion(id=this.id,from:Screen='dish'){this.id=id;this.portalReturn=from;this.a.portalDishId=id;this.a.setScreen('ar');this.a.onEnterPortal();}
  close(){const a=this.a;if(a.screen==='ar'){if(this.portalReturn==='dish')this.id=a.portalDishId;a.setScreen(this.portalReturn);return true;}if(a.screen==='dish'){a.setScreen(this.returnTo);return true;}if(a.screen==='search'){a.setScreen(this.searchReturn);return true;}if(a.screen==='comparePicker'){a.setScreen(this.pickerReturn);return true;}if(a.screen==='comparison'){this.id=this.comparisonAnchor;this.returnTo=this.compareOrigin;a.setScreen('dish');return true;}return false;}
  type(key:string){if(!['search','comparePicker'].includes(this.a.screen))return false;
   if(key==='Backspace'){this.query=this.query.slice(0,-1);}else if(key.length===1){if(this.query.length<80)this.query+=key;}else return false;
